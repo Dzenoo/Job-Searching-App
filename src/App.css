@@ -25,7 +25,7 @@ body {
 }
 
 .navigation_header .navigation_list li a {
-  font-size: 14px;
+  font-size: 17px;
   text-decoration: none;
   border-bottom: 2px solid #fff;
   color: var(--grey_color);
@@ -54,4 +54,22 @@ body {
   transition: 0.3s;
   padding-bottom: 12px;
   color: var(--yellow_color);
+}
+
+.card_hero {
+  background-image: url("./shared/assets/Company.png");
+  height: 40em;
+  display: flex;
+}
+
+.boxCompany {
+  display: "flex";
+  gap: "1.2em";
+  margin-top: 40px;
+}
+
+.boxCompany img {
+  width: 150px;
+  height: auto;
+  aspect-ratio: 24 / 9;
 }
