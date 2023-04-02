@@ -8,6 +8,8 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
+import { AiOutlineDollarCircle, AiOutlineFieldTime } from "react-icons/ai";
+import { CiLocationOn } from "react-icons/ci";
 import newsletter from "../../shared/assets/signup_action.png";
 import React from "react";
 
@@ -69,9 +71,27 @@ const JobOpenings = ({ jobs }) => {
               <CardActions
                 sx={{ display: "flex", justifyContent: "center", gap: "20px" }}
               >
-                <Typography variant="p">{job.city}</Typography>
-                <Typography variant="p">{job.salary}</Typography>
-                <Typography variant="p">{job.time}</Typography>
+                <Typography
+                  variant="p"
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <CiLocationOn size={30} fill="blue" />
+                  {job.city}
+                </Typography>
+                <Typography
+                  variant="p"
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <AiOutlineDollarCircle size={30} fill="green" />
+                  {job.salary}
+                </Typography>
+                <Typography
+                  variant="p"
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                >
+                  <AiOutlineFieldTime size={30} fill="red" />
+                  {job.time}
+                </Typography>
               </CardActions>
             </Card>
           </Grid>
