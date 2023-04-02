@@ -150,7 +150,7 @@ body {
 .search_container {
   -webkit-box-shadow: -4px 13px 56px -27px rgb(54, 53, 53);
   -moz-box-shadow: -4px 13px 56px -27px rgb(45, 42, 42);
-  box-shadow: -4px 13px 56px -27px rgb(59, 58, 58);
+  box-shadow: -4px 13px 56px -27px rgb(195, 195, 195);
   padding: 40px;
   border-radius: 12px;
   display: flex;
