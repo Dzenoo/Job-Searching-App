@@ -150,10 +150,19 @@ body {
 .search_container {
   -webkit-box-shadow: -4px 13px 56px -27px rgb(54, 53, 53);
   -moz-box-shadow: -4px 13px 56px -27px rgb(45, 42, 42);
-  box-shadow: -4px 13px 56px -27px rgb(195, 195, 195);
+  box-shadow: -4px 13px 56px -47px rgb(195, 195, 195);
+  color: rgb(153, 153, 153);
   padding: 40px;
   border-radius: 12px;
   display: flex;
   justify-content: space-evenly;
   margin-top: 20px;
+}
+
+.job_list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }

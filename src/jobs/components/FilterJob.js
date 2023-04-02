@@ -50,7 +50,6 @@ const FilterJob = ({ scheduleData, seniorityData, salaryData }) => {
           ))}
         </Box>
         <Divider />
-
         <Box>
           <Typography variant="p" color="textSecondary">
             Salary Range
