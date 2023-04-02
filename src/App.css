@@ -73,3 +73,33 @@ body {
   height: auto;
   aspect-ratio: 24 / 9;
 }
+
+/* Why job Section */
+
+.button_outlined {
+  background-color: #1482e812;
+  border: 2px solid var(--blue_color);
+  border-radius: 60px;
+  padding: 15px 60px;
+  color: #1482e8;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.why_job_box {
+  border: 2px solid var(--blue_color);
+  border-radius: 60px;
+  padding: 30px;
+}
+
+.why_job_box img {
+  width: 280px;
+  position: relative;
+  right: 120px;
+}
+
+/* How it Works Section */
+
+.howitworksimg {
+  width: 100%;
+}

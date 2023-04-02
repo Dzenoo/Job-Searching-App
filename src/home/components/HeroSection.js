@@ -19,7 +19,7 @@ const HeroSection = () => {
       container
       justifyContent="flex-end"
       alignItems="center"
-      spacing={2}
+      spacing={4}
       padding={3}
     >
       <Grid
