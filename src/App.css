@@ -103,3 +103,19 @@ body {
 .howitworksimg {
   width: 100%;
 }
+
+.signup_action {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.signup_action {
+  height: auto;
+  margin: auto;
+}
+
+.signup_action .text {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+}
