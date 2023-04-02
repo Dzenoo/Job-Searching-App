@@ -7,6 +7,7 @@ import JobOpenings from "../components/JobOpenings";
 const JOBS = [
   {
     id: 1,
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/2_u7fely.png",
     title: "Web Developer",
     company: "Tech Solutions",
     shortDescription:
@@ -17,6 +18,7 @@ const JOBS = [
   },
   {
     id: 2,
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/1_udwpiq.png",
     title: "Marketing Manager",
     company: "Bright Ideas",
     shortDescription:
@@ -27,6 +29,7 @@ const JOBS = [
   },
   {
     id: 3,
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Graphic Designer",
     company: "Artistic Vision",
     shortDescription:
@@ -37,6 +40,7 @@ const JOBS = [
   },
   {
     id: 4,
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/4_ns9xhr.png",
     title: "Sales Associate",
     company: "Prime Sales",
     shortDescription:

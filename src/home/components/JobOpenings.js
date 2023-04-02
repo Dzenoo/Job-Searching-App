@@ -48,8 +48,20 @@ const JobOpenings = ({ jobs }) => {
               }}
             >
               <CardContent>
-                <Typography variant="h4">{job.title}</Typography>
+                <img
+                  src={job.logo}
+                  alt={job.title}
+                  style={{
+                    width: "160px",
+                    position: "relative",
+                    right: "60px",
+                  }}
+                />
+                <Typography variant="h4" color="#1482e8">
+                  {job.title}
+                </Typography>
                 <Typography variant="h6">{job.company}</Typography>
+                <hr />
                 <Typography variant="p" color="textSecondary">
                   {job.shortDescription}
                 </Typography>
