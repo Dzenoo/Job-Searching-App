@@ -1,6 +1,6 @@
 import React from "react";
-import TopBar from "../components/TopBar";
 import { Grid } from "@mui/material";
+import TopBar from "../components/TopBar";
 import FilterJob from "../components/FilterJob";
 import JobList from "../components/JobList";
 
