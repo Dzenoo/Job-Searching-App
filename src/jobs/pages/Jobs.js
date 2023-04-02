@@ -1,7 +1,12 @@
 import React from "react";
+import TopBar from "../components/TopBar";
 
 const Jobs = () => {
-  return <div>Jobs</div>;
+  return (
+    <>
+      <TopBar />
+    </>
+  );
 };
 
 export default Jobs;
