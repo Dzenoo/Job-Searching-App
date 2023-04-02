@@ -150,8 +150,7 @@ body {
 .search_container {
   -webkit-box-shadow: -4px 13px 56px -27px rgb(54, 53, 53);
   -moz-box-shadow: -4px 13px 56px -27px rgb(45, 42, 42);
-  box-shadow: -4px 13px 56px -47px rgb(195, 195, 195);
-  color: rgb(153, 153, 153);
+  box-shadow: -4px 13px 56px -47px rgb(204, 195, 195);
   padding: 40px;
   border-radius: 12px;
   display: flex;
@@ -164,5 +163,43 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
+}
+
+.job_details_list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 60px;
+}
+
+.job_details_titles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list_description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skills_list {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.skills_list > li {
+  background-color: #1482e8;
+  padding: 20px;
+  border-radius: 40px;
+  color: #fff;
+  box-shadow: 0 2px #ffb803;
+}
+
+.skills_list > li:hover {
+  transition: 0.2s;
+  box-shadow: 0 2px #1482e8;
 }

@@ -29,11 +29,7 @@ const JobItem = ({
           justifyContent: "space-between",
         }}
       >
-        <img
-          src={logo}
-          alt={title}
-          style={{ width: "160px", position: "relative", right: "40px" }}
-        />
+        <img src={logo} alt={title} style={{ width: "100px" }} />
         <Typography variant="p" color="textSecondary">
           2.0.2022
         </Typography>

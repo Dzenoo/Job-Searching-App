@@ -54,9 +54,7 @@ const JobOpenings = ({ jobs }) => {
                   src={job.logo}
                   alt={job.title}
                   style={{
-                    width: "160px",
-                    position: "relative",
-                    right: "60px",
+                    width: "100px",
                   }}
                 />
                 <Typography variant="h4" color="#1482e8">
