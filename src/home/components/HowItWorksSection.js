@@ -14,16 +14,16 @@ const HowItWorksSection = () => {
           gap: "20px",
         }}
       >
-        <span className="button_outlined">Job openings</span>
+        <span className="button_outlined">How It works</span>
         <Typography variant="h2" color="textPrimary" fontWeight="bold">
-          Browse jobs
+          Getting Started is easy
         </Typography>
         <Typography variant="p" color="textSecondary">
-          More Opportunities: By browsing job opportunities on a job
-          <br /> searching app, you can access a wider range of job listings
-          than
+          Get started with our job searching app in just a few simple
           <br />
-          you might find through other channels.
+          steps. Sign up, create your profile, and start browsing job
+          <br />
+          opportunities from top companies today.
         </Typography>
       </Box>
 
