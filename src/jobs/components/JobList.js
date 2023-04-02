@@ -36,6 +36,7 @@ const JobList = ({ jobs }) => {
           return (
             <JobItem
               key={id}
+              id={id}
               logo={logo}
               title={title}
               city={city}

@@ -8,8 +8,10 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const JobItem = ({
+  id,
   logo,
   title,
   city,
@@ -105,9 +107,14 @@ const JobItem = ({
         </Box>
       </CardContent>
       <CardActions>
-        <Button variant="contained" size="large" fullWidth>
-          Apply
-        </Button>
+        <Link
+          to={`/jobs/${id}`}
+          style={{ textDecoration: "none", color: "#fff" }}
+        >
+          <Button variant="contained" size="large" fullWidth>
+            View Job
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );
@@ -116,6 +123,7 @@ const JobItem = ({
 export default JobItem;
 
 JobItem.propTypes = {
+  id: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,

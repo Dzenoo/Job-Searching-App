@@ -63,7 +63,7 @@ const Salary = [
 
 const JOBSLIST = [
   {
-    id: 1,
+    id: "1",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Web Developer",
     shortDescription:
@@ -74,7 +74,7 @@ const JOBSLIST = [
     level: "Medior",
   },
   {
-    id: 2,
+    id: "2",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Web Designer",
     shortDescription:
@@ -85,7 +85,7 @@ const JOBSLIST = [
     level: "Junior",
   },
   {
-    id: 3,
+    id: "3",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "UI / UX Designer",
     shortDescription:
@@ -96,7 +96,7 @@ const JOBSLIST = [
     level: "Junior",
   },
   {
-    id: 4,
+    id: "4",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "React Engineer",
     shortDescription:
@@ -107,7 +107,7 @@ const JOBSLIST = [
     level: "Medior",
   },
   {
-    id: 5,
+    id: "5",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Full Stack Developer",
     shortDescription:
@@ -118,7 +118,7 @@ const JOBSLIST = [
     level: "Senior",
   },
   {
-    id: 6,
+    id: "6",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Node Js Developer",
     shortDescription:
@@ -129,7 +129,7 @@ const JOBSLIST = [
     level: "Junior",
   },
   {
-    id: 7,
+    id: "7",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Java Angular Developer",
     shortDescription:
@@ -140,7 +140,7 @@ const JOBSLIST = [
     level: "Senior",
   },
   {
-    id: 8,
+    id: "8",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "MERN stack developer",
     shortDescription:
@@ -151,7 +151,7 @@ const JOBSLIST = [
     level: "Medior",
   },
   {
-    id: 9,
+    id: "9",
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680438568/3_lzvzws.png",
     title: "Graphic Designer",
     shortDescription:
