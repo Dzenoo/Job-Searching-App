@@ -27,7 +27,7 @@ export const JOBSLIST = [
   },
   {
     id: "2",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454463/1-removebg-preview_mjicui.png",
     title: "Web Designer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
@@ -53,7 +53,7 @@ export const JOBSLIST = [
   },
   {
     id: "3",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454444/3-removebg-preview_bn7qkr.png",
     title: "UI / UX Designer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
@@ -79,7 +79,7 @@ export const JOBSLIST = [
   },
   {
     id: "4",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454462/4-removebg-preview_coxkqm.png",
     title: "React Engineer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
@@ -105,7 +105,7 @@ export const JOBSLIST = [
   },
   {
     id: "5",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454463/1-removebg-preview_mjicui.png",
     title: "Full Stack Developer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
@@ -131,7 +131,7 @@ export const JOBSLIST = [
   },
   {
     id: "6",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454462/4-removebg-preview_coxkqm.png",
     title: "Node Js Developer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
@@ -183,7 +183,7 @@ export const JOBSLIST = [
   },
   {
     id: "8",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454463/1-removebg-preview_mjicui.png",
     title: "MERN stack developer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
@@ -203,7 +203,7 @@ export const JOBSLIST = [
   },
   {
     id: "9",
-    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
+    logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454462/4-removebg-preview_coxkqm.png",
     title: "Graphic Designer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
