@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import { AiOutlineDollarCircle, AiOutlineStar } from "react-icons/ai";
 import { GrUserWorker } from "react-icons/gr";
 import { BsBriefcase } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
   return (
     <Card id={id} sx={{ padding: "40px" }}>
-      <img src={logo} alt={name} />
+      <Link to={id}>
+        <img src={logo} alt={name} />
+      </Link>
       <CardContent>
         <Typography variant="h6" fontWeight="bold">
           {name}

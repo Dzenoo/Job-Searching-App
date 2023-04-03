@@ -7,6 +7,7 @@ import NewJob from "../../jobs/pages/NewJob";
 import Auth from "../../auth/pages/Auth";
 import Companies from "../../companies/pages/Companies";
 import Root from "./root";
+import CompanyDetails from "../../companies/pages/CompanyDetails";
 
 export const routes = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const routes = createBrowserRouter([
       {
         path: "/companies",
         element: <Companies />,
+      },
+      {
+        path: "/companies/:companyId",
+        element: <CompanyDetails />,
       },
     ],
   },
