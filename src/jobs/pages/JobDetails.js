@@ -45,7 +45,10 @@ const JobDetails = () => {
               }}
             >
               <MdOutlineHomeWork size={20} />
-              <Link style={{ textDecoration: "none" }}>
+              <Link
+                to={`/companies/${currentJob.id}`}
+                style={{ textDecoration: "none" }}
+              >
                 {currentJob.company}
               </Link>
             </Typography>
