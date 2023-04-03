@@ -45,6 +45,7 @@ const Auth = () => {
             variant="contained"
             sx={{ position: "absolute", bottom: "20px", right: "20px" }}
             onClick={() => setactiveTab(1)}
+            disabled={isSelectedAcc === ""}
           >
             Next
           </Button>
