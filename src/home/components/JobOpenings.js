@@ -12,6 +12,7 @@ import { AiOutlineDollarCircle, AiOutlineFieldTime } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import newsletter from "../../shared/assets/signup_action.png";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const JobOpenings = ({ jobs }) => {
   return (
@@ -60,7 +61,14 @@ const JobOpenings = ({ jobs }) => {
                 <Typography variant="h4" color="#1482e8">
                   {job.title}
                 </Typography>
-                <Typography variant="h6">{job.company}</Typography>
+                <Typography variant="h6">
+                  <Link
+                    to={`/companies/${job.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    {job.company}
+                  </Link>
+                </Typography>
                 <hr />
                 <Typography variant="p" color="textSecondary">
                   {job.shortDescription}
