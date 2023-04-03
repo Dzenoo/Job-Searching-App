@@ -257,3 +257,21 @@ body {
   background-color: #1482e81e;
   transition: 0.3s;
 }
+
+.company_header {
+  background-color: #1482e8;
+  padding: 100px;
+}
+
+.company_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.company_list_main {
+  padding: 60px;
+}

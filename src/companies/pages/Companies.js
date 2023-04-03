@@ -1,7 +1,28 @@
 import React from "react";
+import CompanyList from "../components/CompanyList";
+import { companies } from "../../shared/data/data";
+import { Typography } from "@mui/material";
 
 const Companies = () => {
-  return <div>Companies</div>;
+  return (
+    <>
+      <div className="company_header">
+        <Typography variant="h3" color="#fff">
+          Companies on our platform
+        </Typography>
+        <Typography variant="p" color="#fff">
+          Here, you can explore a variety of top-rated companies and their job
+          opportunities.
+          <br />
+          Our platform features companies from various industries, so you can
+          find the perfect fit for your career goals.
+        </Typography>
+      </div>
+      <div className="company_list_main">
+        <CompanyList companies={companies} />
+      </div>
+    </>
+  );
 };
 
 export default Companies;

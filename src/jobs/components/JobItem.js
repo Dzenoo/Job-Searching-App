@@ -35,7 +35,6 @@ const JobItem = ({
           2.0.2022
         </Typography>
       </Box>
-
       <CardContent>
         <Typography variant="h5" fontWeight="bold">
           {title}
