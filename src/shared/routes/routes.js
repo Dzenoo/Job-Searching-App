@@ -4,7 +4,7 @@ import Jobs from "../../jobs/pages/Jobs";
 import JobDetails from "../../jobs/pages/JobDetails";
 import EditJob from "../../jobs/pages/EditJob";
 import NewJob from "../../jobs/pages/NewJob";
-import Auth from "../../profile/pages/Auth";
+import Auth from "../../auth/pages/Auth";
 import Companies from "../../companies/pages/Companies";
 import Root from "./root";
 
@@ -40,13 +40,13 @@ export const routes = createBrowserRouter([
         element: <NewJob />,
       },
       {
-        path: "/auth",
-        element: <Auth />,
-      },
-      {
         path: "/companies",
         element: <Companies />,
       },
     ],
+  },
+  {
+    path: "/auth",
+    element: <Auth />,
   },
 ]);
