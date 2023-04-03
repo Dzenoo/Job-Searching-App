@@ -156,6 +156,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   margin-top: 20px;
+  border: 1px solid rgb(204, 195, 195);
 }
 
 .job_list {
@@ -192,11 +193,10 @@ body {
 }
 
 .skills_list > li {
-  background-color: #1482e8;
-  padding: 20px;
-  border-radius: 40px;
-  color: #fff;
-  box-shadow: 0 2px #ffb803;
+  background-color: #1482e841;
+  padding: 10px;
+  border-radius: 12px;
+  color: #1482e8;
 }
 
 .skills_list > li:hover {

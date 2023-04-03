@@ -25,7 +25,7 @@ const TopBar = () => {
         }}
       >
         <AiOutlineSearch size={30} fill="grey" cursor="pointer" />
-        <TextField value="Designer.." />
+        <TextField value="Designer.." fullWidth />
       </Box>
       <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
         <AiOutlineSend size={30} fill="grey" />

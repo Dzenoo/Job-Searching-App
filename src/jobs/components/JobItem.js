@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
+import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 const JobItem = ({
@@ -36,7 +37,9 @@ const JobItem = ({
       </Box>
 
       <CardContent>
-        <Typography variant="h4">{title}</Typography>
+        <Typography variant="h5" fontWeight="bold">
+          {title}
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -91,7 +94,7 @@ const JobItem = ({
           }}
         >
           <Typography variant="p" fontWeight="bold">
-            {city}
+            <CiLocationOn size={24} /> {city}
           </Typography>
           <Typography
             variant="p"
