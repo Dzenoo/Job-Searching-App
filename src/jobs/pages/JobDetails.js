@@ -1,7 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
+import { AiOutlineSave } from "react-icons/ai";
+import { MdOutlineHomeWork } from "react-icons/md";
 import { JOBSLIST } from "../../shared/data/data";
 
 const JobDetails = () => {
@@ -22,6 +24,7 @@ const JobDetails = () => {
           display: "flex",
           alignItems: "center",
           gap: "20px",
+          position: "relative",
         }}
       >
         <img src={currentJob.logo} alt={currentJob.title} />
@@ -29,13 +32,29 @@ const JobDetails = () => {
           <Typography variant="h3" color="textPrimary">
             {currentJob.title}
           </Typography>
-          <Typography variant="p" color="textSecondary" fontWeight="bold">
-            {currentJob.company}
+          <Typography
+            variant="p"
+            color="textSecondary"
+            fontWeight="bold"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "17px",
+              position: "relative",
+            }}
+          >
+            <MdOutlineHomeWork size={20} />
+            <Link style={{ textDecoration: "none" }}>{currentJob.company}</Link>
           </Typography>
 
           <Typography variant="h5" color="textPrimary">
             <CiLocationOn /> {currentJob.city}, {currentJob.schedule}
           </Typography>
+        </div>
+        <div className="save_button_div">
+          <Button>
+            <AiOutlineSave size={40} />
+          </Button>
         </div>
       </Box>
       <ul className="job_details_list">

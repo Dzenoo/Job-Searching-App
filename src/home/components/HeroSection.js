@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  Grid,
-  Input,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import lumina from "../../shared/assets/lumina.png";
 import nexa from "../../shared/assets/nexa.png";
@@ -66,7 +58,7 @@ const HeroSection = () => {
             Trusted by top tier companies
           </Typography>
           <hr />
-          <Box className="boxCompany" sx={{}}>
+          <Box className="boxCompany">
             <img src={lumina} alt="ico" />
             <img src={nexa} alt="ico" />
             <img src={vantage} alt="ico" />

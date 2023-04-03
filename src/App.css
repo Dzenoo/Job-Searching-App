@@ -203,3 +203,8 @@ body {
   transition: 0.2s;
   box-shadow: 0 2px #1482e8;
 }
+
+.save_button_div {
+  position: absolute;
+  right: 20px;
+}
