@@ -31,14 +31,14 @@ const Auth = () => {
         </div>
       </Box>
       <Card sx={{ padding: "40px", position: "relative" }}>
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="logo" style={{ paddingBottom: "30px" }} />
         {activeTab === 0 ? (
           <ChooseAcc
             isSelected={isSelectedAcc}
             setSelectedAcc={setIsSelectedAcc}
           />
         ) : (
-          <Form />
+          <Form selectedAcc={isSelectedAcc} />
         )}
         {activeTab === 0 ? (
           <Button
