@@ -38,6 +38,7 @@ const CompanyDetails = () => {
               {currentCompany.rating}
             </Typography>
           </div>
+          <Button>Follow company</Button>
         </Box>
         <div className="jobs_of_company">
           <Button onClick={() => setcurrentTab(0)}>About Company</Button>

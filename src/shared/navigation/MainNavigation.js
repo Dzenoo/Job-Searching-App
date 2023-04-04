@@ -61,13 +61,27 @@ const MainNavigation = () => {
                 onClose={handleCloseUserMenu}
                 sx={{ margin: "70px 0 90px 0" }}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link style={{ textDecoration: "none", color: "#121212" }}>
-                      {setting}
-                    </Link>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link
+                    to="profile"
+                    style={{ textDecoration: "none", color: "#121212" }}
+                  >
+                    Profile
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link
+                    to="/jobs/new"
+                    style={{ textDecoration: "none", color: "#121212" }}
+                  >
+                    Add Job
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link style={{ textDecoration: "none", color: "#121212" }}>
+                    Logout
+                  </Link>
+                </MenuItem>
               </Menu>
             </Box>
           </li>

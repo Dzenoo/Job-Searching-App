@@ -9,6 +9,7 @@ import Root from "./root";
 import CompanyDetails from "../../companies/pages/CompanyDetails";
 import SignUp from "../../auth/pages/SignUp";
 import Login from "../../auth/pages/Login";
+import ProfilePage from "../../profile/pages/ProfilePage";
 
 export const routes = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ export const routes = createBrowserRouter([
         path: "/companies/:companyId",
         element: <CompanyDetails />,
       },
+      { path: "/profile", element: <ProfilePage /> },
     ],
   },
   {
