@@ -18,7 +18,9 @@ const MainNavigation = () => {
 
   return (
     <header className="navigation_header">
-      <img src={logo} alt="logo" />
+      <Link to="/">
+        <img src={logo} alt="logo" />
+      </Link>
       <nav>
         <ul className="navigation_list">
           <li>
