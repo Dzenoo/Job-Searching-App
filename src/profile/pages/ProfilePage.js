@@ -44,15 +44,17 @@ const ProfilePage = () => {
           </Link>
         </Grid>
         <Grid item>
-          <Card sx={{ padding: "40px", cursor: "pointer" }}>
-            <AiOutlineSave fill="green" size={24} />
-            <Typography variant="h5" color="royalblue">
-              Saved jobs
-            </Typography>
-            <Typography variant="p" color="textSecondary">
-              View saved jobs that you like
-            </Typography>
-          </Card>
+          <Link className="link" to="/profile/saved-jobs">
+            <Card sx={{ padding: "40px", cursor: "pointer" }}>
+              <AiOutlineSave fill="green" size={24} />
+              <Typography variant="h5" color="royalblue">
+                Saved jobs
+              </Typography>
+              <Typography variant="p" color="textSecondary">
+                View saved jobs that you like
+              </Typography>
+            </Card>
+          </Link>
         </Grid>
         <Grid item>
           <Card sx={{ padding: "40px", cursor: "pointer" }}>
