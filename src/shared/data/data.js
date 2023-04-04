@@ -394,3 +394,18 @@ export const companies = [
     logo: "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
   },
 ];
+
+export const jobtypes = [
+  {
+    label: "Full Time",
+    checked: false,
+  },
+  {
+    label: "Part Time",
+    checked: false,
+  },
+  {
+    label: "Contract",
+    checked: false,
+  },
+];

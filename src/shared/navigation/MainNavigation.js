@@ -62,25 +62,17 @@ const MainNavigation = () => {
                 sx={{ margin: "70px 0 90px 0" }}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    to="profile"
-                    style={{ textDecoration: "none", color: "#121212" }}
-                  >
+                  <Link className="link" to="profile">
                     Profile
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    to="/jobs/new"
-                    style={{ textDecoration: "none", color: "#121212" }}
-                  >
+                  <Link className="link" to="/jobs/new">
                     Add Job
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link style={{ textDecoration: "none", color: "#121212" }}>
-                    Logout
-                  </Link>
+                  <Link className="link">Logout</Link>
                 </MenuItem>
               </Menu>
             </Box>

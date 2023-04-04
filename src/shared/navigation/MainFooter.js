@@ -10,15 +10,14 @@ import { Typography } from "@mui/material";
 const MainFooter = () => {
   return (
     <div className="footer">
-      <div className="footer_logo">
-        <img src={logo} alt="logo" />
-        <br />
-        <Typography variant="h4">
-          As a wider range of job listings
-          <br /> than you might find through other channels.
-        </Typography>
-        <hr />
-      </div>
+      <div className="footer_logo"></div>
+      <img src={logo} alt="logo" />
+      <br />
+      <Typography variant="h4">
+        As a wider range of job listings
+        <br /> than you might find through other channels.
+      </Typography>
+      <hr />
       <div className="footer_list">
         <div className="footer_item">
           <Typography variant="h6" color="textSecondary">
