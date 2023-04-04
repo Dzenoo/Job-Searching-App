@@ -89,8 +89,7 @@ export const JobProvider = ({ children }) => {
 
   const handleFilterSearch = (e) => {
     const inputQuery = e.target.value;
-    const newJobs = [...jobs];
-    const searchedJobs = newJobs.filter((j) =>
+    const searchedJobs = jobs.filter((j) =>
       j.title.toLowerCase().includes(inputQuery)
     );
     if (searchedJobs.length === 0) {

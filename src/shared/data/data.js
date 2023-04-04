@@ -6,7 +6,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life",
     city: "New York",
-    salary: "1200",
+    salary: 1200,
     company: "Acme Inc.",
     time: "Internship",
     level: "Medior",
@@ -32,7 +32,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "London",
-    salary: "1900",
+    salary: 1900,
     company: "Widget Corp",
     time: "Full Time",
     level: "Junior",
@@ -58,7 +58,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Berlin",
-    salary: "700",
+    salary: 700,
     company: "Globex",
     time: "Full Time",
     level: "Junior",
@@ -84,7 +84,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Manchester",
-    salary: "1300",
+    salary: 1300,
     company: "Initech",
     time: "Part Time",
     level: "Medior",
@@ -110,7 +110,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "78,000",
+    salary: 780,
     company: "Oscorp",
     time: "Full Time",
     level: "Senior",
@@ -136,7 +136,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "London",
-    salary: "1200",
+    salary: 1200,
     company: "Stark Industries",
     time: "Part Time",
     level: "Junior",
@@ -162,7 +162,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "1500",
+    salary: 1500,
     company: "Wayne Enterprises",
     time: "Full Time",
     level: "Senior",
@@ -188,7 +188,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "1800",
+    salary: 1800,
     company: "Umbrella Corporation",
     time: "Part Time",
     level: "Medior",
@@ -214,7 +214,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "2000",
+    salary: 2000,
     company: "Weyland-Yutani Corp",
     time: "Full Time",
     level: "Junior",

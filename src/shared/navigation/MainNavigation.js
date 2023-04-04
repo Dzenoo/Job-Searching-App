@@ -61,16 +61,12 @@ const MainNavigation = () => {
                 onClose={handleCloseUserMenu}
                 sx={{ margin: "70px 0 90px 0" }}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link className="link" to="profile">
-                    Profile
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link className="link" to="/jobs/new">
-                    Add Job
-                  </Link>
-                </MenuItem>
+                <Link className="link" to="profile">
+                  <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                </Link>
+                <Link className="link" to="/jobs/new">
+                  <MenuItem onClick={handleCloseUserMenu}>Add Job</MenuItem>
+                </Link>
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Link className="link">Logout</Link>
                 </MenuItem>
