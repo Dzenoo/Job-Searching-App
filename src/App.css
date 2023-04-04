@@ -31,6 +31,19 @@ body {
 }
 
 .navigation_header .navigation_list .nav_login_btn a {
+  background-color: transparent;
+  border: 1px solid var(--blue_color);
+  padding: 10px 20px;
+  color: #121212 !important;
+  border-radius: 13px;
+}
+
+.navigation_header .navigation_list .nav_login_btn a:hover {
+  transition: 0.3s;
+  background-color: var(--yellow_color);
+}
+
+.navigation_header .navigation_list .nav_signup_btn a {
   background-color: var(--blue_color);
   padding: 10px 20px;
   color: #fff !important;
@@ -38,7 +51,7 @@ body {
   border-radius: 13px;
 }
 
-.navigation_header .navigation_list .nav_login_btn a:hover {
+.navigation_header .navigation_list .nav_signup_btn a:hover {
   transition: 0.3s;
   background-color: var(--yellow_color);
 }

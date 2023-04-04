@@ -31,7 +31,10 @@ const MainNavigation = () => {
             <NavLink to="companies">Companies</NavLink>
           </li>
           <li className="nav_login_btn">
-            <Link to="auth">Sign Up</Link>
+            <Link to="/auth/login">Login</Link>
+          </li>
+          <li className="nav_signup_btn">
+            <Link to="/auth/signup">Sign Up</Link>
           </li>
           <li>
             <Box sx={{ flexGrow: 0 }}>

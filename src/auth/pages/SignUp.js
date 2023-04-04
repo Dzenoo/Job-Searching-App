@@ -1,10 +1,10 @@
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import React, { useState } from "react";
-import logo from "../../shared/assets/logo.png";
-import Form from "../components/Form";
 import ChooseAcc from "../components/ChooseAcc";
+import Form from "../components/Form";
+import logo from "../../shared/assets/logo.png";
 
-const Auth = () => {
+const SignUp = () => {
   const [activeTab, setactiveTab] = useState(0);
   const [isSelectedAcc, setIsSelectedAcc] = useState("");
 
@@ -55,4 +55,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default SignUp;
