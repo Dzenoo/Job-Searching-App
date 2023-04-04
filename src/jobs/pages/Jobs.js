@@ -7,14 +7,19 @@ import JobList from "../components/JobList";
 import { JobContext } from "../../shared/context/JobContext";
 
 const Jobs = () => {
-  const { handleFilterSearch, handleFilterLocation, filteredJobs } =
-    useContext(JobContext);
+  const {
+    handleFilterSearch,
+    handleFilterLocation,
+    clearFilter,
+    filteredJobs,
+  } = useContext(JobContext);
 
   return (
     <>
       <TopBar
         handleFilterSearch={handleFilterSearch}
         handleFilterLocation={handleFilterLocation}
+        clearFilter={clearFilter}
       />
       <Grid container>
         <Grid item lg={2}>

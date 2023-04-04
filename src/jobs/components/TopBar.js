@@ -1,10 +1,12 @@
 import {
   Box,
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import {
   AiOutlineSearch,
@@ -12,8 +14,12 @@ import {
   AiOutlineCalendar,
 } from "react-icons/ai";
 import React from "react";
+import { useState } from "react";
 
-const TopBar = ({ handleFilterSearch, handleFilterLocation }) => {
+const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
+  const [scheduleValue, setscheduleValue] = useState("");
+  const [cityValue, setCityValue] = useState("");
+
   return (
     <Box className="search_container">
       <Box
@@ -38,11 +44,10 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation }) => {
           <Select
             id="schedule"
             sx={{ width: "10em" }}
-            onChange={(e) => handleFilterLocation(e.target.value)}
+            onChange={(e) => setscheduleValue(e.target.value)}
           >
             <MenuItem value="Remote">Remote</MenuItem>
             <MenuItem value="Hybrid">Hybrid</MenuItem>
-            {/* <MenuItem value="On site">On site</MenuItem> */}
           </Select>
         </FormControl>
       </Box>
@@ -50,13 +55,25 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation }) => {
         <AiOutlineCalendar size={30} fill="grey" />
         <FormControl>
           <InputLabel>City</InputLabel>
-          <Select id="city" sx={{ width: "10em" }}>
-            <MenuItem>London</MenuItem>
-            <MenuItem>New York</MenuItem>
-            <MenuItem>Berlin</MenuItem>
+          <Select
+            id="city"
+            sx={{ width: "10em" }}
+            onChange={(e) => setCityValue(e.target.value)}
+          >
+            <MenuItem value="London">London</MenuItem>
+            <MenuItem value="New York">New York</MenuItem>
+            <MenuItem value="Berlin">Berlin</MenuItem>
           </Select>
         </FormControl>
       </Box>
+      <Button
+        variant="contained"
+        disabled={!scheduleValue || !cityValue}
+        onClick={(e) => handleFilterLocation(scheduleValue, cityValue)}
+      >
+        Filter
+      </Button>
+      <Button onClick={clearFilter}>Show all</Button>
     </Box>
   );
 };

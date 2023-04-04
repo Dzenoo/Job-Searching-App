@@ -21,15 +21,18 @@ export const JobProvider = ({ children }) => {
     }
   };
 
-  const handleFilterLocation = (location) => {
-    const newJobs = [...jobs];
-
+  const handleFilterLocation = (location, city) => {
     let newFilteredJobs;
     if (location) {
-      newFilteredJobs = newJobs.filter((j) => j.schedule === location);
+      newFilteredJobs = jobs.filter(
+        (j) => j.schedule === location && j.city === city
+      );
     }
-
     setfilteredJobs(newFilteredJobs);
+  };
+
+  const clearFilter = () => {
+    setfilteredJobs(JOBSLIST);
   };
 
   return (
@@ -39,6 +42,7 @@ export const JobProvider = ({ children }) => {
         filteredJobs,
         handleFilterSearch,
         handleFilterLocation,
+        clearFilter,
       }}
     >
       {children}
