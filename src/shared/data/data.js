@@ -6,9 +6,9 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life",
     city: "New York",
-    salary: "$90,000",
+    salary: "1200",
     company: "Acme Inc.",
-    time: "Part Time",
+    time: "Internship",
     level: "Medior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
     schedule: "Remote",
@@ -32,9 +32,9 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "London",
-    salary: "$43,000",
+    salary: "1900",
     company: "Widget Corp",
-    time: "Volunteering",
+    time: "Full Time",
     level: "Junior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
     schedule: "Hybrid",
@@ -58,7 +58,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Berlin",
-    salary: "$54,000",
+    salary: "700",
     company: "Globex",
     time: "Full Time",
     level: "Junior",
@@ -84,7 +84,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Manchester",
-    salary: "$67,000",
+    salary: "1300",
     company: "Initech",
     time: "Part Time",
     level: "Medior",
@@ -110,7 +110,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "$78,000",
+    salary: "78,000",
     company: "Oscorp",
     time: "Full Time",
     level: "Senior",
@@ -136,9 +136,9 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "London",
-    salary: "$45,000",
+    salary: "1200",
     company: "Stark Industries",
-    time: "Internship",
+    time: "Part Time",
     level: "Junior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
     schedule: "Remote",
@@ -162,9 +162,9 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "$80,000",
+    salary: "1500",
     company: "Wayne Enterprises",
-    time: "Project work",
+    time: "Full Time",
     level: "Senior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
     schedule: "Remote",
@@ -188,7 +188,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "$60,000",
+    salary: "1800",
     company: "Umbrella Corporation",
     time: "Part Time",
     level: "Medior",
@@ -214,7 +214,7 @@ export const JOBSLIST = [
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
     city: "Los Angeles",
-    salary: "$30,000",
+    salary: "2000",
     company: "Weyland-Yutani Corp",
     time: "Full Time",
     level: "Junior",
@@ -237,57 +237,49 @@ export const JOBSLIST = [
 
 export const Schedules = [
   {
-    label: "Full time Jobs",
+    label: "Full Time",
     checked: false,
   },
   {
-    label: "Part time Jobs",
+    label: "Part Time",
     checked: false,
   },
   {
-    label: "Remote Jobs",
-    checked: true,
-  },
-  {
-    label: "Internship Jobs",
+    label: "Internship",
     checked: false,
   },
 ];
 
 export const Seniority = [
   {
-    label: "Entry Level",
+    label: "Junior",
     checked: false,
   },
   {
-    label: "Mid Level",
+    label: "Medior",
     checked: false,
   },
   {
-    label: "Senior Level",
-    checked: true,
-  },
-  {
-    label: "Student Level",
+    label: "Senior",
     checked: false,
   },
 ];
 
 export const Salary = [
   {
-    label: "$700 - $1200",
+    label: ["700", "-", "1200"],
     checked: false,
   },
   {
-    label: "$1200 - $1500",
+    label: ["1200", "-", "1500"],
     checked: false,
   },
   {
-    label: "$1500 - $1800",
-    checked: true,
+    label: ["1500", "-", "1800"],
+    checked: false,
   },
   {
-    label: "$1800 - $2000",
+    label: ["1800", "-", "2000"],
     checked: false,
   },
 ];

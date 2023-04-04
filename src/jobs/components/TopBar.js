@@ -17,8 +17,8 @@ import React from "react";
 import { useState } from "react";
 
 const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
-  const [scheduleValue, setscheduleValue] = useState("");
-  const [cityValue, setCityValue] = useState("");
+  const [scheduleValue, setscheduleValue] = useState("Remote");
+  const [cityValue, setCityValue] = useState("London");
 
   return (
     <Box className="search_container">
@@ -44,6 +44,7 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
           <Select
             id="schedule"
             sx={{ width: "10em" }}
+            value={scheduleValue}
             onChange={(e) => setscheduleValue(e.target.value)}
           >
             <MenuItem value="Remote">Remote</MenuItem>
@@ -58,6 +59,7 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
           <Select
             id="city"
             sx={{ width: "10em" }}
+            value={cityValue}
             onChange={(e) => setCityValue(e.target.value)}
           >
             <MenuItem value="London">London</MenuItem>

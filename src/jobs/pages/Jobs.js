@@ -12,6 +12,12 @@ const Jobs = () => {
     handleFilterLocation,
     clearFilter,
     filteredJobs,
+    handleCheckboxScheduleChange,
+    handleCheckboxSeniorityChange,
+    handleCheckboxSalaryChange,
+    checkboxSchedule,
+    checkboxSeniority,
+    checkboxSalary,
   } = useContext(JobContext);
 
   return (
@@ -24,9 +30,12 @@ const Jobs = () => {
       <Grid container>
         <Grid item lg={2}>
           <FilterJob
-            scheduleData={Schedules}
-            seniorityData={Seniority}
-            salaryData={Salary}
+            scheduleData={checkboxSchedule}
+            seniorityData={checkboxSeniority}
+            salaryData={checkboxSalary}
+            scheduceFilter={handleCheckboxScheduleChange}
+            seniorityFilter={handleCheckboxSeniorityChange}
+            salaryFilter={handleCheckboxSalaryChange}
           />
         </Grid>
         <Grid item lg={10}>

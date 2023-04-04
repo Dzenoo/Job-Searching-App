@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
-
 const JobItem = ({
   id,
   logo,
@@ -70,7 +69,7 @@ const JobItem = ({
               borderRadius: "20px",
             }}
           >
-            {salary}
+            ${salary}
           </Typography>
           <Typography
             variant="p"
