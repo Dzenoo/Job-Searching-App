@@ -287,3 +287,14 @@ body {
 .company_list_main {
   padding: 60px;
 }
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.link {
+  text-decoration: none;
+  color: #1482e8;
+}
