@@ -57,15 +57,17 @@ const ProfilePage = () => {
           </Link>
         </Grid>
         <Grid item>
-          <Card sx={{ padding: "40px", cursor: "pointer" }}>
-            <GrUserWorker fill="blue" size={24} />
-            <Typography variant="h5" color="royalblue">
-              Followed companies
-            </Typography>
-            <Typography variant="p" color="textSecondary">
-              View companies jobs that you followed
-            </Typography>
-          </Card>
+          <Link className="link" to="/profile/saved-companies">
+            <Card sx={{ padding: "40px", cursor: "pointer" }}>
+              <GrUserWorker fill="blue" size={24} />
+              <Typography variant="h5" color="royalblue">
+                Followed companies
+              </Typography>
+              <Typography variant="p" color="textSecondary">
+                View companies jobs that you followed
+              </Typography>
+            </Card>
+          </Link>
         </Grid>
       </Grid>
     </Container>

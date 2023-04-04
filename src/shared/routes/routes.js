@@ -12,6 +12,7 @@ import Login from "../../auth/pages/Login";
 import ProfilePage from "../../profile/pages/ProfilePage";
 import Applications from "../../profile/pages/Applications";
 import SavedJobs from "../../profile/pages/SavedJobs";
+import SavedCompanies from "../../profile/pages/SavedCompanies";
 
 export const routes = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const routes = createBrowserRouter([
       {
         path: "/profile/saved-jobs",
         element: <SavedJobs />,
+      },
+      {
+        path: "/profile/saved-companies",
+        element: <SavedCompanies />,
       },
     ],
   },
