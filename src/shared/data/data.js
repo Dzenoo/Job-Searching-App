@@ -135,7 +135,7 @@ export const JOBSLIST = [
     title: "Node Js Developer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
-    city: "",
+    city: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     salary: "$45,000",
     company: "Stark Industries",
     time: "Internship",
@@ -289,6 +289,7 @@ export const Salary = [
 export const companies = [
   {
     id: "1",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Acme Inc.",
     rating: 4.5,
     jobs: 200,
@@ -298,6 +299,7 @@ export const companies = [
   },
   {
     id: "2",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Widget Corp",
     rating: 3.8,
     jobs: 300,
@@ -307,6 +309,7 @@ export const companies = [
   },
   {
     id: "3",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Globex",
     rating: 4.2,
     jobs: 150,
@@ -316,6 +319,7 @@ export const companies = [
   },
   {
     id: "4",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Initech",
     rating: 3.5,
     jobs: 100,
@@ -325,6 +329,7 @@ export const companies = [
   },
   {
     id: "5",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Oscorp",
     rating: 4.0,
     jobs: 250,
@@ -334,6 +339,7 @@ export const companies = [
   },
   {
     id: "6",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Stark Industries",
     rating: 4.8,
     jobs: 500,
@@ -343,6 +349,7 @@ export const companies = [
   },
   {
     id: "7",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Wayne Enterprises",
     rating: 4.6,
     jobs: 400,
@@ -352,6 +359,7 @@ export const companies = [
   },
   {
     id: "8",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Umbrella Corporation",
     rating: 3.2,
     jobs: 50,
@@ -361,6 +369,7 @@ export const companies = [
   },
   {
     id: "9",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Wonka Industries",
     rating: 4.1,
     jobs: 150,
@@ -370,6 +379,7 @@ export const companies = [
   },
   {
     id: "10",
+    bio: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
     name: "Weyland-Yutani Corp",
     rating: 3.9,
     jobs: 200,

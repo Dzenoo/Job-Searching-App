@@ -9,6 +9,7 @@ const CompanyList = ({ companies }) => {
 
         return (
           <CompanyItem
+            key={id}
             id={id}
             logo={logo}
             name={name}

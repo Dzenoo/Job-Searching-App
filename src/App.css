@@ -296,5 +296,17 @@ body {
 
 .link {
   text-decoration: none;
-  color: #1482e8;
+  color: inherit;
+}
+
+.aligncenter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jobs_of_company {
+  padding-top: 20px;
+  display: flex;
+  gap: 20px;
 }
