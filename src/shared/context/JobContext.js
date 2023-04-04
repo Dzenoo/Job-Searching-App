@@ -19,6 +19,9 @@ export const JobProvider = ({ children }) => {
     setCheckboxSchedule(newCheckboxes);
 
     const allUnchecked = newCheckboxes.every((checkbox) => !checkbox.checked);
+
+    console.log(allUnchecked);
+
     if (allUnchecked) {
       setfilteredJobs(JOBSLIST);
       return;
@@ -53,7 +56,7 @@ export const JobProvider = ({ children }) => {
       .map((checkbox) => checkbox.label);
 
     const newFilteredJobs = JOBSLIST.filter((job) =>
-      checkedSchedules.includes(job.schedule)
+      checkedSchedules.includes(job.level)
     );
 
     setfilteredJobs(newFilteredJobs);
@@ -77,7 +80,7 @@ export const JobProvider = ({ children }) => {
       .map((checkbox) => checkbox.label);
 
     const newFilteredJobs = JOBSLIST.filter((job) =>
-      checkedSchedules.includes(job.schedule)
+      checkedSchedules.includes(job.salary)
     );
 
     setfilteredJobs(newFilteredJobs);
