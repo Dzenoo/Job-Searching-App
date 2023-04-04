@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid } from "@mui/material";
-import { JOBSLIST, Schedules, Seniority, Salary } from "../../shared/data/data";
+import { Schedules, Seniority, Salary } from "../../shared/data/data";
 import TopBar from "../components/TopBar";
 import FilterJob from "../components/FilterJob";
 import JobList from "../components/JobList";
+import { JobContext } from "../../shared/context/JobContext";
 
 const Jobs = () => {
+  const { handleFilterSearch, handleFilterLocation, filteredJobs } =
+    useContext(JobContext);
+
   return (
     <>
-      <TopBar />
+      <TopBar
+        handleFilterSearch={handleFilterSearch}
+        handleFilterLocation={handleFilterLocation}
+      />
       <Grid container>
         <Grid item lg={2}>
           <FilterJob
@@ -18,7 +25,7 @@ const Jobs = () => {
           />
         </Grid>
         <Grid item lg={10}>
-          <JobList jobs={JOBSLIST} />
+          <JobList jobs={filteredJobs} />
         </Grid>
       </Grid>
     </>

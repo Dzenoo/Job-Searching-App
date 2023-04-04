@@ -37,7 +37,7 @@ export const JOBSLIST = [
     time: "Volunteering",
     level: "Junior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
-    schedule: "Remote",
+    schedule: "Hybrid",
     jobDescription: [
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
@@ -63,7 +63,7 @@ export const JOBSLIST = [
     time: "Full Time",
     level: "Junior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
-    schedule: "Remote",
+    schedule: "Hybrid",
     jobDescription: [
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
@@ -89,7 +89,7 @@ export const JOBSLIST = [
     time: "Part Time",
     level: "Medior",
     skills: ["React", "React Native", "Typescript", "Node Js"],
-    schedule: "Remote",
+    schedule: "Hybrid",
     jobDescription: [
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",

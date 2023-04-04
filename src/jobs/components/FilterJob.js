@@ -7,8 +7,31 @@ import {
   Divider,
 } from "@mui/material";
 import React from "react";
+import { useState } from "react";
 
 const FilterJob = ({ scheduleData, seniorityData, salaryData }) => {
+  const [checkboxSchedule, setCheckboxSchedule] = useState(scheduleData);
+  const [checkboxSeniority, setCheckboxSeniority] = useState(seniorityData);
+  const [checkboxSalary, setCheckboxSalary] = useState(salaryData);
+
+  const handleCheckboxScheduleChange = (index) => {
+    const newCheckboxes = [...checkboxSchedule];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxSchedule(newCheckboxes);
+  };
+
+  const handleCheckboxSeniorityChange = (index) => {
+    const newCheckboxes = [...checkboxSeniority];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxSeniority(newCheckboxes);
+  };
+
+  const handleCheckboxSalaryChange = (index) => {
+    const newCheckboxes = [...checkboxSalary];
+    newCheckboxes[index].checked = !newCheckboxes[index].checked;
+    setCheckboxSalary(newCheckboxes);
+  };
+
   return (
     <>
       <Box
@@ -26,12 +49,17 @@ const FilterJob = ({ scheduleData, seniorityData, salaryData }) => {
           <Typography variant="p" color="textSecondary">
             Schedule
           </Typography>
-          {scheduleData.map((schedule, i) => (
+          {checkboxSchedule.map((schedule, i) => (
             <FormControlLabel
               sx={{ display: "flex" }}
               key={i}
               label={schedule.label}
-              control={<Checkbox checked={schedule.checked} />}
+              control={
+                <Checkbox
+                  checked={schedule.checked}
+                  onChange={() => handleCheckboxScheduleChange(i)}
+                />
+              }
             />
           ))}
         </Box>
@@ -40,12 +68,17 @@ const FilterJob = ({ scheduleData, seniorityData, salaryData }) => {
           <Typography variant="p" color="textSecondary">
             Seniority Level
           </Typography>
-          {seniorityData.map((schedule, i) => (
+          {checkboxSeniority.map((schedule, i) => (
             <FormControlLabel
               sx={{ display: "flex" }}
               key={i}
               label={schedule.label}
-              control={<Checkbox checked={schedule.checked} />}
+              control={
+                <Checkbox
+                  checked={schedule.checked}
+                  onChange={() => handleCheckboxSeniorityChange(i)}
+                />
+              }
             />
           ))}
         </Box>
@@ -54,12 +87,17 @@ const FilterJob = ({ scheduleData, seniorityData, salaryData }) => {
           <Typography variant="p" color="textSecondary">
             Salary Range
           </Typography>
-          {salaryData.map((schedule, i) => (
+          {checkboxSalary.map((schedule, i) => (
             <FormControlLabel
               sx={{ display: "flex" }}
               key={i}
               label={schedule.label}
-              control={<Checkbox checked={schedule.checked} />}
+              control={
+                <Checkbox
+                  checked={schedule.checked}
+                  onChange={() => handleCheckboxSalaryChange(i)}
+                />
+              }
             />
           ))}
         </Box>
