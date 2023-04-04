@@ -3,6 +3,7 @@ import React from "react";
 import { SlCursor } from "react-icons/sl";
 import { AiOutlineSave } from "react-icons/ai";
 import { GrUserWorker } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   return (
@@ -30,15 +31,17 @@ const ProfilePage = () => {
       </Card>
       <Grid container justifyContent="center" spacing={2} padding={6}>
         <Grid item>
-          <Card sx={{ padding: "40px", cursor: "pointer" }}>
-            <SlCursor fill="red" size={24} />
-            <Typography variant="h5" color="royalblue">
-              My applications
-            </Typography>
-            <Typography variant="p" color="textSecondary">
-              View all jobs you applied to
-            </Typography>
-          </Card>
+          <Link className="link" to="/profile/applications">
+            <Card sx={{ padding: "40px", cursor: "pointer" }}>
+              <SlCursor fill="red" size={24} />
+              <Typography variant="h5" color="royalblue">
+                My applications
+              </Typography>
+              <Typography variant="p" color="textSecondary">
+                View all jobs you applied to
+              </Typography>
+            </Card>
+          </Link>
         </Grid>
         <Grid item>
           <Card sx={{ padding: "40px", cursor: "pointer" }}>

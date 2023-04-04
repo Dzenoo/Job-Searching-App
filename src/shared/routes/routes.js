@@ -10,6 +10,7 @@ import CompanyDetails from "../../companies/pages/CompanyDetails";
 import SignUp from "../../auth/pages/SignUp";
 import Login from "../../auth/pages/Login";
 import ProfilePage from "../../profile/pages/ProfilePage";
+import Applications from "../../profile/pages/Applications";
 
 export const routes = createBrowserRouter([
   {
@@ -50,7 +51,14 @@ export const routes = createBrowserRouter([
         path: "/companies/:companyId",
         element: <CompanyDetails />,
       },
-      { path: "/profile", element: <ProfilePage /> },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/profile/applications",
+        element: <Applications />,
+      },
     ],
   },
   {
