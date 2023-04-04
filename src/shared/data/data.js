@@ -135,7 +135,7 @@ export const JOBSLIST = [
     title: "Node Js Developer",
     shortDescription:
       "Seeking a talented and experienced graphic designer to create stunning visuals and help bring our brand to life.",
-    city: "Founded in 2015, our company is a leading provider of innovative technology solutions for businesses of all sizes. We pride ourselves on our commitment to delivering high-quality products and exceptional customer service. With a team of experienced professionals and a passion for innovation, we strive to help our clients achieve their goals and stay ahead of the competition. From cutting-edge software development to state-of-the-art hardware solutions, we have the expertise and resources to meet even the most demanding business needs. Join us today and experience the power of technology-driven success!",
+    city: "London",
     salary: "$45,000",
     company: "Stark Industries",
     time: "Internship",
@@ -195,6 +195,12 @@ export const JOBSLIST = [
     skills: ["React", "React Native", "Typescript", "Node Js"],
     schedule: "Remote",
     jobDescription: [
+      "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
+      "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
+      "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
+      "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
+    ],
+    requirements: [
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
       "Collaborate with the Digital MArketing team to propose design and deliver wireframes user journeys, and UI mock-ups",
