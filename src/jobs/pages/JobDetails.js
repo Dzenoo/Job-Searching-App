@@ -131,7 +131,7 @@ const JobDetails = () => {
           </Typography>
         </Box>
         <Box sx={{ marginTop: "30px" }}>
-          <Typography variant="h5" fontWeight="bold" color="textPrimary">
+          <Typography variant="h4" fontWeight="bold" color="textPrimary">
             Skills and Expertise
           </Typography>
           <ul className="skills_list">
@@ -140,26 +140,26 @@ const JobDetails = () => {
             ))}
           </ul>
         </Box>
-        <Box sx={{ marginTop: "100px" }}>
-          <Typography variant="h6" fontWeight="bold" color="textPrimary">
+        <Box sx={{ marginTop: "40px" }}>
+          <Typography variant="h4" fontWeight="bold" color="textPrimary">
             Job Description
           </Typography>
           <ul className="list_description">
             {currentJob.jobDescription.map((jd) => (
-              <li style={{ color: "#A0A0A0" }} key={jd}>
-                {jd}
+              <li>
+                <Typography color="textSecondary">{jd}</Typography>
               </li>
             ))}
           </ul>
         </Box>
         <Box>
-          <Typography variant="h6" fontWeight="bold" color="textPrimary">
+          <Typography variant="h4" fontWeight="bold" color="textPrimary">
             Requirements
           </Typography>
           <ul className="list_description">
             {currentJob.requirements.map((jd) => (
-              <li style={{ color: "#A0A0A0", fontWeight: "100" }} key={jd}>
-                {jd}
+              <li key={jd}>
+                <Typography color="textSecondary">{jd}</Typography>
               </li>
             ))}
           </ul>

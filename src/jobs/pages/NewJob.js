@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
 } from "@mui/material";
 import { jobtypes, locations, Seniority } from "../../shared/data/data";
@@ -14,8 +15,10 @@ import React from "react";
 import Input from "../../shared/components/Input";
 import { VALIDATOR_REQUIRE } from "../../shared/util/Validators";
 import { useFormHook } from "../../shared/hooks/useForm";
+import { useState } from "react";
 
 const NewJob = () => {
+  const [skilInput, setSkilInput] = useState("");
   const [formState, inputHandler, setFormData] = useFormHook(
     {
       job_title: {
@@ -54,6 +57,10 @@ const NewJob = () => {
         value: "",
         isValid: false,
       },
+      skills: {
+        value: [],
+        isValid: false,
+      },
     },
     false
   );
@@ -61,6 +68,11 @@ const NewJob = () => {
   const handleTypeChange = (event, type) => {
     const selectedType = event.target.value;
     inputHandler(type, selectedType, true);
+  };
+
+  const handleSkillInput = (e) => {
+    e.preventDefault();
+    setSkilInput(e.target.value);
   };
 
   return (
@@ -223,6 +235,28 @@ const NewJob = () => {
               errorText="Please enter valid job description"
               id="description"
               onInput={inputHandler}
+            />
+          </FormControl>
+
+          {/* Skills */}
+          <Alert severity="info">
+            Please separate your skills with commas (e.g. React, Node.js, HTML,
+            CSS). Thank you!
+          </Alert>
+          <FormControl>
+            <label htmlFor="">Skills</label>
+            <Typography color="textSecondary">Add Skills</Typography>
+            <TextField
+              type="text"
+              id="skills"
+              name="skills"
+              onChange={(event) =>
+                inputHandler(
+                  "skills",
+                  event.target.value.split(",").map((skill) => skill.trim()),
+                  true
+                )
+              }
             />
           </FormControl>
           <Button variant="contained">Post</Button>

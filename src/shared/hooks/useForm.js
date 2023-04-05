@@ -51,7 +51,7 @@ export const useFormHook = (initialInputs, initialFormValid) => {
 
   const setFormData = useCallback((inputData, formValidity) => {
     dispatch({
-      type: "Ser_Data",
+      type: "Set_Data",
       inputs: inputData,
       formIsValid: formValidity,
     });

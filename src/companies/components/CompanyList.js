@@ -6,7 +6,6 @@ const CompanyList = ({ companies }) => {
     <ul className="company_list">
       {companies.map((company) => {
         const { id, logo, name, employers, jobs, salary, rating } = company;
-
         return (
           <CompanyItem
             key={id}
