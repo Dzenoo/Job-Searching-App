@@ -6,13 +6,62 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
-  TextField,
   Typography,
 } from "@mui/material";
-import { jobtypes } from "../../shared/data/data";
+import { jobtypes, locations, Seniority } from "../../shared/data/data";
 import React from "react";
+import Input from "../../shared/components/Input";
+import { VALIDATOR_REQUIRE } from "../../shared/util/Validators";
+import { useFormHook } from "../../shared/hooks/useForm";
 
 const NewJob = () => {
+  const [formState, inputHandler, setFormData] = useFormHook(
+    {
+      job_title: {
+        value: "",
+        isValid: false,
+      },
+      job_shortDesc: {
+        value: "",
+        isValid: false,
+      },
+      type: {
+        value: "",
+        isValid: false,
+      },
+      seniority: {
+        value: "",
+        isValid: false,
+      },
+      location_work: {
+        value: "",
+        isValid: false,
+      },
+      location: {
+        value: "",
+        isValid: false,
+      },
+      salary: {
+        value: "",
+        isValid: false,
+      },
+      requirements: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
+
+  const handleTypeChange = (event, type) => {
+    const selectedType = event.target.value;
+    inputHandler(type, selectedType, true);
+  };
+
   return (
     <Container maxWidth="md" sx={{ padding: "60px", backgroundColor: "#fff" }}>
       <Card>
@@ -30,7 +79,14 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Job titles must describe position
             </Typography>
-            <TextField placeholder="Job Title" />
+            <Input
+              placeholder="Job Title"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid job title"
+              id="job_title"
+              onInput={inputHandler}
+            />
           </FormControl>
 
           {/* Job short description */}
@@ -39,32 +95,15 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Short description about job
             </Typography>
-            <textarea style={{ height: "180px", resize: "none" }} />
-          </FormControl>
-
-          {/* Job Location */}
-          <FormControl>
-            <label htmlFor="">Job Location work</label>
-            <Typography color="textSecondary">
-              Job titles must describe location work
-            </Typography>
-            <RadioGroup>
-              <FormControlLabel
-                value="Remote"
-                label="Remote"
-                control={<Radio />}
-              />
-              <FormControlLabel
-                value="Hybrid"
-                label="Hybrid"
-                control={<Radio />}
-              />
-              <FormControlLabel
-                value="On-Site"
-                label="On-Site"
-                control={<Radio />}
-              />
-            </RadioGroup>
+            <Input
+              element="textarea"
+              placeholder="Job Short Description"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid short description"
+              id="job_shortDesc"
+              onInput={inputHandler}
+            />
           </FormControl>
 
           {/* Job type */}
@@ -73,11 +112,28 @@ const NewJob = () => {
             <Typography color="textSecondary">
               You can select multiple job types
             </Typography>
-            <RadioGroup>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "type")}>
               {jobtypes.map((type) => (
                 <FormControlLabel
                   value={type.label}
                   label={type.label}
+                  control={<Radio />}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+
+          {/* Seniority */}
+          <FormControl>
+            <label htmlFor="">Seniority</label>
+            <Typography color="textSecondary">
+              Enter estimated Seniority for that job
+            </Typography>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "seniority")}>
+              {Seniority.map((s) => (
+                <FormControlLabel
+                  value={s.label}
+                  label={s.label}
                   control={<Radio />}
                 />
               ))}
@@ -90,7 +146,14 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Enter location where is your position
             </Typography>
-            <TextField placeholder="e.g, London.." />
+            <Input
+              placeholder="e.g, London.."
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid job location"
+              id="location"
+              onInput={inputHandler}
+            />
           </FormControl>
 
           {/* Salary */}
@@ -99,36 +162,30 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Enter estimated salary for that job
             </Typography>
-            <TextField placeholder="e.g, 2000" />
+            <Input
+              placeholder="e.g, 2000"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="number"
+              errorText="Please enter valid job salary"
+              id="salary"
+              onInput={inputHandler}
+            />
           </FormControl>
 
-          {/* Seniority */}
+          {/* Job Location */}
           <FormControl>
-            <label htmlFor="">Seniority</label>
+            <label htmlFor="">Job Location work</label>
             <Typography color="textSecondary">
-              Enter estimated Seniority for that job
+              Job titles must describe location work
             </Typography>
-            <RadioGroup>
-              <FormControlLabel
-                value="Junior"
-                label="Junior"
-                control={<Radio />}
-              />
-              <FormControlLabel
-                value="Medior"
-                label="Medior"
-                control={<Radio />}
-              />
-              <FormControlLabel
-                value="Senior"
-                label="Senior"
-                control={<Radio />}
-              />
-              <FormControlLabel
-                value="Entry"
-                label="Entry"
-                control={<Radio />}
-              />
+            <RadioGroup onChange={(e) => handleTypeChange(e, "location_work")}>
+              {locations.map((l) => (
+                <FormControlLabel
+                  value={l.label}
+                  label={l.label}
+                  control={<Radio />}
+                />
+              ))}
             </RadioGroup>
           </FormControl>
 
@@ -138,14 +195,30 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Add multiple requirements
             </Typography>
-            <textarea className="textarea" placeholder="e.g," />
+            <Input
+              element="textarea"
+              placeholder="e.g,"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid job requirements"
+              id="requirements"
+              onInput={inputHandler}
+            />
           </FormControl>
 
           {/* Job Description */}
           <FormControl>
             <label htmlFor="">Job Description </label>
             <Typography color="textSecondary">Add Description</Typography>
-            <textarea className="textarea" placeholder="e.g," />
+            <Input
+              element="textarea"
+              placeholder="e.g,"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid job description"
+              id="description"
+              onInput={inputHandler}
+            />
           </FormControl>
           <Button variant="contained">Post</Button>
         </form>

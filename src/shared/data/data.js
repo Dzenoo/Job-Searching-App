@@ -284,6 +284,15 @@ export const Salary = [
   },
 ];
 
+export const locations = [
+  {
+    label: "Remote",
+  },
+  {
+    label: "Hybrid",
+  },
+];
+
 export const companies = [
   {
     id: "1",

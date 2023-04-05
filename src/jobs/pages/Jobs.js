@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { Grid } from "@mui/material";
-import { Schedules, Seniority, Salary } from "../../shared/data/data";
+import { JobContext } from "../../shared/context/JobContext";
 import TopBar from "../components/TopBar";
 import FilterJob from "../components/FilterJob";
 import JobList from "../components/JobList";
-import { JobContext } from "../../shared/context/JobContext";
 
 const Jobs = () => {
   const {
