@@ -1,9 +1,11 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const employerRoutes = require("./routes/employer-routes");
+const seekerRoutes = require("./routes/seeker-routes");
 const app = express();
 
 app.use("/api/employer", employerRoutes);
+app.use("/api/seeker", seekerRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
