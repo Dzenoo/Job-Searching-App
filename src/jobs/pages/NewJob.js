@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   Container,
@@ -189,6 +190,10 @@ const NewJob = () => {
             </RadioGroup>
           </FormControl>
 
+          <Alert severity="info">
+            When typing requirements and job description use enter after every
+            step
+          </Alert>
           {/* Requirements */}
           <FormControl>
             <label htmlFor="">Requirements</label>

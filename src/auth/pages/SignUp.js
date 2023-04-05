@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { Box, Button, Card, Container, Typography } from "@mui/material";
+import { useFormHook } from "../../shared/hooks/useForm";
+import Input from "../../shared/components/Input";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+} from "../../shared/util/Validators";
 import ChooseAcc from "../components/ChooseAcc";
 import Form from "../components/Form";
 import logo from "../../shared/assets/logo.png";
@@ -7,6 +13,28 @@ import logo from "../../shared/assets/logo.png";
 const SignUp = () => {
   const [activeTab, setactiveTab] = useState(0);
   const [isSelectedAcc, setIsSelectedAcc] = useState("");
+
+  const [formState, inputHandler, setFormData] = useFormHook(
+    {
+      first_name: {
+        value: "",
+        isValid: false,
+      },
+      last_name: {
+        value: "",
+        isValid: false,
+      },
+      email: {
+        value: "",
+        isValid: false,
+      },
+      password: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
 
   return (
     <Container
@@ -38,7 +66,11 @@ const SignUp = () => {
             setSelectedAcc={setIsSelectedAcc}
           />
         ) : (
-          <Form selectedAcc={isSelectedAcc} />
+          <Form
+            selectedAcc={isSelectedAcc}
+            onChange={inputHandler}
+            isSignupMode={isSelectedAcc}
+          />
         )}
         {activeTab === 0 ? (
           <Button
