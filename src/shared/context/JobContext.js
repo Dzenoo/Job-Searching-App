@@ -31,7 +31,7 @@ export const JobProvider = ({ children }) => {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
-    const newFilteredJobs = JOBSLIST.filter((job) =>
+    const newFilteredJobs = filteredJobs.filter((job) =>
       checkedSchedules.includes(job.schedule)
     );
 
@@ -55,7 +55,7 @@ export const JobProvider = ({ children }) => {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
-    const newFilteredJobs = JOBSLIST.filter((job) =>
+    const newFilteredJobs = filteredJobs.filter((job) =>
       checkedSchedules.includes(job.level)
     );
 
@@ -79,7 +79,7 @@ export const JobProvider = ({ children }) => {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
-    const newFilteredJobs = JOBSLIST.filter((job) =>
+    const newFilteredJobs = filteredJobs.filter((job) =>
       checkedSchedules.includes(job.salary)
     );
 

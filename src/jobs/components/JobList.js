@@ -16,10 +16,6 @@ const JobList = ({ jobs }) => {
         <Typography variant="h6" fontWeight="bold">
           Recommended Jobs ({jobs.length})
         </Typography>
-        <Select>
-          <MenuItem>Last posted</MenuItem>
-          <MenuItem>First posted</MenuItem>
-        </Select>
       </Box>
       <ul className="job_list">
         {jobs.map((job) => {
