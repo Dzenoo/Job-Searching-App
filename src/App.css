@@ -310,3 +310,9 @@ body {
   display: flex;
   gap: 20px;
 }
+
+.textarea {
+  resize: vertical;
+  width: 100%;
+  font-size: 20px;
+}

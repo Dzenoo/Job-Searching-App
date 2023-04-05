@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { jobtypes } from "../../shared/data/data";
 import React from "react";
+import { useState } from "react";
 
 const NewJob = () => {
   return (
@@ -74,15 +75,15 @@ const NewJob = () => {
           <Typography color="textSecondary">
             You can select multiple job types
           </Typography>
-
-          {jobtypes.map((type) => (
-            <FormControlLabel
-              sx={{ display: "flex" }}
-              key={type}
-              label={type.label}
-              control={<Checkbox checked={type.checked} />}
-            />
-          ))}
+          <RadioGroup>
+            {jobtypes.map((type) => (
+              <FormControlLabel
+                value={type.label}
+                label={type.label}
+                control={<Radio />}
+              />
+            ))}
+          </RadioGroup>
         </FormControl>
 
         {/* Location */}
@@ -129,21 +130,19 @@ const NewJob = () => {
           </RadioGroup>
         </FormControl>
 
-        {/* Skills */}
+        {/* Requirements */}
         <FormControl>
           <label htmlFor="">Requirements</label>
           <Typography color="textSecondary">
             Add multiple requirements
           </Typography>
-          <TextField placeholder="e.g," />
+          <textarea className="textarea" placeholder="e.g," />
         </FormControl>
 
-        {/* Requirements */}
+        {/* Job Description */}
         <FormControl>
           <label htmlFor="">Job Description </label>
-          <Typography color="textSecondary">
-            Add multiple requirements
-          </Typography>
+          <Typography color="textSecondary">Add Description</Typography>
           <TextField placeholder="e.g, " />
         </FormControl>
         <Button>Post</Button>
