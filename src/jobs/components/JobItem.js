@@ -124,7 +124,7 @@ JobItem.propTypes = {
   logo: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  salary: PropTypes.string.isRequired,
+  salary: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
   level: PropTypes.string.isRequired,
   shortDescription: PropTypes.string.isRequired,
