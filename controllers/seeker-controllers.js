@@ -63,3 +63,17 @@ exports.login = async (req, res, next) => {
 
   res.status(200).json({ message: "Logged In" });
 };
+
+exports.getProfile = async (req, res, next) => {
+  const seekerId = req.params.seekerId;
+
+  let seeker;
+  try {
+    seeker = await Seeker.findById(seekerId);
+  } catch (err) {
+    const error = new HttpError("Cannot get user profile", 403);
+    return next(error);
+  }
+
+  res.status(200).json({ seeker: seeker.toObject({ getters: true }) });
+};

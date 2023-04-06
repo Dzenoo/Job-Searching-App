@@ -7,4 +7,6 @@ router.post("/signup", seekerControllers.signup);
 
 router.post("/login", seekerControllers.login);
 
+router.get("/:seekerId/profile", seekerControllers.getProfile);
+
 module.exports = router;
