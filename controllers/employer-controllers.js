@@ -76,3 +76,17 @@ exports.login = async (req, res, next) => {
 
   res.status(200).json({ message: "Logged In as Employer" });
 };
+
+exports.getProfile = async (req, res, next) => {
+  const employerId = req.params.employerId;
+
+  let employer;
+  try {
+    employer = await Employer.findById(employerId);
+  } catch (err) {
+    const error = new HttpError("Cannot get user profile", 403);
+    return next(error);
+  }
+
+  res.status(200).json({ employer: employer.toObject({ getters: true }) });
+};

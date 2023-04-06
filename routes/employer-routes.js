@@ -7,4 +7,6 @@ router.post("/signup", employerControllers.signup);
 
 router.post("/login", employerControllers.login);
 
+router.get("/:employerId/profile", employerControllers.getProfile);
+
 module.exports = router;
