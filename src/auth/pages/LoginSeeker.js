@@ -38,12 +38,11 @@ const Login = () => {
           padding: "40px",
           display: "flex",
           flexDirection: "column",
-          gap: "40px",
-          textAlign: "center",
+          gap: "20px",
           marginTop: "60px",
         }}
       >
-        <Typography variant="h4">Login</Typography>
+        <Typography variant="h4">Login as Seeker</Typography>
         <Typography variant="p">
           Dont have account?{" "}
           <Link to="/auth/signup" className="link">
@@ -52,6 +51,7 @@ const Login = () => {
         </Typography>
         <form className="login_form">
           <FormControl>
+            <label>Email</label>
             <Input
               placeholder="email"
               onInput={inputHandler}
@@ -62,6 +62,7 @@ const Login = () => {
             />
           </FormControl>
           <FormControl>
+            <label>Password</label>
             <Input
               placeholder="password"
               onInput={inputHandler}

@@ -33,7 +33,10 @@ const MainNavigation = () => {
             <NavLink to="companies">Companies</NavLink>
           </li>
           <li className="nav_login_btn">
-            <Link to="/auth/login">Login</Link>
+            <Link to="/auth/employer">Employer Login</Link>
+          </li>
+          <li className="nav_login_btn">
+            <Link to="/auth/seeker">Seeker Login</Link>
           </li>
           <li className="nav_signup_btn">
             <Link to="/auth/signup">Sign Up</Link>
