@@ -90,3 +90,29 @@ exports.getProfile = async (req, res, next) => {
 
   res.status(200).json({ employer: employer.toObject({ getters: true }) });
 };
+
+exports.getCompanies = async (req, res, next) => {
+  let companies;
+  try {
+    companies = await Employer.find();
+  } catch (err) {
+    const error = new HttpError("Cannot get companies", 403);
+    return next(error);
+  }
+
+  res.status(200).json({ companies });
+};
+
+exports.getCompany = async (req, res, next) => {
+  const companyId = req.params.companyId;
+
+  let company;
+  try {
+    company = await Employer.findById(companyId);
+  } catch (err) {
+    const error = new HttpError("Cannot get company", 403);
+    return next(error);
+  }
+
+  res.status(200).json({ company });
+};

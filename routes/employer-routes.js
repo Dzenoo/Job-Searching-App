@@ -9,4 +9,8 @@ router.post("/login", employerControllers.login);
 
 router.get("/:employerId/profile", employerControllers.getProfile);
 
+router.get("/companies", employerControllers.getCompanies);
+
+router.get("/companies/:companyId", employerControllers.getCompany);
+
 module.exports = router;
