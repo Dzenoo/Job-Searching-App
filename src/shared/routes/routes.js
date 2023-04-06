@@ -8,7 +8,8 @@ import Companies from "../../companies/pages/Companies";
 import Root from "./root";
 import CompanyDetails from "../../companies/pages/CompanyDetails";
 import SignUp from "../../auth/pages/SignUp";
-import Login from "../../auth/pages/Login";
+import LoginEmployer from "../../auth/pages/LoginEmployer";
+import LoginSeeker from "../../auth/pages/LoginSeeker";
 import ProfilePage from "../../profile/pages/ProfilePage";
 import Applications from "../../profile/pages/Applications";
 import SavedJobs from "../../profile/pages/SavedJobs";
@@ -76,7 +77,8 @@ export const routes = createBrowserRouter([
     id: "auth",
     children: [
       { path: "signup", element: <SignUp /> },
-      { path: "login", element: <Login /> },
+      { path: "employer", element: <LoginEmployer /> },
+      { path: "seeker", element: <LoginSeeker /> },
     ],
   },
 ]);
