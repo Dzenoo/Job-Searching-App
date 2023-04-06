@@ -53,4 +53,26 @@ exports.signup = async (req, res, next) => {
   res.status(201).json({ createdEmployer: employer });
 };
 
-exports.login = async (req, res, next) => {};
+exports.login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  let existingEmployer;
+  try {
+    existingEmployer = await Employer.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Could not find employer", 404);
+    return next(error);
+  }
+
+  if (!existingEmployer) {
+    const error = new HttpError("Could not find employer, or not created", 500);
+    return next(error);
+  }
+
+  if (existingEmployer.password !== password) {
+    const error = new HttpError("Invalid credentials", 500);
+    return next(error);
+  }
+
+  res.status(200).json({ message: "Logged In as Employer" });
+};
