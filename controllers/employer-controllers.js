@@ -100,7 +100,9 @@ exports.getCompanies = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ companies });
+  res.status(200).json({
+    companies: companies.map((company) => company.toObject({ getters: true })),
+  });
 };
 
 exports.getCompany = async (req, res, next) => {
@@ -114,5 +116,5 @@ exports.getCompany = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ company });
+  res.status(200).json({ company: company.toObject({ getters: true }) });
 };
