@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../shared/assets/logo.png";
 import {
   Button,
   Card,
   Container,
   FormControl,
-  InputLabel,
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -17,6 +16,7 @@ import {
 } from "../../shared/util/Validators";
 
 const Login = () => {
+  const [isType, setisType] = useState(false);
   const [formState, inputHandler] = useFormHook(
     {
       email: {
@@ -31,6 +31,10 @@ const Login = () => {
     false
   );
 
+  const switchAccTypeLogin = () => {
+    setisType(!isType);
+  };
+
   return (
     <Container maxWidth="xs">
       <img src={logo} alt="logo" />
@@ -39,11 +43,13 @@ const Login = () => {
           padding: "40px",
           display: "flex",
           flexDirection: "column",
-          gap: "40px",
+          gap: "20px",
           marginTop: "60px",
         }}
       >
-        <Typography variant="h4">Login as Employer</Typography>
+        <Typography variant="h4">
+          Login as {isType ? "Seeker" : "Employer"}
+        </Typography>
         <Typography variant="p">
           Dont have account?{" "}
           <Link to="/auth/signup" className="link">
@@ -52,7 +58,7 @@ const Login = () => {
         </Typography>
         <form className="login_form">
           <FormControl>
-            <label>Company Name</label>
+            <label>Email</label>
             <Input
               placeholder="email"
               onInput={inputHandler}
@@ -75,6 +81,9 @@ const Login = () => {
           </FormControl>
           <Button variant="contained">Login</Button>
         </form>
+        <Button variant="outlined" onClick={switchAccTypeLogin}>
+          Login as {isType ? "Employer" : "Seeker"}
+        </Button>
       </Card>
     </Container>
   );

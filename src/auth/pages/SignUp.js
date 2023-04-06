@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import { useFormHook } from "../../shared/hooks/useForm";
-import Input from "../../shared/components/Input";
-import {
-  VALIDATOR_EMAIL,
-  VALIDATOR_MINLENGTH,
-} from "../../shared/util/Validators";
 import ChooseAcc from "../components/ChooseAcc";
 import Form from "../components/Form";
 import logo from "../../shared/assets/logo.png";
