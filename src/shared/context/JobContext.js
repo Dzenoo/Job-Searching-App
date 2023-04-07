@@ -92,11 +92,7 @@ export const JobProvider = ({ children }) => {
     const searchedJobs = jobs.filter((j) =>
       j.title.toLowerCase().includes(inputQuery)
     );
-    if (searchedJobs.length === 0) {
-      alert(`Unfortunately, no jobs could be found for ${inputQuery}`);
-    } else {
-      setfilteredJobs(searchedJobs);
-    }
+    setfilteredJobs(searchedJobs);
   };
 
   const handleFilterLocation = (location, city) => {

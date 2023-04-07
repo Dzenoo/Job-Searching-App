@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { JobContext } from "../../shared/context/JobContext";
 import TopBar from "../components/TopBar";
 import FilterJob from "../components/FilterJob";
@@ -39,6 +39,11 @@ const Jobs = () => {
         </Grid>
         <Grid item lg={10}>
           <JobList jobs={filteredJobs} />
+          {filteredJobs.length === 0 && (
+            <Typography variant="h4" sx={{ textAlign: "center" }}>
+              There isn't jobs for that data
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </>
