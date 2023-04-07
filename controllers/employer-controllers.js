@@ -4,17 +4,8 @@ const Employer = require("../models/Employer");
 const HttpError = require("../models/HttpError");
 
 exports.signup = async (req, res, next) => {
-  const {
-    name,
-    email,
-    password,
-    phone,
-    image,
-    rating,
-    salary,
-    employees,
-    jobs,
-  } = req.body;
+  const { name, email, password, phone, rating, salary, employees, jobs } =
+    req.body;
 
   let existingEmployer;
   try {

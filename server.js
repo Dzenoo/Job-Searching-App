@@ -2,6 +2,7 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const employerRoutes = require("./routes/employer-routes");
 const seekerRoutes = require("./routes/seeker-routes");
+const jobRoutes = require("./routes/job-routes");
 const bodyParser = require("body-parser");
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 
 app.use("/api/employer", employerRoutes);
 app.use("/api/seeker", seekerRoutes);
+app.use("/api/jobs", jobRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
