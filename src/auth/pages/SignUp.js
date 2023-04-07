@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import { useFormHook } from "../../shared/hooks/useForm";
 import ChooseAcc from "../components/ChooseAcc";
@@ -8,7 +8,6 @@ import logo from "../../shared/assets/logo.png";
 const SignUp = () => {
   const [activeTab, setactiveTab] = useState(0);
   const [isSelectedAcc, setIsSelectedAcc] = useState("");
-
   const [formState, inputHandler, setFormData] = useFormHook(
     {
       first_name: {
@@ -30,6 +29,95 @@ const SignUp = () => {
     },
     false
   );
+
+  useEffect(() => {
+    if (isSelectedAcc === "Employer Account") {
+      setFormData(
+        {
+          ...formState.inputs,
+          em_name: {
+            value: "",
+            isValid: false,
+          },
+          em_email: {
+            value: "",
+            isValid: false,
+          },
+          em_password: {
+            value: "",
+            isValid: false,
+          },
+          em_phone: {
+            value: "",
+            isValid: false,
+          },
+          em_salary: {
+            value: "",
+            isValid: false,
+          },
+          em_employees: {
+            value: "",
+            isValid: false,
+          },
+        },
+        false
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          em_name: undefined,
+          em_email: undefined,
+          em_password: undefined,
+          em_phone: undefined,
+          em_salary: undefined,
+          em_employees: undefined,
+        },
+        formState.inputs.first_name.isValid &&
+          formState.inputs.last_name.isValid &&
+          formState.inputs.email.isValid &&
+          formState.inputs.password.isValid
+      );
+    }
+  }, [isSelectedAcc, setFormData]);
+
+  const submitAuthHandler = async (e) => {
+    e.preventDefault();
+
+    if (isSelectedAcc === "Employer Account") {
+      try {
+        await fetch("http://localhost:8000/api/employer/signup", {
+          method: "POST",
+          body: JSON.stringify({
+            em_name: formState.inputs.em_name.value,
+            em_email: formState.inputs.em_email.value,
+            em_password: formState.inputs.em_password.value,
+            em_phone: formState.inputs.em_phone.value,
+            em_salary: formState.inputs.em_salary.value,
+            em_employees: formState.inputs.em_employees.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (error) {
+        alert(error.message);
+      }
+    } else {
+      try {
+        await fetch("http://localhost:8000/api/seeker/signup", {
+          method: "POST",
+          body: JSON.stringify({
+            first_name: formState.inputs.first_name.value,
+            last_name: formState.inputs.last_name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  };
 
   return (
     <Container
@@ -65,6 +153,7 @@ const SignUp = () => {
             selectedAcc={isSelectedAcc}
             onChange={inputHandler}
             isSignupMode={isSelectedAcc}
+            onSubmitForm={submitAuthHandler}
           />
         )}
         {activeTab === 0 ? (

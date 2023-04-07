@@ -13,7 +13,7 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../shared/util/Validators";
 
-const Form = ({ onChange, isSignupMode }) => {
+const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
   return (
     <>
       <Typography variant="h4" color="darkblue">
@@ -23,8 +23,8 @@ const Form = ({ onChange, isSignupMode }) => {
         Have Account? <a>Login</a>
       </Typography>
       <CardContent>
-        <form className="auth_form">
-          {isSignupMode === "Employer Account" && (
+        <form className="auth_form" onSubmit={onSubmitForm}>
+          {isSignupMode === "Seeker Account" && (
             <FormControl>
               <Input
                 placeholder="First Name..."
@@ -36,8 +36,7 @@ const Form = ({ onChange, isSignupMode }) => {
               />
             </FormControl>
           )}
-
-          {isSignupMode === "Employer Account" && (
+          {isSignupMode === "Seeker Account" && (
             <FormControl>
               <Input
                 placeholder="Last Name..."
@@ -49,8 +48,7 @@ const Form = ({ onChange, isSignupMode }) => {
               />
             </FormControl>
           )}
-
-          {isSignupMode === "Employer Account" && (
+          {isSignupMode === "Seeker Account" && (
             <FormControl>
               <Input
                 placeholder="Email Address..."
@@ -62,8 +60,7 @@ const Form = ({ onChange, isSignupMode }) => {
               />
             </FormControl>
           )}
-
-          {isSignupMode === "Employer Account" && (
+          {isSignupMode === "Seeker Account" && (
             <FormControl>
               <Input
                 placeholder="Password..."
@@ -75,93 +72,79 @@ const Form = ({ onChange, isSignupMode }) => {
               />
             </FormControl>
           )}
-
-          {/*  */}
-          {isSignupMode === "Seeker Account" && (
+          {/* EMPLOYER  */}
+          {isSignupMode === "Employer Account" && (
             <FormControl>
-              {/* <Input
-         
-                placeholder="Password..."
+              <Input
+                placeholder="Employer Name..."
                 onInput={onChange}
-                id="password"
-                type="password"
-                validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              /> */}{" "}
-              <h1>INPUT SEEKEER</h1>
+                id="em_name"
+                type="text"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a valid employer name"
+              />
             </FormControl>
           )}
-
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === "Employer Account" && (
             <FormControl>
-              {/* <Input
-                placeholder="Password..."
+              <Input
+                placeholder="Employer Email..."
                 onInput={onChange}
-                id="password"
-                type="password"
-                validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              /> */}
-              <h1>INPUT SEEKEER</h1>
+                id="em_email"
+                type="email"
+                validators={[VALIDATOR_EMAIL()]}
+                errorText="Please enter a valid employer email"
+              />
             </FormControl>
           )}
-
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === "Employer Account" && (
             <FormControl>
-              {/* <Input
-                placeholder="Password..."
+              <Input
+                placeholder="Employer Password..."
                 onInput={onChange}
-                id="password"
+                id="em_password"
                 type="password"
                 validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              /> */}
-              <h1>INPUT SEEKEER</h1>
+                errorText="Please enter a valid employer password"
+              />
             </FormControl>
           )}
-
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === "Employer Account" && (
             <FormControl>
-              {/* <Input
-                placeholder="Password..."
+              <Input
+                placeholder="Phone..."
                 onInput={onChange}
-                id="password"
-                type="password"
-                validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              /> */}
-              <h1>INPUT SEEKEER</h1>
+                id="em_phone"
+                type="number"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a valid phone"
+              />
             </FormControl>
           )}
-
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === "Employer Account" && (
             <FormControl>
-              {/* <Input
-                placeholder="Password..."
+              <Input
+                placeholder="Salary..."
                 onInput={onChange}
-                id="password"
-                type="password"
-                validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              /> */}
-              <h1>INPUT SEEKEER</h1>
+                id="em_salary"
+                type="text"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a valid salary"
+              />
             </FormControl>
           )}
-
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === "Employer Account" && (
             <FormControl>
-              {/* <Input
-                placeholder="Password..."
+              <Input
+                placeholder="Employees..."
                 onInput={onChange}
-                id="password"
-                type="password"
-                validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              /> */}
-              <h1>INPUT SEEKEER</h1>
+                id="em_employees"
+                type="text"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a valid employees"
+              />
             </FormControl>
           )}
-
           <Button type="submit" variant="contained" size="large">
             Sign Up
           </Button>
