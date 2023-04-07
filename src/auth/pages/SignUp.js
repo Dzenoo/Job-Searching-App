@@ -4,6 +4,7 @@ import { useFormHook } from "../../shared/hooks/useForm";
 import ChooseAcc from "../components/ChooseAcc";
 import Form from "../components/Form";
 import logo from "../../shared/assets/logo.png";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [activeTab, setactiveTab] = useState(0);
@@ -142,7 +143,9 @@ const SignUp = () => {
         </div>
       </Box>
       <Card sx={{ padding: "40px", position: "relative" }}>
-        <img src={logo} alt="logo" style={{ paddingBottom: "30px" }} />
+        <Link to="/">
+          <img src={logo} alt="logo" style={{ paddingBottom: "30px" }} />
+        </Link>
         {activeTab === 0 ? (
           <ChooseAcc
             isSelected={isSelectedAcc}

@@ -17,7 +17,7 @@ import {
 
 const Login = () => {
   const [isType, setisType] = useState(false);
-  const [formState, inputHandler] = useFormHook(
+  const [formState, inputHandler, setFormData] = useFormHook(
     {
       email: {
         value: "",
@@ -32,12 +32,75 @@ const Login = () => {
   );
 
   const switchAccTypeLogin = () => {
+    if (isType) {
+      setFormData(
+        {
+          ...formState.inputs,
+          em_email: {
+            value: "",
+            isValid: false,
+          },
+          em_password: {
+            value: "",
+            isValid: false,
+          },
+        },
+        false
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          em_email: undefined,
+          em_password: undefined,
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    }
+
     setisType(!isType);
+  };
+
+  const submitLoginHandler = async (e) => {
+    e.preventDefault();
+
+    if (isType) {
+      try {
+        await fetch("http://localhost:8000/api/employer/login", {
+          method: "POST",
+          body: JSON.stringify({
+            em_email: formState.inputs.em_email.value,
+            em_password: formState.inputs.em_password.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+        // alert("Logged in as Employer");
+        // redirect to employer pages
+      } catch (err) {
+        alert(err.message);
+        throw err;
+      }
+    } else {
+      try {
+        await fetch("http://localhost:8000/api/seeker/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+        // alert("Logged in as Seeker");
+        // redirect to Seeker pages
+      } catch (err) {}
+    }
   };
 
   return (
     <Container maxWidth="xs">
-      <img src={logo} alt="logo" />
+      <Link to="/">
+        <img src={logo} alt="logo" />
+      </Link>
       <Card
         sx={{
           padding: "40px",
@@ -48,7 +111,7 @@ const Login = () => {
         }}
       >
         <Typography variant="h4">
-          Login as {isType ? "Seeker" : "Employer"}
+          Login as {isType ? "Employer" : "Seeker"}
         </Typography>
         <Typography variant="p">
           Dont have account?{" "}
@@ -56,33 +119,67 @@ const Login = () => {
             Register
           </Link>
         </Typography>
-        <form className="login_form">
-          <FormControl>
-            <label>Email</label>
-            <Input
-              placeholder="email"
-              onInput={inputHandler}
-              validators={[VALIDATOR_EMAIL()]}
-              type="email"
-              id="email"
-              errorText="Please enter valid email"
-            />
-          </FormControl>
-          <FormControl>
-            <label>Password</label>
-            <Input
-              placeholder="password"
-              onInput={inputHandler}
-              validators={[VALIDATOR_MINLENGTH(6)]}
-              type="password"
-              id="email"
-              errorText="Please enter valid password"
-            />
-          </FormControl>
-          <Button variant="contained">Login</Button>
+        <form className="login_form" onSubmit={submitLoginHandler}>
+          {!isType && (
+            <FormControl>
+              <label>Seeker Email</label>
+              <Input
+                placeholder="email"
+                onInput={inputHandler}
+                validators={[VALIDATOR_EMAIL()]}
+                type="email"
+                id="email"
+                errorText="Please enter valid email"
+              />
+            </FormControl>
+          )}
+          {!isType && (
+            <FormControl>
+              <label>Seeker Password</label>
+              <Input
+                placeholder="password"
+                onInput={inputHandler}
+                validators={[VALIDATOR_MINLENGTH(6)]}
+                type="password"
+                id="password"
+                errorText="Please enter valid password"
+              />
+            </FormControl>
+          )}
+
+          {isType && (
+            <FormControl>
+              <label>Employer Email</label>
+              <Input
+                placeholder="email"
+                onInput={inputHandler}
+                validators={[VALIDATOR_EMAIL()]}
+                type="email"
+                id="em_email"
+                errorText="Please enter valid email"
+              />
+            </FormControl>
+          )}
+
+          {isType && (
+            <FormControl>
+              <label>Employer Password</label>
+              <Input
+                placeholder="password"
+                onInput={inputHandler}
+                validators={[VALIDATOR_MINLENGTH(6)]}
+                type="password"
+                id="em_password"
+                errorText="Please enter valid password"
+              />
+            </FormControl>
+          )}
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
         </form>
         <Button variant="outlined" onClick={switchAccTypeLogin}>
-          Login as {isType ? "Employer" : "Seeker"}
+          Login as {isType ? "Seeker" : "Employer"}
         </Button>
       </Card>
     </Container>
