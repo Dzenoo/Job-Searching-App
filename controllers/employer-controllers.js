@@ -9,7 +9,7 @@ exports.signup = async (req, res, next) => {
 
   let existingEmployer;
   try {
-    existingEmployer = await Employer.findOne({ email: email });
+    existingEmployer = await Employer.findOne({ em_email: em_email });
   } catch (err) {
     const error = new HttpError("Could not find Employer", 500);
     return next(error);
@@ -25,12 +25,12 @@ exports.signup = async (req, res, next) => {
     em_email,
     em_password,
     em_phone,
-    image:
+    em_image:
       "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
-    rating: 4.2,
+    em_rating: "4.2",
     em_salary,
     em_employees,
-    jobs: 4,
+    em_jobs: "4",
   });
 
   let employer;
@@ -41,7 +41,7 @@ exports.signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ createdEmployer: employer });
+  res.status(201).json({ employer });
 };
 
 exports.login = async (req, res, next) => {
