@@ -27,10 +27,10 @@ exports.signup = async (req, res, next) => {
     phone,
     image:
       "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
-    rating,
+    rating: 4.2,
     salary,
     employees,
-    jobs,
+    jobs: 4,
   });
 
   let employer;
