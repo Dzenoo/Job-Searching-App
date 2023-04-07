@@ -43,9 +43,33 @@ exports.newJob = async (req, res, next) => {
   res.status(201).json({ job: job.toObject({ getters: true }) });
 };
 
-exports.getJobs = async (req, res, next) => {};
+exports.getJobs = async (req, res, next) => {
+  let jobs;
+  try {
+    jobs = await Job.find();
+  } catch (err) {
+    const error = new HttpError("Cannot find jobs, please try again", 403);
+    return next(error);
+  }
 
-exports.getJob = async (req, res, next) => {};
+  res
+    .status(201)
+    .json({ jobs: jobs.map((job) => job.toObject({ getters: true })) });
+};
+
+exports.getJob = async (req, res, next) => {
+  const jobId = req.params.jobId;
+
+  let job;
+  try {
+    job = await Job.findById(jobId);
+  } catch (err) {
+    const error = new HttpError("Cannot find job, please try again", 403);
+    return next(error);
+  }
+
+  res.status(201).json({ job: job.toObject({ getters: true }) });
+};
 
 exports.applyToJob = async (req, res, next) => {};
 
