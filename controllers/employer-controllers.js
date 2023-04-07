@@ -4,7 +4,7 @@ const Employer = require("../models/Employer");
 const HttpError = require("../models/HttpError");
 
 exports.signup = async (req, res, next) => {
-  const { name, email, password, phone, rating, salary, employees, jobs } =
+  const { em_name, em_email, em_password, em_phone, em_salary, em_employees } =
     req.body;
 
   let existingEmployer;
@@ -21,15 +21,15 @@ exports.signup = async (req, res, next) => {
   }
 
   const createdEmployer = new Employer({
-    name,
-    email,
-    password,
-    phone,
+    em_name,
+    em_email,
+    em_password,
+    em_phone,
     image:
       "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
     rating: 4.2,
-    salary,
-    employees,
+    em_salary,
+    em_employees,
     jobs: 4,
   });
 
@@ -45,11 +45,11 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { em_email, em_password } = req.body;
 
   let existingEmployer;
   try {
-    existingEmployer = await Employer.findOne({ email: email });
+    existingEmployer = await Employer.findOne({ em_email: em_email });
   } catch (err) {
     const error = new HttpError("Could not find employer", 404);
     return next(error);
@@ -60,7 +60,7 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
 
-  if (existingEmployer.password !== password) {
+  if (existingEmployer.em_password !== em_password) {
     const error = new HttpError("Invalid credentials", 500);
     return next(error);
   }
