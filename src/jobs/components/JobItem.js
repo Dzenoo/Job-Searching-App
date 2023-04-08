@@ -94,7 +94,9 @@ const JobItem = ({
           <Typography variant="p" fontWeight="bold">
             <CiLocationOn size={24} /> {city}
           </Typography>
-          <Typography color="textSecondary">{shortDescription}</Typography>
+          <Typography color="textSecondary" sx={{ wordBreak: "break-word" }}>
+            {shortDescription}
+          </Typography>
         </Box>
       </CardContent>
       <CardActions>

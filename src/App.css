@@ -324,3 +324,9 @@ body {
   color: rgb(194, 194, 194);
   font-size: 14px;
 }
+
+.loader_center {
+  margin: auto;
+  text-align: center;
+  margin-top: 60%;
+}

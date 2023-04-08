@@ -1,16 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext } from "react";
-import { JOBSLIST } from "../data/data";
 import { Schedules, Seniority, Salary } from "../data/data";
 
 export const JobContext = createContext();
 
 export const JobProvider = ({ children }) => {
-  const [jobs] = useState(JOBSLIST);
-  const [filteredJobs, setfilteredJobs] = useState(JOBSLIST);
+  const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setfilteredJobs] = useState([]);
   const [checkboxSchedule, setCheckboxSchedule] = useState(Schedules);
   const [checkboxSeniority, setCheckboxSeniority] = useState(Seniority);
   const [checkboxSalary, setCheckboxSalary] = useState(Salary);
+
+  console.log(filteredJobs);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/jobs/");
+        if (!response.ok) {
+          throw new Error("Could not fetch jobs");
+        }
+        const responseData = await response.json();
+        setJobs(responseData.jobs);
+        setfilteredJobs(responseData.jobs);
+      } catch (error) {}
+    };
+    fetchJobs();
+  }, []);
 
   // CHECKBOXES FUNCTION FOR SCHEDULE //
   const handleCheckboxScheduleChange = (index) => {
@@ -23,7 +39,7 @@ export const JobProvider = ({ children }) => {
     console.log(allUnchecked);
 
     if (allUnchecked) {
-      setfilteredJobs(JOBSLIST);
+      setfilteredJobs(jobs);
       return;
     }
 
@@ -31,7 +47,7 @@ export const JobProvider = ({ children }) => {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
-    const newFilteredJobs = JOBSLIST.filter((job) =>
+    const newFilteredJobs = jobs.filter((job) =>
       checkedSchedules.includes(job.schedule)
     );
 
@@ -47,7 +63,7 @@ export const JobProvider = ({ children }) => {
 
     const allUnchecked = newCheckboxes.every((checkbox) => !checkbox.checked);
     if (allUnchecked) {
-      setfilteredJobs(JOBSLIST);
+      setfilteredJobs(jobs);
       return;
     }
 
@@ -55,7 +71,7 @@ export const JobProvider = ({ children }) => {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
-    const newFilteredJobs = JOBSLIST.filter((job) =>
+    const newFilteredJobs = jobs.filter((job) =>
       checkedSchedules.includes(job.level)
     );
 
@@ -71,7 +87,7 @@ export const JobProvider = ({ children }) => {
 
     const allUnchecked = newCheckboxes.every((checkbox) => !checkbox.checked);
     if (allUnchecked) {
-      setfilteredJobs(JOBSLIST);
+      setfilteredJobs(jobs);
       return;
     }
 
@@ -79,7 +95,7 @@ export const JobProvider = ({ children }) => {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
-    const newFilteredJobs = JOBSLIST.filter((job) =>
+    const newFilteredJobs = jobs.filter((job) =>
       checkedSchedules.includes(job.salary)
     );
 
@@ -140,7 +156,7 @@ export const JobProvider = ({ children }) => {
   };
 
   const clearFilter = () => {
-    setfilteredJobs(JOBSLIST);
+    setfilteredJobs(jobs);
   };
 
   return (

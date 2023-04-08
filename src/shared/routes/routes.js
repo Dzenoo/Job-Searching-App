@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../../home/pages/Home";
-import Jobs from "../../jobs/pages/Jobs";
+import Jobs, { loader as fetchJobs } from "../../jobs/pages/Jobs";
 import JobDetails from "../../jobs/pages/JobDetails";
 import EditJob from "../../jobs/pages/EditJob";
 import NewJob from "../../jobs/pages/NewJob";

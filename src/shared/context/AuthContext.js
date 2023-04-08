@@ -57,7 +57,11 @@ export const AuthProvider = ({ children }) => {
   }, [token, checkType, userId]);
 
   if (isLoading) {
-    return <DotLoader />;
+    return (
+      <div className="loader_center">
+        <DotLoader />;
+      </div>
+    );
   }
 
   return (

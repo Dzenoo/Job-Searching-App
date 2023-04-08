@@ -1,4 +1,4 @@
-import { Select, Typography, MenuItem, Box, Alert } from "@mui/material";
+import { Select, Typography, Box, Alert } from "@mui/material";
 import React from "react";
 import JobItem from "./JobItem";
 import PropTypes from "prop-types";
@@ -28,7 +28,7 @@ const JobList = ({ jobs }) => {
         {jobs.map((job) => {
           const {
             id,
-            logo,
+            employer,
             title,
             city,
             salary,
@@ -40,7 +40,7 @@ const JobList = ({ jobs }) => {
             <JobItem
               key={id}
               id={id}
-              logo={logo}
+              logo={employer.em_image}
               title={title}
               city={city}
               salary={salary}
