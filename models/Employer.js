@@ -11,7 +11,7 @@ const EmployerSchema = new Schema({
   em_rating: { type: Number, required: true },
   em_salary: { type: Number, required: true },
   em_employees: { type: Number, required: true },
-  em_jobs: { type: Number, required: true },
+  em_jobs: [{ type: mongoose.Types.ObjectId, ref: "Job" }],
   em_biography: { type: String },
 });
 

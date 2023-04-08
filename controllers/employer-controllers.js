@@ -38,7 +38,7 @@ exports.signup = async (req, res, next) => {
     em_rating: "4.2",
     em_salary,
     em_employees,
-    em_jobs: "4",
+    em_jobs: [],
     em_biography,
   });
 

@@ -6,7 +6,6 @@ const JobSchema = new Schema({
   title: { type: String, required: true },
   city: { type: String, required: true },
   salary: { type: Number, required: true },
-  company: { type: String, required: true },
   time: { type: String, required: true },
   level: { type: String, required: true },
   skills: { type: String, required: true },
@@ -14,6 +13,7 @@ const JobSchema = new Schema({
   jobDescription: { type: String, required: true },
   shortDescription: { type: String, required: true },
   requirements: { type: String, required: true },
+  employer: { type: mongoose.Types.ObjectId, ref: "Employer" },
 });
 
 module.exports = mongoose.model("Job", JobSchema);

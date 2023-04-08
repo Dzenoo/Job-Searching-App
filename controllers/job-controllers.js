@@ -2,13 +2,14 @@ const { default: mongoose } = require("mongoose");
 const express = require("express");
 const HttpError = require("../models/HttpError");
 const Job = require("../models/Job");
+const Employer = require("../models/Employer");
 
 exports.newJob = async (req, res, next) => {
+  const employerId = req.params.employerId;
   const {
     title,
     city,
     salary,
-    company,
     time,
     level,
     skills,
@@ -22,7 +23,6 @@ exports.newJob = async (req, res, next) => {
     title,
     city,
     salary,
-    company,
     time,
     level,
     skills,
@@ -30,17 +30,39 @@ exports.newJob = async (req, res, next) => {
     jobDescription,
     shortDescription,
     requirements,
+    employer: employerId,
   });
 
-  let job;
+  let employer;
   try {
-    job = await createdJob.save();
+    employer = await Employer.findById(employerId);
   } catch (err) {
-    const error = new HttpError("Cannot create job, please try again", 500);
+    const error = new HttpError(
+      "Could not find employer, please try again",
+      500
+    );
     return next(error);
   }
 
-  res.status(201).json({ job: job.toObject({ getters: true }) });
+  if (!employer) {
+    const error = new HttpError("Could not find user for provided id.", 404);
+    return next(error);
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await createdJob.save({ session: sess });
+    employer.em_jobs.push(createdJob);
+    await employer.save({ session: sess });
+    await sess.commitTransaction();
+    await sess.endSession();
+  } catch (err) {
+    const error = new HttpError("Creating sess failed, please try again.", 500);
+    return next(error);
+  }
+
+  res.status(201).json({ job: createdJob });
 };
 
 exports.getJobs = async (req, res, next) => {
