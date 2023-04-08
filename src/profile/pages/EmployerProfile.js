@@ -5,7 +5,7 @@ const ProfilePage = () => {
   const employerData = JSON.parse(localStorage.getItem("employer"));
 
   return (
-    <Container sx={{ padding: "60px" }}>
+    <Container sx={{ padding: "60px" }} maxWidth="md">
       <Card
         sx={{
           display: "flex",
@@ -28,8 +28,11 @@ const ProfilePage = () => {
         </Box>
       </Card>
       <Grid container justifyContent="center" spacing={2} padding={6}>
-        <Grid item></Grid>
-        <Grid item></Grid>
+        <Grid item>
+          <Typography variant="h4">Biography</Typography>
+          <Typography>{employerData.em_biography}</Typography>
+        </Grid>
+        <Grid item>Jobs</Grid>
         <Grid item></Grid>
       </Grid>
     </Container>

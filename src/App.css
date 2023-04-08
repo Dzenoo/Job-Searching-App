@@ -314,6 +314,13 @@ body {
 .textarea {
   resize: vertical;
   width: 100%;
-  font-size: 20px;
+  font-size: 12px;
   border: 1px solid rgb(194, 194, 194);
+  max-height: 200px;
+}
+
+.textarea::placeholder {
+  font-weight: 200;
+  color: rgb(194, 194, 194);
+  font-size: 14px;
 }

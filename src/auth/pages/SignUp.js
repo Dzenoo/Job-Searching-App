@@ -64,6 +64,10 @@ const SignUp = () => {
             value: "",
             isValid: false,
           },
+          em_biography: {
+            value: "",
+            isValid: false,
+          },
         },
         false
       );
@@ -77,6 +81,7 @@ const SignUp = () => {
           em_phone: undefined,
           em_salary: undefined,
           em_employees: undefined,
+          em_biography: undefined,
         },
         formState.inputs.first_name.isValid &&
           formState.inputs.last_name.isValid &&
@@ -102,6 +107,7 @@ const SignUp = () => {
               em_phone: formState.inputs.em_phone.value,
               em_salary: formState.inputs.em_salary.value,
               em_employees: formState.inputs.em_employees.value,
+              em_biography: formState.inputs.em_biography.value,
             }),
             headers: { "Content-Type": "application/json" },
           }
