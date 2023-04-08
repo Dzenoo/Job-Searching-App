@@ -7,10 +7,13 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
+  checkType: null,
 });
 
 export const AuthProvider = ({ children }) => {
   const { login, logout, token, userId } = useAuth();
+  const userData = JSON.parse(localStorage.getItem("type"));
+  const checkType = userData === "Employer";
 
   return (
     <AuthContext.Provider
@@ -20,6 +23,7 @@ export const AuthProvider = ({ children }) => {
         userId: userId,
         login: login,
         logout: logout,
+        checkType: checkType,
       }}
     >
       {children}

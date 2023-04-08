@@ -4,7 +4,7 @@ import { useFormHook } from "../../shared/hooks/useForm";
 import ChooseAcc from "../components/ChooseAcc";
 import Form from "../components/Form";
 import logo from "../../shared/assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../shared/context/AuthContext";
 
 const SignUp = () => {
@@ -33,6 +33,7 @@ const SignUp = () => {
     false
   );
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSelectedAcc === "Employer Account") {
@@ -112,6 +113,8 @@ const SignUp = () => {
           throw new Error(responseData.message);
         }
         login(responseData.employerId, responseData.token);
+        localStorage.setItem("type", JSON.stringify(responseData.type));
+        navigate("/");
       } catch (error) {
         setError(error.message);
       }
@@ -138,11 +141,21 @@ const SignUp = () => {
         }
 
         login(responseData.employerId, responseData.token);
+        // localStorage.setItem("type", JSON.stringify(responseData.type));
+        navigate("/");
       } catch (error) {
         setError(error.message);
       }
     }
   };
+
+  if (error) {
+    return (
+      <div>
+        <h1>{error}</h1>
+      </div>
+    );
+  }
 
   return (
     <Container

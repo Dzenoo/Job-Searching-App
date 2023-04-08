@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 
 let logoutTimer;
 
@@ -28,6 +28,7 @@ export const useAuth = () => {
     settokenExpirationDate(null);
     setUserId(null);
     localStorage.removeItem("userData");
+    localStorage.removeItem("type");
   }, []);
 
   useEffect(() => {
