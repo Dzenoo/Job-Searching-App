@@ -3,8 +3,6 @@ import logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
 
-const settings = ["Profile", "Add Job", "Logout"];
-
 const MainNavigation = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -15,6 +13,9 @@ const MainNavigation = () => {
   const handleCloseUserMenu = () => {
     setAnchorEl(null);
   };
+
+  const userData = JSON.parse(localStorage.getItem("type"));
+  const checkType = userData === "Employer";
 
   return (
     <header className="navigation_header">

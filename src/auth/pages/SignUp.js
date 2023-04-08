@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import { useFormHook } from "../../shared/hooks/useForm";
 import ChooseAcc from "../components/ChooseAcc";
 import Form from "../components/Form";
 import logo from "../../shared/assets/logo.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../shared/context/AuthContext";
 
 const SignUp = () => {
   const [activeTab, setactiveTab] = useState(0);
   const [isSelectedAcc, setIsSelectedAcc] = useState("");
+  const [error, setError] = useState("");
   const [formState, inputHandler, setFormData] = useFormHook(
     {
       first_name: {
@@ -30,6 +32,7 @@ const SignUp = () => {
     },
     false
   );
+  const { login } = useContext(AuthContext);
 
   useEffect(() => {
     if (isSelectedAcc === "Employer Account") {
@@ -87,35 +90,56 @@ const SignUp = () => {
 
     if (isSelectedAcc === "Employer Account") {
       try {
-        await fetch("http://localhost:8000/api/employer/signup", {
-          method: "POST",
-          body: JSON.stringify({
-            em_name: formState.inputs.em_name.value,
-            em_email: formState.inputs.em_email.value,
-            em_password: formState.inputs.em_password.value,
-            em_phone: formState.inputs.em_phone.value,
-            em_salary: formState.inputs.em_salary.value,
-            em_employees: formState.inputs.em_employees.value,
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(
+          "http://localhost:8000/api/employer/signup",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              em_name: formState.inputs.em_name.value,
+              em_email: formState.inputs.em_email.value,
+              em_password: formState.inputs.em_password.value,
+              em_phone: formState.inputs.em_phone.value,
+              em_salary: formState.inputs.em_salary.value,
+              em_employees: formState.inputs.em_employees.value,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        login(responseData.employerId, responseData.token);
       } catch (error) {
-        alert(error.message);
+        setError(error.message);
       }
     } else {
       try {
-        await fetch("http://localhost:8000/api/seeker/signup", {
-          method: "POST",
-          body: JSON.stringify({
-            first_name: formState.inputs.first_name.value,
-            last_name: formState.inputs.last_name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(
+          "http://localhost:8000/api/seeker/signup",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              first_name: formState.inputs.first_name.value,
+              last_name: formState.inputs.last_name.value,
+              email: formState.inputs.email.value,
+              password: formState.inputs.password.value,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        login(responseData.employerId, responseData.token);
       } catch (error) {
-        alert(error.message);
+        setError(error.message);
       }
     }
   };

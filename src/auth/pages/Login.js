@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../shared/assets/logo.png";
 import {
   Button,
@@ -7,16 +7,19 @@ import {
   FormControl,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormHook } from "../../shared/hooks/useForm";
 import Input from "../../shared/components/Input";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/Validators";
+import { AuthContext } from "../../shared/context/AuthContext";
 
 const Login = () => {
   const [isType, setisType] = useState(false);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [formState, inputHandler, setFormData] = useFormHook(
     {
       email: {
@@ -66,16 +69,26 @@ const Login = () => {
 
     if (isType) {
       try {
-        await fetch("http://localhost:8000/api/employer/login", {
-          method: "POST",
-          body: JSON.stringify({
-            em_email: formState.inputs.em_email.value,
-            em_password: formState.inputs.em_password.value,
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
-        // alert("Logged in as Employer");
-        // redirect to employer pages
+        const response = await fetch(
+          "http://localhost:8000/api/employer/login",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              em_email: formState.inputs.em_email.value,
+              em_password: formState.inputs.em_password.value,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const responseData = await response.json();
+
+        console.log(responseData);
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        login(responseData.employerId, responseData.token);
+        localStorage.setItem("type", JSON.stringify(responseData.type));
+        navigate("/");
       } catch (err) {
         alert(err.message);
         throw err;
