@@ -120,7 +120,7 @@ exports.getProfile = async (req, res, next) => {
 
   let employer;
   try {
-    employer = await Employer.findById(employerId);
+    employer = await Employer.findById(employerId).select("-em_password");
   } catch (err) {
     const error = new HttpError("Cannot get user profile", 403);
     return next(error);
