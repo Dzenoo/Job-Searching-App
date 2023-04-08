@@ -11,37 +11,21 @@ import {
   Typography,
 } from "@mui/material";
 import { jobtypes, locations, Seniority } from "../../shared/data/data";
-import React from "react";
+import React, { useContext } from "react";
 import Input from "../../shared/components/Input";
 import { VALIDATOR_REQUIRE } from "../../shared/util/Validators";
 import { useFormHook } from "../../shared/hooks/useForm";
 import { useState } from "react";
+import { AuthContext } from "../../shared/context/AuthContext";
 
 const NewJob = () => {
-  const [skilInput, setSkilInput] = useState("");
   const [formState, inputHandler, setFormData] = useFormHook(
     {
-      job_title: {
+      title: {
         value: "",
         isValid: false,
       },
-      job_shortDesc: {
-        value: "",
-        isValid: false,
-      },
-      type: {
-        value: "",
-        isValid: false,
-      },
-      seniority: {
-        value: "",
-        isValid: false,
-      },
-      location_work: {
-        value: "",
-        isValid: false,
-      },
-      location: {
+      city: {
         value: "",
         isValid: false,
       },
@@ -49,36 +33,68 @@ const NewJob = () => {
         value: "",
         isValid: false,
       },
+      skills: {
+        value: "",
+        isValid: false,
+      },
+      jobDescription: {
+        value: "",
+        isValid: false,
+      },
+      shortDescription: {
+        value: "",
+        isValid: false,
+      },
       requirements: {
         value: "",
-        isValid: false,
-      },
-      description: {
-        value: "",
-        isValid: false,
-      },
-      skills: {
-        value: [],
         isValid: false,
       },
     },
     false
   );
 
+  const { userId } = useContext(AuthContext);
+
   const handleTypeChange = (event, type) => {
     const selectedType = event.target.value;
     inputHandler(type, selectedType, true);
   };
 
-  const handleSkillInput = (e) => {
+  const postJob = async (e) => {
     e.preventDefault();
-    setSkilInput(e.target.value);
+
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/jobs/${userId}/new`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            title: formState.inputs.title.value,
+            city: formState.inputs.city.value,
+            salary: formState.inputs.salary.value,
+            time: formState.inputs.time.value,
+            level: formState.inputs.level.value,
+            skills: formState.inputs.skills.value,
+            schedule: formState.inputs.schedule.value,
+            jobDescription: formState.inputs.jobDescription.value,
+            shortDescription: formState.inputs.shortDescription.value,
+            requirements: formState.inputs.requirements.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Not ok response");
+      }
+    } catch (error) {}
   };
 
   return (
     <Container maxWidth="md" sx={{ padding: "60px", backgroundColor: "#fff" }}>
       <Card>
         <form
+          onSubmit={postJob}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -97,74 +113,23 @@ const NewJob = () => {
               validators={[VALIDATOR_REQUIRE()]}
               type="text"
               errorText="Please enter valid job title"
-              id="job_title"
+              id="title"
               onInput={inputHandler}
             />
           </FormControl>
 
-          {/* Job short description */}
+          {/* City */}
           <FormControl>
-            <label htmlFor="">Job description</label>
+            <label htmlFor="">City</label>
             <Typography color="textSecondary">
-              Short description about job
-            </Typography>
-            <Input
-              element="textarea"
-              placeholder="Job Short Description"
-              validators={[VALIDATOR_REQUIRE()]}
-              type="text"
-              errorText="Please enter valid short description"
-              id="job_shortDesc"
-              onInput={inputHandler}
-            />
-          </FormControl>
-
-          {/* Job type */}
-          <FormControl>
-            <label htmlFor="">Job type</label>
-            <Typography color="textSecondary">
-              You can select multiple job types
-            </Typography>
-            <RadioGroup onChange={(e) => handleTypeChange(e, "type")}>
-              {jobtypes.map((type) => (
-                <FormControlLabel
-                  value={type.label}
-                  label={type.label}
-                  control={<Radio />}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-
-          {/* Seniority */}
-          <FormControl>
-            <label htmlFor="">Seniority</label>
-            <Typography color="textSecondary">
-              Enter estimated Seniority for that job
-            </Typography>
-            <RadioGroup onChange={(e) => handleTypeChange(e, "seniority")}>
-              {Seniority.map((s) => (
-                <FormControlLabel
-                  value={s.label}
-                  label={s.label}
-                  control={<Radio />}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-
-          {/* Location */}
-          <FormControl>
-            <label htmlFor="">Location</label>
-            <Typography color="textSecondary">
-              Enter location where is your position
+              Enter city where is your position
             </Typography>
             <Input
               placeholder="e.g, London.."
               validators={[VALIDATOR_REQUIRE()]}
               type="text"
-              errorText="Please enter valid job location"
-              id="location"
+              errorText="Please enter valid city"
+              id="city"
               onInput={inputHandler}
             />
           </FormControl>
@@ -185,13 +150,65 @@ const NewJob = () => {
             />
           </FormControl>
 
-          {/* Job Location */}
+          {/* Time */}
+          <FormControl>
+            <label htmlFor="">Job type</label>
+            <Typography color="textSecondary">
+              You can select multiple job types
+            </Typography>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "time")}>
+              {jobtypes.map((type) => (
+                <FormControlLabel
+                  value={type.label}
+                  label={type.label}
+                  control={<Radio />}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+
+          {/* Seniority */}
+          <FormControl>
+            <label htmlFor="">Seniority</label>
+            <Typography color="textSecondary">
+              Enter estimated Seniority for that job
+            </Typography>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "level")}>
+              {Seniority.map((s) => (
+                <FormControlLabel
+                  value={s.label}
+                  label={s.label}
+                  control={<Radio />}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+
+          {/* Skills */}
+          <Alert severity="info">
+            Please separate your skills with commas (e.g. React, Node.js, HTML,
+            CSS). Thank you!
+          </Alert>
+          <FormControl>
+            <label htmlFor="">Skills</label>
+            <Typography color="textSecondary">Add Skills</Typography>
+            <TextField
+              type="text"
+              id="skills"
+              name="skills"
+              onChange={(event) =>
+                inputHandler("skills", event.target.value, true)
+              }
+            />
+          </FormControl>
+
+          {/* Schedule */}
           <FormControl>
             <label htmlFor="">Job Location work</label>
             <Typography color="textSecondary">
               Job titles must describe location work
             </Typography>
-            <RadioGroup onChange={(e) => handleTypeChange(e, "location_work")}>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "schedule")}>
               {locations.map((l) => (
                 <FormControlLabel
                   value={l.label}
@@ -200,6 +217,38 @@ const NewJob = () => {
                 />
               ))}
             </RadioGroup>
+          </FormControl>
+
+          {/* Job Description */}
+          <FormControl>
+            <label htmlFor="">Job Description </label>
+            <Typography color="textSecondary">Add Description</Typography>
+            <Input
+              element="textarea"
+              placeholder="e.g,"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid job description"
+              id="jobDescription"
+              onInput={inputHandler}
+            />
+          </FormControl>
+
+          {/* Job short description */}
+          <FormControl>
+            <label htmlFor="">Job short description</label>
+            <Typography color="textSecondary">
+              Short description about job
+            </Typography>
+            <Input
+              element="textarea"
+              placeholder="Job Short Description"
+              validators={[VALIDATOR_REQUIRE()]}
+              type="text"
+              errorText="Please enter valid short description"
+              id="shortDescription"
+              onInput={inputHandler}
+            />
           </FormControl>
 
           <Alert severity="info">
@@ -223,43 +272,9 @@ const NewJob = () => {
             />
           </FormControl>
 
-          {/* Job Description */}
-          <FormControl>
-            <label htmlFor="">Job Description </label>
-            <Typography color="textSecondary">Add Description</Typography>
-            <Input
-              element="textarea"
-              placeholder="e.g,"
-              validators={[VALIDATOR_REQUIRE()]}
-              type="text"
-              errorText="Please enter valid job description"
-              id="description"
-              onInput={inputHandler}
-            />
-          </FormControl>
-
-          {/* Skills */}
-          <Alert severity="info">
-            Please separate your skills with commas (e.g. React, Node.js, HTML,
-            CSS). Thank you!
-          </Alert>
-          <FormControl>
-            <label htmlFor="">Skills</label>
-            <Typography color="textSecondary">Add Skills</Typography>
-            <TextField
-              type="text"
-              id="skills"
-              name="skills"
-              onChange={(event) =>
-                inputHandler(
-                  "skills",
-                  event.target.value.split(",").map((skill) => skill.trim()),
-                  true
-                )
-              }
-            />
-          </FormControl>
-          <Button variant="contained">Post</Button>
+          <Button variant="contained" type="submit">
+            Post
+          </Button>
         </form>
       </Card>
     </Container>
