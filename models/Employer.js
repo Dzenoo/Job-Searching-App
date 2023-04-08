@@ -12,6 +12,7 @@ const EmployerSchema = new Schema({
   em_salary: { type: Number, required: true },
   em_employees: { type: Number, required: true },
   em_jobs: { type: Number, required: true },
+  em_biography: { type: String },
 });
 
 module.exports = mongoose.model("Employer", EmployerSchema);

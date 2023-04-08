@@ -5,8 +5,15 @@ const HttpError = require("../models/HttpError");
 const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res, next) => {
-  const { em_name, em_email, em_password, em_phone, em_salary, em_employees } =
-    req.body;
+  const {
+    em_name,
+    em_email,
+    em_password,
+    em_phone,
+    em_salary,
+    em_employees,
+    em_biography,
+  } = req.body;
 
   let existingEmployer;
   try {
@@ -32,6 +39,7 @@ exports.signup = async (req, res, next) => {
     em_salary,
     em_employees,
     em_jobs: "4",
+    em_biography,
   });
 
   let employer;
