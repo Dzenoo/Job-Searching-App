@@ -11,9 +11,9 @@ import SignUp from "../../auth/pages/SignUp";
 import Login from "../../auth/pages/Login";
 import SeekerProfile from "../../profile/pages/SeekerProfile";
 import EmployerProfile from "../../profile/pages/EmployerProfile";
-import Applications from "../../profile/pages/Applications";
-import SavedJobs from "../../profile/pages/SavedJobs";
-import SavedCompanies from "../../profile/pages/SavedCompanies";
+import Applications from "../../profile/components/Applications";
+import SavedJobs from "../../profile/components/SavedJobs";
+import SavedCompanies from "../../profile/components/SavedCompanies";
 
 export const routes = createBrowserRouter([
   {

@@ -84,11 +84,11 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
 
 export default CompanyItem;
 
-CompanyItem.propTypes = [
-  { logo: PropTypes.string.isRequired },
-  { name: PropTypes.string.isRequired },
-  { salary: PropTypes.number.isRequired },
-  { rating: PropTypes.number.isRequired },
-  { employers: PropTypes.number.isRequired },
-  { jobs: PropTypes.number.isRequired },
-];
+// CompanyItem.propTypes = [
+//   { logo: PropTypes.string.isRequired },
+//   { name: PropTypes.string.isRequired },
+//   { salary: PropTypes.number.isRequired },
+//   { rating: PropTypes.number.isRequired },
+//   { employers: PropTypes.number.isRequired },
+//   { jobs: PropTypes.number.isRequired },
+// ];

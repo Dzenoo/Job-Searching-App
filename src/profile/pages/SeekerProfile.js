@@ -37,7 +37,7 @@ const ProfilePage = () => {
       </Card>
       <Grid container justifyContent="center" spacing={2} padding={6}>
         <Grid item>
-          <Link className="link" to="se_profile/applications">
+          <Link className="link" to="applications">
             <Card sx={{ padding: "40px", cursor: "pointer" }}>
               <SlCursor fill="red" size={24} />
               <Typography variant="h5" color="royalblue">
@@ -50,7 +50,7 @@ const ProfilePage = () => {
           </Link>
         </Grid>
         <Grid item>
-          <Link className="link" to="/se_profile/saved-jobs">
+          <Link className="link" to="saved-jobs">
             <Card sx={{ padding: "40px", cursor: "pointer" }}>
               <AiOutlineSave fill="green" size={24} />
               <Typography variant="h5" color="royalblue">
@@ -63,7 +63,7 @@ const ProfilePage = () => {
           </Link>
         </Grid>
         <Grid item>
-          <Link className="link" to="/se_profile/saved-companies">
+          <Link className="link" to="saved-companies">
             <Card sx={{ padding: "40px", cursor: "pointer" }}>
               <GrUserWorker fill="blue" size={24} />
               <Typography variant="h5" color="royalblue">
