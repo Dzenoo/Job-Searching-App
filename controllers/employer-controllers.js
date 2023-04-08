@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const express = require("express");
 const Employer = require("../models/Employer");
 const HttpError = require("../models/HttpError");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res, next) => {
   const { em_name, em_email, em_password, em_phone, em_salary, em_employees } =
@@ -41,7 +42,30 @@ exports.signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ employer });
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        employerId: createdEmployer.id,
+        em_email: createdEmployer.em_email,
+      },
+      "strongsecret",
+      { expiresIn: "2h" }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Signing up failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201).json({
+    employerId: createdEmployer.id,
+    em_email: createdEmployer.em_email,
+    token: token,
+    type: "Employer",
+  });
 };
 
 exports.login = async (req, res, next) => {
@@ -65,7 +89,30 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ message: "Logged In as Employer" });
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        employerId: existingEmployer.id,
+        em_email: existingEmployer.em_email,
+      },
+      "strongsecret",
+      { expiresIn: "2h" }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Logging in failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201).json({
+    employerId: existingEmployer.id,
+    em_email: existingEmployer.em_email,
+    token: token,
+    type: "Employer",
+  });
 };
 
 exports.getProfile = async (req, res, next) => {
