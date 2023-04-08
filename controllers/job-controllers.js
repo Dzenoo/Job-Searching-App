@@ -68,7 +68,7 @@ exports.newJob = async (req, res, next) => {
 exports.getJobs = async (req, res, next) => {
   let jobs;
   try {
-    jobs = await Job.find();
+    jobs = await Job.find().populate("employer").select("-password");
   } catch (err) {
     const error = new HttpError("Cannot find jobs, please try again", 403);
     return next(error);

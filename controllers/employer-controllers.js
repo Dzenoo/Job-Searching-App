@@ -134,7 +134,7 @@ exports.getProfile = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ employer: employer.toObject({ getters: true }) });
+  res.status(200).json({ employer: employer });
 };
 
 exports.getCompanies = async (req, res, next) => {
