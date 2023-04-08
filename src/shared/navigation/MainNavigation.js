@@ -31,9 +31,11 @@ const MainNavigation = () => {
               {checkType ? "Other Jobs" : "Find Jobs"}
             </NavLink>
           </li>
-          <li>
-            <NavLink to="companies">Companies</NavLink>
-          </li>
+          {!checkType && (
+            <li>
+              <NavLink to="companies">Companies</NavLink>
+            </li>
+          )}
           {!isLoggedIn && (
             <li className="nav_login_btn">
               <Link to="/auth/login">Login</Link>
@@ -68,7 +70,10 @@ const MainNavigation = () => {
                   onClose={handleCloseUserMenu}
                   sx={{ margin: "70px 0 90px 0" }}
                 >
-                  <Link className="link" to="profile">
+                  <Link
+                    className="link"
+                    to={checkType ? "/em_profile" : "/se_profile"}
+                  >
                     <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                   </Link>
                   {checkType && (

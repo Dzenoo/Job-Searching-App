@@ -29,6 +29,8 @@ export const useAuth = () => {
     setUserId(null);
     localStorage.removeItem("userData");
     localStorage.removeItem("type");
+    localStorage.removeItem("employer");
+    localStorage.removeItem("seeker");
   }, []);
 
   useEffect(() => {

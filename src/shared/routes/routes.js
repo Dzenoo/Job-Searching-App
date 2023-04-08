@@ -9,7 +9,8 @@ import Root from "./root";
 import CompanyDetails from "../../companies/pages/CompanyDetails";
 import SignUp from "../../auth/pages/SignUp";
 import Login from "../../auth/pages/Login";
-import ProfilePage from "../../profile/pages/ProfilePage";
+import SeekerProfile from "../../profile/pages/SeekerProfile";
+import EmployerProfile from "../../profile/pages/EmployerProfile";
 import Applications from "../../profile/pages/Applications";
 import SavedJobs from "../../profile/pages/SavedJobs";
 import SavedCompanies from "../../profile/pages/SavedCompanies";
@@ -54,19 +55,23 @@ export const routes = createBrowserRouter([
         element: <CompanyDetails />,
       },
       {
-        path: "/profile",
-        element: <ProfilePage />,
+        path: "/em_profile",
+        element: <EmployerProfile />,
       },
       {
-        path: "/profile/applications",
+        path: "/se_profile",
+        element: <SeekerProfile />,
+      },
+      {
+        path: "/se_profile/applications",
         element: <Applications />,
       },
       {
-        path: "/profile/saved-jobs",
+        path: "/se_profile/saved-jobs",
         element: <SavedJobs />,
       },
       {
-        path: "/profile/saved-companies",
+        path: "/se_profile/saved-companies",
         element: <SavedCompanies />,
       },
     ],

@@ -1,5 +1,7 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
+import { DotLoader } from "react-spinners";
 
 export const AuthContext = createContext({
   token: null,
@@ -10,10 +12,53 @@ export const AuthContext = createContext({
   checkType: true,
 });
 
+let url;
+
 export const AuthProvider = ({ children }) => {
   const { login, logout, token, userId } = useAuth();
+  const [employerProfile, setEmployerProfile] = useState();
+  const [seekerProfile, setSeekerProfile] = useState();
+  const [isLoading, setisLoading] = useState(true);
   const userData = JSON.parse(localStorage.getItem("type"));
   const checkType = userData === "Employer";
+
+  if (!checkType) {
+    url = `http://localhost:8000/api/seeker/${userId}/profile/`;
+  } else {
+    url = `http://localhost:8000/api/employer/${userId}/profile/`;
+  }
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        if (!token || !userId) {
+          return;
+        }
+
+        setisLoading(true);
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!checkType) {
+          setSeekerProfile(data.seeker);
+          localStorage.setItem("seeker", JSON.stringify(data.seeker));
+        } else {
+          setEmployerProfile(data.employer);
+          localStorage.setItem("employer", JSON.stringify(data.employer));
+        }
+      } catch (err) {
+        console.log(err.message);
+      } finally {
+        setisLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [token, checkType, userId]);
+
+  if (isLoading) {
+    return <DotLoader />;
+  }
 
   return (
     <AuthContext.Provider
