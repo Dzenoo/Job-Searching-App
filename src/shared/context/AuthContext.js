@@ -28,6 +28,8 @@ export const AuthProvider = ({ children }) => {
     url = `http://localhost:8000/api/employer/${userId}/profile/`;
   }
 
+  console.log(userId);
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {

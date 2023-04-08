@@ -11,8 +11,6 @@ export const JobProvider = ({ children }) => {
   const [checkboxSeniority, setCheckboxSeniority] = useState(Seniority);
   const [checkboxSalary, setCheckboxSalary] = useState(Salary);
 
-  console.log(filteredJobs);
-
   useEffect(() => {
     const fetchJobs = async () => {
       try {

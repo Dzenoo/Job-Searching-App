@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
 import { MdOutlineHomeWork } from "react-icons/md";
-import { JOBSLIST } from "../../shared/data/data";
+import { JobContext } from "../../shared/context/JobContext";
 
 const JobDetails = () => {
   const jobId = useParams().idOfJob;
-  const currentJob = JOBSLIST.find((j) => j.id === jobId);
+  const { jobs } = useContext(JobContext);
+  const currentJob = jobs.find((j) => j.id === jobId);
+  const userData = JSON.parse(localStorage.getItem("employer"));
 
   return (
     <>
@@ -28,7 +30,7 @@ const JobDetails = () => {
             position: "relative",
           }}
         >
-          <img src={currentJob.logo} alt={currentJob.title} />
+          <img src={userData.em_image} alt={currentJob.title} />
           <div className="job_details_titles">
             <Typography variant="h3" color="textPrimary">
               {currentJob.title}
@@ -46,10 +48,10 @@ const JobDetails = () => {
             >
               <MdOutlineHomeWork size={20} />
               <Link
-                to={`/companies/${currentJob.id}`}
+                to={`/companies/${currentJob._id}`}
                 style={{ textDecoration: "none" }}
               >
-                {currentJob.company}
+                {userData.em_name}
               </Link>
             </Typography>
 
@@ -135,8 +137,10 @@ const JobDetails = () => {
             Skills and Expertise
           </Typography>
           <ul className="skills_list">
-            {currentJob.skills.map((jd) => (
-              <li key={jd}>{jd}</li>
+            {currentJob.skills.split(",").map((s) => (
+              <li>
+                <Typography>{s}</Typography>
+              </li>
             ))}
           </ul>
         </Box>
@@ -145,9 +149,9 @@ const JobDetails = () => {
             Job Description
           </Typography>
           <ul className="list_description">
-            {currentJob.jobDescription.map((jd) => (
+            {currentJob.jobDescription.split(",").map((jd) => (
               <li>
-                <Typography color="textSecondary">{jd}</Typography>
+                <Typography> {jd}</Typography>
               </li>
             ))}
           </ul>
@@ -157,9 +161,9 @@ const JobDetails = () => {
             Requirements
           </Typography>
           <ul className="list_description">
-            {currentJob.requirements.map((jd) => (
-              <li key={jd}>
-                <Typography color="textSecondary">{jd}</Typography>
+            {currentJob.requirements.split(",").map((t) => (
+              <li>
+                <Typography>{t}</Typography>
               </li>
             ))}
           </ul>
