@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const express = require("express");
 const Seeker = require("../models/Seeker");
 const HttpError = require("../models/HttpError");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res, next) => {
   const { first_name, last_name, email, password } = req.body;
@@ -34,7 +35,29 @@ exports.signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ createdSeeker: seeker });
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        seekerId: createdSeeker.id,
+        se_email: createdSeeker.email,
+      },
+      "strongsecret",
+      { expiresIn: "2h" }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Signing up failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201).json({
+    seekerId: createdSeeker.id,
+    se_email: createdSeeker.email,
+    token: token,
+  });
 };
 
 exports.login = async (req, res, next) => {
@@ -61,7 +84,29 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ message: "Logged In" });
+  let token;
+  try {
+    token = jwt.sign(
+      {
+        seekerId: existingUser.id,
+        se_email: existingUser.email,
+      },
+      "strongsecret",
+      { expiresIn: "2h" }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Loggin in failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({
+    seekerId: existingUser.id,
+    se_email: existingUser.email,
+    token: token,
+  });
 };
 
 exports.getProfile = async (req, res, next) => {
