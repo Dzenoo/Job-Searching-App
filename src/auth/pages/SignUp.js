@@ -108,7 +108,6 @@ const SignUp = () => {
         );
 
         const responseData = await response.json();
-
         if (!response.ok) {
           throw new Error(responseData.message);
         }
@@ -135,13 +134,10 @@ const SignUp = () => {
         );
 
         const responseData = await response.json();
-
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-
-        login(responseData.employerId, responseData.token);
-        // localStorage.setItem("type", JSON.stringify(responseData.type));
+        login(responseData.seekerId, responseData.token);
         navigate("/");
       } catch (error) {
         setError(error.message);
@@ -150,11 +146,7 @@ const SignUp = () => {
   };
 
   if (error) {
-    return (
-      <div>
-        <h1>{error}</h1>
-      </div>
-    );
+    alert(error);
   }
 
   return (
