@@ -82,7 +82,6 @@ const Login = () => {
         );
         const responseData = await response.json();
 
-        console.log(responseData);
         if (!response.ok) {
           throw new Error(responseData.message);
         }
@@ -95,7 +94,7 @@ const Login = () => {
       }
     } else {
       try {
-        await fetch("http://localhost:8000/api/seeker/login", {
+        const response = await fetch("http://localhost:8000/api/seeker/login", {
           method: "POST",
           body: JSON.stringify({
             email: formState.inputs.email.value,
@@ -103,8 +102,13 @@ const Login = () => {
           }),
           headers: { "Content-Type": "application/json" },
         });
-        // alert("Logged in as Seeker");
-        // redirect to Seeker pages
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        login(responseData.seekerId, responseData.token);
+        navigate("/");
       } catch (err) {}
     }
   };
