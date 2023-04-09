@@ -9,12 +9,11 @@ const JobList = ({ jobs }) => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
           padding: "20px",
         }}
       >
         <Typography variant="h6" fontWeight="bold">
-          Recommended Jobs ({jobs.length})
+          Jobs ({jobs.length})
         </Typography>
         <Alert severity="info">
           Please note that filtering by more than one checkbox criteria at a
