@@ -1,6 +1,6 @@
 :root {
   --grey_color: #6b6a6a;
-  --blue_color: #1482e8;
+  --blue_color: hsl(209, 84%, 49%);
   --light_blue_color: #caf0f8;
   --yellow_color: #ffb803;
 }

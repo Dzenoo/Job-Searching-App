@@ -1,44 +1,43 @@
-import { TextField } from '@mui/material'
-import React, { useEffect, useReducer } from 'react'
-import { validate } from '../../shared/util/Validators'
+import { TextField } from "@mui/material";
+import React, { useEffect, useReducer } from "react";
+import { validate } from "../../shared/util/Validators";
 
 const inputReducer = (state, action) => {
   switch (action.type) {
-    case 'Change': {
+    case "Change": {
       return {
         ...state,
         value: action.value,
-        isValid: validate(action.value, action.validators)
-      }
+        isValid: validate(action.value, action.validators),
+      };
     }
     default: {
-      return state
+      return state;
     }
   }
-}
+};
 const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || '',
-    isValid: props.initialValid || true
-  })
+    value: props.initialValue || "",
+    isValid: props.initialValid || true,
+  });
 
-  const { id, onInput } = props
-  const { value, isValid } = inputState
+  const { id, onInput } = props;
+  const { value, isValid } = inputState;
 
   useEffect(() => {
-    onInput(id, value, isValid)
-  }, [id, value, isValid, onInput])
+    onInput(id, value, isValid);
+  }, [id, value, isValid, onInput]);
 
   const inputChangeHandler = (e) => {
     dispatch({
-      type: 'Change',
+      type: "Change",
       value: e.target.value,
-      validators: props.validators
-    })
-  }
+      validators: props.validators,
+    });
+  };
 
-  return props.element === 'textarea'
-    ? (
+  return props.element === "textarea" ? (
     <textarea
       className="textarea"
       type={props.type}
@@ -47,8 +46,7 @@ const Input = (props) => {
       onChange={inputChangeHandler}
       placeholder={props.placeholder}
     />
-      )
-    : (
+  ) : (
     <TextField
       type={props.type}
       value={inputState.value}
@@ -59,7 +57,7 @@ const Input = (props) => {
       onChange={inputChangeHandler}
       placeholder={props.placeholder}
     />
-      )
-}
+  );
+};
 
-export default Input
+export default Input;
