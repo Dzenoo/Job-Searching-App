@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, json, useRouteLoaderData } from "react-router-dom";
+import { Link, json, useParams, useRouteLoaderData } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
@@ -8,6 +8,19 @@ import { MdOutlineHomeWork } from "react-icons/md";
 const JobDetails = () => {
   const data = useRouteLoaderData("job-details");
   const job = data.job;
+  const jobId = useParams().idOfJob;
+  const seeker = JSON.parse(localStorage.getItem("seeker"));
+
+  const saveJobHandler = async () => {
+    try {
+      await fetch(
+        `http://localhost:8000/api/jobs/${seeker._id}/${jobId}/save`,
+        {
+          method: "POST",
+        }
+      );
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -57,7 +70,7 @@ const JobDetails = () => {
             </Typography>
           </div>
           <div className="save_button_div">
-            <Button>
+            <Button onClick={saveJobHandler}>
               <AiOutlineSave size={40} />
             </Button>
           </div>
