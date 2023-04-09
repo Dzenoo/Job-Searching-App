@@ -24,7 +24,7 @@ const HeroSection = () => {
         </Typography>
         <Typography variant="h6" color="textSecondary">
           Our platform features a user-friendly interface and powerful search
-          tools, making it easy to find the job that's right for you.
+          tools, making it easy to find the job that is right for you.
         </Typography>
 
         <Box sx={{ display: 'flex' }}>
