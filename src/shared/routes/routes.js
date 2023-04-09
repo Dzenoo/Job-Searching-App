@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../../home/pages/Home";
-import Jobs, { loader as fetchJobs } from "../../jobs/pages/Jobs";
+import Jobs from "../../jobs/pages/Jobs";
 import JobDetails, { loader as jobLoader } from "../../jobs/pages/JobDetails";
 import EditJob from "../../jobs/pages/EditJob";
 import NewJob from "../../jobs/pages/NewJob";
@@ -18,11 +18,13 @@ import EmployerProfile from "../../profile/pages/EmployerProfile";
 import Applications from "../../profile/components/Applications";
 import SavedJobs from "../../profile/components/SavedJobs";
 import SavedCompanies from "../../profile/components/SavedCompanies";
+import Error from "../components/Error";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Error />,
     children: [
       {
         index: true,

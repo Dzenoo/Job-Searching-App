@@ -342,3 +342,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.content {
+  text-align: center;
+}
