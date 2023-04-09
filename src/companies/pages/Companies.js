@@ -2,8 +2,13 @@ import React from "react";
 import CompanyList from "../components/CompanyList";
 import { companies } from "../../shared/data/data";
 import { Typography } from "@mui/material";
+import { json, useRouteLoaderData } from "react-router-dom";
 
 const Companies = () => {
+  const data = useRouteLoaderData("companies");
+
+  console.log(data.companies);
+
   return (
     <>
       <div className="company_header">
@@ -19,10 +24,20 @@ const Companies = () => {
         </Typography>
       </div>
       <div className="company_list_main">
-        <CompanyList companies={companies} />
+        <CompanyList companies={data.companies} />
       </div>
     </>
   );
 };
 
 export default Companies;
+
+export async function loader() {
+  const response = await fetch("http://localhost:8000/api/employer/companies");
+
+  if (!response.ok) {
+    throw json({ message: "Could not fetch companies" }, { status: 500 });
+  } else {
+    return response;
+  }
+}

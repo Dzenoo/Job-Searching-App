@@ -330,3 +330,10 @@ body {
   text-align: center;
   margin-top: 60%;
 }
+
+.flex {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

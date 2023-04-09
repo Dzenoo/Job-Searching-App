@@ -1,6 +1,5 @@
 import { Card, CardActions, CardContent, Typography } from "@mui/material";
 import React from "react";
-import PropTypes from "prop-types";
 import { AiOutlineDollarCircle, AiOutlineStar } from "react-icons/ai";
 import { GrUserWorker } from "react-icons/gr";
 import { BsBriefcase } from "react-icons/bs";
@@ -83,12 +82,3 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
 };
 
 export default CompanyItem;
-
-// CompanyItem.propTypes = [
-//   { logo: PropTypes.string.isRequired },
-//   { name: PropTypes.string.isRequired },
-//   { salary: PropTypes.number.isRequired },
-//   { rating: PropTypes.number.isRequired },
-//   { employers: PropTypes.number.isRequired },
-//   { jobs: PropTypes.number.isRequired },
-// ];

@@ -4,9 +4,13 @@ import Jobs, { loader as fetchJobs } from "../../jobs/pages/Jobs";
 import JobDetails, { loader as jobLoader } from "../../jobs/pages/JobDetails";
 import EditJob from "../../jobs/pages/EditJob";
 import NewJob from "../../jobs/pages/NewJob";
-import Companies from "../../companies/pages/Companies";
+import Companies, {
+  loader as companiesLoader,
+} from "../../companies/pages/Companies";
 import Root from "./root";
-import CompanyDetails from "../../companies/pages/CompanyDetails";
+import CompanyDetails, {
+  loader as companyLoader,
+} from "../../companies/pages/CompanyDetails";
 import SignUp from "../../auth/pages/SignUp";
 import Login from "../../auth/pages/Login";
 import SeekerProfile from "../../profile/pages/SeekerProfile";
@@ -49,10 +53,14 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/companies",
+        loader: companiesLoader,
+        id: "companies",
         element: <Companies />,
       },
       {
         path: "/companies/:companyId",
+        loader: companyLoader,
+        id: "company_details",
         element: <CompanyDetails />,
       },
       {

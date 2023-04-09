@@ -5,17 +5,25 @@ const CompanyList = ({ companies }) => {
   return (
     <ul className="company_list">
       {companies.map((company) => {
-        const { id, logo, name, employers, jobs, salary, rating } = company;
+        const {
+          id,
+          em_image,
+          em_name,
+          em_employees,
+          em_jobs,
+          em_salary,
+          em_rating,
+        } = company;
         return (
           <CompanyItem
             key={id}
             id={id}
-            logo={logo}
-            name={name}
-            employers={employers}
-            jobs={jobs}
-            salary={salary}
-            rating={rating}
+            logo={em_image}
+            name={em_name}
+            employers={em_employees}
+            jobs={em_jobs.length}
+            salary={em_salary}
+            rating={em_rating}
           />
         );
       })}
