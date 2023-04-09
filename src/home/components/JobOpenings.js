@@ -120,7 +120,9 @@ const JobOpenings = ({ jobs }) => {
                 color: "#121212",
               }}
             >
-              Sign Up
+              <Link to="/auth/signup" className="link">
+                Sign Up
+              </Link>
             </Button>
           </div>
         </div>

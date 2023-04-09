@@ -30,7 +30,9 @@ const ProfilePage = () => {
       <Grid container justifyContent="center" spacing={2} padding={6}>
         <Grid item>
           <Typography variant="h4">Biography</Typography>
-          <Typography>{employerData.em_biography}</Typography>
+          <Typography sx={{ wordBreak: "break-word" }}>
+            {employerData.em_biography}
+          </Typography>
         </Grid>
         <Grid item>Jobs</Grid>
         <Grid item></Grid>
