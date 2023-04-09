@@ -1,17 +1,20 @@
 import React from "react";
-import { JOBSLIST } from "../../shared/data/data";
 import HeroSection from "../components/HeroSection";
 import WhyJobSections from "../components/WhyJobSections";
 import HowItWorksSection from "../components/HowItWorksSection";
 import JobOpenings from "../components/JobOpenings";
+import { useContext } from "react";
+import { JobContext } from "../../shared/context/JobContext";
 
 const Home = () => {
+  const { jobs } = useContext(JobContext);
+
   return (
     <>
       <HeroSection />
       <WhyJobSections />
       <HowItWorksSection />
-      <JobOpenings jobs={JOBSLIST.slice(0, 4)} />
+      <JobOpenings jobs={jobs.slice(0, 4)} />
     </>
   );
 };

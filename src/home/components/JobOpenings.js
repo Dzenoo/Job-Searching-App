@@ -52,7 +52,7 @@ const JobOpenings = ({ jobs }) => {
             >
               <CardContent>
                 <img
-                  src={job.logo}
+                  src={job.employer.em_image}
                   alt={job.title}
                   style={{
                     width: "100px",
@@ -66,12 +66,12 @@ const JobOpenings = ({ jobs }) => {
                     to={`/companies/${job.id}`}
                     style={{ textDecoration: "none" }}
                   >
-                    {job.company}
+                    {job.employer.em_name}
                   </Link>
                 </Typography>
                 <hr />
                 <Typography variant="p" color="textSecondary">
-                  {job.shortDescription}
+                  {job.shortDescription.substring(0, 30)}
                 </Typography>
               </CardContent>
               <CardActions
