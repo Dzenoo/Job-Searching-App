@@ -93,8 +93,6 @@ exports.getJob = async (req, res, next) => {
   res.status(201).json({ job: job });
 };
 
-exports.applyToJob = async (req, res, next) => {};
-
 exports.saveJob = async (req, res, next) => {};
 
 exports.deleteJob = async (req, res, next) => {};

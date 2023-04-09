@@ -25,6 +25,7 @@ exports.signup = async (req, res, next) => {
     last_name,
     email,
     password,
+    appliedJobs: [],
   });
 
   let seeker;

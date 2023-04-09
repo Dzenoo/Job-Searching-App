@@ -13,6 +13,4 @@ router.delete("/:jId", jobControllers.deleteJob);
 
 router.post("/:seekerId/:jobId", jobControllers.saveJob);
 
-router.post("/:jobId/apply", jobControllers.applyToJob);
-
 module.exports = router;
