@@ -41,7 +41,7 @@ const Jobs = () => {
           <JobList jobs={filteredJobs} />
           {filteredJobs.length === 0 && (
             <Typography variant="h4" sx={{ textAlign: "center" }}>
-              There isn't jobs for that data
+              There is no jobs for that data
             </Typography>
           )}
         </Grid>

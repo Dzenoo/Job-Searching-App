@@ -17,8 +17,11 @@ import { VALIDATOR_REQUIRE } from "../../shared/util/Validators";
 import { useFormHook } from "../../shared/hooks/useForm";
 import { useState } from "react";
 import { AuthContext } from "../../shared/context/AuthContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const NewJob = () => {
+  const [error, seterror] = useState("");
   const [formState, inputHandler, setFormData] = useFormHook(
     {
       title: {
@@ -87,11 +90,18 @@ const NewJob = () => {
       if (!response.ok) {
         throw new Error("Not ok response");
       }
-    } catch (error) {}
+    } catch (err) {
+      seterror(err.message);
+    }
   };
+
+  if (error) {
+    toast.error(error);
+  }
 
   return (
     <Container maxWidth="md" sx={{ padding: "60px", backgroundColor: "#fff" }}>
+      <ToastContainer />
       <Card>
         <form
           onSubmit={postJob}
