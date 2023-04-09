@@ -1,6 +1,5 @@
 import React from "react";
-import { companies, JOBSLIST } from "../../shared/data/data";
-import { json, Link, useParams, useRouteLoaderData } from "react-router-dom";
+import { json, Link, useRouteLoaderData } from "react-router-dom";
 import {
   AiOutlineDollarCircle,
   AiOutlineFieldTime,
@@ -43,7 +42,6 @@ const CompanyDetails = () => {
               Employees: {currentCompany.em_employees}
             </Typography>
           </div>
-          <Button>Follow company</Button>
         </Box>
         <div className="jobs_of_company">
           <Button onClick={() => setcurrentTab(0)}>About Company</Button>
@@ -110,7 +108,6 @@ export default CompanyDetails;
 
 export async function loader({ params }) {
   const companyId = params.companyId;
-
   const response = await fetch(
     `http://localhost:8000/api/employer/companies/${companyId}`
   );

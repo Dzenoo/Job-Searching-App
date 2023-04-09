@@ -1,5 +1,5 @@
-import { Box, Card, CardContent, Container, Typography } from "@mui/material";
 import React from "react";
+import { Box, Card, CardContent, Container, Typography } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
 
 const Applications = () => {
@@ -13,7 +13,6 @@ const Applications = () => {
           <Typography variant="p">All Applications you apply</Typography>
         </Card>
       </Container>
-
       <Container
         maxWidth="xs"
         sx={{ padding: "60px", display: "flex", flexDirection: "column" }}

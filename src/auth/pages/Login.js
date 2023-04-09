@@ -15,10 +15,13 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/Validators";
 import { AuthContext } from "../../shared/context/AuthContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const [isType, setisType] = useState(false);
   const { login } = useContext(AuthContext);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [formState, inputHandler, setFormData] = useFormHook(
     {
@@ -89,8 +92,7 @@ const Login = () => {
         localStorage.setItem("type", JSON.stringify(responseData.type));
         navigate("/");
       } catch (err) {
-        alert(err.message);
-        throw err;
+        setError(err.message);
       }
     } else {
       try {
@@ -109,12 +111,19 @@ const Login = () => {
         }
         login(responseData.seekerId, responseData.token);
         navigate("/");
-      } catch (err) {}
+      } catch (err) {
+        setError(err.message);
+      }
     }
   };
 
+  if (error) {
+    toast.error(error);
+  }
+
   return (
     <Container maxWidth="xs">
+      <ToastContainer />
       <Link to="/">
         <img src={logo} alt="logo" />
       </Link>

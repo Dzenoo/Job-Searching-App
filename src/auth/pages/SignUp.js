@@ -6,6 +6,8 @@ import Form from "../components/Form";
 import logo from "../../shared/assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../shared/context/AuthContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const [activeTab, setactiveTab] = useState(0);
@@ -152,7 +154,7 @@ const SignUp = () => {
   };
 
   if (error) {
-    alert(error);
+    toast.error(error);
   }
 
   return (
@@ -163,6 +165,7 @@ const SignUp = () => {
         marginTop: "7em",
       }}
     >
+      <ToastContainer />
       <Box className="form_img">
         <div className="flex_buttons">
           <button className={`${activeTab === 0 ? "active" : ""}`}>1</button>
