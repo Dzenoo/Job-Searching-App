@@ -31,7 +31,6 @@ export default Companies;
 
 export async function loader() {
   const response = await fetch("http://localhost:8000/api/employer/companies");
-
   if (!response.ok) {
     throw json({ message: "Could not fetch companies" }, { status: 500 });
   } else {
