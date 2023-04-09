@@ -5,28 +5,26 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+  TextField
+} from '@mui/material'
 import {
   AiOutlineSearch,
   AiOutlineSend,
-  AiOutlineCalendar,
-} from "react-icons/ai";
-import React from "react";
-import { useState } from "react";
+  AiOutlineCalendar
+} from 'react-icons/ai'
+import React, { useState } from 'react'
 
 const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
-  const [scheduleValue, setscheduleValue] = useState("Remote");
-  const [cityValue, setCityValue] = useState("London");
+  const [scheduleValue, setscheduleValue] = useState('Remote')
+  const [cityValue, setCityValue] = useState('London')
 
   return (
     <Box className="search_container">
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "12px",
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
         }}
       >
         <AiOutlineSearch
@@ -37,13 +35,13 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
         />
         <TextField fullWidth onChange={(e) => handleFilterSearch(e)} />
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <AiOutlineSend size={30} fill="grey" />
         <FormControl>
           <InputLabel>Work Location</InputLabel>
           <Select
             id="schedule"
-            sx={{ width: "10em" }}
+            sx={{ width: '10em' }}
             value={scheduleValue}
             onChange={(e) => setscheduleValue(e.target.value)}
           >
@@ -52,13 +50,13 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
           </Select>
         </FormControl>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <AiOutlineCalendar size={30} fill="grey" />
         <FormControl>
           <InputLabel>City</InputLabel>
           <Select
             id="city"
-            sx={{ width: "10em" }}
+            sx={{ width: '10em' }}
             value={cityValue}
             onChange={(e) => setCityValue(e.target.value)}
           >
@@ -77,7 +75,7 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
       </Button>
       <Button onClick={clearFilter}>Show all</Button>
     </Box>
-  );
-};
+  )
+}
 
-export default TopBar;
+export default TopBar

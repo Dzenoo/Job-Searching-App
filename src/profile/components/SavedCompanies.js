@@ -1,12 +1,12 @@
-import React from "react";
-import { Card, CardContent, Container, Typography } from "@mui/material";
-import { AiOutlineStar } from "react-icons/ai";
+import React from 'react'
+import { Card, CardContent, Container, Typography } from '@mui/material'
+import { AiOutlineStar } from 'react-icons/ai'
 
 const SavedCompanies = () => {
   return (
     <>
       <Container>
-        <Card sx={{ padding: "60px" }}>
+        <Card sx={{ padding: '60px' }}>
           <Typography variant="h4" fontWeight="bold" color="royalblue">
             Saved companies
           </Typography>
@@ -17,21 +17,21 @@ const SavedCompanies = () => {
       </Container>
       <Container
         maxWidth="xs"
-        sx={{ padding: "60px", display: "flex", flexDirection: "column" }}
+        sx={{ padding: '60px', display: 'flex', flexDirection: 'column' }}
       >
         <Card
           sx={{
-            padding: "40px",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            padding: '40px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
           }}
         >
           <img
             src="https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png"
             alt="logo"
-            style={{ margin: "auto" }}
+            style={{ margin: 'auto' }}
           />
           <CardContent>
             <Typography variant="h6" fontWeight="bold">
@@ -45,7 +45,7 @@ const SavedCompanies = () => {
         </Card>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default SavedCompanies;
+export default SavedCompanies

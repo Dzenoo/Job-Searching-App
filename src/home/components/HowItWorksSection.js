@@ -1,17 +1,17 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import how_it_works from "../../shared/assets/getting_started.png";
-import React from "react";
+import { Box, Container, Grid, Typography } from '@mui/material'
+import howItWorks from '../../shared/assets/getting_started.png'
+import React from 'react'
 
 const HowItWorksSection = () => {
   return (
-    <Container maxWidth="xl" sx={{ paddingTop: "60px" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: '60px' }}>
       <Box
         sx={{
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "20px",
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px'
         }}
       >
         <span className="button_outlined">How It works</span>
@@ -32,20 +32,20 @@ const HowItWorksSection = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          border: "1px solid #1482e8",
-          marginTop: "30px",
-          borderRadius: "60px",
+          border: '1px solid #1482e8',
+          marginTop: '30px',
+          borderRadius: '60px'
         }}
       >
         <Grid item lg={7}>
-          <img className="howitworksimg" src={how_it_works} alt="how" />
+          <img className="howitworksimg" src={howItWorks} alt="how" />
         </Grid>
         <Grid item lg={4}>
           <Box
             sx={{
-              display: "flex",
-              gap: "1em",
-              flexDirection: "column",
+              display: 'flex',
+              gap: '1em',
+              flexDirection: 'column'
             }}
           >
             <Typography variant="h4" color="initial" fontWeight="bold">
@@ -81,7 +81,7 @@ const HowItWorksSection = () => {
         </Grid>
       </Grid>
     </Container>
-  );
-};
+  )
+}
 
-export default HowItWorksSection;
+export default HowItWorksSection

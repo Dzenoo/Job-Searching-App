@@ -1,12 +1,12 @@
-import { PropTypes } from "prop-types";
+import { PropTypes } from 'prop-types'
 import {
   Box,
   Checkbox,
   FormControlLabel,
   Typography,
-  Divider,
-} from "@mui/material";
-import React from "react";
+  Divider
+} from '@mui/material'
+import React from 'react'
 
 const FilterJob = ({
   scheduleData,
@@ -14,17 +14,17 @@ const FilterJob = ({
   salaryData,
   scheduceFilter,
   seniorityFilter,
-  salaryFilter,
+  salaryFilter
 }) => {
   return (
     <>
       <Box
         sx={{
-          backgroundColor: "#fff",
-          padding: "60px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "2em",
+          backgroundColor: '#fff',
+          padding: '60px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2em'
         }}
       >
         <Typography variant="h4">Details</Typography>
@@ -35,7 +35,7 @@ const FilterJob = ({
           </Typography>
           {scheduleData.map((schedule, i) => (
             <FormControlLabel
-              sx={{ display: "flex" }}
+              sx={{ display: 'flex' }}
               key={i}
               label={schedule.label}
               control={
@@ -54,7 +54,7 @@ const FilterJob = ({
           </Typography>
           {seniorityData.map((schedule, i) => (
             <FormControlLabel
-              sx={{ display: "flex" }}
+              sx={{ display: 'flex' }}
               key={i}
               label={schedule.label}
               control={
@@ -73,7 +73,7 @@ const FilterJob = ({
           </Typography>
           {salaryData.map((schedule, i) => (
             <FormControlLabel
-              sx={{ display: "flex" }}
+              sx={{ display: 'flex' }}
               key={i}
               label={schedule.label}
               control={
@@ -87,13 +87,13 @@ const FilterJob = ({
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default FilterJob;
+export default FilterJob
 
 FilterJob.propTypes = {
   scheduleData: PropTypes.array.isRequired,
   seniorityData: PropTypes.array.isRequired,
-  salaryData: PropTypes.array.isRequired,
-};
+  salaryData: PropTypes.array.isRequired
+}

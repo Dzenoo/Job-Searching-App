@@ -1,30 +1,30 @@
-import React from "react";
-import { Link, json, useRouteLoaderData } from "react-router-dom";
-import { Box, Typography, Container, Button } from "@mui/material";
-import { CiLocationOn } from "react-icons/ci";
-import { AiOutlineSave } from "react-icons/ai";
-import { MdOutlineHomeWork } from "react-icons/md";
+import React from 'react'
+import { Link, json, useRouteLoaderData } from 'react-router-dom'
+import { Box, Typography, Container, Button } from '@mui/material'
+import { CiLocationOn } from 'react-icons/ci'
+import { AiOutlineSave } from 'react-icons/ai'
+import { MdOutlineHomeWork } from 'react-icons/md'
 
 const JobDetails = () => {
-  const data = useRouteLoaderData("job-details");
-  const job = data.job;
+  const data = useRouteLoaderData('job-details')
+  const job = data.job
 
   return (
     <>
       <Container
         maxWidth="lg"
         sx={{
-          border: "1px solid #1482e8",
-          borderRadius: "30px",
-          padding: "40px",
+          border: '1px solid #1482e8',
+          borderRadius: '30px',
+          padding: '40px'
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            position: "relative",
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            position: 'relative'
           }}
         >
           <img src={job.employer.em_image} alt={job.title} />
@@ -37,16 +37,16 @@ const JobDetails = () => {
               color="textSecondary"
               fontWeight="bold"
               sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "17px",
-                position: "relative",
+                display: 'flex',
+                alignItems: 'center',
+                gap: '17px',
+                position: 'relative'
               }}
             >
               <MdOutlineHomeWork size={20} />
               <Link
                 to={`/companies/${job.employer._id}`}
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: 'none' }}
               >
                 {job.employer.em_name}
               </Link>
@@ -65,12 +65,12 @@ const JobDetails = () => {
         <ul className="job_details_list">
           <Box
             sx={{
-              backgroundColor: "rgba(205, 9, 195, 0.148)",
-              padding: "30px",
-              borderRadius: "30px",
-              border: "2px solid rgba(205, 9, 195, 0.148) ",
-              textAlign: "center",
-              width: "200px",
+              backgroundColor: 'rgba(205, 9, 195, 0.148)',
+              padding: '30px',
+              borderRadius: '30px',
+              border: '2px solid rgba(205, 9, 195, 0.148) ',
+              textAlign: 'center',
+              width: '200px'
             }}
           >
             <h3>Job type</h3>
@@ -80,12 +80,12 @@ const JobDetails = () => {
           </Box>
           <Box
             sx={{
-              backgroundColor: "rgba(23, 240, 81, 0.148)",
-              padding: "30px",
-              borderRadius: "30px",
-              border: "2px solid rgba(23, 240, 81, 0.148) ",
-              textAlign: "center",
-              width: "200px",
+              backgroundColor: 'rgba(23, 240, 81, 0.148)',
+              padding: '30px',
+              borderRadius: '30px',
+              border: '2px solid rgba(23, 240, 81, 0.148) ',
+              textAlign: 'center',
+              width: '200px'
             }}
           >
             <h3>Salary</h3>
@@ -95,12 +95,12 @@ const JobDetails = () => {
           </Box>
           <Box
             sx={{
-              backgroundColor: "rgba(25, 74, 236, 0.148)",
-              padding: "30px",
-              borderRadius: "30px",
-              border: "2px solid rgba(25, 74, 236, 0.148) ",
-              textAlign: "center",
-              width: "200px",
+              backgroundColor: 'rgba(25, 74, 236, 0.148)',
+              padding: '30px',
+              borderRadius: '30px',
+              border: '2px solid rgba(25, 74, 236, 0.148) ',
+              textAlign: 'center',
+              width: '200px'
             }}
           >
             <h3>Seniority</h3>
@@ -110,12 +110,12 @@ const JobDetails = () => {
           </Box>
           <Box
             sx={{
-              backgroundColor: "rgba(236, 219, 32, 0.228)",
-              padding: "30px",
-              borderRadius: "30px",
-              border: "2px solid rgba(236, 219, 32, 0.228)",
-              maxWidth: "200px",
-              textAlign: "center",
+              backgroundColor: 'rgba(236, 219, 32, 0.228)',
+              padding: '30px',
+              borderRadius: '30px',
+              border: '2px solid rgba(236, 219, 32, 0.228)',
+              maxWidth: '200px',
+              textAlign: 'center'
             }}
           >
             <h3>Number of applicans</h3>
@@ -124,29 +124,29 @@ const JobDetails = () => {
             </Typography>
           </Box>
         </ul>
-        <Box sx={{ marginTop: "60px" }}>
+        <Box sx={{ marginTop: '60px' }}>
           <Typography variant="p" color="gray">
             {job.shortDescription}
           </Typography>
         </Box>
-        <Box sx={{ marginTop: "30px" }}>
+        <Box sx={{ marginTop: '30px' }}>
           <Typography variant="h4" fontWeight="bold" color="textPrimary">
             Skills and Expertise
           </Typography>
           <ul className="skills_list">
-            {job.skills.split(",").map((s) => (
+            {job.skills.split(',').map((s) => (
               <li key={s}>
                 <Typography>{s}</Typography>
               </li>
             ))}
           </ul>
         </Box>
-        <Box sx={{ marginTop: "40px" }}>
+        <Box sx={{ marginTop: '40px' }}>
           <Typography variant="h4" fontWeight="bold" color="textPrimary">
             Job Description
           </Typography>
           <ul className="list_description">
-            {job.jobDescription.split(",").map((jd) => (
+            {job.jobDescription.split(',').map((jd) => (
               <li key={jd}>
                 <Typography> {jd}</Typography>
               </li>
@@ -158,7 +158,7 @@ const JobDetails = () => {
             Requirements
           </Typography>
           <ul className="list_description">
-            {job.requirements.split(",").map((t) => (
+            {job.requirements.split(',').map((t) => (
               <li key={t}>
                 <Typography>{t}</Typography>
               </li>
@@ -169,26 +169,26 @@ const JobDetails = () => {
         <Button
           variant="contained"
           size="large"
-          sx={{ marginTop: "40px" }}
+          sx={{ marginTop: '40px' }}
           fullWidth
         >
           Apply
         </Button>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default JobDetails;
+export default JobDetails
 
-export async function loader({ params }) {
-  const jobId = params.idOfJob;
+export async function loader ({ params }) {
+  const jobId = params.idOfJob
 
-  const response = await fetch(`http://localhost:8000/api/jobs/${jobId}`);
+  const response = await fetch(`http://localhost:8000/api/jobs/${jobId}`)
 
   if (!response.ok) {
-    throw json({ message: "Could not fetch job" }, { status: 500 });
+    throw json({ message: 'Could not fetch job' }, { status: 500 })
   } else {
-    return response;
+    return response
   }
 }

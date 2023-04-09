@@ -1,7 +1,7 @@
-import { createContext, useEffect } from "react";
-import { useAuth } from "../hooks/useAuth";
-import { useState } from "react";
-import { DotLoader } from "react-spinners";
+import { createContext, useEffect, useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
+
+import { DotLoader } from 'react-spinners'
 
 export const AuthContext = createContext({
   token: null,
@@ -9,68 +9,68 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
-  checkType: true,
-});
+  checkType: true
+})
 
-let url;
+let url
 
 export const AuthProvider = ({ children }) => {
-  const { login, logout, token, userId } = useAuth();
-  const [isLoading, setisLoading] = useState(true);
-  const userData = JSON.parse(localStorage.getItem("type"));
-  const checkType = userData === "Employer";
+  const { login, logout, token, userId } = useAuth()
+  const [isLoading, setisLoading] = useState(true)
+  const userData = JSON.parse(localStorage.getItem('type'))
+  const checkType = userData === 'Employer'
 
   if (!checkType) {
-    url = `http://localhost:8000/api/seeker/${userId}/profile/`;
+    url = `http://localhost:8000/api/seeker/${userId}/profile/`
   } else {
-    url = `http://localhost:8000/api/employer/${userId}/profile/`;
+    url = `http://localhost:8000/api/employer/${userId}/profile/`
   }
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         if (!token || !userId) {
-          return;
+          return
         }
 
-        setisLoading(true);
-        const response = await fetch(url);
-        const data = await response.json();
+        setisLoading(true)
+        const response = await fetch(url)
+        const data = await response.json()
 
         if (!checkType) {
-          localStorage.setItem("seeker", JSON.stringify(data.seeker));
+          localStorage.setItem('seeker', JSON.stringify(data.seeker))
         } else {
-          localStorage.setItem("employer", JSON.stringify(data.employer));
+          localStorage.setItem('employer', JSON.stringify(data.employer))
         }
       } catch (err) {
       } finally {
-        setisLoading(false);
+        setisLoading(false)
       }
-    };
+    }
 
-    fetchProfile();
-  }, [token, checkType, userId]);
+    fetchProfile()
+  }, [token, checkType, userId])
 
   if (isLoading) {
     return (
       <div className="loader_center">
         <DotLoader />;
       </div>
-    );
+    )
   }
 
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn: !!token,
-        token: token,
-        userId: userId,
-        login: login,
-        logout: logout,
-        checkType: checkType,
+        token,
+        userId,
+        login,
+        logout,
+        checkType
       }}
     >
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

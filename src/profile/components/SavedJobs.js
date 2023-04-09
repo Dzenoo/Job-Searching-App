@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 import {
   Button,
   Card,
   CardContent,
   Container,
-  Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+  Typography
+} from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const Applications = () => {
   return (
     <>
       <Container>
-        <Card sx={{ padding: "60px" }}>
+        <Card sx={{ padding: '60px' }}>
           <Typography variant="h4" fontWeight="bold" color="royalblue">
             Saved jobs
           </Typography>
@@ -23,11 +23,11 @@ const Applications = () => {
       </Container>
       <Container
         maxWidth="xs"
-        sx={{ padding: "60px", display: "flex", flexDirection: "column" }}
+        sx={{ padding: '60px', display: 'flex', flexDirection: 'column' }}
       >
-        <Card sx={{ padding: "20px", maxWidth: "400px" }}>
+        <Card sx={{ padding: '20px', maxWidth: '400px' }}>
           <CardContent
-            sx={{ display: "flex", flexDirection: "column", gap: "12px" }}
+            sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
           >
             <Typography variant="h5" fontWeight="bold">
               Web developer
@@ -42,7 +42,7 @@ const Applications = () => {
         </Card>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Applications;
+export default Applications

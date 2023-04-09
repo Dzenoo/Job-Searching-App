@@ -1,23 +1,23 @@
-import { Select, Typography, Box, Alert } from "@mui/material";
-import React from "react";
-import JobItem from "./JobItem";
-import PropTypes from "prop-types";
+import { Typography, Box, Alert } from '@mui/material'
+import React from 'react'
+import JobItem from './JobItem'
+import PropTypes from 'prop-types'
 
 const JobList = ({ jobs }) => {
   return (
     <>
       <Box
         sx={{
-          display: "flex",
-          padding: "20px",
+          display: 'flex',
+          padding: '20px'
         }}
       >
         <Alert severity="info">
           Please note that filtering by more than one checkbox criteria at a
           time may limit the number of results available. I recommend trying one
           checkbox filter at a time to get the best results. For example, you
-          can filter by 'Schedule' first, then uncheck and try 'Seniority' or
-          'Salary'.
+          can filter by Schedule first, then uncheck and try Seniority or
+          Salary.
         </Alert>
       </Box>
       <Typography variant="h6" fontWeight="bold">
@@ -33,8 +33,8 @@ const JobList = ({ jobs }) => {
             salary,
             time,
             level,
-            shortDescription,
-          } = job;
+            shortDescription
+          } = job
           return (
             <JobItem
               key={id}
@@ -47,15 +47,15 @@ const JobList = ({ jobs }) => {
               level={level}
               shortDescription={shortDescription}
             />
-          );
+          )
         })}
       </ul>
     </>
-  );
-};
+  )
+}
 
-export default JobList;
+export default JobList
 
 JobList.propTypes = {
-  jobs: PropTypes.array.isRequired,
-};
+  jobs: PropTypes.array.isRequired
+}

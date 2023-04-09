@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
-import logo from "../assets/logo.png";
-import { Link, NavLink } from "react-router-dom";
-import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
-import { AuthContext } from "../context/AuthContext";
+import React, { useContext } from 'react'
+import logo from '../assets/logo.png'
+import { Link, NavLink } from 'react-router-dom'
+import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material'
+import { AuthContext } from '../context/AuthContext'
 
 const MainNavigation = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const { logout, isLoggedIn, checkType } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const { logout, isLoggedIn, checkType } = useContext(AuthContext)
 
   const handleOpenUserMenu = () => {
-    setAnchorEl(true);
-  };
+    setAnchorEl(true)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <header className="navigation_header">
@@ -28,7 +28,7 @@ const MainNavigation = () => {
           </li>
           <li>
             <NavLink to="jobs">
-              {checkType ? "Other Jobs" : "Find Jobs"}
+              {checkType ? 'Other Jobs' : 'Find Jobs'}
             </NavLink>
           </li>
           {!checkType && (
@@ -58,21 +58,21 @@ const MainNavigation = () => {
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
+                    vertical: 'top',
+                    horizontal: 'right'
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
+                    vertical: 'top',
+                    horizontal: 'right'
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handleCloseUserMenu}
-                  sx={{ margin: "70px 0 90px 0" }}
+                  sx={{ margin: '70px 0 90px 0' }}
                 >
                   <Link
                     className="link"
-                    to={checkType ? "/em_profile" : "/se_profile"}
+                    to={checkType ? '/em_profile' : '/se_profile'}
                   >
                     <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                   </Link>
@@ -93,7 +93,7 @@ const MainNavigation = () => {
         </ul>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default MainNavigation;
+export default MainNavigation

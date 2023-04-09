@@ -1,7 +1,7 @@
-import React from "react";
-import MainNavigation from "../navigation/MainNavigation";
-import { Outlet } from "react-router-dom";
-import MainFooter from "../navigation/MainFooter";
+import React from 'react'
+import MainNavigation from '../navigation/MainNavigation'
+import { Outlet } from 'react-router-dom'
+import MainFooter from '../navigation/MainFooter'
 
 const Root = () => {
   return (
@@ -10,7 +10,7 @@ const Root = () => {
       <Outlet />
       <MainFooter />
     </>
-  );
-};
+  )
+}
 
-export default Root;
+export default Root

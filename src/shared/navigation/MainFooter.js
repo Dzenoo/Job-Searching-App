@@ -1,11 +1,11 @@
-import React from "react";
-import logo from "../assets/logo.png";
+import React from 'react'
+import logo from '../assets/logo.png'
 import {
   AiFillTwitterCircle,
   AiFillFacebook,
-  AiFillMessage,
-} from "react-icons/ai";
-import { Typography } from "@mui/material";
+  AiFillMessage
+} from 'react-icons/ai'
+import { Typography } from '@mui/material'
 
 const MainFooter = () => {
   return (
@@ -54,7 +54,7 @@ const MainFooter = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MainFooter;
+export default MainFooter

@@ -1,19 +1,19 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
-import icon_employers from "../../shared/assets/icon_employers.png";
-import icon_search from "../../shared/assets/icon_search.png";
-import icon_recommedations from "../../shared/assets/icon_recommedations.png";
-import React from "react";
+import { Box, Container, Grid, Typography } from '@mui/material'
+import iconEmployers from '../../shared/assets/icon_employers.png'
+import iconSearch from '../../shared/assets/icon_search.png'
+import iconRecommedations from '../../shared/assets/icon_recommedations.png'
+import React from 'react'
 
 const WhyJobSections = () => {
   return (
-    <Container maxWidth="xl" sx={{ paddingTop: "60px" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: '60px' }}>
       <Box
         sx={{
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "20px",
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px'
         }}
       >
         <span className="button_outlined">Why jobboost</span>
@@ -30,7 +30,7 @@ const WhyJobSections = () => {
       <Grid container justifyContent="center" spacing={4} padding={10}>
         <Grid item lg={4}>
           <Box className="why_job_box">
-            <img src={icon_employers} alt="employers icon" />
+            <img src={iconEmployers} alt="employers icon" />
             <Typography variant="h4" color="textPrimary" fontWeight="bold">
               Top Employers
             </Typography>
@@ -42,7 +42,7 @@ const WhyJobSections = () => {
         </Grid>
         <Grid item lg={4}>
           <Box className="why_job_box">
-            <img src={icon_search} alt="search icon" />
+            <img src={iconSearch} alt="search icon" />
             <Typography variant="h4" color="textPrimary" fontWeight="bold">
               Custom Search
             </Typography>
@@ -54,7 +54,7 @@ const WhyJobSections = () => {
         </Grid>
         <Grid item lg={4}>
           <Box className="why_job_box">
-            <img src={icon_recommedations} alt="recommedations icon" />
+            <img src={iconRecommedations} alt="recommedations icon" />
             <Typography variant="h4" color="textPrimary" fontWeight="bold">
               Recommendations
             </Typography>
@@ -66,7 +66,7 @@ const WhyJobSections = () => {
         </Grid>
       </Grid>
     </Container>
-  );
-};
+  )
+}
 
-export default WhyJobSections;
+export default WhyJobSections

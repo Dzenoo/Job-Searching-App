@@ -1,12 +1,12 @@
-import React from "react";
-import { Box, Card, CardContent, Container, Typography } from "@mui/material";
-import { CiLocationOn } from "react-icons/ci";
+import React from 'react'
+import { Box, Card, CardContent, Container, Typography } from '@mui/material'
+import { CiLocationOn } from 'react-icons/ci'
 
 const Applications = () => {
   return (
     <>
       <Container>
-        <Card sx={{ padding: "60px" }}>
+        <Card sx={{ padding: '60px' }}>
           <Typography variant="h4" fontWeight="bold" color="royalblue">
             Your Applications
           </Typography>
@@ -15,14 +15,14 @@ const Applications = () => {
       </Container>
       <Container
         maxWidth="xs"
-        sx={{ padding: "60px", display: "flex", flexDirection: "column" }}
+        sx={{ padding: '60px', display: 'flex', flexDirection: 'column' }}
       >
-        <Card sx={{ padding: "20px", maxWidth: "400px" }}>
+        <Card sx={{ padding: '20px', maxWidth: '400px' }}>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}
           ></Box>
           <CardContent>
@@ -34,11 +34,11 @@ const Applications = () => {
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                marginTop: "20px",
-                marginBottom: "20px",
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginTop: '20px',
+                marginBottom: '20px'
               }}
             >
               <Typography
@@ -46,9 +46,9 @@ const Applications = () => {
                 fontWeight="bold"
                 color="purple"
                 sx={{
-                  backgroundColor: "rgba(205, 9, 195, 0.148)",
-                  padding: "8px 20px",
-                  borderRadius: "20px",
+                  backgroundColor: 'rgba(205, 9, 195, 0.148)',
+                  padding: '8px 20px',
+                  borderRadius: '20px'
                 }}
               >
                 Junior
@@ -58,9 +58,9 @@ const Applications = () => {
                 fontWeight="bold"
                 color="green"
                 sx={{
-                  backgroundColor: "rgba(23, 240, 81, 0.148)",
-                  padding: "8px 20px",
-                  borderRadius: "20px",
+                  backgroundColor: 'rgba(23, 240, 81, 0.148)',
+                  padding: '8px 20px',
+                  borderRadius: '20px'
                 }}
               >
                 $2000
@@ -70,9 +70,9 @@ const Applications = () => {
                 fontWeight="bold"
                 color="rgb(9, 43, 153)"
                 sx={{
-                  backgroundColor: "rgba(25, 74, 236, 0.148)",
-                  padding: "8px 20px",
-                  borderRadius: "20px",
+                  backgroundColor: 'rgba(25, 74, 236, 0.148)',
+                  padding: '8px 20px',
+                  borderRadius: '20px'
                 }}
               >
                 Full-Time
@@ -80,9 +80,9 @@ const Applications = () => {
             </Box>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px'
               }}
             >
               <Typography variant="p" fontWeight="bold">
@@ -93,7 +93,7 @@ const Applications = () => {
         </Card>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Applications;
+export default Applications

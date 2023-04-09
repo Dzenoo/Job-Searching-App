@@ -1,20 +1,20 @@
-import { Link, useRouteError } from "react-router-dom";
-import PageContent from "./PageError";
-import er from "../assets/error.png";
+import { Link, useRouteError } from 'react-router-dom'
+import PageContent from './PageError'
+import er from '../assets/error.png'
 
 const Error = () => {
-  const error = useRouteError();
+  const error = useRouteError()
 
-  let title = "An Error Occurred";
-  let message = "Something went wrong!";
+  let title = 'An Error Occurred'
+  let message = 'Something went wrong!'
 
   if (error.status === 500) {
-    message = JSON.parse(error.data).message;
+    message = JSON.parse(error.data).message
   }
 
   if (error.status === 404) {
-    title = "Not Found";
-    message = "Could not find resource on page";
+    title = 'Not Found'
+    message = 'Could not find resource on page'
   }
 
   return (
@@ -27,7 +27,7 @@ const Error = () => {
         </Link>
       </PageContent>
     </h1>
-  );
-};
+  )
+}
 
-export default Error;
+export default Error

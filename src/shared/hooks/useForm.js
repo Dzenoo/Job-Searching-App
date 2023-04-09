@@ -1,17 +1,17 @@
-import { useCallback, useReducer } from "react";
+import { useCallback, useReducer } from 'react'
 
 const formReducer = (state, action) => {
   switch (action.type) {
-    case "Input_Change": {
-      let formIsValid = true;
+    case 'Input_Change': {
+      let formIsValid = true
       for (const inputId in state.inputs) {
         if (!state.inputs[inputId]) {
-          continue;
+          continue
         }
         if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
+          formIsValid = formIsValid && action.isValid
         } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
+          formIsValid = formIsValid && state.inputs[inputId].isValid
         }
       }
 
@@ -19,43 +19,43 @@ const formReducer = (state, action) => {
         ...state,
         inputs: {
           ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid },
+          [action.inputId]: { value: action.value, isValid: action.isValid }
         },
-        isValid: formIsValid,
-      };
+        isValid: formIsValid
+      }
     }
-    case "Set_Data":
+    case 'Set_Data':
       return {
         inputs: action.inputs,
-        isValid: action.formIsValid,
-      };
+        isValid: action.formIsValid
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const useFormHook = (initialInputs, initialFormValid) => {
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInputs,
-    isValid: initialFormValid,
-  });
+    isValid: initialFormValid
+  })
 
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
-      type: "Input_Change",
-      value: value,
-      isValid: isValid,
-      inputId: id,
-    });
-  }, []);
+      type: 'Input_Change',
+      value,
+      isValid,
+      inputId: id
+    })
+  }, [])
 
   const setFormData = useCallback((inputData, formValidity) => {
     dispatch({
-      type: "Set_Data",
+      type: 'Set_Data',
       inputs: inputData,
-      formIsValid: formValidity,
-    });
-  }, []);
+      formIsValid: formValidity
+    })
+  }, [])
 
-  return [formState, inputHandler, setFormData];
-};
+  return [formState, inputHandler, setFormData]
+}

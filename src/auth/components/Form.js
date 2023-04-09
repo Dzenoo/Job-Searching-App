@@ -3,15 +3,16 @@ import {
   CardActions,
   CardContent,
   FormControl,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import Input from "../../shared/components/Input";
+  Typography
+} from '@mui/material'
+import React from 'react'
+import Input from '../../shared/components/Input'
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
-  VALIDATOR_REQUIRE,
-} from "../../shared/util/Validators";
+  VALIDATOR_REQUIRE
+} from '../../shared/util/Validators'
+import PropTypes from 'prop-types'
 
 const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
   return (
@@ -24,7 +25,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
       </Typography>
       <CardContent>
         <form className="auth_form" onSubmit={onSubmitForm}>
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === 'Seeker Account' && (
             <FormControl>
               <Input
                 placeholder="First Name..."
@@ -36,7 +37,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
               />
             </FormControl>
           )}
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === 'Seeker Account' && (
             <FormControl>
               <Input
                 placeholder="Last Name..."
@@ -48,7 +49,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
               />
             </FormControl>
           )}
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === 'Seeker Account' && (
             <FormControl>
               <Input
                 placeholder="Email Address..."
@@ -60,7 +61,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
               />
             </FormControl>
           )}
-          {isSignupMode === "Seeker Account" && (
+          {isSignupMode === 'Seeker Account' && (
             <FormControl>
               <Input
                 placeholder="Password..."
@@ -73,8 +74,8 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
             </FormControl>
           )}
           {/* EMPLOYER  */}
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            {isSignupMode === "Employer Account" && (
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   placeholder="Employer Name..."
@@ -86,7 +87,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                 />
               </FormControl>
             )}
-            {isSignupMode === "Employer Account" && (
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   placeholder="Employer Email..."
@@ -98,7 +99,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                 />
               </FormControl>
             )}
-            {isSignupMode === "Employer Account" && (
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   placeholder="Employer Password..."
@@ -110,7 +111,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                 />
               </FormControl>
             )}
-            {isSignupMode === "Employer Account" && (
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   placeholder="Phone..."
@@ -122,7 +123,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                 />
               </FormControl>
             )}
-            {isSignupMode === "Employer Account" && (
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   placeholder="Salary..."
@@ -134,7 +135,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                 />
               </FormControl>
             )}
-            {isSignupMode === "Employer Account" && (
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   placeholder="Employees..."
@@ -145,8 +146,8 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                   errorText="Please enter a valid employees"
                 />
               </FormControl>
-            )}{" "}
-            {isSignupMode === "Employer Account" && (
+            )}{' '}
+            {isSignupMode === 'Employer Account' && (
               <FormControl>
                 <Input
                   className="bio_textarea"
@@ -159,7 +160,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
                   errorText="Please enter a valid biography"
                 />
               </FormControl>
-            )}{" "}
+            )}{' '}
           </div>
           <Button type="submit" variant="contained" size="large">
             Sign Up
@@ -174,7 +175,12 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
         </Typography>
       </CardActions>
     </>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form
+
+Form.propTypes = {
+  isSelected: PropTypes.string,
+  setSelectedAcc: PropTypes.func
+}

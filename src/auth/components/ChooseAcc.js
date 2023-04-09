@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
-import hire from "../../shared/assets/hire_icon.png";
-import seek from "../../shared/assets/seeker_icon.png";
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import hire from '../../shared/assets/hire_icon.png'
+import seek from '../../shared/assets/seeker_icon.png'
+import PropTypes from 'prop-types'
 
 const ChooseAcc = ({ isSelected, setSelectedAcc }) => {
   return (
@@ -14,17 +15,17 @@ const ChooseAcc = ({ isSelected, setSelectedAcc }) => {
       </Typography>
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
-          padding: "40px",
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+          padding: '40px'
         }}
       >
         <div
           className={`${
-            isSelected === "Employer Account" ? "card selectedCard" : "card"
+            isSelected === 'Employer Account' ? 'card selectedCard' : 'card'
           }`}
-          onClick={() => setSelectedAcc("Employer Account")}
+          onClick={() => setSelectedAcc('Employer Account')}
         >
           <img src={hire} alt="hire" />
           <Typography fontWeight="bold">Employer Account</Typography>
@@ -35,9 +36,9 @@ const ChooseAcc = ({ isSelected, setSelectedAcc }) => {
         </div>
         <div
           className={`${
-            isSelected === "Seeker Account" ? "card selectedCard" : "card"
+            isSelected === 'Seeker Account' ? 'card selectedCard' : 'card'
           }`}
-          onClick={() => setSelectedAcc("Seeker Account")}
+          onClick={() => setSelectedAcc('Seeker Account')}
         >
           <img src={seek} alt="hire" />
           <Typography fontWeight="bold">Seeker Account</Typography>
@@ -48,7 +49,12 @@ const ChooseAcc = ({ isSelected, setSelectedAcc }) => {
         </div>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default ChooseAcc;
+export default ChooseAcc
+
+ChooseAcc.propTypes = {
+  isSelected: PropTypes.string,
+  setSelectedAcc: PropTypes.func
+}
