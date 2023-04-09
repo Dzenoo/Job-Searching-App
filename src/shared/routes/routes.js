@@ -85,7 +85,17 @@ export const routes = createBrowserRouter([
           },
           {
             path: "apply",
-            element: <ApplyJob />,
+            element: (
+              <Suspense
+                fallback={
+                  <div className="loader_center">
+                    <BarLoader />
+                  </div>
+                }
+              >
+                <ApplyJob />
+              </Suspense>
+            ),
           },
         ],
       },

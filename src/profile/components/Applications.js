@@ -25,7 +25,8 @@ const Applications = () => {
         }}
       >
         {seeker.appliedJobs.map((apJobs) => (
-          <Card sx={{ padding: "20px", maxWidth: "400px" }}>
+          <Card sx={{ padding: "20px", maxWidth: "400px" }} key={apJobs._id}>
+            {console.log()}
             <Box
               sx={{
                 display: "flex",
@@ -35,10 +36,10 @@ const Applications = () => {
             ></Box>
             <CardContent>
               <Typography variant="h5" fontWeight="bold">
-                {apJobs.title}
+                {apJobs.job.title}
               </Typography>
               <Typography variant="p" color="textSecondary">
-                {apJobs.schedule}
+                {apJobs.job.schedule}
               </Typography>
               <Box
                 sx={{
@@ -60,7 +61,7 @@ const Applications = () => {
                   }}
                 >
                   <CiLocationOn size={24} />
-                  {apJobs.city}
+                  {apJobs.job.city}
                 </Typography>
                 <Typography
                   variant="p"
@@ -72,7 +73,7 @@ const Applications = () => {
                     borderRadius: "20px",
                   }}
                 >
-                  ${apJobs.salary}
+                  $ {apJobs.job.salary}
                 </Typography>
                 <Typography
                   variant="p"
@@ -84,7 +85,7 @@ const Applications = () => {
                     borderRadius: "20px",
                   }}
                 >
-                  {apJobs.time}
+                  {apJobs.job.time}
                 </Typography>
               </Box>
             </CardContent>
