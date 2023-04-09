@@ -1,15 +1,15 @@
-import { Typography, Box, Alert } from '@mui/material'
-import React from 'react'
-import JobItem from './JobItem'
-import PropTypes from 'prop-types'
+import { Typography, Box, Alert } from "@mui/material";
+import React from "react";
+import JobItem from "./JobItem";
+import PropTypes from "prop-types";
 
 const JobList = ({ jobs }) => {
   return (
     <>
       <Box
         sx={{
-          display: 'flex',
-          padding: '20px'
+          display: "flex",
+          padding: "20px",
         }}
       >
         <Alert severity="info">
@@ -33,8 +33,9 @@ const JobList = ({ jobs }) => {
             salary,
             time,
             level,
-            shortDescription
-          } = job
+            shortDescription,
+            createdAt,
+          } = job;
           return (
             <JobItem
               key={id}
@@ -46,16 +47,17 @@ const JobList = ({ jobs }) => {
               time={time}
               level={level}
               shortDescription={shortDescription}
+              createdAt={createdAt}
             />
-          )
+          );
         })}
       </ul>
     </>
-  )
-}
+  );
+};
 
-export default JobList
+export default JobList;
 
 JobList.propTypes = {
-  jobs: PropTypes.array.isRequired
-}
+  jobs: PropTypes.array.isRequired,
+};

@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
+
 const JobItem = ({
   id,
   logo,
@@ -19,7 +20,11 @@ const JobItem = ({
   time,
   level,
   shortDescription,
+  createdAt,
 }) => {
+  const date = new Date(createdAt);
+  const dateFormat = date.toDateString();
+
   return (
     <Card sx={{ padding: "20px", maxWidth: "400px" }}>
       <Box
@@ -31,7 +36,7 @@ const JobItem = ({
       >
         <img src={logo} alt={title} style={{ width: "100px" }} />
         <Typography variant="p" color="textSecondary">
-          2.0.2022
+          {dateFormat}
         </Typography>
       </Box>
       <CardContent>

@@ -326,14 +326,12 @@ body {
 }
 
 .loader_center {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  width: 100%;
-  background-color: #6cb5ff29;
-  left: 0;
+  background-color: #77adff44;
+  z-index: 30;
 }
 
 .flex {
