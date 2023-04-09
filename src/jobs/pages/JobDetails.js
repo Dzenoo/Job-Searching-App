@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
+import { Link, json, useRouteLoaderData } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
 import { MdOutlineHomeWork } from "react-icons/md";
-import { JobContext } from "../../shared/context/JobContext";
 
 const JobDetails = () => {
-  const jobId = useParams().idOfJob;
-  const { jobs } = useContext(JobContext);
-  const currentJob = jobs.find((j) => j.id === jobId);
-  const userData = JSON.parse(localStorage.getItem("employer"));
+  const data = useRouteLoaderData("job-details");
+  const job = data.job;
 
   return (
     <>
@@ -30,10 +27,10 @@ const JobDetails = () => {
             position: "relative",
           }}
         >
-          <img src={userData.em_image} alt={currentJob.title} />
+          <img src={job.employer.em_image} alt={job.title} />
           <div className="job_details_titles">
             <Typography variant="h3" color="textPrimary">
-              {currentJob.title}
+              {job.title}
             </Typography>
             <Typography
               variant="p"
@@ -48,15 +45,15 @@ const JobDetails = () => {
             >
               <MdOutlineHomeWork size={20} />
               <Link
-                to={`/companies/${currentJob._id}`}
+                to={`/companies/${job._id}`}
                 style={{ textDecoration: "none" }}
               >
-                {userData.em_name}
+                {job.employer.em_name}
               </Link>
             </Typography>
 
             <Typography variant="h5" color="textPrimary">
-              <CiLocationOn /> {currentJob.city}, {currentJob.schedule}
+              <CiLocationOn /> {job.city}, {job.schedule}
             </Typography>
           </div>
           <div className="save_button_div">
@@ -78,7 +75,7 @@ const JobDetails = () => {
           >
             <h3>Job type</h3>
             <Typography color="purple" fontWeight="bold">
-              {currentJob.time}
+              {job.time}
             </Typography>
           </Box>
           <Box
@@ -93,7 +90,7 @@ const JobDetails = () => {
           >
             <h3>Salary</h3>
             <Typography color="green" fontWeight="bold">
-              {currentJob.salary}
+              {job.salary}
             </Typography>
           </Box>
           <Box
@@ -108,7 +105,7 @@ const JobDetails = () => {
           >
             <h3>Seniority</h3>
             <Typography color="royalblue" fontWeight="bold">
-              {currentJob.level}
+              {job.level}
             </Typography>
           </Box>
           <Box
@@ -129,7 +126,7 @@ const JobDetails = () => {
         </ul>
         <Box sx={{ marginTop: "60px" }}>
           <Typography variant="p" color="gray">
-            {currentJob.shortDescription}
+            {job.shortDescription}
           </Typography>
         </Box>
         <Box sx={{ marginTop: "30px" }}>
@@ -137,8 +134,8 @@ const JobDetails = () => {
             Skills and Expertise
           </Typography>
           <ul className="skills_list">
-            {currentJob.skills.split(",").map((s) => (
-              <li>
+            {job.skills.split(",").map((s) => (
+              <li key={s}>
                 <Typography>{s}</Typography>
               </li>
             ))}
@@ -149,8 +146,8 @@ const JobDetails = () => {
             Job Description
           </Typography>
           <ul className="list_description">
-            {currentJob.jobDescription.split(",").map((jd) => (
-              <li>
+            {job.jobDescription.split(",").map((jd) => (
+              <li key={jd}>
                 <Typography> {jd}</Typography>
               </li>
             ))}
@@ -161,8 +158,8 @@ const JobDetails = () => {
             Requirements
           </Typography>
           <ul className="list_description">
-            {currentJob.requirements.split(",").map((t) => (
-              <li>
+            {job.requirements.split(",").map((t) => (
+              <li key={t}>
                 <Typography>{t}</Typography>
               </li>
             ))}
@@ -183,3 +180,15 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
+
+export async function loader({ params }) {
+  const jobId = params.idOfJob;
+
+  const response = await fetch(`http://localhost:8000/api/jobs/${jobId}`);
+
+  if (!response.ok) {
+    throw json({ message: "Could not fetch job" }, { status: 500 });
+  } else {
+    return response;
+  }
+}

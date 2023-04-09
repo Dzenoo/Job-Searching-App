@@ -7,11 +7,13 @@ export const JobContext = createContext();
 export const JobProvider = ({ children }) => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setfilteredJobs] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
   const [checkboxSchedule, setCheckboxSchedule] = useState(Schedules);
   const [checkboxSeniority, setCheckboxSeniority] = useState(Seniority);
   const [checkboxSalary, setCheckboxSalary] = useState(Salary);
 
   useEffect(() => {
+    setisLoading(true);
     const fetchJobs = async () => {
       try {
         const response = await fetch("http://localhost:8000/api/jobs/");
@@ -21,7 +23,9 @@ export const JobProvider = ({ children }) => {
         const responseData = await response.json();
         setJobs(responseData.jobs);
         setfilteredJobs(responseData.jobs);
-      } catch (error) {}
+      } catch (error) {
+        setisLoading(false);
+      }
     };
     fetchJobs();
   }, []);

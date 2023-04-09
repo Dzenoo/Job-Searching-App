@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../../home/pages/Home";
 import Jobs, { loader as fetchJobs } from "../../jobs/pages/Jobs";
-import JobDetails from "../../jobs/pages/JobDetails";
+import JobDetails, { loader as jobLoader } from "../../jobs/pages/JobDetails";
 import EditJob from "../../jobs/pages/EditJob";
 import NewJob from "../../jobs/pages/NewJob";
 import Companies from "../../companies/pages/Companies";
@@ -31,6 +31,7 @@ export const routes = createBrowserRouter([
       {
         path: "/jobs/:idOfJob",
         id: "job-details",
+        loader: jobLoader,
         children: [
           {
             index: true,
