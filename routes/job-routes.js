@@ -11,6 +11,6 @@ router.get("/:jobId", jobControllers.getJob);
 
 router.delete("/:jId", jobControllers.deleteJob);
 
-router.post("/:seekerId/:jobId", jobControllers.saveJob);
+router.post("/:seekerId/:jobId/save", jobControllers.saveJob);
 
 module.exports = router;

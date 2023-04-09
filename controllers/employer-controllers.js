@@ -22,7 +22,6 @@ exports.signup = async (req, res, next) => {
     const error = new HttpError("Could not find Employer", 500);
     return next(error);
   }
-
   if (existingEmployer) {
     const error = new HttpError("Employer already exist", 422);
     return next(error);

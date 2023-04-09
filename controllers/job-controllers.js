@@ -3,6 +3,7 @@ const express = require("express");
 const HttpError = require("../models/HttpError");
 const Job = require("../models/Job");
 const Employer = require("../models/Employer");
+const Seeker = require("../models/Seeker");
 
 exports.newJob = async (req, res, next) => {
   const employerId = req.params.employerId;
@@ -93,6 +94,38 @@ exports.getJob = async (req, res, next) => {
   res.status(201).json({ job: job });
 };
 
-exports.saveJob = async (req, res, next) => {};
+exports.saveJob = async (req, res, next) => {
+  const { jobId, seekerId } = req.params;
+
+  let job;
+  try {
+    job = await Job.findById(jobId);
+  } catch (err) {
+    const error = new HttpError("Cannot find job, please try again", 403);
+    return next(error);
+  }
+
+  let seeker;
+  try {
+    seeker = await Seeker.findById(seekerId);
+  } catch (err) {
+    const error = new HttpError("Cannot find seeker, please try again", 403);
+    return next(error);
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    seeker.savedJobs.push(job);
+    await seeker.save({ session: sess });
+    await sess.commitTransaction();
+    await sess.endSession();
+  } catch (err) {
+    const error = new HttpError("Could not save job, please try again", 403);
+    return next(error);
+  }
+
+  res.status(201).json({ message: "Saved job successfully" });
+};
 
 exports.deleteJob = async (req, res, next) => {};

@@ -8,6 +8,7 @@ const SeekerSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   appliedJobs: [{ type: mongoose.Types.ObjectId, ref: "Application" }],
+  savedJobs: [{ type: mongoose.Types.ObjectId, ref: "Job" }],
 });
 
 module.exports = mongoose.model("Seeker", SeekerSchema);
