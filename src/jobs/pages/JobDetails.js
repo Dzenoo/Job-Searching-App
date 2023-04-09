@@ -146,7 +146,7 @@ const JobDetails = () => {
             Job Description
           </Typography>
           <ul className="list_description">
-            {job.jobDescription.split(",").map((jd) => (
+            {job.jobDescription.split("\n").map((jd) => (
               <li key={jd}>
                 <Typography> {jd}</Typography>
               </li>
@@ -158,7 +158,7 @@ const JobDetails = () => {
             Requirements
           </Typography>
           <ul className="list_description">
-            {job.requirements.split(",").map((t) => (
+            {job.requirements.split("\n").map((t) => (
               <li key={t}>
                 <Typography>{t}</Typography>
               </li>

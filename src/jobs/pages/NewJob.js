@@ -8,69 +8,71 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography
-} from '@mui/material'
-import { jobtypes, locations, Seniority } from '../../shared/data/data'
-import React, { useContext, useState } from 'react'
-import Input from '../../shared/components/Input'
-import { VALIDATOR_REQUIRE } from '../../shared/util/Validators'
-import { useFormHook } from '../../shared/hooks/useForm'
+  Typography,
+} from "@mui/material";
+import { jobtypes, locations, Seniority } from "../../shared/data/data";
+import React, { useContext, useState } from "react";
+import Input from "../../shared/components/Input";
+import { VALIDATOR_REQUIRE } from "../../shared/util/Validators";
+import { useFormHook } from "../../shared/hooks/useForm";
 
-import { AuthContext } from '../../shared/context/AuthContext'
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer, toast } from 'react-toastify'
+import { AuthContext } from "../../shared/context/AuthContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import { BarLoader } from "react-spinners";
 
 const NewJob = () => {
-  const [error, seterror] = useState('')
+  const [error, seterror] = useState("");
+  const [isLoading, setisLoading] = useState(false);
   const [formState, inputHandler] = useFormHook(
     {
       title: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       city: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       salary: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       skills: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       jobDescription: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       shortDescription: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       requirements: {
-        value: '',
-        isValid: false
-      }
+        value: "",
+        isValid: false,
+      },
     },
     false
-  )
+  );
 
-  const { userId } = useContext(AuthContext)
+  const { userId } = useContext(AuthContext);
 
   const handleTypeChange = (event, type) => {
-    const selectedType = event.target.value
-    inputHandler(type, selectedType, true)
-  }
+    const selectedType = event.target.value;
+    inputHandler(type, selectedType, true);
+  };
 
   const postJob = async (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+    setisLoading(true);
     try {
       const response = await fetch(
         `http://localhost:8000/api/jobs/${userId}/new`,
         {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify({
             title: formState.inputs.title.value,
             city: formState.inputs.city.value,
@@ -81,35 +83,45 @@ const NewJob = () => {
             schedule: formState.inputs.schedule.value,
             jobDescription: formState.inputs.jobDescription.value,
             shortDescription: formState.inputs.shortDescription.value,
-            requirements: formState.inputs.requirements.value
+            requirements: formState.inputs.requirements.value,
           }),
-          headers: { 'Content-Type': 'application/json' }
+          headers: { "Content-Type": "application/json" },
         }
-      )
+      );
 
       if (!response.ok) {
-        throw new Error('Not ok response')
+        throw new Error("Not ok response");
       }
+      setisLoading(false);
     } catch (err) {
-      seterror(err.message)
+      setisLoading(false);
+      seterror(err.message);
     }
-  }
+  };
 
   if (error) {
-    toast.error(error)
+    toast.error(error);
+  }
+
+  if (isLoading) {
+    return (
+      <div className="loader_center">
+        <BarLoader />
+      </div>
+    );
   }
 
   return (
-    <Container maxWidth="md" sx={{ padding: '60px', backgroundColor: '#fff' }}>
+    <Container maxWidth="md" sx={{ padding: "60px", backgroundColor: "#fff" }}>
       <ToastContainer />
       <Card>
         <form
           onSubmit={postJob}
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '40px',
-            gap: '3em'
+            display: "flex",
+            flexDirection: "column",
+            padding: "40px",
+            gap: "3em",
           }}
         >
           {/* Job Title */}
@@ -166,7 +178,7 @@ const NewJob = () => {
             <Typography color="textSecondary">
               You can select multiple job types
             </Typography>
-            <RadioGroup onChange={(e) => handleTypeChange(e, 'time')}>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "time")}>
               {jobtypes.map((type) => (
                 <FormControlLabel
                   key={type.label}
@@ -184,7 +196,7 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Enter estimated Seniority for that job
             </Typography>
-            <RadioGroup onChange={(e) => handleTypeChange(e, 'level')}>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "level")}>
               {Seniority.map((s) => (
                 <FormControlLabel
                   key={s.label}
@@ -209,7 +221,7 @@ const NewJob = () => {
               id="skills"
               name="skills"
               onChange={(event) =>
-                inputHandler('skills', event.target.value, true)
+                inputHandler("skills", event.target.value, true)
               }
             />
           </FormControl>
@@ -220,7 +232,7 @@ const NewJob = () => {
             <Typography color="textSecondary">
               Job titles must describe location work
             </Typography>
-            <RadioGroup onChange={(e) => handleTypeChange(e, 'schedule')}>
+            <RadioGroup onChange={(e) => handleTypeChange(e, "schedule")}>
               {locations.map((l) => (
                 <FormControlLabel
                   key={l.label}
@@ -291,7 +303,7 @@ const NewJob = () => {
         </form>
       </Card>
     </Container>
-  )
-}
+  );
+};
 
-export default NewJob
+export default NewJob;

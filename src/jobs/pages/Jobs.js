@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
-import { Grid, Typography } from '@mui/material'
-import { JobContext } from '../../shared/context/JobContext'
-import TopBar from '../components/TopBar'
-import FilterJob from '../components/FilterJob'
-import JobList from '../components/JobList'
+import React, { useContext } from "react";
+import { Grid, Typography } from "@mui/material";
+import { JobContext } from "../../shared/context/JobContext";
+import TopBar from "../components/TopBar";
+import FilterJob from "../components/FilterJob";
+import JobList from "../components/JobList";
+import { BarLoader } from "react-spinners";
 
 const Jobs = () => {
   const {
@@ -16,8 +17,17 @@ const Jobs = () => {
     handleCheckboxSalaryChange,
     checkboxSchedule,
     checkboxSeniority,
-    checkboxSalary
-  } = useContext(JobContext)
+    checkboxSalary,
+    isLoading,
+  } = useContext(JobContext);
+
+  if (isLoading) {
+    return (
+      <div className="loader_center">
+        <BarLoader />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -40,14 +50,14 @@ const Jobs = () => {
         <Grid item lg={10}>
           <JobList jobs={filteredJobs} />
           {filteredJobs.length === 0 && (
-            <Typography variant="h4" sx={{ textAlign: 'center' }}>
+            <Typography variant="h4" sx={{ textAlign: "center" }}>
               There is no jobs for that data
             </Typography>
           )}
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Jobs
+export default Jobs;

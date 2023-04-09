@@ -4,12 +4,12 @@ import {
   CardActions,
   CardContent,
   Box,
-  Typography
-} from '@mui/material'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { CiLocationOn } from 'react-icons/ci'
-import { Link } from 'react-router-dom'
+  Typography,
+} from "@mui/material";
+import PropTypes from "prop-types";
+import React from "react";
+import { CiLocationOn } from "react-icons/ci";
+import { Link } from "react-router-dom";
 const JobItem = ({
   id,
   logo,
@@ -18,18 +18,18 @@ const JobItem = ({
   salary,
   time,
   level,
-  shortDescription
+  shortDescription,
 }) => {
   return (
-    <Card sx={{ padding: '20px', maxWidth: '400px' }}>
+    <Card sx={{ padding: "20px", maxWidth: "400px" }}>
       <Box
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        <img src={logo} alt={title} style={{ width: '100px' }} />
+        <img src={logo} alt={title} style={{ width: "100px" }} />
         <Typography variant="p" color="textSecondary">
           2.0.2022
         </Typography>
@@ -40,11 +40,11 @@ const JobItem = ({
         </Typography>
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            marginTop: '20px',
-            marginBottom: '20px'
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            marginTop: "20px",
+            marginBottom: "20px",
           }}
         >
           <Typography
@@ -52,9 +52,9 @@ const JobItem = ({
             fontWeight="bold"
             color="purple"
             sx={{
-              backgroundColor: 'rgba(205, 9, 195, 0.148)',
-              padding: '8px 20px',
-              borderRadius: '20px'
+              backgroundColor: "rgba(205, 9, 195, 0.148)",
+              padding: "8px 20px",
+              borderRadius: "20px",
             }}
           >
             {level}
@@ -64,9 +64,9 @@ const JobItem = ({
             fontWeight="bold"
             color="green"
             sx={{
-              backgroundColor: 'rgba(23, 240, 81, 0.148)',
-              padding: '8px 20px',
-              borderRadius: '20px'
+              backgroundColor: "rgba(23, 240, 81, 0.148)",
+              padding: "8px 20px",
+              borderRadius: "20px",
             }}
           >
             ${salary}
@@ -76,9 +76,9 @@ const JobItem = ({
             fontWeight="bold"
             color="rgb(9, 43, 153)"
             sx={{
-              backgroundColor: 'rgba(25, 74, 236, 0.148)',
-              padding: '8px 20px',
-              borderRadius: '20px'
+              backgroundColor: "rgba(25, 74, 236, 0.148)",
+              padding: "8px 20px",
+              borderRadius: "20px",
             }}
           >
             {time}
@@ -86,23 +86,23 @@ const JobItem = ({
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px'
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
           }}
         >
           <Typography variant="p" fontWeight="bold">
             <CiLocationOn size={24} /> {city}
           </Typography>
-          <Typography color="textSecondary" sx={{ wordBreak: 'break-word' }}>
-            {shortDescription.substring(0, 60)}
+          <Typography color="textSecondary" sx={{ wordBreak: "break-word" }}>
+            {shortDescription.substring(0, 60)}...
           </Typography>
         </Box>
       </CardContent>
       <CardActions>
         <Link
           to={`/jobs/${id}`}
-          style={{ textDecoration: 'none', color: '#fff' }}
+          style={{ textDecoration: "none", color: "#fff" }}
         >
           <Button variant="contained" size="large" fullWidth>
             View Job
@@ -110,10 +110,10 @@ const JobItem = ({
         </Link>
       </CardActions>
     </Card>
-  )
-}
+  );
+};
 
-export default JobItem
+export default JobItem;
 
 JobItem.propTypes = {
   id: PropTypes.string.isRequired,
@@ -123,5 +123,5 @@ JobItem.propTypes = {
   salary: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
   level: PropTypes.string.isRequired,
-  shortDescription: PropTypes.string.isRequired
-}
+  shortDescription: PropTypes.string.isRequired,
+};
