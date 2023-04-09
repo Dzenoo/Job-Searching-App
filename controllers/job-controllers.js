@@ -84,13 +84,13 @@ exports.getJob = async (req, res, next) => {
 
   let job;
   try {
-    job = await Job.findById(jobId);
+    job = await Job.findById(jobId).populate("employer");
   } catch (err) {
     const error = new HttpError("Cannot find job, please try again", 403);
     return next(error);
   }
 
-  res.status(201).json({ job: job.toObject({ getters: true }) });
+  res.status(201).json({ job: job });
 };
 
 exports.applyToJob = async (req, res, next) => {};

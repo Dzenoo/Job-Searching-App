@@ -156,11 +156,14 @@ exports.getCompany = async (req, res, next) => {
 
   let company;
   try {
-    company = await Employer.findById(companyId);
+    company = await Employer.findById(companyId).populate({
+      path: "em_jobs",
+      select: "-em_password",
+    });
   } catch (err) {
     const error = new HttpError("Cannot get company", 403);
     return next(error);
   }
 
-  res.status(200).json({ company: company.toObject({ getters: true }) });
+  res.status(200).json({ company: company });
 };
