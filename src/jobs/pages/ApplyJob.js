@@ -68,6 +68,7 @@ const ApplyJob = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
+      alert("Successfully apply to job");
     } catch (err) {}
   }
 
