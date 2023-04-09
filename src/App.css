@@ -330,8 +330,13 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #77adff44;
+  background-color: #bdd7ff;
   z-index: 30;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 .flex {

@@ -1,25 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../../home/pages/Home";
-import Jobs from "../../jobs/pages/Jobs";
-import JobDetails, { loader as jobLoader } from "../../jobs/pages/JobDetails";
+import { Suspense, lazy } from "react";
+import { BarLoader } from "react-spinners";
+
 import EditJob from "../../jobs/pages/EditJob";
-import NewJob from "../../jobs/pages/NewJob";
-import Companies, {
-  loader as companiesLoader,
-} from "../../companies/pages/Companies";
 import Root from "./root";
-import CompanyDetails, {
-  loader as companyLoader,
-} from "../../companies/pages/CompanyDetails";
-import SignUp from "../../auth/pages/SignUp";
-import Login from "../../auth/pages/Login";
-import SeekerProfile from "../../profile/pages/SeekerProfile";
-import EmployerProfile from "../../profile/pages/EmployerProfile";
 import Applications from "../../profile/components/Applications";
 import SavedJobs from "../../profile/components/SavedJobs";
-import ApplyJob from "../../jobs/pages/ApplyJob";
 import SavedCompanies from "../../profile/components/SavedCompanies";
 import Error from "../components/Error";
+
+const Home = lazy(() => import("../../home/pages/Home"));
+const SeekerProfile = lazy(() => import("../../profile/pages/SeekerProfile"));
+const EmployerProfile = lazy(() =>
+  import("../../profile/pages/EmployerProfile")
+);
+const ApplyJob = lazy(() => import("../../jobs/pages/ApplyJob"));
+const Jobs = lazy(() => import("../../jobs/pages/Jobs"));
+const JobDetails = lazy(() => import("../../jobs/pages/JobDetails"));
+const SignUp = lazy(() => import("../../auth/pages/SignUp"));
+const Login = lazy(() => import("../../auth/pages/Login"));
+const NewJob = lazy(() => import("../../jobs/pages/NewJob"));
+const Companies = lazy(() => import("../../companies/pages/Companies"));
+const CompanyDetails = lazy(() =>
+  import("../../companies/pages/CompanyDetails")
+);
 
 export const routes = createBrowserRouter([
   {
@@ -29,20 +33,51 @@ export const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/jobs",
-        element: <Jobs />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <Jobs />
+          </Suspense>
+        ),
       },
       {
         path: "/jobs/:idOfJob",
         id: "job-details",
-        loader: jobLoader,
+        loader: (meta) =>
+          import("../../jobs/pages/JobDetails").then((m) => m.loader(meta)),
         children: [
           {
             index: true,
-            element: <JobDetails />,
+            element: (
+              <Suspense
+                fallback={
+                  <div className="loader_center">
+                    <BarLoader />
+                  </div>
+                }
+              >
+                <JobDetails />
+              </Suspense>
+            ),
           },
           {
             path: "edit",
@@ -56,27 +91,81 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/jobs/new",
-        element: <NewJob />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <NewJob />
+          </Suspense>
+        ),
       },
       {
         path: "/companies",
-        loader: companiesLoader,
+        loader: (meta) =>
+          import("../../companies/pages/Companies").then((m) => m.loader(meta)),
         id: "companies",
-        element: <Companies />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <Companies />
+          </Suspense>
+        ),
       },
       {
         path: "/companies/:companyId",
-        loader: companyLoader,
+        loader: (meta) =>
+          import("../../companies/pages/CompanyDetails").then((m) =>
+            m.loader(meta)
+          ),
         id: "company_details",
-        element: <CompanyDetails />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <CompanyDetails />
+          </Suspense>
+        ),
       },
       {
         path: "/em_profile",
-        element: <EmployerProfile />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <EmployerProfile />
+          </Suspense>
+        ),
       },
       {
         path: "/se_profile",
-        element: <SeekerProfile />,
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <SeekerProfile />
+          </Suspense>
+        ),
       },
       {
         path: "/se_profile/applications",
@@ -96,8 +185,34 @@ export const routes = createBrowserRouter([
     path: "/auth",
     id: "auth",
     children: [
-      { path: "signup", element: <SignUp /> },
-      { path: "login", element: <Login /> },
+      {
+        path: "signup",
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <SignUp />
+          </Suspense>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <Suspense
+            fallback={
+              <div className="loader_center">
+                <BarLoader />
+              </div>
+            }
+          >
+            <Login />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);
