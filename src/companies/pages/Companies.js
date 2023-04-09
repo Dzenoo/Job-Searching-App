@@ -7,8 +7,6 @@ import { json, useRouteLoaderData } from "react-router-dom";
 const Companies = () => {
   const data = useRouteLoaderData("companies");
 
-  console.log(data.companies);
-
   return (
     <>
       <div className="company_header">

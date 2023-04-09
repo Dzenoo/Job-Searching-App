@@ -16,8 +16,6 @@ let url;
 
 export const AuthProvider = ({ children }) => {
   const { login, logout, token, userId } = useAuth();
-  const [employerProfile, setEmployerProfile] = useState();
-  const [seekerProfile, setSeekerProfile] = useState();
   const [isLoading, setisLoading] = useState(true);
   const userData = JSON.parse(localStorage.getItem("type"));
   const checkType = userData === "Employer";
@@ -27,8 +25,6 @@ export const AuthProvider = ({ children }) => {
   } else {
     url = `http://localhost:8000/api/employer/${userId}/profile/`;
   }
-
-  console.log(userId);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -42,14 +38,11 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
 
         if (!checkType) {
-          setSeekerProfile(data.seeker);
           localStorage.setItem("seeker", JSON.stringify(data.seeker));
         } else {
-          setEmployerProfile(data.employer);
           localStorage.setItem("employer", JSON.stringify(data.employer));
         }
       } catch (err) {
-        console.log(err.message);
       } finally {
         setisLoading(false);
       }

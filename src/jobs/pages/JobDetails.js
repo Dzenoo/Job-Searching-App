@@ -45,7 +45,7 @@ const JobDetails = () => {
             >
               <MdOutlineHomeWork size={20} />
               <Link
-                to={`/companies/${job._id}`}
+                to={`/companies/${job.employer._id}`}
                 style={{ textDecoration: "none" }}
               >
                 {job.employer.em_name}
