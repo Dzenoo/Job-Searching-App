@@ -1,6 +1,5 @@
 import React from "react";
 import CompanyList from "../components/CompanyList";
-import { companies } from "../../shared/data/data";
 import { Typography } from "@mui/material";
 import { json, useRouteLoaderData } from "react-router-dom";
 
