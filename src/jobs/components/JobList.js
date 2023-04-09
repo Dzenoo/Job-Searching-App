@@ -12,9 +12,6 @@ const JobList = ({ jobs }) => {
           padding: "20px",
         }}
       >
-        <Typography variant="h6" fontWeight="bold">
-          Jobs ({jobs.length})
-        </Typography>
         <Alert severity="info">
           Please note that filtering by more than one checkbox criteria at a
           time may limit the number of results available. I recommend trying one
@@ -23,6 +20,9 @@ const JobList = ({ jobs }) => {
           'Salary'.
         </Alert>
       </Box>
+      <Typography variant="h6" fontWeight="bold">
+        Jobs ({jobs.length})
+      </Typography>
       <ul className="job_list">
         {jobs.map((job) => {
           const {
