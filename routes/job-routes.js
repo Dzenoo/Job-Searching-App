@@ -9,7 +9,7 @@ router.get("/", jobControllers.getJobs);
 
 router.get("/:jobId", jobControllers.getJob);
 
-router.delete("/:jId", jobControllers.deleteJob);
+router.delete("/:employerId/:jobId/delete", jobControllers.deleteJob);
 
 router.post("/:seekerId/:jobId/save", jobControllers.saveJob);
 

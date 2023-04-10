@@ -1,5 +1,4 @@
-const { default: mongoose } = require("mongoose");
-const express = require("express");
+const mongoose = require("mongoose");
 const HttpError = require("../models/HttpError");
 const Job = require("../models/Job");
 const Employer = require("../models/Employer");
@@ -114,6 +113,11 @@ exports.saveJob = async (req, res, next) => {
     return next(error);
   }
 
+  if (seeker.savedJobs.includes(jobId)) {
+    const error = new HttpError("You are already saved this job", 403);
+    return next(error);
+  }
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -129,4 +133,45 @@ exports.saveJob = async (req, res, next) => {
   res.status(201).json({ message: "Saved job successfully" });
 };
 
-exports.deleteJob = async (req, res, next) => {};
+exports.deleteJob = async (req, res, next) => {
+  const jobId = req.params.jobId;
+  const employerId = req.params.employerId;
+
+  let job;
+  try {
+    job = await Job.findById(jobId).populate("employer");
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not delete job.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!job) {
+    const error = new HttpError("Could not find job for this id.", 404);
+    return next(error);
+  }
+
+  if (job.employer.id !== employerId) {
+    const error = new HttpError(
+      "You are not authorized to delete this job.",
+      401
+    );
+    return next(error);
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await job.deleteOne({ session: sess });
+    job.employer.em_jobs.pull(job);
+    await job.employer.save({ session: sess });
+    await sess.commitTransaction();
+  } catch (err) {
+    const error = new HttpError("Could not delete job.", 500);
+    return next(error);
+  }
+
+  res.status(200).json({ message: "You are deleted job" });
+};
