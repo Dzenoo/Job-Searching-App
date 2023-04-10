@@ -15,6 +15,7 @@ const JobSchema = new Schema(
     shortDescription: { type: String, required: true },
     requirements: { type: String, required: true },
     employer: { type: mongoose.Types.ObjectId, ref: "Employer" },
+    applicians: [{ type: mongoose.Types.ObjectId, ref: "Seeker" }],
   },
   { timestamps: true }
 );

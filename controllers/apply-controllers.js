@@ -45,6 +45,8 @@ exports.applyToJob = async (req, res, next) => {
     await createdApplication.save({ session: sess });
     seeker.appliedJobs.push(createdApplication);
     await seeker.save({ session: sess });
+    job.applicians.push(seekerId);
+    await job.save({ session: sess });
     await sess.commitTransaction();
     await sess.endSession();
   } catch (err) {

@@ -32,6 +32,7 @@ exports.newJob = async (req, res, next) => {
     shortDescription,
     requirements,
     employer: employerId,
+    applicians: [],
   });
 
   let employer;

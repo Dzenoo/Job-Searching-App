@@ -69,12 +69,12 @@ exports.login = async (req, res, next) => {
   try {
     existingUser = await Seeker.findOne({ email: email });
   } catch (err) {
-    const error = new HttpError("Could not find seeker", 404);
+    const error = new HttpError("Could not find seeker for that email", 404);
     return next(error);
   }
 
   if (!existingUser) {
-    const error = new HttpError("Could not find seeke", 403);
+    const error = new HttpError("Could not find seeker", 403);
     return next(error);
   }
 
