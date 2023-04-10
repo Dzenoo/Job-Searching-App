@@ -4,6 +4,8 @@ import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
 import { MdOutlineHomeWork } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const JobDetails = () => {
   const data = useRouteLoaderData("job-details");
@@ -13,17 +15,27 @@ const JobDetails = () => {
 
   const saveJobHandler = async () => {
     try {
-      await fetch(
+      const response = await fetch(
         `http://localhost:8000/api/jobs/${seeker._id}/${jobId}/save`,
         {
           method: "POST",
         }
       );
-    } catch (error) {}
+
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      } else {
+        toast.success("You are save job");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
     <>
+      <ToastContainer />
       <Container
         maxWidth="lg"
         sx={{

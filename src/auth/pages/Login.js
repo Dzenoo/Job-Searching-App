@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import logo from "../../shared/assets/logo.png";
 import {
   Button,
   Card,
@@ -15,8 +14,9 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/Validators";
 import { AuthContext } from "../../shared/context/AuthContext";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import logo from "../../shared/assets/logo.png";
 
 const Login = () => {
   const [isType, setisType] = useState(false);
