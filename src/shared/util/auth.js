@@ -11,7 +11,7 @@ export function checkAuth() {
 }
 
 export function checkEmployer() {
-  const employer = JSON.parse(localStorage.getItem("emplyer"));
+  const employer = JSON.parse(localStorage.getItem("employer"));
 
   if (!employer) {
     return redirect("/auth/login");
