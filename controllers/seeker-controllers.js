@@ -113,7 +113,6 @@ exports.login = async (req, res, next) => {
 
 exports.getProfile = async (req, res, next) => {
   const seekerId = req.params.seekerId;
-
   let seeker;
   try {
     seeker = await Seeker.findById(seekerId)
