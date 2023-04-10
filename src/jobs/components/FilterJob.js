@@ -39,7 +39,12 @@ const FilterJob = ({ handleCheckbox }) => {
                 <Checkbox
                   checked={schedule.checked}
                   onChange={() =>
-                    handleCheckbox(i, checkboxSchedule, setCheckboxSchedule)
+                    handleCheckbox(
+                      i,
+                      checkboxSchedule,
+                      setCheckboxSchedule,
+                      "schedule"
+                    )
                   }
                 />
               }
@@ -60,7 +65,12 @@ const FilterJob = ({ handleCheckbox }) => {
                 <Checkbox
                   checked={schedule.checked}
                   onChange={() =>
-                    handleCheckbox(i, checkboxSeniority, setCheckboxSeniority)
+                    handleCheckbox(
+                      i,
+                      checkboxSeniority,
+                      setCheckboxSeniority,
+                      "level"
+                    )
                   }
                 />
               }
@@ -81,7 +91,12 @@ const FilterJob = ({ handleCheckbox }) => {
                 <Checkbox
                   checked={schedule.checked}
                   onChange={() =>
-                    handleCheckbox(i, checkboxSalary, setCheckboxSalary)
+                    handleCheckbox(
+                      i,
+                      checkboxSalary,
+                      setCheckboxSalary,
+                      "salary"
+                    )
                   }
                 />
               }

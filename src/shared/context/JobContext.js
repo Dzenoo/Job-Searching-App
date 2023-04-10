@@ -7,6 +7,7 @@ export const JobProvider = ({ children }) => {
   const [filteredJobs, setfilteredJobs] = useState([]);
   const [isLoading, setisLoading] = useState(false);
 
+  // Fetch Jobs
   useEffect(() => {
     setisLoading(true);
     const fetchJobs = async () => {
@@ -26,7 +27,8 @@ export const JobProvider = ({ children }) => {
     fetchJobs();
   }, []);
 
-  const handleCheckbox = (index, state, setState) => {
+  // Checkbox filter
+  const handleCheckbox = (index, state, setState, filterType) => {
     const newCheckboxes = [...state];
     newCheckboxes[index].checked = !newCheckboxes[index].checked;
     setState(newCheckboxes);
@@ -38,18 +40,19 @@ export const JobProvider = ({ children }) => {
       return;
     }
 
-    const checkedSchedules = newCheckboxes
+    const checkedBox = newCheckboxes
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
 
     const newFilteredJobs = jobs.filter((job) =>
-      checkedSchedules.includes(job.property && job.schedule && job.salary)
+      checkedBox.includes(job[filterType])
     );
 
     setfilteredJobs(newFilteredJobs);
     filterJobsByCheckbox(state);
   };
 
+  // Search Filter
   const handleFilterSearch = (e) => {
     const inputQuery = e.target.value;
     const searchedJobs = jobs.filter((j) =>
@@ -58,6 +61,7 @@ export const JobProvider = ({ children }) => {
     setfilteredJobs(searchedJobs);
   };
 
+  // Select filter
   const handleFilterLocation = (location, city) => {
     let newFilteredJobs;
     if (location) {
