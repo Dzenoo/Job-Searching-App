@@ -32,7 +32,6 @@ export const JobProvider = ({ children }) => {
     const newCheckboxes = [...state];
     newCheckboxes[index].checked = !newCheckboxes[index].checked;
     setState(newCheckboxes);
-
     const allUnchecked = newCheckboxes.every((checkbox) => !checkbox.checked);
 
     if (allUnchecked) {
@@ -43,7 +42,6 @@ export const JobProvider = ({ children }) => {
     const checkedBox = newCheckboxes
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.label);
-
     const newFilteredJobs = jobs.filter((job) =>
       checkedBox.includes(job[filterType])
     );

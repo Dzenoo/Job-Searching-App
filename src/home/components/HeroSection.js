@@ -1,11 +1,64 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material'
-import { AiOutlineCheckCircle } from 'react-icons/ai'
-import lumina from '../../shared/assets/lumina.png'
-import nexa from '../../shared/assets/nexa.png'
-import vantage from '../../shared/assets/vantage.png'
-import React from 'react'
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { useFormHook } from "../../shared/hooks/useForm";
+import Input from "../../shared/components/Input";
+import lumina from "../../shared/assets/lumina.png";
+import nexa from "../../shared/assets/nexa.png";
+import vantage from "../../shared/assets/vantage.png";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { BarLoader } from "react-spinners";
+import "react-toastify/dist/ReactToastify.css";
+import { VALIDATOR_EMAIL } from "../../shared/util/Validators";
 
 const HeroSection = () => {
+  const [formState, inputHandler] = useFormHook(
+    {
+      email: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
+  const [isLoading, setisLoading] = useState(false);
+
+  const signupNewsletter = async (e) => {
+    e.preventDefault();
+    setisLoading(true);
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/newsletter/signup",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      toast.success("You submmitted for newsletter");
+
+      setisLoading(false);
+    } catch (err) {
+      setisLoading(false);
+      toast.error(err.message);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="loader_center">
+        <BarLoader />
+      </div>
+    );
+  }
+
   return (
     <Grid
       container
@@ -14,10 +67,11 @@ const HeroSection = () => {
       spacing={4}
       padding={3}
     >
+      <ToastContainer />
       <Grid
         item
         lg={4.6}
-        sx={{ display: 'flex', flexDirection: 'column', gap: '2em' }}
+        sx={{ display: "flex", flexDirection: "column", gap: "2em" }}
       >
         <Typography variant="h2" fontWeight="bold">
           Make the best move to choose your new job
@@ -27,24 +81,35 @@ const HeroSection = () => {
           tools, making it easy to find the job that is right for you.
         </Typography>
 
-        <Box sx={{ display: 'flex' }}>
-          <TextField placeholder="Enter Your Email" />
-          <Button variant="contained" size="large">
+        <form
+          onSubmit={signupNewsletter}
+          style={{ display: "flex", alignItems: "baseline" }}
+        >
+          <Input
+            onInput={inputHandler}
+            id="email"
+            type="email"
+            validators={[VALIDATOR_EMAIL()]}
+            errorText="Enter valid email"
+            placeholder="Enter Your Email"
+          />
+
+          <Button variant="contained" size="large" type="submit">
             Get started!
           </Button>
-        </Box>
+        </form>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1.2em' }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1.2em" }}>
           <Typography
             variant="h6"
-            sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}
+            sx={{ display: "flex", gap: "10px", alignItems: "center" }}
           >
             <AiOutlineCheckCircle fill="green" />
             Easy Application
           </Typography>
           <Typography
             variant="h6"
-            sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}
+            sx={{ display: "flex", gap: "10px", alignItems: "center" }}
           >
             <AiOutlineCheckCircle fill="green" />
             Update everyday
@@ -53,7 +118,7 @@ const HeroSection = () => {
       </Grid>
       <Grid item lg={7} className="card_hero"></Grid>
       <Grid item lg={4.7}>
-        <Box sx={{ width: '500px' }}>
+        <Box sx={{ width: "500px" }}>
           <Typography variant="h6" fontWeight="bold" align="left">
             Trusted by top tier companies
           </Typography>
@@ -66,7 +131,7 @@ const HeroSection = () => {
         </Box>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;
