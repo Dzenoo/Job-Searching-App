@@ -133,7 +133,7 @@ const JobDetails = () => {
           >
             <h3>Number of applicans</h3>
             <Typography color="orange" fontWeight="bold">
-              20
+              {job.applicians.length}
             </Typography>
           </Box>
         </ul>
