@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, json, useParams, useRouteLoaderData } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
+import { RiChatDeleteLine } from "react-icons/ri";
 import { MdOutlineHomeWork } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
+import { BarLoader } from "react-spinners";
 import "react-toastify/dist/ReactToastify.css";
 
 const JobDetails = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const data = useRouteLoaderData("job-details");
   const job = data.job;
   const jobId = useParams().idOfJob;
   const seeker = JSON.parse(localStorage.getItem("seeker"));
+  const employer = JSON.parse(localStorage.getItem("employer"));
 
   const saveJobHandler = async () => {
     try {
@@ -32,6 +36,37 @@ const JobDetails = () => {
       toast.error(err.message);
     }
   };
+
+  const deleteJobHandler = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/jobs/${employer._id}/${jobId}/delete`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+      setIsLoading(false);
+      toast.success("You are deleted job");
+    } catch (err) {
+      toast.error(err.message);
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="loader_center">
+        <BarLoader />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -84,6 +119,9 @@ const JobDetails = () => {
           <div className="save_button_div">
             <Button onClick={saveJobHandler}>
               <AiOutlineSave size={40} />
+            </Button>
+            <Button onClick={deleteJobHandler}>
+              <RiChatDeleteLine size={40} fill="red" />
             </Button>
           </div>
         </Box>
