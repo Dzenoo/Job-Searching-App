@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { BarLoader } from "react-spinners";
 
-import EditJob from "../../jobs/pages/EditJob";
 import Root from "./root";
 import Applications from "../../profile/components/Applications";
 import SavedJobs from "../../profile/components/SavedJobs";
@@ -78,10 +77,6 @@ export const routes = createBrowserRouter([
                 <JobDetails />
               </Suspense>
             ),
-          },
-          {
-            path: "edit",
-            element: <EditJob />,
           },
           {
             path: "apply",
