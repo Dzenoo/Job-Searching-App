@@ -7,7 +7,9 @@ import { JobContext } from "../../shared/context/JobContext";
 
 const Home = () => {
   const { jobs } = useContext(JobContext);
+  const token = JSON.parse(localStorage.getItem("userData"));
 
+  console.log(token === null);
   return (
     <>
       <HeroSection />

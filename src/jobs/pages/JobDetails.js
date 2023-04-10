@@ -117,12 +117,16 @@ const JobDetails = () => {
             </Typography>
           </div>
           <div className="save_button_div">
-            <Button onClick={saveJobHandler}>
-              <AiOutlineSave size={40} />
-            </Button>
-            <Button onClick={deleteJobHandler}>
-              <RiChatDeleteLine size={40} fill="red" />
-            </Button>
+            {!employer && (
+              <Button onClick={saveJobHandler}>
+                <AiOutlineSave size={40} />
+              </Button>
+            )}
+            {employer && (
+              <Button onClick={deleteJobHandler}>
+                <RiChatDeleteLine size={40} fill="red" />
+              </Button>
+            )}
           </div>
         </Box>
         <ul className="job_details_list">
@@ -199,7 +203,7 @@ const JobDetails = () => {
           <ul className="skills_list">
             {job.skills.split(",").map((s) => (
               <li key={s}>
-                <Typography>{s}</Typography>
+                <Typography fontWeight="bold">{s}</Typography>
               </li>
             ))}
           </ul>
@@ -228,16 +232,18 @@ const JobDetails = () => {
             ))}
           </ul>
         </Box>
-        <Link to="apply">
-          <Button
-            variant="contained"
-            size="large"
-            sx={{ marginTop: "40px" }}
-            fullWidth
-          >
-            Apply
-          </Button>
-        </Link>
+        {!employer && (
+          <Link to="apply">
+            <Button
+              variant="contained"
+              size="large"
+              sx={{ marginTop: "40px" }}
+              fullWidth
+            >
+              Apply
+            </Button>
+          </Link>
+        )}
       </Container>
     </>
   );

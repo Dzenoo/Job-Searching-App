@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { BarLoader } from "react-spinners";
+import { checkAuth, checkEmployer } from "../util/auth";
 
 import Root from "./root";
 import Applications from "../../profile/components/Applications";
@@ -80,6 +81,7 @@ export const routes = createBrowserRouter([
           },
           {
             path: "apply",
+            loader: checkAuth,
             element: (
               <Suspense
                 fallback={
@@ -96,6 +98,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/jobs/new",
+        loader: checkEmployer,
         element: (
           <Suspense
             fallback={
@@ -146,6 +149,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/em_profile",
+        loader: checkEmployer,
         element: (
           <Suspense
             fallback={
@@ -160,6 +164,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/se_profile",
+        loader: checkAuth,
         element: (
           <Suspense
             fallback={
@@ -174,14 +179,17 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/se_profile/applications",
+        loader: checkAuth,
         element: <Applications />,
       },
       {
         path: "/se_profile/saved-jobs",
+        loader: checkAuth,
         element: <SavedJobs />,
       },
       {
         path: "/se_profile/saved-companies",
+        loader: checkAuth,
         element: <SavedCompanies />,
       },
     ],

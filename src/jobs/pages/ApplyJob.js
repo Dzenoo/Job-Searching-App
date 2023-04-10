@@ -15,6 +15,8 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../shared/util/Validators";
 import { useParams } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const ApplyJob = () => {
   const [formState, inputHandler] = useFormHook(
@@ -53,7 +55,7 @@ const ApplyJob = () => {
     e.preventDefault();
 
     try {
-      await fetch(
+      const response = await fetch(
         `http://localhost:8000/api/applications/${jobId}/${seeker.id}/apply`,
         {
           method: "POST",
@@ -68,12 +70,21 @@ const ApplyJob = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      alert("Successfully apply to job");
-    } catch (err) {}
+
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      } else {
+        toast.success("Successfully applied to job");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   }
 
   return (
     <Container maxWidth="md" sx={{ padding: "30px" }}>
+      <ToastContainer />
       <Card>
         <Box sx={{ backgroundColor: "hsl(209, 84%, 49%)", height: "130px" }}>
           <div style={{ padding: "20px" }}>
