@@ -5,6 +5,7 @@ const seekerRoutes = require("./routes/seeker-routes");
 const jobRoutes = require("./routes/job-routes");
 const bodyParser = require("body-parser");
 const applyRoutes = require("./routes/apply-routes");
+const newsletter = require("./routes/newsletter");
 const HttpError = require("./models/HttpError");
 const cors = require("cors");
 
@@ -28,6 +29,7 @@ app.use("/api/employer", employerRoutes);
 app.use("/api/seeker", seekerRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applyRoutes);
+app.use("/api/newsletter", newsletter);
 
 app.use((error, req, res, next) => {
   if (res.headerSent) {
