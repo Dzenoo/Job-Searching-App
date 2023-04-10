@@ -39,11 +39,16 @@ exports.applyToJob = async (req, res, next) => {
     job: jobId,
   });
 
+  if (seeker.appliedJobs.includes(jobId)) {
+    const error = new HttpError("You already applied for this job", 500);
+    return next(error);
+  }
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await createdApplication.save({ session: sess });
-    seeker.appliedJobs.push(createdApplication);
+    seeker.appliedJobs.push(jobId);
     await seeker.save({ session: sess });
     job.applicians.push(seekerId);
     await job.save({ session: sess });
