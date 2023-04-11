@@ -3,7 +3,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
 import { AiOutlineMenu } from "react-icons/ai";
-import "../../Responsive.css";
 import logo from "../assets/logo.png";
 import ResponsiveNav from "./ResponsiveNav";
 import NavLinks from "./NavLinks";

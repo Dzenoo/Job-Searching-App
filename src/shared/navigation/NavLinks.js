@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import "../../Responsive.css";
-import { Button } from "@mui/material";
 import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
 

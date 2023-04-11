@@ -379,3 +379,140 @@ body {
   border: none;
   color: green;
 }
+
+.slide-in-left-enter {
+  transform: translateX(-100%);
+}
+
+.slide-in-left-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 200ms;
+}
+
+.slide-in-left-exit {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slide-in-left-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 200ms;
+}
+
+.open_menu_btn {
+  background-color: transparent;
+  border: none;
+  font-size: 40px;
+  display: none;
+}
+
+.side-drawer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 70%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 30px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  align-items: baseline;
+  justify-content: space-around;
+}
+
+.nav_login_btn a {
+  background-color: transparent;
+  border: 1px solid var(--blue_color);
+  padding: 10px 20px;
+  color: #121212 !important;
+  border-radius: 13px;
+}
+
+.nav_signup_btn a {
+  background-color: var(--blue_color);
+  padding: 10px 20px;
+  color: #fff !important;
+  border-bottom: 2px solid #fff;
+  border-radius: 13px;
+}
+
+@media (max-width: 950px) {
+  .cart_bar svg {
+    font-size: 26px;
+    color: #fff;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 3rem;
+    margin-right: 60px;
+  }
+
+  .menu li a {
+    text-decoration: none;
+    color: #303030;
+    font-weight: 600;
+  }
+
+  .navigation_header nav {
+    display: none;
+  }
+
+  .navigation_header img {
+    display: none;
+  }
+
+  .open_menu_btn {
+    display: block;
+  }
+
+  .card_hero {
+    display: none;
+  }
+}
+
+@media (max-width: 1194px) {
+  .filter_box {
+    flex-direction: row !important;
+    padding: 20px !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 786px) {
+  .search_container {
+    padding: 40px;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 20px;
+  }
+
+  .navigation_header {
+    padding: 30px;
+  }
+  .company_header {
+    padding: 45px;
+  }
+}
+
+@media (max-width: 425px) {
+  .signup_action .text {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 375px) {
+  .footer_list {
+    justify-content: space-between;
+    padding: 28px;
+    gap: 2em;
+  }
+}

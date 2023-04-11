@@ -10,7 +10,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { BarLoader } from "react-spinners";
 import "react-toastify/dist/ReactToastify.css";
 import { VALIDATOR_EMAIL } from "../../shared/util/Validators";
-import "../../Responsive.css";
 
 const HeroSection = () => {
   const [formState, inputHandler] = useFormHook(
