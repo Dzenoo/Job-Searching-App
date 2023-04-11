@@ -15,17 +15,18 @@ const FilterJob = ({ handleCheckbox }) => {
 
   return (
     <>
-      <Box
-        sx={{
+      <Typography variant="h4">Details</Typography>
+      <Divider />
+      <div
+        style={{
           backgroundColor: "#fff",
           padding: "60px",
           display: "flex",
           flexDirection: "column",
           gap: "2em",
         }}
+        className="filter_box"
       >
-        <Typography variant="h4">Details</Typography>
-        <Divider />
         <Box>
           <Typography variant="p" color="textSecondary">
             Schedule
@@ -103,7 +104,7 @@ const FilterJob = ({ handleCheckbox }) => {
             />
           ))}
         </Box>
-      </Box>
+      </div>
     </>
   );
 };

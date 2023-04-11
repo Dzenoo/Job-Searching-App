@@ -93,6 +93,23 @@
   }
 }
 
+@media (max-width: 1194px) {
+  .filter_box {
+    flex-direction: row !important;
+    padding: 20px !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 786px) {
+  .search_container {
+    padding: 40px;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 20px;
+  }
+}
+
 @media (max-width: 425px) {
   .signup_action .text {
     padding: 40px;

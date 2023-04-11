@@ -117,7 +117,7 @@ const HeroSection = () => {
           </Typography>
         </Box>
       </Grid>
-      {/* <Grid item lg={7} md={12} className="card_hero"></Grid> */}
+      <Grid item lg={7} md={12} className="card_hero"></Grid>
       <Grid item lg={4.7}>
         <Box>
           <Typography variant="h6" fontWeight="bold" align="left">
