@@ -59,7 +59,8 @@ const Applicians = ({ applicians }) => {
       <ToastContainer />
       <Container>
         <Alert severity="info">
-          Note that when you updating status, you must refresh for changes
+          Note that when you updating status, you must refresh page to see
+          changes
         </Alert>
         <br />
         <Grid container spacing={4}>
@@ -75,7 +76,7 @@ const Applicians = ({ applicians }) => {
               >
                 <Select
                   id="schedule"
-                  value="Screening"
+                  value={a.status}
                   onChange={(e) => updateStatus(a._id, e)}
                 >
                   <MenuItem value="Screening">Screening</MenuItem>

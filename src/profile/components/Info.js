@@ -4,6 +4,7 @@ import React from "react";
 const Info = ({ biography }) => {
   return (
     <>
+      <Typography variant="h4">Biography</Typography>
       <Typography>{biography}</Typography>
     </>
   );
