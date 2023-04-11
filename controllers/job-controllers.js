@@ -69,7 +69,7 @@ exports.newJob = async (req, res, next) => {
 exports.getJobs = async (req, res, next) => {
   let jobs;
   try {
-    jobs = await Job.find().populate("employer").select("-password");
+    jobs = await Job.find().populate("employer").select("-em_password");
   } catch (err) {
     const error = new HttpError("Cannot find jobs, please try again", 403);
     return next(error);
@@ -85,7 +85,7 @@ exports.getJob = async (req, res, next) => {
 
   let job;
   try {
-    job = await Job.findById(jobId).populate("employer");
+    job = await Job.findById(jobId).populate("employer").select("-em_password");
   } catch (err) {
     const error = new HttpError("Cannot find job, please try again", 403);
     return next(error);
@@ -139,7 +139,7 @@ exports.deleteJob = async (req, res, next) => {
 
   let job;
   try {
-    job = await Job.findById(jobId).populate("employer");
+    job = await Job.findById(jobId).populate("employer").select("-em_password");
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not delete job.",
