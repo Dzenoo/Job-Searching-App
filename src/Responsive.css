@@ -23,6 +23,7 @@
   background-color: transparent;
   border: none;
   font-size: 40px;
+  display: none;
 }
 
 .side-drawer {
@@ -81,5 +82,9 @@
 
   .navigation_header nav {
     display: none;
+  }
+
+  .open_menu_btn {
+    display: block;
   }
 }
