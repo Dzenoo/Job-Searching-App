@@ -3,8 +3,15 @@ const HttpError = require("../models/HttpError");
 const Job = require("../models/Job");
 const Employer = require("../models/Employer");
 const Seeker = require("../models/Seeker");
+const { validationResult } = require("express-validator");
 
 exports.newJob = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
   const employerId = req.params.employerId;
   const {
     title,

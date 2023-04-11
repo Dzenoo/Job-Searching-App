@@ -1,7 +1,14 @@
 const Newsletter = require("../models/Newsletter");
 const HttpError = require("../models/HttpError");
+const { validationResult } = require("express-validator");
 
 exports.signupForNewsletter = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
   const { email } = req.body;
 
   let existing;

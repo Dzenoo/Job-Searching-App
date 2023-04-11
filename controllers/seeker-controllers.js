@@ -4,8 +4,15 @@ const Seeker = require("../models/Seeker");
 const HttpError = require("../models/HttpError");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { validationResult } = require("express-validator");
 
 exports.signup = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
   const { first_name, last_name, email, password } = req.body;
 
   let existingSeeker;
@@ -75,6 +82,12 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
   const { email, password } = req.body;
 
   let existingUser;
