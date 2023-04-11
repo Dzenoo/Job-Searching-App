@@ -6,24 +6,24 @@ import {
   Card,
   CardContent,
   CardActions,
-  Button
-} from '@mui/material'
-import { AiOutlineDollarCircle, AiOutlineFieldTime } from 'react-icons/ai'
-import { CiLocationOn } from 'react-icons/ci'
-import newsletter from '../../shared/assets/signup_action.png'
-import React from 'react'
-import { Link } from 'react-router-dom'
+  Button,
+} from "@mui/material";
+import { AiOutlineDollarCircle, AiOutlineFieldTime } from "react-icons/ai";
+import { CiLocationOn } from "react-icons/ci";
+import newsletter from "../../shared/assets/signup_action.png";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const JobOpenings = ({ jobs }) => {
   return (
-    <Container maxWidth="xl" sx={{ paddingTop: '60px' }}>
+    <Container maxWidth="xl" sx={{ paddingTop: "60px" }}>
       <Box
         sx={{
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '20px'
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "20px",
         }}
       >
         <span className="button_outlined">Job openings</span>
@@ -44,10 +44,10 @@ const JobOpenings = ({ jobs }) => {
           <Grid item key={job.id}>
             <Card
               sx={{
-                border: '1px solid #1482e8',
-                borderRadius: '60px',
-                padding: '20px',
-                maxWidth: '500px'
+                border: "1px solid #1482e8",
+                borderRadius: "60px",
+                padding: "20px",
+                maxWidth: "500px",
               }}
             >
               <CardContent>
@@ -55,7 +55,7 @@ const JobOpenings = ({ jobs }) => {
                   src={job.employer.em_image}
                   alt={job.title}
                   style={{
-                    width: '100px'
+                    width: "100px",
                   }}
                 />
                 <Typography variant="h4" color="#1482e8">
@@ -64,7 +64,7 @@ const JobOpenings = ({ jobs }) => {
                 <Typography variant="h6">
                   <Link
                     to={`/companies/${job.id}`}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: "none" }}
                   >
                     {job.employer.em_name}
                   </Link>
@@ -75,25 +75,25 @@ const JobOpenings = ({ jobs }) => {
                 </Typography>
               </CardContent>
               <CardActions
-                sx={{ display: 'flex', justifyContent: 'center', gap: '20px' }}
+                sx={{ display: "flex", justifyContent: "center", gap: "20px" }}
               >
                 <Typography
                   variant="p"
-                  sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
                   <CiLocationOn size={30} fill="blue" />
                   {job.city}
                 </Typography>
                 <Typography
                   variant="p"
-                  sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
                   <AiOutlineDollarCircle size={30} fill="green" />
                   {job.salary}
                 </Typography>
                 <Typography
                   variant="p"
-                  sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
                   <AiOutlineFieldTime size={30} fill="red" />
                   {job.time}
@@ -104,31 +104,32 @@ const JobOpenings = ({ jobs }) => {
         ))}
       </Grid>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <div className="signup_action">
           <img src={newsletter} alt="newsletter" />
           <div className="text">
             <Typography variant="h4" color="white">
               Set up personalized job alerts
             </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                marginTop: '20px',
-                padding: '20px 60px',
-                backgroundColor: '#fff',
-                color: '#121212'
-              }}
-            >
-              <Link to="/auth/signup" className="link">
+
+            <Link to="/auth/signup" className="link">
+              <Button
+                variant="contained"
+                sx={{
+                  marginTop: "20px",
+                  padding: "20px 60px",
+                  backgroundColor: "#fff",
+                  color: "#121212",
+                }}
+              >
                 Sign Up
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default JobOpenings
+export default JobOpenings;
