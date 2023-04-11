@@ -3,6 +3,7 @@ const express = require("express");
 const Seeker = require("../models/Seeker");
 const HttpError = require("../models/HttpError");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 exports.signup = async (req, res, next) => {
   const { first_name, last_name, email, password } = req.body;
@@ -20,11 +21,22 @@ exports.signup = async (req, res, next) => {
     return next(error);
   }
 
+  let hashPassword;
+  try {
+    hashPassword = await bcrypt.hash(password, 12);
+  } catch (err) {
+    const error = new HttpError(
+      "Could not hash password, try again later",
+      500
+    );
+    return next(error);
+  }
+
   const createdSeeker = new Seeker({
     first_name,
     last_name,
     email,
-    password,
+    password: hashPassword,
     appliedJobs: [],
     savedJobs: [],
   });
@@ -81,6 +93,25 @@ exports.login = async (req, res, next) => {
   if (existingUser.password !== password) {
     const error = new HttpError(
       "Invalid credentials, could not log you in.",
+      403
+    );
+    return next(error);
+  }
+
+  let isPasswordValid;
+  try {
+    isPasswordValid = await bcrypt.compare(password, existingUser.password);
+  } catch (err) {
+    const error = new HttpError(
+      "Could not log you in please check credentials.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!isPasswordValid) {
+    const error = new HttpError(
+      "Could not log you in please check credentials.",
       403
     );
     return next(error);
