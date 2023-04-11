@@ -7,7 +7,7 @@ const SeekerSchema = new Schema({
   last_name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  appliedJobs: [{ type: mongoose.Types.ObjectId, ref: "Application" }],
+  appliedJobs: [{ type: mongoose.Types.ObjectId, ref: "Job" }],
   savedJobs: [{ type: mongoose.Types.ObjectId, ref: "Job" }],
 });
 

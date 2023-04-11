@@ -13,6 +13,7 @@ const EmployerSchema = new Schema({
   em_employees: { type: Number, required: true },
   em_jobs: [{ type: mongoose.Types.ObjectId, ref: "Job" }],
   em_biography: { type: String },
+  applications: [{ type: mongoose.Types.ObjectId, ref: "Application" }],
 });
 
 module.exports = mongoose.model("Employer", EmployerSchema);

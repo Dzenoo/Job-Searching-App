@@ -116,13 +116,8 @@ exports.getProfile = async (req, res, next) => {
   let seeker;
   try {
     seeker = await Seeker.findById(seekerId)
-      .populate("savedJobs")
-      .populate({
-        path: "appliedJobs",
-        populate: {
-          path: "job",
-        },
-      });
+      .populate("appliedJobs")
+      .populate("savedJobs");
   } catch (err) {
     const error = new HttpError("Cannot get user profile", 403);
     return next(error);

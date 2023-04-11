@@ -8,6 +8,8 @@ const ApplicationSchema = new Schema({
   phone: { type: String, required: true },
   cv: { type: String, required: true },
   country: { type: String, required: true },
+  employer: { type: mongoose.Types.ObjectId, ref: "Employer" },
+  status: { type: String, default: "Pending" },
   job: { type: mongoose.Types.ObjectId, ref: "Job" },
 });
 

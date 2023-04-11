@@ -3,9 +3,10 @@ const Application = require("../models/Application");
 const Seeker = require("../models/Seeker");
 const Job = require("../models/Job");
 const HttpError = require("../models/HttpError");
+const Employer = require("../models/Employer");
 
 exports.applyToJob = async (req, res, next) => {
-  const { seekerId, jobId } = req.params;
+  const { seekerId, employerId, jobId } = req.params;
   const { name, surname, email, phone, cv, country } = req.body;
 
   let seeker;
@@ -29,6 +30,14 @@ exports.applyToJob = async (req, res, next) => {
     return next(error);
   }
 
+  let employer;
+  try {
+    employer = await Employer.findById(employerId);
+  } catch (err) {
+    const error = new HttpError("Could not find Employer");
+    return next(error);
+  }
+
   const createdApplication = new Application({
     name,
     surname,
@@ -36,6 +45,7 @@ exports.applyToJob = async (req, res, next) => {
     phone,
     cv,
     country,
+    employer: employerId,
     job: jobId,
   });
 
@@ -52,12 +62,43 @@ exports.applyToJob = async (req, res, next) => {
     await seeker.save({ session: sess });
     job.applicians.push(seekerId);
     await job.save({ session: sess });
+    employer.applications.push(createdApplication);
+    await employer.save({ session: sess });
     await sess.commitTransaction();
     await sess.endSession();
   } catch (err) {
-    const error = new HttpError("Could not save application");
+    const error = new HttpError("Could not apply to job");
     return next(error);
   }
 
   res.status(201).json({ createdApplication: createdApplication });
+};
+
+exports.getApplicans = async (req, res, next) => {
+  let applicans;
+  try {
+    applicans = await Application.find().populate("job");
+  } catch (err) {
+    const error = new HttpError("Could not find applications");
+    return next(error);
+  }
+
+  res.status(200).json({ applicans });
+};
+
+exports.updateStatus = async (req, res, next) => {
+  const { status } = req.body;
+  const applicationId = req.params.applicationId;
+
+  let application;
+  try {
+    application = await Application.findByIdAndUpdate(applicationId, {
+      status,
+    });
+  } catch (err) {
+    const error = new HttpError("Could not update status");
+    return next(error);
+  }
+
+  res.status(200).json({ message: "Status updated" });
 };
