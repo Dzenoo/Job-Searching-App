@@ -123,7 +123,7 @@ const SignUp = () => {
         localStorage.setItem("type", JSON.stringify(responseData.type));
         navigate("/");
       } catch (error) {
-        setError(error.message);
+        toast.error(error.message);
       }
     } else {
       try {
@@ -148,14 +148,10 @@ const SignUp = () => {
         login(responseData.seekerId, responseData.token);
         navigate("/");
       } catch (error) {
-        setError(error.message);
+        toast.error(error.message);
       }
     }
   };
-
-  if (error) {
-    toast.error(error);
-  }
 
   return (
     <Container maxWidth="md" className="signup_container">
