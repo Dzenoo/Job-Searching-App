@@ -127,7 +127,9 @@ exports.getProfile = async (req, res, next) => {
 
   let employer;
   try {
-    employer = await Employer.findById(employerId).select("-em_password");
+    employer = await Employer.findById(employerId)
+      .select("-em_password")
+      .populate("em_jobs");
   } catch (err) {
     const error = new HttpError("Cannot get user profile", 403);
     return next(error);
