@@ -14,16 +14,15 @@ import { Link } from "react-router-dom";
 const Jobs = ({ jobs }) => {
   return (
     <>
-      <Container sx={{ display: "flex", flexWrap: "wrap" }} maxWidth="lg">
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "12px",
+        }}
+      >
         {jobs.map((job) => (
-          <Card sx={{ padding: "20px", maxWidth: "400px" }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            ></Box>
+          <Card sx={{ padding: "20px" }}>
             <CardContent>
               <Typography variant="h5" fontWeight="bold">
                 {job.title}
@@ -104,7 +103,7 @@ const Jobs = ({ jobs }) => {
             </CardActions>
           </Card>
         ))}
-      </Container>
+      </div>
     </>
   );
 };

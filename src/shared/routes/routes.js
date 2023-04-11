@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { BarLoader } from "react-spinners";
-import { checkAuth, checkEmployer } from "../util/auth";
+import { checkAuth, checkEmployer, isSignuped } from "../util/auth";
 
 import Root from "./root";
 import Applications from "../../profile/components/Applications";
@@ -200,6 +200,7 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "signup",
+        loader: isSignuped,
         element: (
           <Suspense
             fallback={
@@ -214,6 +215,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "login",
+        loader: isSignuped,
         element: (
           <Suspense
             fallback={

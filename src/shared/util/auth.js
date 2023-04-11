@@ -19,3 +19,13 @@ export function checkEmployer() {
 
   return employer;
 }
+
+export function isSignuped() {
+  const isLoggedIn = JSON.parse(localStorage.getItem("userData"));
+
+  if (isLoggedIn) {
+    return redirect("/");
+  }
+
+  return isLoggedIn;
+}

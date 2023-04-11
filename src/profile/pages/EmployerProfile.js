@@ -9,7 +9,7 @@ const ProfilePage = () => {
   const [currentTab, setCurrentTab] = useState(0);
 
   return (
-    <Container sx={{ padding: "60px" }} maxWidth="md">
+    <Container maxWidth="lg">
       <Card
         sx={{
           display: "flex",
@@ -60,25 +60,13 @@ const ProfilePage = () => {
           </Button>
         </div>
       </Card>
-      <Grid container justifyContent="center" spacing={2} padding={6}>
-        {currentTab === 0 && (
-          <Grid item>
-            <Info biography={employerData.em_biography} />
-          </Grid>
-        )}
-
-        {currentTab === 1 && (
-          <Grid item lg={9}>
-            <Jobs jobs={employerData.em_jobs} />
-          </Grid>
-        )}
-
+      <Box padding={6}>
+        {currentTab === 0 && <Info biography={employerData.em_biography} />}
+        {currentTab === 1 && <Jobs jobs={employerData.em_jobs} />}
         {currentTab === 2 && (
-          <Grid item lg={12}>
-            <Applicians applicians={employerData.applications} />
-          </Grid>
+          <Applicians applicians={employerData.applications} />
         )}
-      </Grid>
+      </Box>
     </Container>
   );
 };
