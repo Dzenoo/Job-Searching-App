@@ -3,6 +3,7 @@ const express = require("express");
 const Employer = require("../models/Employer");
 const HttpError = require("../models/HttpError");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 exports.signup = async (req, res, next) => {
   const {
@@ -27,10 +28,21 @@ exports.signup = async (req, res, next) => {
     return next(error);
   }
 
+  let hashPassword;
+  try {
+    hashPassword = await bcrypt.hash(em_password, 12);
+  } catch (err) {
+    const error = new HttpError(
+      "Could not hash password, try again later",
+      500
+    );
+    return next(error);
+  }
+
   const createdEmployer = new Employer({
     em_name,
     em_email,
-    em_password,
+    em_password: hashPassword,
     em_phone,
     em_image:
       "https://res.cloudinary.com/dzwb60tk1/image/upload/v1680454460/2-removebg-preview_vggazr.png",
@@ -92,8 +104,25 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
 
-  if (existingEmployer.em_password !== em_password) {
-    const error = new HttpError("Invalid credentials", 500);
+  let isPasswordValid;
+  try {
+    isPasswordValid = await bcrypt.compare(
+      em_password,
+      existingEmployer.em_password
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Could not log you in please check credentials.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!isPasswordValid) {
+    const error = new HttpError(
+      "Could not log you in please check credentials.",
+      403
+    );
     return next(error);
   }
 
