@@ -158,7 +158,7 @@ const SignUp = () => {
   }
 
   return (
-    <Container maxWidth="lg" className="signup_container">
+    <Container maxWidth="md" className="signup_container">
       <ToastContainer />
       <Box className="form_img">
         <div className="flex_buttons">

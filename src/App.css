@@ -472,14 +472,10 @@ body {
 }
 
 .signup_container {
-  display: flex !important;
-  margin-top: 7em;
-  flex-wrap: wrap;
 }
 
 .form_img {
   background-image: url("./shared/assets/form_img.png");
-  padding: 40px;
 }
 
 @media (max-width: 1194px) {
