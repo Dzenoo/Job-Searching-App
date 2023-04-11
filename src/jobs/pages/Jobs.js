@@ -9,7 +9,6 @@ import { BarLoader } from "react-spinners";
 const Jobs = () => {
   const {
     handleFilterSearch,
-    handleFilterLocation,
     clearFilter,
     filteredJobs,
     handleCheckbox,
@@ -28,7 +27,6 @@ const Jobs = () => {
     <>
       <TopBar
         handleFilterSearch={handleFilterSearch}
-        handleFilterLocation={handleFilterLocation}
         clearFilter={clearFilter}
       />
       <Grid container>

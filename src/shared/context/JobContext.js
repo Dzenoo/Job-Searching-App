@@ -59,17 +59,6 @@ export const JobProvider = ({ children }) => {
     setfilteredJobs(searchedJobs);
   };
 
-  // Select filter
-  const handleFilterLocation = (location, city) => {
-    let newFilteredJobs;
-    if (location) {
-      newFilteredJobs = jobs.filter(
-        (j) => j.schedule === location && j.city === city
-      );
-    }
-    setfilteredJobs(newFilteredJobs);
-  };
-
   const filterJobsByCheckbox = (state) => {
     const filtered = jobs.filter((job) => {
       // Filter by schedule
@@ -114,7 +103,6 @@ export const JobProvider = ({ children }) => {
         jobs,
         filteredJobs,
         handleFilterSearch,
-        handleFilterLocation,
         clearFilter,
         handleCheckbox,
         isLoading,

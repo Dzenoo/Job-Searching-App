@@ -14,7 +14,7 @@ import newsletter from "../../shared/assets/signup_action.png";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const JobOpenings = ({ jobs }) => {
+const JobOpenings = ({ jobs, isLoggedIn }) => {
   return (
     <Container maxWidth="xl" sx={{ paddingTop: "60px" }}>
       <Box
@@ -104,30 +104,32 @@ const JobOpenings = ({ jobs }) => {
         ))}
       </Grid>
 
-      <Box sx={{ display: "flex", justifyContent: "center", padding: "0px" }}>
-        <div className="signup_action">
-          <img src={newsletter} alt="newsletter" />
-          <div className="text">
-            <Typography variant="h4" color="white">
-              Set up personalized job alerts
-            </Typography>
+      {!isLoggedIn && (
+        <Box sx={{ display: "flex", justifyContent: "center", padding: "0px" }}>
+          <div className="signup_action">
+            <img src={newsletter} alt="newsletter" />
+            <div className="text">
+              <Typography variant="h4" color="white">
+                Set up personalized job alerts
+              </Typography>
 
-            <Link to="/auth/signup" className="link">
-              <Button
-                variant="contained"
-                sx={{
-                  marginTop: "20px",
-                  padding: "20px 60px",
-                  backgroundColor: "#fff",
-                  color: "#121212",
-                }}
-              >
-                Sign Up
-              </Button>
-            </Link>
+              <Link to="/auth/signup" className="link">
+                <Button
+                  variant="contained"
+                  sx={{
+                    marginTop: "20px",
+                    padding: "20px 60px",
+                    backgroundColor: "#fff",
+                    color: "#121212",
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </Box>
+        </Box>
+      )}
     </Container>
   );
 };
