@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
       throw new Error("Auth failed");
     }
 
-    const decodedToken = jwt.verify(token, "strongsecret");
+    const decodedToken = jwt.verify(token, process.env.JWT);
     req.userData = { userId: decodedToken.userId };
     next();
   } catch (err) {

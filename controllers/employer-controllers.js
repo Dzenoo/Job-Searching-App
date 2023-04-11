@@ -69,7 +69,7 @@ exports.signup = async (req, res, next) => {
         employerId: createdEmployer.id,
         em_email: createdEmployer.em_email,
       },
-      "strongsecret",
+      process.env.JWT,
       { expiresIn: "2h" }
     );
   } catch (err) {
@@ -133,7 +133,7 @@ exports.login = async (req, res, next) => {
         employerId: existingEmployer.id,
         em_email: existingEmployer.em_email,
       },
-      "strongsecret",
+      process.env.JWT,
       { expiresIn: "2h" }
     );
   } catch (err) {

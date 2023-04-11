@@ -56,7 +56,7 @@ exports.signup = async (req, res, next) => {
         seekerId: createdSeeker.id,
         se_email: createdSeeker.email,
       },
-      "strongsecret",
+      process.env.JWT,
       { expiresIn: "2h" }
     );
   } catch (err) {
@@ -124,7 +124,7 @@ exports.login = async (req, res, next) => {
         seekerId: existingUser.id,
         se_email: existingUser.email,
       },
-      "strongsecret",
+      process.env.JWT,
       { expiresIn: "2h" }
     );
   } catch (err) {
