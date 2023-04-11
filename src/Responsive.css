@@ -32,7 +32,7 @@
   top: 0;
   bottom: 0;
   z-index: 100;
-  width: 40%;
+  width: 70%;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 30px;
@@ -86,5 +86,23 @@
 
   .open_menu_btn {
     display: block;
+  }
+
+  .card_hero {
+    display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .signup_action .text {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 375px) {
+  .footer_list {
+    justify-content: space-between;
+    padding: 28px;
+    gap: 2em;
   }
 }

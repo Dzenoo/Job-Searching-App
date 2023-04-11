@@ -104,7 +104,7 @@ const JobOpenings = ({ jobs }) => {
         ))}
       </Grid>
 
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ display: "flex", justifyContent: "center", padding: "0px" }}>
         <div className="signup_action">
           <img src={newsletter} alt="newsletter" />
           <div className="text">

@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { BarLoader } from "react-spinners";
 import "react-toastify/dist/ReactToastify.css";
 import { VALIDATOR_EMAIL } from "../../shared/util/Validators";
+import "../../Responsive.css";
 
 const HeroSection = () => {
   const [formState, inputHandler] = useFormHook(
@@ -65,7 +66,7 @@ const HeroSection = () => {
       justifyContent="flex-end"
       alignItems="center"
       spacing={4}
-      padding={3}
+      padding={5}
     >
       <ToastContainer />
       <Grid
@@ -73,7 +74,7 @@ const HeroSection = () => {
         lg={4.6}
         sx={{ display: "flex", flexDirection: "column", gap: "2em" }}
       >
-        <Typography variant="h2" fontWeight="bold">
+        <Typography variant="h3" fontWeight="bold">
           Make the best move to choose your new job
         </Typography>
         <Typography variant="h6" color="textSecondary">
@@ -116,9 +117,9 @@ const HeroSection = () => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item lg={7} className="card_hero"></Grid>
+      {/* <Grid item lg={7} md={12} className="card_hero"></Grid> */}
       <Grid item lg={4.7}>
-        <Box sx={{ width: "500px" }}>
+        <Box>
           <Typography variant="h6" fontWeight="bold" align="left">
             Trusted by top tier companies
           </Typography>
