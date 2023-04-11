@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const Jobs = ({ jobs }) => {
   return (
     <>
-      <Container>
+      <Container sx={{ display: "flex", flexWrap: "wrap" }} maxWidth="lg">
         {jobs.map((job) => (
           <Card sx={{ padding: "20px", maxWidth: "400px" }}>
             <Box

@@ -140,6 +140,7 @@ const NewJob = () => {
             />
           </FormControl>
 
+          <Alert severity="info">Enter New York, London, or Berlin</Alert>
           {/* City */}
           <FormControl>
             <label htmlFor="">City</label>
@@ -155,6 +156,8 @@ const NewJob = () => {
               onInput={inputHandler}
             />
           </FormControl>
+
+          <Alert severity="info">Enter between 0 - 100 000</Alert>
 
           {/* Salary */}
           <FormControl>
@@ -244,13 +247,18 @@ const NewJob = () => {
             </RadioGroup>
           </FormControl>
 
+          <Alert severity="info">
+            When typing job description and job description use enter after
+            every step
+          </Alert>
+
           {/* Job Description */}
           <FormControl>
             <label htmlFor="">Job Description </label>
             <Typography color="textSecondary">Add Description</Typography>
             <Input
               element="textarea"
-              placeholder="e.g,"
+              placeholder="e.g, step\n step\n"
               validators={[VALIDATOR_REQUIRE()]}
               type="text"
               errorText="Please enter valid job description"
@@ -288,7 +296,7 @@ const NewJob = () => {
             </Typography>
             <Input
               element="textarea"
-              placeholder="e.g,"
+              placeholder="e.g, step\n step\n"
               validators={[VALIDATOR_REQUIRE()]}
               type="text"
               errorText="Please enter valid job requirements"

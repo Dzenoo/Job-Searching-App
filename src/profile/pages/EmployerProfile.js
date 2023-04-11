@@ -68,13 +68,13 @@ const ProfilePage = () => {
         )}
 
         {currentTab === 1 && (
-          <Grid item>
+          <Grid item lg={9}>
             <Jobs jobs={employerData.em_jobs} />
           </Grid>
         )}
 
         {currentTab === 2 && (
-          <Grid item>
+          <Grid item lg={12}>
             <Applicians applicians={employerData.applications} />
           </Grid>
         )}

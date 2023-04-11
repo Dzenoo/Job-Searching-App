@@ -108,5 +108,4 @@ const FilterJob = ({ handleCheckbox }) => {
     </>
   );
 };
-
 export default FilterJob;

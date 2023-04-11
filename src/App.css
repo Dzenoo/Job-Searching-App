@@ -305,11 +305,12 @@ body {
 }
 
 .textarea {
-  resize: vertical;
+  resize: none;
   width: 100%;
-  font-size: 12px;
+  font-size: 18px;
   border: 1px solid rgb(194, 194, 194);
-  max-height: 200px;
+  height: 400px;
+  max-height: 400px;
 }
 
 .textarea::placeholder {
