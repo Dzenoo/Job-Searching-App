@@ -158,13 +158,7 @@ const SignUp = () => {
   }
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        display: "flex",
-        marginTop: "7em",
-      }}
-    >
+    <Container maxWidth="lg" className="signup_container">
       <ToastContainer />
       <Box className="form_img">
         <div className="flex_buttons">

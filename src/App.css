@@ -229,14 +229,6 @@ body {
   flex-wrap: wrap;
 }
 
-.form_img {
-  background-image: url("./shared/assets/form_img.png");
-  padding: 40px;
-  height: 40em;
-  width: 28em;
-  background-repeat: no-repeat;
-}
-
 .flex_buttons {
   display: flex;
   gap: 12px;
@@ -477,6 +469,17 @@ body {
   .card_hero {
     display: none;
   }
+}
+
+.signup_container {
+  display: flex !important;
+  margin-top: 7em;
+  flex-wrap: wrap;
+}
+
+.form_img {
+  background-image: url("./shared/assets/form_img.png");
+  padding: 40px;
 }
 
 @media (max-width: 1194px) {
