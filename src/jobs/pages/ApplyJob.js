@@ -14,7 +14,7 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/Validators";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteLoaderData } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -50,13 +50,15 @@ const ApplyJob = () => {
   );
   const jobId = useParams().idOfJob;
   const seeker = JSON.parse(localStorage.getItem("seeker"));
+  const data = useRouteLoaderData("job-details");
+  const job = data.job;
 
   async function applyHandler(e) {
     e.preventDefault();
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/applications/${jobId}/${seeker.id}/apply`,
+        `http://localhost:8000/api/applications/${jobId}/${seeker.id}/${job.employer._id}/apply`,
         {
           method: "POST",
           body: JSON.stringify({

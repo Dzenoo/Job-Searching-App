@@ -40,30 +40,42 @@ const ProfilePage = () => {
           </Box>
         </Box>
         <div>
-          <Button onClick={() => setCurrentTab(0)}>Info</Button>
-          <Button onClick={() => setCurrentTab(1)}>Jobs</Button>
-          <Button onClick={() => setCurrentTab(2)}>Applicians</Button>
+          <Button
+            variant={`${currentTab === 0 && "contained"}`}
+            onClick={() => setCurrentTab(0)}
+          >
+            Info
+          </Button>
+          <Button
+            variant={`${currentTab === 1 && "contained"}`}
+            onClick={() => setCurrentTab(1)}
+          >
+            Jobs
+          </Button>
+          <Button
+            variant={`${currentTab === 2 && "contained"}`}
+            onClick={() => setCurrentTab(2)}
+          >
+            Applicians
+          </Button>
         </div>
       </Card>
       <Grid container justifyContent="center" spacing={2} padding={6}>
         {currentTab === 0 && (
           <Grid item>
-            <Typography variant="h4">Biography</Typography>
             <Info biography={employerData.em_biography} />
           </Grid>
         )}
 
         {currentTab === 1 && (
           <Grid item>
-            <Typography variant="h4">Jobs</Typography>
             <Jobs jobs={employerData.em_jobs} />
           </Grid>
         )}
 
         {currentTab === 2 && (
           <Grid item>
-            <Typography variant="h4">Applicians</Typography>
-            <Applicians />
+            <Applicians applicians={employerData.applications} />
           </Grid>
         )}
       </Grid>

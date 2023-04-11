@@ -1,25 +1,18 @@
-import React from 'react'
-import logo from '../assets/logo.png'
+import React from "react";
+import logo from "../assets/logo.png";
 import {
   AiFillTwitterCircle,
   AiFillFacebook,
-  AiFillMessage
-} from 'react-icons/ai'
-import { Typography } from '@mui/material'
+  AiFillMessage,
+} from "react-icons/ai";
+import { Typography } from "@mui/material";
 
 const MainFooter = () => {
   return (
     <div className="footer">
-      <div className="footer_logo"></div>
-      <img src={logo} alt="logo" />
-      <br />
-      <Typography variant="h4">
-        As a wider range of job listings
-        <br /> than you might find through other channels.
-      </Typography>
-      <hr />
       <div className="footer_list">
         <div className="footer_item">
+          <img src={logo} alt="logo" />
           <Typography variant="h6" color="textSecondary">
             jobboost@gmail.com
           </Typography>
@@ -54,7 +47,7 @@ const MainFooter = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MainFooter
+export default MainFooter;

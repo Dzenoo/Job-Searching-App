@@ -24,74 +24,72 @@ const Applications = () => {
           justifyContent: "center",
         }}
       >
-        {seeker.appliedJobs >= 0 &&
-          seeker.appliedJobs.map((apJobs) => (
-            <Card sx={{ padding: "20px", maxWidth: "400px" }} key={apJobs._id}>
-              {console.log()}
+        {seeker.appliedJobs.map((apJobs) => (
+          <Card sx={{ padding: "20px", maxWidth: "400px" }} key={apJobs._id}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            ></Box>
+            <CardContent>
+              <Typography variant="h5" fontWeight="bold">
+                {apJobs.title}
+              </Typography>
+              <Typography variant="p" color="textSecondary">
+                {apJobs.schedule}
+              </Typography>
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "space-between",
+                  gap: "12px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
                 }}
-              ></Box>
-              <CardContent>
-                <Typography variant="h5" fontWeight="bold">
-                  {apJobs.job.title}
-                </Typography>
-                <Typography variant="p" color="textSecondary">
-                  {apJobs.job.schedule}
-                </Typography>
-                <Box
+              >
+                <Typography
+                  variant="p"
+                  fontWeight="bold"
+                  color="purple"
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
-                    marginTop: "20px",
-                    marginBottom: "20px",
+                    backgroundColor: "rgba(205, 9, 195, 0.148)",
+                    padding: "8px 20px",
+                    borderRadius: "20px",
                   }}
                 >
-                  <Typography
-                    variant="p"
-                    fontWeight="bold"
-                    color="purple"
-                    sx={{
-                      backgroundColor: "rgba(205, 9, 195, 0.148)",
-                      padding: "8px 20px",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    <CiLocationOn size={24} />
-                    {apJobs.job.city}
-                  </Typography>
-                  <Typography
-                    variant="p"
-                    fontWeight="bold"
-                    color="green"
-                    sx={{
-                      backgroundColor: "rgba(23, 240, 81, 0.148)",
-                      padding: "8px 20px",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    $ {apJobs.job.salary}
-                  </Typography>
-                  <Typography
-                    variant="p"
-                    fontWeight="bold"
-                    color="rgb(9, 43, 153)"
-                    sx={{
-                      backgroundColor: "rgba(25, 74, 236, 0.148)",
-                      padding: "8px 20px",
-                      borderRadius: "20px",
-                    }}
-                  >
-                    {apJobs.job.time}
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
+                  <CiLocationOn size={24} />
+                  {apJobs.city}
+                </Typography>
+                <Typography
+                  variant="p"
+                  fontWeight="bold"
+                  color="green"
+                  sx={{
+                    backgroundColor: "rgba(23, 240, 81, 0.148)",
+                    padding: "8px 20px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  $ {apJobs.salary}
+                </Typography>
+                <Typography
+                  variant="p"
+                  fontWeight="bold"
+                  color="rgb(9, 43, 153)"
+                  sx={{
+                    backgroundColor: "rgba(25, 74, 236, 0.148)",
+                    padding: "8px 20px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  {apJobs.time}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        ))}
       </Container>
     </>
   );

@@ -135,7 +135,8 @@ body {
 /* footer */
 
 .footer {
-  background-color: rgb(253, 253, 253);
+  background-color: rgb(227, 245, 255);
+  background-color: rgb(242, 239, 239);
 }
 
 .footer_logo {
@@ -348,4 +349,33 @@ body {
 
 .content {
   text-align: center;
+}
+
+.boxstatus {
+  border: 1px solid #e0dfdf;
+  padding: 12px;
+  color: #e0dfdf;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.interview {
+  background-color: rgba(236, 197, 25, 0.148);
+  border: 1px solid rgba(236, 197, 25, 0.148);
+  border: none;
+  color: orange;
+}
+
+.screening {
+  background-color: rgba(25, 74, 236, 0.148);
+  border: 1px solid rgba(25, 74, 236, 0.148);
+  border: none;
+  color: royalblue;
+}
+
+.hired {
+  background-color: rgba(23, 240, 81, 0.148);
+  border: 1px solid rgba(23, 240, 81, 0.148);
+  border: none;
+  color: green;
 }
