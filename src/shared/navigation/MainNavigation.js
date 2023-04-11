@@ -1,13 +1,26 @@
 import React, { useContext } from "react";
-import logo from "../assets/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
+import { AiOutlineMenu } from "react-icons/ai";
+import "../../Responsive.css";
+import logo from "../assets/logo.png";
+import ResponsiveNav from "./ResponsiveNav";
+import NavLinks from "./NavLinks";
 
 const MainNavigation = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [navIsOpen, setNavIsOpen] = React.useState(false);
   const { logout, isLoggedIn, checkType } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const openNav = () => {
+    setNavIsOpen(true);
+  };
+
+  const closeNav = () => {
+    setNavIsOpen(false);
+  };
 
   const handleOpenUserMenu = () => {
     setAnchorEl(true);
@@ -27,6 +40,9 @@ const MainNavigation = () => {
       <Link to="/">
         <img src={logo} alt="logo" />
       </Link>
+      <button className="open_menu_btn" onClick={openNav}>
+        <AiOutlineMenu />
+      </button>
       <nav>
         <ul className="navigation_list">
           <li>
@@ -98,6 +114,9 @@ const MainNavigation = () => {
           )}
         </ul>
       </nav>
+      <ResponsiveNav show={navIsOpen} onClick={closeNav}>
+        <NavLinks />
+      </ResponsiveNav>
     </header>
   );
 };
