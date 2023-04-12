@@ -17,7 +17,7 @@ const Applications = () => {
       </Container>
       <Container
         sx={{
-          padding: "60px",
+          padding: "30px",
           display: "flex",
           flexWrap: "wrap",
           gap: "12px",
@@ -26,13 +26,6 @@ const Applications = () => {
       >
         {seeker.appliedJobs.map((apJobs) => (
           <Card sx={{ padding: "20px", maxWidth: "400px" }} key={apJobs._id}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            ></Box>
             <CardContent>
               <Typography variant="h5" fontWeight="bold">
                 {apJobs.title}
@@ -45,6 +38,7 @@ const Applications = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: "12px",
+                  flexWrap: "wrap",
                   marginTop: "20px",
                   marginBottom: "20px",
                 }}

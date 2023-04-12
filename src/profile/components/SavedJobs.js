@@ -14,7 +14,7 @@ const Applications = () => {
   return (
     <>
       <Container>
-        <Card sx={{ padding: "60px" }}>
+        <Card sx={{ padding: "30px" }}>
           <Typography variant="h4" fontWeight="bold" color="royalblue">
             Saved jobs
           </Typography>
@@ -23,7 +23,7 @@ const Applications = () => {
       </Container>
       <Container
         sx={{
-          padding: "60px",
+          padding: "30px",
           display: "flex",
           flexWrap: "wrap",
           gap: "12px",

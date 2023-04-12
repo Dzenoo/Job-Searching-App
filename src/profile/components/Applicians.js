@@ -68,12 +68,12 @@ const Applicians = ({ applicians }) => {
           changes
         </Alert>
         <br />
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           {applicians.map((a) => (
-            <Grid item lg={6}>
+            <Grid item lg={5} sm={12}>
               <Card
                 sx={{
-                  padding: "30px",
+                  padding: "10px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
