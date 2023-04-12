@@ -24,55 +24,57 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
         Have Account? <a>Login</a>
       </Typography>
       <CardContent>
-        <form className="auth_form" onSubmit={onSubmitForm}>
-          {isSignupMode === "Seeker Account" && (
-            <FormControl>
-              <Input
-                placeholder="First Name..."
-                onInput={onChange}
-                id="first_name"
-                type="text"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Please enter a valid first name"
-              />
-            </FormControl>
-          )}
-          {isSignupMode === "Seeker Account" && (
-            <FormControl>
-              <Input
-                placeholder="Last Name..."
-                onInput={onChange}
-                id="last_name"
-                type="text"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Please enter a valid last_name"
-              />
-            </FormControl>
-          )}
-          {isSignupMode === "Seeker Account" && (
-            <FormControl>
-              <Input
-                placeholder="Email Address..."
-                onInput={onChange}
-                id="email"
-                type="email"
-                validators={[VALIDATOR_EMAIL()]}
-                errorText="Please enter a valid email"
-              />
-            </FormControl>
-          )}
-          {isSignupMode === "Seeker Account" && (
-            <FormControl>
-              <Input
-                placeholder="Password..."
-                onInput={onChange}
-                id="password"
-                type="password"
-                validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="Please enter a valid password"
-              />
-            </FormControl>
-          )}
+        <form onSubmit={onSubmitForm}>
+          <div className="auth_form">
+            {isSignupMode === "Seeker Account" && (
+              <FormControl>
+                <Input
+                  placeholder="First Name..."
+                  onInput={onChange}
+                  id="first_name"
+                  type="text"
+                  validators={[VALIDATOR_REQUIRE()]}
+                  errorText="Please enter a valid first name"
+                />
+              </FormControl>
+            )}
+            {isSignupMode === "Seeker Account" && (
+              <FormControl>
+                <Input
+                  placeholder="Last Name..."
+                  onInput={onChange}
+                  id="last_name"
+                  type="text"
+                  validators={[VALIDATOR_REQUIRE()]}
+                  errorText="Please enter a valid last_name"
+                />
+              </FormControl>
+            )}
+            {isSignupMode === "Seeker Account" && (
+              <FormControl>
+                <Input
+                  placeholder="Email Address..."
+                  onInput={onChange}
+                  id="email"
+                  type="email"
+                  validators={[VALIDATOR_EMAIL()]}
+                  errorText="Please enter a valid email"
+                />
+              </FormControl>
+            )}
+            {isSignupMode === "Seeker Account" && (
+              <FormControl>
+                <Input
+                  placeholder="Password..."
+                  onInput={onChange}
+                  id="password"
+                  type="password"
+                  validators={[VALIDATOR_MINLENGTH(6)]}
+                  errorText="Please enter a valid password"
+                />
+              </FormControl>
+            )}
+          </div>
           {/* EMPLOYER  */}
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             {isSignupMode === "Employer Account" && (
@@ -162,6 +164,7 @@ const Form = ({ onChange, isSignupMode, onSubmitForm }) => {
               </FormControl>
             )}{" "}
           </div>
+
           <Button type="submit" variant="contained" size="large">
             Sign Up
           </Button>

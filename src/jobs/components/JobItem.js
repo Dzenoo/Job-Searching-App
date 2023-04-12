@@ -26,7 +26,7 @@ const JobItem = ({
   const dateFormat = date.toDateString();
 
   return (
-    <Card sx={{ padding: "20px", maxWidth: "400px" }}>
+    <Card sx={{ padding: "10px" }}>
       <Box
         sx={{
           display: "flex",
@@ -50,6 +50,7 @@ const JobItem = ({
             gap: "12px",
             marginTop: "20px",
             marginBottom: "20px",
+            flexWrap: "wrap",
           }}
         >
           <Typography

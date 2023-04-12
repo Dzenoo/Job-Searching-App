@@ -81,7 +81,6 @@ const FilterJob = ({ handleCheckbox }) => {
             />
           ))}
         </Box>
-        <Divider />
         <Box>
           <Typography variant="p" color="textSecondary">
             Salary Range

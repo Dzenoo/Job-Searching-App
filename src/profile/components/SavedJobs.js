@@ -18,9 +18,7 @@ const Applications = () => {
           <Typography variant="h4" fontWeight="bold" color="royalblue">
             Saved jobs
           </Typography>
-          <Typography variant="p">
-            Save jobs which are good to you, apply after
-          </Typography>
+          <Typography variant="p">Save job, apply after</Typography>
         </Card>
       </Container>
       <Container

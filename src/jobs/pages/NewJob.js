@@ -263,6 +263,7 @@ const NewJob = () => {
               type="text"
               errorText="Please enter valid job description"
               id="jobDescription"
+              className="textArea"
               onInput={inputHandler}
             />
           </FormControl>
@@ -281,6 +282,7 @@ const NewJob = () => {
               errorText="Please enter valid short description"
               id="shortDescription"
               onInput={inputHandler}
+              className="textArea"
             />
           </FormControl>
 
@@ -300,6 +302,7 @@ const NewJob = () => {
               validators={[VALIDATOR_REQUIRE()]}
               type="text"
               errorText="Please enter valid job requirements"
+              className="textArea"
               id="requirements"
               onInput={inputHandler}
             />

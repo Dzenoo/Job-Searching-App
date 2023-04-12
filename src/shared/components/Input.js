@@ -39,7 +39,7 @@ const Input = (props) => {
 
   return props.element === "textarea" ? (
     <textarea
-      className="textarea"
+      className={props.className}
       type={props.type}
       value={inputState.value}
       id={props.id}

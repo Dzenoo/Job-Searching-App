@@ -77,7 +77,7 @@ export const jobtypes = [
     checked: false,
   },
   {
-    label: "Contract",
+    label: "Internship",
     checked: false,
   },
 ];

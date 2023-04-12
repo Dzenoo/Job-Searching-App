@@ -31,8 +31,7 @@ const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
           onClick={handleFilterSearch}
         />
         <TextField
-          sx={{ width: "800px", margin: "auto" }}
-          fullWidth
+          sx={{ margin: "auto" }}
           onChange={(e) => handleFilterSearch(e)}
           placeholder="Frontend Developer"
         />

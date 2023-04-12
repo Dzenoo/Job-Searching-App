@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const JobList = ({ jobs }) => {
   return (
-    <Box sx={{ padding: "20px" }}>
+    <Box sx={{ padding: "10px" }}>
       <Typography variant="h6" fontWeight="bold">
         Jobs ({jobs.length})
       </Typography>

@@ -1,16 +1,14 @@
-import React from 'react'
-import MainNavigation from '../navigation/MainNavigation'
-import { Outlet } from 'react-router-dom'
-import MainFooter from '../navigation/MainFooter'
+import React from "react";
+import MainNavigation from "../navigation/MainNavigation";
+import { Outlet } from "react-router-dom";
 
 const Root = () => {
   return (
     <>
       <MainNavigation />
       <Outlet />
-      <MainFooter />
     </>
-  )
-}
+  );
+};
 
-export default Root
+export default Root;

@@ -12,7 +12,7 @@ const Applications = () => {
           <Typography variant="h4" fontWeight="bold" color="royalblue">
             Your Applications
           </Typography>
-          <Typography variant="p">All jobs you apply</Typography>
+          <Typography variant="p">All jobs you applied</Typography>
         </Card>
       </Container>
       <Container
