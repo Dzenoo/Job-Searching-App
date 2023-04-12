@@ -1,20 +1,8 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
-import {
-  AiOutlineSearch,
-  AiOutlineSend,
-  AiOutlineCalendar,
-} from "react-icons/ai";
+import { Box, Button, TextField } from "@mui/material";
+import { AiOutlineSearch } from "react-icons/ai";
 import React, { useState } from "react";
 
-const TopBar = ({ handleFilterSearch, handleFilterLocation, clearFilter }) => {
+const TopBar = ({ handleFilterSearch, clearFilter }) => {
   return (
     <Box className="search_container">
       <Box

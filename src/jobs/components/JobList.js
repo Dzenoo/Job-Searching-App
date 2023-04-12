@@ -1,5 +1,5 @@
-import { Typography, Box, Alert } from "@mui/material";
 import React from "react";
+import { Typography, Box } from "@mui/material";
 import JobItem from "./JobItem";
 import PropTypes from "prop-types";
 

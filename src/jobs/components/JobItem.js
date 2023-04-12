@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Card,
@@ -6,10 +7,9 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import PropTypes from "prop-types";
-import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const JobItem = ({
   id,

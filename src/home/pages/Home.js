@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import HeroSection from "../components/HeroSection";
+import { JobContext } from "../../shared/context/JobContext";
+import { AuthContext } from "../../shared/context/AuthContext";
 import WhyJobSections from "../components/WhyJobSections";
 import HowItWorksSection from "../components/HowItWorksSection";
 import JobOpenings from "../components/JobOpenings";
-import { JobContext } from "../../shared/context/JobContext";
-import { AuthContext } from "../../shared/context/AuthContext";
+import HeroSection from "../components/HeroSection";
 
 const Home = () => {
   const { jobs } = useContext(JobContext);

@@ -1,15 +1,15 @@
+import React, { useState } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useFormHook } from "../../shared/hooks/useForm";
+import { ToastContainer, toast } from "react-toastify";
+import { BarLoader } from "react-spinners";
+import { VALIDATOR_EMAIL } from "../../shared/util/Validators";
 import Input from "../../shared/components/Input";
 import lumina from "../../shared/assets/lumina.png";
 import nexa from "../../shared/assets/nexa.png";
 import vantage from "../../shared/assets/vantage.png";
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import { BarLoader } from "react-spinners";
 import "react-toastify/dist/ReactToastify.css";
-import { VALIDATOR_EMAIL } from "../../shared/util/Validators";
 
 const HeroSection = () => {
   const [formState, inputHandler] = useFormHook(

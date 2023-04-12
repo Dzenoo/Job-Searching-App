@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Container,
   Box,
@@ -10,9 +11,8 @@ import {
 } from "@mui/material";
 import { AiOutlineDollarCircle, AiOutlineFieldTime } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
-import newsletter from "../../shared/assets/signup_action.png";
-import React from "react";
 import { Link } from "react-router-dom";
+import newsletter from "../../shared/assets/signup_action.png";
 
 const JobOpenings = ({ jobs, isLoggedIn }) => {
   return (

@@ -15,11 +15,10 @@ import React, { useContext, useState } from "react";
 import Input from "../../shared/components/Input";
 import { VALIDATOR_REQUIRE } from "../../shared/util/Validators";
 import { useFormHook } from "../../shared/hooks/useForm";
-
 import { AuthContext } from "../../shared/context/AuthContext";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { BarLoader } from "react-spinners";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewJob = () => {
   const [error, seterror] = useState("");

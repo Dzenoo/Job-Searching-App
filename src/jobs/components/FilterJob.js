@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -6,7 +7,6 @@ import {
   Divider,
 } from "@mui/material";
 import { Schedules, Seniority, Salary, Location } from "../../shared/data/data";
-import React, { useState } from "react";
 
 const FilterJob = ({ handleCheckbox }) => {
   const [checkboxSchedule, setCheckboxSchedule] = useState(Schedules);
