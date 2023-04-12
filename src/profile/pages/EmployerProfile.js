@@ -1,5 +1,5 @@
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Info from "../components/Info";
 import Jobs from "../components/Jobs";
 import Applicians from "../components/Applicians";

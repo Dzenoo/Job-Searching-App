@@ -136,7 +136,11 @@ const Login = () => {
         </Typography>
         <Typography variant="p">
           Dont have account?{" "}
-          <Link to="/auth/signup" className="link">
+          <Link
+            to="/auth/signup"
+            style={{ textDecoration: "underline" }}
+            className="link"
+          >
             Register
           </Link>
         </Typography>

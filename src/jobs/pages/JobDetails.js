@@ -123,7 +123,7 @@ const JobDetails = () => {
                 <AiOutlineSave size={40} />
               </Button>
             )}
-            {employer && (
+            {employer && employer._id === job.employer._id && (
               <Button onClick={deleteJobHandler}>
                 <RiChatDeleteLine size={40} fill="red" />
               </Button>
