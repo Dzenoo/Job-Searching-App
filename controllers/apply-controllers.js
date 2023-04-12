@@ -81,18 +81,6 @@ exports.applyToJob = async (req, res, next) => {
   res.status(201).json({ createdApplication: createdApplication });
 };
 
-exports.getApplicans = async (req, res, next) => {
-  let applicans;
-  try {
-    applicans = await Application.find().populate("job");
-  } catch (err) {
-    const error = new HttpError("Could not find applications");
-    return next(error);
-  }
-
-  res.status(200).json({ applicans });
-};
-
 exports.updateStatus = async (req, res, next) => {
   const { status } = req.body;
   const applicationId = req.params.applicationId;
