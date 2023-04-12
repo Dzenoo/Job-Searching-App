@@ -9,7 +9,6 @@ import { AuthContext } from "../../shared/context/AuthContext";
 const Home = () => {
   const { jobs } = useContext(JobContext);
   const { isLoggedIn } = useContext(AuthContext);
-  const token = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <>

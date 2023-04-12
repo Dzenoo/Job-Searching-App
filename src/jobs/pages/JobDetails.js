@@ -84,14 +84,14 @@ const JobDetails = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            flexWrap: "wrap",
             gap: "20px",
+            flexWrap: "wrap",
             position: "relative",
           }}
         >
           <img src={job.employer.em_image} alt={job.title} />
           <div className="job_details_titles">
-            <Typography variant="h3" color="textPrimary">
+            <Typography variant="h5" fontWeight="bold" color="textPrimary">
               {job.title}
             </Typography>
             <Typography
