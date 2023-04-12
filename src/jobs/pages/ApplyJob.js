@@ -37,11 +37,11 @@ const ApplyJob = () => {
         value: "",
         isValid: false,
       },
-      cv: {
+      github: {
         value: "",
         isValid: false,
       },
-      country: {
+      linkedin: {
         value: "",
         isValid: false,
       },
@@ -66,8 +66,8 @@ const ApplyJob = () => {
             surname: formState.inputs.surname.value,
             phone: formState.inputs.phone.value,
             email: formState.inputs.email.value,
-            cv: formState.inputs.cv.value,
-            country: formState.inputs.country.value,
+            github: formState.inputs.github.value,
+            linkedin: formState.inputs.linkedin.value,
           }),
           headers: { "Content-Type": "application/json" },
         }
@@ -91,10 +91,10 @@ const ApplyJob = () => {
         <Box sx={{ backgroundColor: "hsl(209, 84%, 49%)", height: "130px" }}>
           <div style={{ padding: "20px" }}>
             <Typography variant="h4" color="#fff" fontWeight="bold">
-              Web developer
+              {job.title}
             </Typography>
             <Typography variant="h6" color="#fff">
-              COmpany INC
+              {job.employer.em_name}
             </Typography>
           </div>
         </Box>
@@ -151,30 +151,30 @@ const ApplyJob = () => {
                 validators={[VALIDATOR_MINLENGTH(3)]}
                 placeholder="Phone"
                 id="phone"
-                type="text"
+                type="number"
                 errorText="Please enter valid phone"
               />
             </FormControl>
             <FormControl>
-              <label htmlFor="cv">CV</label>
+              <label htmlFor="github">Github</label>
               <Input
+                type="url"
                 onInput={inputHandler}
                 validators={[VALIDATOR_REQUIRE()]}
-                placeholder="CV"
-                id="cv"
-                type="text"
-                errorText="Please enter valid cv"
+                placeholder="Github url"
+                id="github"
+                errorText="Please enter valid github"
               />
             </FormControl>
             <FormControl>
-              <label htmlFor="country">Country</label>
+              <label htmlFor="linkedin">Linkedin</label>
               <Input
                 onInput={inputHandler}
-                validators={[VALIDATOR_MINLENGTH(3)]}
-                placeholder="Country"
-                id="country"
-                type="text"
-                errorText="Please enter valid country"
+                validators={[VALIDATOR_REQUIRE()]}
+                placeholder="Linkedin"
+                id="linkedin"
+                type="url"
+                errorText="Please enter valid linkedin"
               />
             </FormControl>
           </div>

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
+import {
+  AiOutlineMail,
+  AiOutlinePhone,
+  AiOutlineGithub,
+  AiOutlineLinkedin,
+} from "react-icons/ai";
 import {
   Alert,
   Box,
@@ -105,9 +110,7 @@ const Applicians = ({ applicians }) => {
                   <Typography variant="p" fontWeight="bold" fontSize="24px">
                     {a.name} {a.surname}
                   </Typography>
-                  <Typography color="textSecondary" variant="p">
-                    {a.country}
-                  </Typography>
+                  <Typography color="textSecondary" variant="p"></Typography>
                   <Typography variant="p">Job: {a.job}</Typography>
                 </Box>
                 <CardActions>
@@ -130,7 +133,7 @@ const Applicians = ({ applicians }) => {
                         gap: "12px",
                       }}
                     >
-                      <AiOutlineMail />
+                      <AiOutlineMail size={20} />
                       {a.email}
                     </Typography>
                     <Typography
@@ -142,12 +145,39 @@ const Applicians = ({ applicians }) => {
                         gap: "12px",
                       }}
                     >
-                      <AiOutlinePhone />
+                      <AiOutlinePhone size={20} />
                       {a.phone}
+                    </Typography>
+                    <Typography
+                      variant="p"
+                      fontWeight="bold"
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <AiOutlineGithub size={20} />
+                      <a href={a.github} target="_blank">
+                        {a.github}
+                      </a>
+                    </Typography>
+                    <Typography
+                      variant="p"
+                      fontWeight="bold"
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <AiOutlineLinkedin size={20} />
+                      <a href={a.linkedin} target="_blank">
+                        {a.linkedin}
+                      </a>
                     </Typography>
                   </Box>
                 </CardActions>
-                <Button variant="contained">Download cv</Button>
                 <div
                   className={`boxstatus ${
                     a.status === "Screening" ? "screening" : "boxstatus"
