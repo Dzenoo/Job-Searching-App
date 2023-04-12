@@ -9,13 +9,14 @@ const ProfilePage = () => {
   const seekerData = JSON.parse(localStorage.getItem("seeker")) || "";
 
   return (
-    <Container sx={{ padding: "60px" }}>
+    <Container sx={{ padding: "12px" }}>
       <Card
         sx={{
           display: "flex",
           alignItems: "center",
           gap: "20px",
           padding: "20px",
+          flexWrap: "wrap",
         }}
       >
         <img

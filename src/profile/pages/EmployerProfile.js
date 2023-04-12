@@ -24,6 +24,7 @@ const ProfilePage = () => {
             alignItems: "center",
             gap: "20px",
             padding: "20px",
+            flexWrap: "wrap",
           }}
         >
           <img
@@ -60,7 +61,7 @@ const ProfilePage = () => {
           </Button>
         </div>
       </Card>
-      <Box padding={6}>
+      <Box padding={2}>
         {currentTab === 0 && <Info biography={employerData.em_biography} />}
         {currentTab === 1 && <Jobs jobs={employerData.em_jobs} />}
         {currentTab === 2 && (

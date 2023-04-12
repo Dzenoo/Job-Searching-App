@@ -13,13 +13,7 @@ import { Link } from "react-router-dom";
 const Jobs = ({ jobs }) => {
   return (
     <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gap: "12px",
-        }}
-      >
+      <div className="jobs_grid_profile">
         {jobs.map((job) => (
           <Card sx={{ padding: "20px" }}>
             <CardContent>

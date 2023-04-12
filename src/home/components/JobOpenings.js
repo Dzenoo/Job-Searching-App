@@ -46,8 +46,8 @@ const JobOpenings = ({ jobs, isLoggedIn }) => {
               sx={{
                 border: "1px solid #1482e8",
                 borderRadius: "60px",
-                padding: "20px",
-                maxWidth: "500px",
+                padding: "30px",
+                maxWidth: "320px",
               }}
             >
               <CardContent>

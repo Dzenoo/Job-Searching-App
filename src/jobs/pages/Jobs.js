@@ -33,7 +33,7 @@ const Jobs = () => {
         <Grid item lg={2.2}>
           <FilterJob handleCheckbox={handleCheckbox} />
         </Grid>
-        <Grid item lg={9}>
+        <Grid item lg={9} justifyContent="center" alignItems="center">
           <JobList jobs={filteredJobs} />
           {filteredJobs.length === 0 && (
             <Typography variant="h4" sx={{ textAlign: "center" }}>

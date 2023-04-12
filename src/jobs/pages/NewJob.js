@@ -112,18 +112,10 @@ const NewJob = () => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ padding: "60px", backgroundColor: "#fff" }}>
+    <Container maxWidth="md" sx={{ padding: "20px", backgroundColor: "#fff" }}>
       <ToastContainer />
       <Card>
-        <form
-          onSubmit={postJob}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: "40px",
-            gap: "3em",
-          }}
-        >
+        <form onSubmit={postJob} style={{}} className="add_job_form">
           {/* Job Title */}
           <FormControl>
             <label htmlFor="">Job Title</label>

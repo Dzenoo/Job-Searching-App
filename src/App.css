@@ -487,6 +487,19 @@ body {
   background-image: url("./shared/assets/form_img.png");
 }
 
+.jobs_grid_profile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.add_job_form {
+  display: "flex";
+  flex-direction: "column";
+  padding: "40px";
+  gap: "3em";
+}
+
 @media (max-width: 1500px) {
   .job_list {
     grid-template-columns: repeat(2, 1fr);
@@ -498,6 +511,10 @@ body {
     flex-direction: row !important;
     padding: 20px !important;
     flex-wrap: wrap !important;
+  }
+
+  .jobs_grid_profile {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -527,6 +544,14 @@ body {
 @media (max-width: 425px) {
   .signup_action .text {
     padding: 40px;
+  }
+
+  .add_job_form {
+    padding: 20px !important;
+  }
+
+  .company_list_main {
+    padding: 2px !important;
   }
 }
 

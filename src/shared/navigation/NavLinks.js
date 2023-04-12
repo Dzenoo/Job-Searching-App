@@ -29,11 +29,30 @@ const NavLinks = (props) => {
       <li>
         <NavLink to="jobs">{checkType ? "Other Jobs" : "Find Jobs"}</NavLink>
       </li>
+      <li>
+        <NavLink to={checkType ? "/em_profile" : "/se_profile"}>
+          Profile
+        </NavLink>
+      </li>
+
       {!checkType && (
         <li>
           <NavLink to="companies">Companies</NavLink>
         </li>
       )}
+      {checkType && (
+        <li>
+          <NavLink className="link" to="/jobs/new">
+            Add Job
+          </NavLink>
+        </li>
+      )}
+      {isLoggedIn && (
+        <Link className="link" onClick={logoutHandler}>
+          Logout
+        </Link>
+      )}
+
       {!isLoggedIn && (
         <li className="nav_login_btn">
           <Link to="/auth/login">Login</Link>
@@ -42,51 +61,6 @@ const NavLinks = (props) => {
       {!isLoggedIn && (
         <li className="nav_signup_btn">
           <Link to="/auth/signup">Sign Up</Link>
-        </li>
-      )}
-
-      {isLoggedIn && (
-        <li>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <span onClick={handleOpenUserMenu}>
-                <Avatar />
-              </span>
-            </Tooltip>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleCloseUserMenu}
-              sx={{ margin: "70px 0 90px 0" }}
-            >
-              <Link
-                className="link"
-                to={checkType ? "/em_profile" : "/se_profile"}
-              >
-                <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-              </Link>
-              {checkType && (
-                <Link className="link" to="/jobs/new">
-                  <MenuItem onClick={handleCloseUserMenu}>Add Job</MenuItem>
-                </Link>
-              )}
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Link className="link" onClick={logoutHandler}>
-                  Logout
-                </Link>
-              </MenuItem>
-            </Menu>
-          </Box>
         </li>
       )}
     </ul>
