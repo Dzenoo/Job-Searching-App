@@ -11,8 +11,8 @@ router.post(
     check("surname").not().isEmpty(),
     check("email").not().isEmpty(),
     check("phone").not().isEmpty(),
-    check("cv").not().isEmpty(),
-    check("country").not().isEmpty(),
+    check("github").not().isEmpty(),
+    check("linkedin").not().isEmpty(),
   ],
   applyControllers.applyToJob
 );

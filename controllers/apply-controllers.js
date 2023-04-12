@@ -14,7 +14,7 @@ exports.applyToJob = async (req, res, next) => {
     );
   }
   const { seekerId, employerId, jobId } = req.params;
-  const { name, surname, email, phone, cv, country } = req.body;
+  const { name, surname, email, phone, github, linkedin } = req.body;
 
   let seeker;
   try {
@@ -50,8 +50,8 @@ exports.applyToJob = async (req, res, next) => {
     surname,
     email,
     phone,
-    cv,
-    country,
+    github,
+    linkedin,
     employer: employerId,
     job: jobId,
   });
