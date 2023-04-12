@@ -84,6 +84,7 @@ const JobDetails = () => {
           sx={{
             display: "flex",
             alignItems: "center",
+            flexWrap: "wrap",
             gap: "20px",
             position: "relative",
           }}

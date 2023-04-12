@@ -185,6 +185,7 @@ body {
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-top: 60px;
+  margin-right: 40px;
 }
 
 .job_details_titles {
@@ -204,6 +205,7 @@ body {
   list-style-type: none;
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .skills_list > li {
