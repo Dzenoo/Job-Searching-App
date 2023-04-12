@@ -45,7 +45,7 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error" });
 });
 
-const URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.8suhkcc.mongodb.net/Job-Searching-Example?retryWrites=true&w=majority`;
+const URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.8suhkcc.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 mongoose
   .connect(URL)
   .then(() => {
