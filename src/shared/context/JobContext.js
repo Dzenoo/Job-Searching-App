@@ -60,7 +60,7 @@ export const JobProvider = ({ children }) => {
   };
 
   const filterJobsByCheckbox = (state) => {
-    const filtered = jobs.filter((job) => {
+    const filtered = filteredJobs.filter((job) => {
       // Filter by schedule
       if (
         state.some(
