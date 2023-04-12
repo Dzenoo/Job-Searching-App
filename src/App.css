@@ -374,6 +374,13 @@ body {
   color: green;
 }
 
+.rejected {
+  background-color: rgba(240, 34, 23, 0.148);
+  border: 1px solid rgba(240, 34, 23, 0.148);
+  border: none;
+  color: red;
+}
+
 .slide-in-left-enter {
   transform: translateX(-100%);
 }

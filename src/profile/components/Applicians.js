@@ -82,6 +82,7 @@ const Applicians = ({ applicians }) => {
                   <MenuItem value="Screening">Screening</MenuItem>
                   <MenuItem value="Interview">Interview</MenuItem>
                   <MenuItem value="Hired">Hired</MenuItem>
+                  <MenuItem value="Rejected">Rejected</MenuItem>
                 </Select>
                 <Box
                   sx={{
@@ -151,7 +152,9 @@ const Applicians = ({ applicians }) => {
                     a.status === "Screening" ? "screening" : "boxstatus"
                   } && ${
                     a.status === "Interview" ? "interview" : "boxstatus"
-                  } && ${a.status === "Hired" ? "hired" : "boxstatus"}`}
+                  } && ${a.status === "Hired" ? "hired" : "boxstatus"} && ${
+                    a.status === "Rejected" ? "rejected" : "boxstatus"
+                  }`}
                 >
                   Status: {a.status}
                 </div>
