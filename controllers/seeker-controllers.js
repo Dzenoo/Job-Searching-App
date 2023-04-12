@@ -103,14 +103,6 @@ exports.login = async (req, res, next) => {
     return next(error);
   }
 
-  if (existingUser.password !== password) {
-    const error = new HttpError(
-      "Invalid credentials, could not log you in.",
-      403
-    );
-    return next(error);
-  }
-
   let isPasswordValid;
   try {
     isPasswordValid = await bcrypt.compare(password, existingUser.password);
