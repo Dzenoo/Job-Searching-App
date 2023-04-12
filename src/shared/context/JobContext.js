@@ -88,6 +88,13 @@ export const JobProvider = ({ children }) => {
       ) {
         return true;
       }
+      if (
+        state.some(
+          (checkbox) => checkbox.checked && checkbox.label === job.schedule
+        )
+      ) {
+        return true;
+      }
       return false;
     });
     setfilteredJobs(filtered);

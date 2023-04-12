@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, json, useParams, useRouteLoaderData } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
-import { AiOutlineSave } from "react-icons/ai";
+import { AiOutlineSave, AiOutlineCheckCircle } from "react-icons/ai";
 import { RiChatDeleteLine } from "react-icons/ri";
 import { MdOutlineHomeWork } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
@@ -77,6 +77,7 @@ const JobDetails = () => {
           border: "1px solid #1482e8",
           borderRadius: "30px",
           padding: "40px",
+          marginBottom: "100px",
         }}
       >
         <Box
@@ -112,8 +113,8 @@ const JobDetails = () => {
               </Link>
             </Typography>
 
-            <Typography variant="h5" color="textPrimary">
-              <CiLocationOn /> {job.city}, {job.schedule}
+            <Typography variant="h6" color="textPrimary">
+              <CiLocationOn /> {job.city}, <b>{job.schedule}</b>
             </Typography>
           </div>
           <div className="save_button_div">
@@ -215,7 +216,12 @@ const JobDetails = () => {
           <ul className="list_description">
             {job.jobDescription.split("\n").map((jd) => (
               <li key={jd}>
-                <Typography> {jd}</Typography>
+                <Typography
+                  sx={{ display: "flex", alignItems: "center", gap: "12px" }}
+                >
+                  <AiOutlineCheckCircle size={22} fill="green" />
+                  {jd}
+                </Typography>
               </li>
             ))}
           </ul>
@@ -227,7 +233,12 @@ const JobDetails = () => {
           <ul className="list_description">
             {job.requirements.split("\n").map((t) => (
               <li key={t}>
-                <Typography>{t}</Typography>
+                <Typography
+                  sx={{ display: "flex", alignItems: "center", gap: "12px" }}
+                >
+                  <AiOutlineCheckCircle size={22} fill="green" />
+                  {t}
+                </Typography>
               </li>
             ))}
           </ul>

@@ -5,21 +5,7 @@ import PropTypes from "prop-types";
 
 const JobList = ({ jobs }) => {
   return (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-          padding: "20px",
-        }}
-      >
-        <Alert severity="info">
-          Please note that filtering by more than one checkbox criteria at a
-          time may limit the number of results available. I recommend trying one
-          checkbox filter at a time to get the best results. For example, you
-          can filter by Schedule first, then uncheck and try Seniority or
-          Salary.
-        </Alert>
-      </Box>
+    <Box sx={{ padding: "20px" }}>
       <Typography variant="h6" fontWeight="bold">
         Jobs ({jobs.length})
       </Typography>
@@ -52,7 +38,7 @@ const JobList = ({ jobs }) => {
           );
         })}
       </ul>
-    </>
+    </Box>
   );
 };
 

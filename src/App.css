@@ -173,8 +173,8 @@ body {
 }
 
 .job_list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -196,6 +196,7 @@ body {
 .list_description {
   display: flex;
   flex-direction: column;
+  list-style-type: none;
   gap: 20px;
 }
 

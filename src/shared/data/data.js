@@ -47,6 +47,17 @@ export const Salary = [
   },
 ];
 
+export const Location = [
+  {
+    label: "Remote",
+    checked: false,
+  },
+  {
+    label: "Hybrid",
+    checked: false,
+  },
+];
+
 export const locations = [
   {
     label: "Remote",

@@ -5,17 +5,20 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import { Schedules, Seniority, Salary } from "../../shared/data/data";
+import { Schedules, Seniority, Salary, Location } from "../../shared/data/data";
 import React, { useState } from "react";
 
 const FilterJob = ({ handleCheckbox }) => {
   const [checkboxSchedule, setCheckboxSchedule] = useState(Schedules);
   const [checkboxSeniority, setCheckboxSeniority] = useState(Seniority);
   const [checkboxSalary, setCheckboxSalary] = useState(Salary);
+  const [checkboxLocation, setCheckboxLocation] = useState(Location);
 
   return (
     <>
-      <Typography variant="h4">Details</Typography>
+      <Typography variant="h4" sx={{ padding: "20px" }}>
+        Details
+      </Typography>
       <Divider />
       <div
         style={{
@@ -97,6 +100,31 @@ const FilterJob = ({ handleCheckbox }) => {
                       checkboxSalary,
                       setCheckboxSalary,
                       "salary"
+                    )
+                  }
+                />
+              }
+            />
+          ))}
+        </Box>
+        <Box>
+          <Typography variant="p" color="textSecondary">
+            Location
+          </Typography>
+          {Location.map((location, i) => (
+            <FormControlLabel
+              sx={{ display: "flex" }}
+              key={i}
+              label={location.label}
+              control={
+                <Checkbox
+                  checked={location.checked}
+                  onChange={() =>
+                    handleCheckbox(
+                      i,
+                      checkboxLocation,
+                      setCheckboxLocation,
+                      "location"
                     )
                   }
                 />
