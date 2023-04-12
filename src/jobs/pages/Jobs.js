@@ -9,7 +9,7 @@ import JobList from "../components/JobList";
 
 const Jobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobsPerPage] = useState(3);
+  const [jobsPerPage] = useState(9);
   const {
     handleFilterSearch,
     clearFilter,
