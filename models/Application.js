@@ -10,6 +10,7 @@ const ApplicationSchema = new Schema({
   linkedin: { type: String, required: true },
   employer: { type: mongoose.Types.ObjectId, ref: "Employer" },
   status: { type: String, default: "Pending" },
+  cv: { type: String },
   job: { type: mongoose.Types.ObjectId, ref: "Job" },
 });
 

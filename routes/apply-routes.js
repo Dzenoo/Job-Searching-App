@@ -1,11 +1,13 @@
 const express = require("express");
 const applyControllers = require("../controllers/apply-controllers");
 const { check } = require("express-validator");
+const fileUpload = require("../middlewares/fileUpload");
 
 const router = express.Router();
 
 router.post(
   "/:jobId/:seekerId/:employerId/apply",
+  fileUpload.single("cv"),
   [
     check("name").not().isEmpty(),
     check("surname").not().isEmpty(),

@@ -53,13 +53,14 @@ exports.applyToJob = async (req, res, next) => {
     github,
     linkedin,
     employer: employerId,
+    cv: req.file.path,
     job: jobId,
   });
 
-  if (seeker.appliedJobs.includes(jobId)) {
-    const error = new HttpError("You already applied for this job", 500);
-    return next(error);
-  }
+  // if (seeker.appliedJobs.includes(jobId)) {
+  //   const error = new HttpError("You already applied for this job", 500);
+  //   return next(error);
+  // }
 
   try {
     const sess = await mongoose.startSession();

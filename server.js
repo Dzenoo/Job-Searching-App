@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const { default: mongoose } = require("mongoose");
 const employerRoutes = require("./routes/employer-routes");
 const seekerRoutes = require("./routes/seeker-routes");
@@ -8,12 +9,17 @@ const applyRoutes = require("./routes/apply-routes");
 const newsletter = require("./routes/newsletter");
 const HttpError = require("./models/HttpError");
 const cors = require("cors");
+const path = require("path");
 
 const port = 8000;
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "60mb" }));
+app.use(
+  "/uploads/documents",
+  express.static(path.join("uploads", "documents"))
+);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
