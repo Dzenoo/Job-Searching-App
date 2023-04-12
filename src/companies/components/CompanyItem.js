@@ -1,9 +1,9 @@
-import PropTypes from "prop-types"
-import { Card, CardActions, CardContent, Typography } from "@mui/material"
-import { AiOutlineDollarCircle, AiOutlineStar } from "react-icons/ai"
-import { GrUserWorker } from "react-icons/gr"
-import { BsBriefcase } from "react-icons/bs"
-import { Link } from "react-router-dom"
+import PropTypes from "prop-types";
+import { Card, CardActions, CardContent, Typography } from "@mui/material";
+import { AiOutlineDollarCircle, AiOutlineStar } from "react-icons/ai";
+import { GrUserWorker } from "react-icons/gr";
+import { BsBriefcase } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
   return (
@@ -20,7 +20,7 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            gap: "10px"
+            gap: "10px",
           }}
         >
           <b>{rating}</b>
@@ -38,7 +38,7 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
             color: "purple",
             fontWeight: "bold",
             padding: "12px",
-            borderRadius: "30px"
+            borderRadius: "30px",
           }}
         >
           <BsBriefcase />
@@ -54,7 +54,7 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
             color: "green",
             fontWeight: "bold",
             padding: "12px",
-            borderRadius: "30px"
+            borderRadius: "30px",
           }}
         >
           <AiOutlineDollarCircle />
@@ -70,7 +70,7 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
             color: "royalblue",
             fontWeight: "bold",
             padding: "12px",
-            borderRadius: "30px"
+            borderRadius: "30px",
           }}
         >
           <GrUserWorker />
@@ -78,10 +78,10 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
         </Typography>
       </CardActions>
     </Card>
-  )
-}
+  );
+};
 
-export default CompanyItem
+export default CompanyItem;
 
 CompanyItem.propTypes = {
   logo: PropTypes.string.isRequired,
@@ -89,5 +89,5 @@ CompanyItem.propTypes = {
   salary: PropTypes.number.isRequired,
   employers: PropTypes.number.isRequired,
   jobs: PropTypes.array.isRequired,
-  rating: PropTypes.number.isRequired
-}
+  rating: PropTypes.number.isRequired,
+};

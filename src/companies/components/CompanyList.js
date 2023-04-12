@@ -1,5 +1,6 @@
-import React from 'react'
-import CompanyItem from './CompanyItem'
+import React from "react";
+import PropTypes, { object } from "prop-types";
+import CompanyItem from "./CompanyItem";
 
 const CompanyList = ({ companies }) => {
   return (
@@ -12,8 +13,8 @@ const CompanyList = ({ companies }) => {
           em_employees,
           em_jobs,
           em_salary,
-          em_rating
-        } = company
+          em_rating,
+        } = company;
         return (
           <CompanyItem
             key={id}
@@ -25,10 +26,14 @@ const CompanyList = ({ companies }) => {
             salary={em_salary}
             rating={em_rating}
           />
-        )
+        );
       })}
     </ul>
-  )
-}
+  );
+};
 
-export default CompanyList
+export default CompanyList;
+
+CompanyList.propTypes = {
+  companies: PropTypes.arrayOf(object).isRequired,
+};
