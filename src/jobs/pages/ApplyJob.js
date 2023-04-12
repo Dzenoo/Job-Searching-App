@@ -17,6 +17,7 @@ import {
 import { useParams, useRouteLoaderData } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import Upload from "../../shared/components/Upload";
 
 const ApplyJob = () => {
   const [formState, inputHandler] = useFormHook(
@@ -45,6 +46,10 @@ const ApplyJob = () => {
         value: "",
         isValid: false,
       },
+      cv: {
+        value: "",
+        isValid: false,
+      },
     },
     false
   );
@@ -57,19 +62,20 @@ const ApplyJob = () => {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("name", formState.inputs.name.value);
+      formData.append("surname", formState.inputs.surname.value);
+      formData.append("email", formState.inputs.email.value);
+      formData.append("phone", formState.inputs.phone.value);
+      formData.append("github", formState.inputs.github.value);
+      formData.append("linkedin", formState.inputs.linkedin.value);
+      formData.append("cv", formState.inputs.cv.value);
+
       const response = await fetch(
         `http://localhost:8000/api/applications/${jobId}/${seeker.id}/${job.employer._id}/apply`,
         {
           method: "POST",
-          body: JSON.stringify({
-            name: formState.inputs.name.value,
-            surname: formState.inputs.surname.value,
-            phone: formState.inputs.phone.value,
-            email: formState.inputs.email.value,
-            github: formState.inputs.github.value,
-            linkedin: formState.inputs.linkedin.value,
-          }),
-          headers: { "Content-Type": "application/json" },
+          body: formData,
         }
       );
 
@@ -175,6 +181,13 @@ const ApplyJob = () => {
                 id="linkedin"
                 type="url"
                 errorText="Please enter valid linkedin"
+              />
+            </FormControl>
+            <FormControl>
+              <Upload
+                onInput={inputHandler}
+                id="cv"
+                errorText="Please enter valid cv"
               />
             </FormControl>
           </div>

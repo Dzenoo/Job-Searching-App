@@ -178,6 +178,18 @@ const Applicians = ({ applicians }) => {
                     </Typography>
                   </Box>
                 </CardActions>
+                {a.cv && (
+                  <a
+                    href={`http://localhost:8000/${a.cv}`}
+                    download
+                    target="_blank"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button fullWidth variant="contained">
+                      View CV
+                    </Button>
+                  </a>
+                )}
                 <div
                   className={`boxstatus ${
                     a.status === "Screening" ? "screening" : "boxstatus"
