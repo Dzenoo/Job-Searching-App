@@ -12,7 +12,9 @@ export const JobProvider = ({ children }) => {
     setisLoading(true);
     const fetchJobs = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/jobs/");
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/jobs/`
+        );
         if (!response.ok) {
           throw new Error("Could not fetch jobs");
         }

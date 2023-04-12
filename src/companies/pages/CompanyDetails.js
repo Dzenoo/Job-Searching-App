@@ -108,7 +108,7 @@ export default CompanyDetails;
 export async function loader({ params }) {
   const companyId = params.companyId;
   const response = await fetch(
-    `http://localhost:8000/api/employer/companies/${companyId}`
+    `${process.env.REACT_APP_BACKEND_URL}/employer/companies/${companyId}`
   );
 
   if (!response.ok) {

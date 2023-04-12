@@ -72,7 +72,7 @@ const ApplyJob = () => {
       formData.append("cv", formState.inputs.cv.value);
 
       const response = await fetch(
-        `http://localhost:8000/api/applications/${jobId}/${seeker.id}/${job.employer._id}/apply`,
+        `${process.env.REACT_APP_BACKEND_URL}/applications/${jobId}/${seeker.id}/${job.employer._id}/apply`,
         {
           method: "POST",
           body: formData,

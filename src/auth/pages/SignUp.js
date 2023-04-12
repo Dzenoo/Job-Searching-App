@@ -99,7 +99,7 @@ const SignUp = () => {
     if (isSelectedAcc === "Employer Account") {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/employer/signup",
+          `${process.env.REACT_APP_BACKEND_URL}/employer/signup`,
           {
             method: "POST",
             body: JSON.stringify({
@@ -128,7 +128,7 @@ const SignUp = () => {
     } else {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/seeker/signup",
+          `${process.env.REACT_APP_BACKEND_URL}/seeker/signup`,
           {
             method: "POST",
             body: JSON.stringify({

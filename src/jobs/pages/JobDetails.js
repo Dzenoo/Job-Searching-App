@@ -20,7 +20,7 @@ const JobDetails = () => {
   const saveJobHandler = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/jobs/${seeker._id}/${jobId}/save`,
+        `${process.env.REACT_APP_BACKEND_URL}/jobs/${seeker._id}/${jobId}/save`,
         {
           method: "POST",
         }
@@ -41,7 +41,7 @@ const JobDetails = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/jobs/${employer._id}/${jobId}/delete`,
+        `${process.env.REACT_APP_BACKEND_URL}/jobs/${employer._id}/${jobId}/delete`,
         {
           method: "DELETE",
         }
@@ -266,7 +266,9 @@ export default JobDetails;
 export async function loader({ params }) {
   const jobId = params.idOfJob;
 
-  const response = await fetch(`http://localhost:8000/api/jobs/${jobId}`);
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/jobs/${jobId}`
+  );
 
   if (!response.ok) {
     throw json({ message: "Could not fetch job" }, { status: 500 });

@@ -21,9 +21,9 @@ export const AuthProvider = ({ children }) => {
   const checkType = userData === "Employer";
 
   if (!checkType) {
-    url = `http://localhost:8000/api/seeker/${userId}/profile/`;
+    url = `${process.env.REACT_APP_BACKEND_URL}/seeker/${userId}/profile/`;
   } else {
-    url = `http://localhost:8000/api/employer/${userId}/profile/`;
+    url = `${process.env.REACT_APP_BACKEND_URL}/employer/${userId}/profile/`;
   }
 
   useEffect(() => {

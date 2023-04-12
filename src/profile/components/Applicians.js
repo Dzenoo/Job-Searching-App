@@ -31,7 +31,7 @@ const Applicians = ({ applicians }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/applications/${id}/updateStatus`,
+        `${process.env.REACT_APP_BACKEND_URL}/applications/${id}/updateStatus`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -180,7 +180,7 @@ const Applicians = ({ applicians }) => {
                 </CardActions>
                 {a.cv && (
                   <a
-                    href={`http://localhost:8000/${a.cv}`}
+                    href={`${process.env.REACT_APP_BACKEND}/${a.cv}`}
                     download
                     target="_blank"
                     style={{ textDecoration: "none" }}

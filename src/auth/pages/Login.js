@@ -72,7 +72,7 @@ const Login = () => {
     if (isType) {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/employer/login",
+          `${process.env.REACT_APP_BACKEND_URL}/employer/login`,
           {
             method: "POST",
             body: JSON.stringify({
@@ -95,14 +95,17 @@ const Login = () => {
       }
     } else {
       try {
-        const response = await fetch("http://localhost:8000/api/seeker/login", {
-          method: "POST",
-          body: JSON.stringify({
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/seeker/login`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: formState.inputs.email.value,
+              password: formState.inputs.password.value,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
         const responseData = await response.json();
 
         if (!response.ok) {

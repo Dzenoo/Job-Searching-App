@@ -69,7 +69,7 @@ const NewJob = () => {
     setisLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/jobs/${userId}/new`,
+        `${process.env.REACT_APP_BACKEND_URL}/jobs/${userId}/new`,
         {
           method: "POST",
           body: JSON.stringify({

@@ -28,7 +28,7 @@ const HeroSection = () => {
     setisLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:8000/api/newsletter/signup",
+        `${process.env.REACT_APP_BACKEND_URL}/newsletter/signup`,
         {
           method: "POST",
           body: JSON.stringify({

@@ -1,10 +1,10 @@
-import React from 'react'
-import CompanyList from '../components/CompanyList'
-import { Typography } from '@mui/material'
-import { json, useRouteLoaderData } from 'react-router-dom'
+import React from "react";
+import CompanyList from "../components/CompanyList";
+import { Typography } from "@mui/material";
+import { json, useRouteLoaderData } from "react-router-dom";
 
 const Companies = () => {
-  const data = useRouteLoaderData('companies')
+  const data = useRouteLoaderData("companies");
 
   return (
     <>
@@ -24,16 +24,18 @@ const Companies = () => {
         <CompanyList companies={data.companies} />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Companies
+export default Companies;
 
-export async function loader () {
-  const response = await fetch('http://localhost:8000/api/employer/companies')
+export async function loader() {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND_URL}/employer/companies`
+  );
   if (!response.ok) {
-    throw json({ message: 'Could not fetch companies' }, { status: 500 })
+    throw json({ message: "Could not fetch companies" }, { status: 500 });
   } else {
-    return response
+    return response;
   }
 }
