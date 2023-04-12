@@ -108,6 +108,7 @@ const Applicians = ({ applicians }) => {
                   <Typography color="textSecondary" variant="p">
                     {a.country}
                   </Typography>
+                  <Typography variant="p">Job: {a.job}</Typography>
                 </Box>
                 <CardActions>
                   <Box

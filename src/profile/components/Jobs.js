@@ -4,7 +4,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  Container,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -89,9 +88,12 @@ const Jobs = ({ jobs }) => {
                 >
                   {job.shortDescription.substring(0, 60)}...
                 </Typography>
+                <Typography variant="p">Job Id: {job._id}</Typography>
               </Box>
             </CardContent>
-            <CardActions>
+            <CardActions
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Link
                 to={`/jobs/${job._id}`}
                 style={{ textDecoration: "none", color: "#fff" }}
@@ -100,6 +102,9 @@ const Jobs = ({ jobs }) => {
                   View Job
                 </Button>
               </Link>
+              <Typography variant="p">
+                Appliciants: {job.applicians.length}
+              </Typography>
             </CardActions>
           </Card>
         ))}
