@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, json, useParams, useRouteLoaderData } from "react-router-dom";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { CiLocationOn } from "react-icons/ci";
-import { AiOutlineSave, AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineSave } from "react-icons/ai";
 import { RiChatDeleteLine } from "react-icons/ri";
 import { MdOutlineHomeWork } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
@@ -89,7 +89,9 @@ const JobDetails = () => {
             position: "relative",
           }}
         >
-          <div className="profile_img">{employer.em_name.substring(0, 2)}</div>
+          <div className="profile_img">
+            {job.employer.em_name.substring(0, 2)}
+          </div>
           <div className="job_details_titles">
             <Typography variant="h5" fontWeight="bold" color="textPrimary">
               {job.title}

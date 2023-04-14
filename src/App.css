@@ -563,23 +563,21 @@ body {
     position: relative;
     right: 24px;
   }
+  .company_div {
+    display: none;
+  }
+  .grid_hero_text {
+    padding: 0;
+    padding-left: 12px !important;
+  }
 }
 
 @media (max-width: 390px) {
-  .footer_list {
-    justify-content: space-between;
-    padding: 28px;
-    gap: 2em;
-  }
-
   .grid_hero_text {
     padding: 0;
     padding-left: 12px !important;
   }
 
-  .company_div {
-    display: none;
-  }
   .signup_action {
     right: 20px;
   }
