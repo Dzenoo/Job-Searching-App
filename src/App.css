@@ -570,6 +570,12 @@ body {
     padding: 0;
     padding-left: 12px !important;
   }
+  .skills_list {
+    padding: 3px;
+  }
+  .list_description {
+    padding: 8px;
+  }
 }
 
 @media (max-width: 390px) {
