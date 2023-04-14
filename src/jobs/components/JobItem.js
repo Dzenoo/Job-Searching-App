@@ -13,7 +13,6 @@ import PropTypes from "prop-types";
 
 const JobItem = ({
   id,
-  logo,
   title,
   city,
   salary,
@@ -21,6 +20,7 @@ const JobItem = ({
   level,
   shortDescription,
   createdAt,
+  employer,
 }) => {
   const date = new Date(createdAt);
   const dateFormat = date.toDateString();
@@ -34,7 +34,7 @@ const JobItem = ({
           justifyContent: "space-between",
         }}
       >
-        <img src={logo} alt={title} style={{ width: "100px" }} />
+        <div className="profile_img">{employer.em_name.substring(0, 2)}</div>
         <Typography variant="p" color="textSecondary">
           {dateFormat}
         </Typography>

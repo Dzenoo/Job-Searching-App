@@ -72,6 +72,7 @@ const HeroSection = () => {
         item
         lg={4.6}
         sx={{ display: "flex", flexDirection: "column", gap: "2em" }}
+        className="grid_hero_text"
       >
         <Typography variant="h3" fontWeight="bold">
           Make the best move to choose your new job
@@ -83,7 +84,7 @@ const HeroSection = () => {
 
         <form
           onSubmit={signupNewsletter}
-          style={{ display: "flex", alignItems: "baseline" }}
+          style={{ display: "flex", alignItems: "center" }}
         >
           <Input
             onInput={inputHandler}
@@ -94,8 +95,8 @@ const HeroSection = () => {
             placeholder="Enter Your Email"
           />
 
-          <Button variant="contained" size="large" type="submit">
-            Get started!
+          <Button variant="contained" size="small" type="submit">
+            Start Now!
           </Button>
         </form>
 
@@ -117,7 +118,7 @@ const HeroSection = () => {
         </Box>
       </Grid>
       <Grid item lg={7} md={12} className="card_hero"></Grid>
-      <Grid item lg={4.7}>
+      <Grid item lg={4.7} className="company_div">
         <Box>
           <Typography variant="h6" fontWeight="bold" align="left">
             Trusted by top tier companies

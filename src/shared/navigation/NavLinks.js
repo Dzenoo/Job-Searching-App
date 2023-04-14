@@ -1,20 +1,10 @@
 import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
 
-const NavLinks = (props) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const NavLinks = () => {
   const { logout, isLoggedIn, checkType } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const handleOpenUserMenu = () => {
-    setAnchorEl(true);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorEl(null);
-  };
 
   const logoutHandler = () => {
     navigate("/");

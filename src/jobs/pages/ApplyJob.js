@@ -105,15 +105,7 @@ const ApplyJob = () => {
           </div>
         </Box>
         <form onSubmit={applyHandler} style={{ position: "relative" }}>
-          <div
-            style={{
-              padding: "70px",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: "12px",
-            }}
-          >
+          <div style={{}} className="apply_form">
             <FormControl>
               <label htmlFor="name">Name</label>
               <Input

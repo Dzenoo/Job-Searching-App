@@ -195,6 +195,7 @@ body {
   flex-direction: column;
   list-style-type: none;
   gap: 20px;
+  list-style: circle;
 }
 
 .skills_list {
@@ -479,6 +480,23 @@ body {
   border: 1px solid rgb(218, 215, 215);
 }
 
+.apply_form {
+  padding: 70px;
+  display: "flex";
+  flex-wrap: "wrap";
+  justify-content: "center";
+  gap: 12px;
+}
+
+.profile_img {
+  background-color: rgb(255, 191, 0);
+  padding: 20px;
+  border-radius: 60px;
+  font-size: 40px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 1500px) {
@@ -534,13 +552,44 @@ body {
   .company_list_main {
     padding: 2px !important;
   }
+  .job_details_list {
+    gap: 20px;
+  }
+
+  .apply_form {
+    padding: 30px !important;
+  }
+  .company_list {
+    position: relative;
+    right: 24px;
+  }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 390px) {
   .footer_list {
     justify-content: space-between;
     padding: 28px;
     gap: 2em;
+  }
+
+  .grid_hero_text {
+    padding: 0;
+    padding-left: 12px !important;
+  }
+
+  .company_div {
+    display: none;
+  }
+  .signup_action {
+    right: 20px;
+  }
+
+  .list_description {
+    padding: 8px;
+  }
+
+  .skills_list {
+    padding: 3px;
   }
 }
 

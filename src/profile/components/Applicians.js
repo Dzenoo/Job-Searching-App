@@ -77,6 +77,8 @@ const Applicians = ({ applicians }) => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
+                  position: "relative",
+                  right: "42px",
                 }}
               >
                 <Select

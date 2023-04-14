@@ -83,13 +83,13 @@ const JobDetails = () => {
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             gap: "20px",
             flexWrap: "wrap",
             position: "relative",
           }}
         >
-          <img src={job.employer.em_image} alt={job.title} />
+          <div className="profile_img">{employer.em_name.substring(0, 2)}</div>
           <div className="job_details_titles">
             <Typography variant="h5" fontWeight="bold" color="textPrimary">
               {job.title}
@@ -199,7 +199,7 @@ const JobDetails = () => {
           </Typography>
         </Box>
         <Box sx={{ marginTop: "30px" }}>
-          <Typography variant="h4" fontWeight="bold" color="textPrimary">
+          <Typography variant="h5" fontWeight="bold" color="textPrimary">
             Skills and Expertise
           </Typography>
           <ul className="skills_list">
@@ -220,7 +220,6 @@ const JobDetails = () => {
                 <Typography
                   sx={{ display: "flex", alignItems: "center", gap: "12px" }}
                 >
-                  <AiOutlineCheckCircle size={22} fill="green" />
                   {jd}
                 </Typography>
               </li>
@@ -237,7 +236,6 @@ const JobDetails = () => {
                 <Typography
                   sx={{ display: "flex", alignItems: "center", gap: "12px" }}
                 >
-                  <AiOutlineCheckCircle size={22} fill="green" />
                   {t}
                 </Typography>
               </li>

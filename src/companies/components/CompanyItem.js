@@ -27,7 +27,13 @@ const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
           <AiOutlineStar fill="gold" size={28} />
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions
+        sx={{
+          flexWrap: "wrap",
+          padding: "12px",
+          gap: "12px",
+        }}
+      >
         <Typography
           sx={{
             display: "flex",

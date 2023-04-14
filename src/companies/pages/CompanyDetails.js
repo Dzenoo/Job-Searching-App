@@ -16,7 +16,14 @@ const CompanyDetails = () => {
   return (
     <Container maxWidth="md">
       <Card sx={{ padding: "30px" }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            flexWrap: "wrap",
+          }}
+        >
           <img src={currentCompany.em_image} alt={currentCompany.em_name} />
           <div>
             <Typography variant="h4">{currentCompany.em_name}</Typography>

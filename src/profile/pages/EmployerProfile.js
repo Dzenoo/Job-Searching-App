@@ -27,11 +27,9 @@ const ProfilePage = () => {
             flexWrap: "wrap",
           }}
         >
-          <img
-            src={employerData.em_image}
-            alt="profileimg"
-            style={{ width: "160px", borderRadius: "60%" }}
-          />
+          <div className="profile_img">
+            {employerData.em_name.substring(0, 2)}
+          </div>
           <Box>
             <Typography variant="p">Its nice to see you here</Typography>
             <Typography variant="h4">{employerData.em_name}</Typography>

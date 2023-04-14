@@ -26,7 +26,7 @@ const JobList = ({ jobs }) => {
             <JobItem
               key={id}
               id={id}
-              logo={employer.em_image}
+              employer={employer}
               title={title}
               city={city}
               salary={salary}

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Avatar, Box, Menu, MenuItem, Tooltip } from "@mui/material";
+import { Avatar, Box, Button, Menu, MenuItem, Tooltip } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
 import { AiOutlineMenu } from "react-icons/ai";
 import logo from "../assets/logo.png";
@@ -115,6 +115,18 @@ const MainNavigation = () => {
       </nav>
       <ResponsiveNav show={navIsOpen} onClick={closeNav}>
         <NavLinks />
+        <Button
+          sx={{
+            position: "absolute",
+            right: "12px",
+            top: "12px",
+            fontSize: "20px",
+          }}
+          variant="contained"
+          onClick={closeNav}
+        >
+          X
+        </Button>
       </ResponsiveNav>
     </header>
   );
