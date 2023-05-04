@@ -22,7 +22,7 @@ const ProfilePage = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: "20px",
+            gap: "20px",z
             padding: "20px",
             flexWrap: "wrap",
           }}

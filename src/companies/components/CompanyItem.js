@@ -5,11 +5,11 @@ import { GrUserWorker } from "react-icons/gr";
 import { BsBriefcase } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const CompanyItem = ({ id, name, salary, employers, jobs, rating }) => {
+const CompanyItem = ({ id, logo, name, salary, employers, jobs, rating }) => {
   return (
     <Card id={id} sx={{ padding: "40px" }}>
       <Link to={id}>
-        <div className="profile_img">{name.substring(0, 2)}</div>
+        <img src={logo} alt={name} />
       </Link>
       <CardContent>
         <Typography variant="h6" fontWeight="bold">

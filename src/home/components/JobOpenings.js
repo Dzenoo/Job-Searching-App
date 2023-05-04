@@ -51,9 +51,13 @@ const JobOpenings = ({ jobs, isLoggedIn }) => {
               }}
             >
               <CardContent>
-                <div className="profile_img">
-                  {job.employer.em_name.substring(0, 2)}
-                </div>
+                <img
+                  src={job.employer.em_image}
+                  alt={job.title}
+                  style={{
+                    width: "100px",
+                  }}
+                />
                 <Typography variant="h4" color="#1482e8">
                   {job.title}
                 </Typography>
