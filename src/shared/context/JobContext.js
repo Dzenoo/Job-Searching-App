@@ -36,10 +36,10 @@ export const JobProvider = ({ children }) => {
     setState(newCheckboxes);
     const allUnchecked = newCheckboxes.every((checkbox) => !checkbox.checked);
 
-    if (allUnchecked) {
-      setfilteredJobs(jobs);
-      return;
-    }
+    // if (allUnchecked) {
+    //   setfilteredJobs(jobs);
+    //   return;
+    // }
 
     const checkedBox = newCheckboxes
       .filter((checkbox) => checkbox.checked)
