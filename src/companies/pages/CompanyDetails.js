@@ -24,7 +24,9 @@ const CompanyDetails = () => {
             flexWrap: "wrap",
           }}
         >
-          <img src={currentCompany.em_image} alt={currentCompany.em_name} />
+          <div className="profile_img">
+            {currentCompany.em_name.substring(0, 2)}
+          </div>
           <div>
             <Typography variant="h4">{currentCompany.em_name}</Typography>
             <Typography
