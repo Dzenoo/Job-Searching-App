@@ -51,7 +51,7 @@ const JobOpenings = ({ jobs, isLoggedIn }) => {
               }}
             >
               <CardContent>
-                <Typography variant="h4" color="#1482e8">
+                <Typography variant="h4" color="#1482e8" fontWeight="bold">
                   {job.title}
                 </Typography>
                 <Typography variant="h6">{job.employer.em_name}</Typography>
