@@ -15,7 +15,7 @@ const port = 8000;
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json({ limit: "60mb" }));
+app.use(bodyParser.json({ limit: "120mb" }));
 app.use(
   "/uploads/documents",
   express.static(path.join("uploads", "documents"))
