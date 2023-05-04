@@ -46,10 +46,10 @@ const ApplyJob = () => {
         value: "",
         isValid: false,
       },
-      cv: {
-        value: "",
-        isValid: false,
-      },
+      // cv: {
+      //   value: "",
+      //   isValid: false,
+      // },
     },
     false
   );
@@ -69,7 +69,7 @@ const ApplyJob = () => {
       formData.append("phone", formState.inputs.phone.value);
       formData.append("github", formState.inputs.github.value);
       formData.append("linkedin", formState.inputs.linkedin.value);
-      formData.append("cv", formState.inputs.cv.value);
+      // formData.append("cv", formState.inputs.cv.value);
 
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/applications/${jobId}/${seeker.id}/${job.employer._id}/apply`,
@@ -175,13 +175,13 @@ const ApplyJob = () => {
                 errorText="Please enter valid linkedin"
               />
             </FormControl>
-            <FormControl>
+            {/* <FormControl>
               <Upload
                 onInput={inputHandler}
                 id="cv"
                 errorText="Please enter valid cv"
               />
-            </FormControl>
+            </FormControl> */}
           </div>
           <Button
             variant="contained"
