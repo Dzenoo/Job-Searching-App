@@ -52,7 +52,7 @@ const JobOpenings = ({ jobs, isLoggedIn }) => {
             >
               <CardContent>
                 <div className="profile_img">
-                  {employer.em_name.substring(0, 2)}
+                  {job.employer.em_name.substring(0, 2)}
                 </div>
                 <Typography variant="h4" color="#1482e8">
                   {job.title}
