@@ -53,7 +53,7 @@ exports.applyToJob = async (req, res, next) => {
     github,
     linkedin,
     employer: employerId,
-    cv: req.file.path,
+    // cv: req.file.path,
     job: jobId,
   });
 
