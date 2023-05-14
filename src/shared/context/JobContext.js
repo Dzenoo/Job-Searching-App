@@ -12,9 +12,7 @@ export const JobProvider = ({ children }) => {
     setisLoading(true);
     const fetchJobs = async () => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/jobs/`
-        );
+        const response = await fetch("https://job-gk5a.onrender.com/api/jobs/");
         if (!response.ok) {
           throw new Error("Could not fetch jobs");
         }
