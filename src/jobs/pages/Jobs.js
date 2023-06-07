@@ -16,6 +16,17 @@ const Jobs = () => {
     filteredJobs,
     handleCheckbox,
     isLoading,
+    checkboxSchedule,
+    checkboxLocation,
+    checkboxSalary,
+    checkboxSeniority,
+    setCheckboxSchedule,
+    setCheckboxLocation,
+    setCheckboxSalary,
+    setCheckboxSeniority,
+    scheduleCounts,
+    locationCounts,
+    seniorityCounts,
   } = useContext(JobContext);
 
   if (isLoading) {
@@ -42,7 +53,20 @@ const Jobs = () => {
       />
       <Grid container>
         <Grid item lg={2.2}>
-          <FilterJob handleCheckbox={handleCheckbox} />
+          <FilterJob
+            handleCheckbox={handleCheckbox}
+            checkboxLocation={checkboxLocation}
+            checkboxSalary={checkboxSalary}
+            checkboxSeniority={checkboxSeniority}
+            checkboxSchedule={checkboxSchedule}
+            setCheckboxLocation={setCheckboxLocation}
+            setCheckboxSchedule={setCheckboxSchedule}
+            setCheckboxSeniority={setCheckboxSeniority}
+            setCheckboxSalary={setCheckboxSalary}
+            scheduleCounts={scheduleCounts}
+            locationCounts={locationCounts}
+            seniorityCounts={seniorityCounts}
+          />
         </Grid>
         <Grid item lg={9} justifyContent="center" alignItems="center">
           <JobList jobs={currentJobs} />

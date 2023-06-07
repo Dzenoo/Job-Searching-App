@@ -1,11 +1,20 @@
 import { useEffect, useState, createContext } from "react";
-
+import { Schedules, Seniority } from "../data/data";
+import { Salary } from "../data/data";
+import { Location } from "../data/data";
 export const JobContext = createContext();
 
 export const JobProvider = ({ children }) => {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setfilteredJobs] = useState([]);
   const [isLoading, setisLoading] = useState(false);
+  const [checkboxSchedule, setCheckboxSchedule] = useState(Schedules);
+  const [checkboxSeniority, setCheckboxSeniority] = useState(Seniority);
+  const [checkboxSalary, setCheckboxSalary] = useState(Salary);
+  const [checkboxLocation, setCheckboxLocation] = useState(Location);
+  const [scheduleCounts, setScheduleCounts] = useState({});
+  const [seniorityCounts, setSeniorityCounts] = useState({});
+  const [locationCounts, setLocationCounts] = useState({});
 
   // Fetch Jobs
   useEffect(() => {
@@ -20,10 +29,27 @@ export const JobProvider = ({ children }) => {
         setJobs(responseData.jobs);
         setfilteredJobs(responseData.jobs);
         setisLoading(false);
+
+        const newScheduleCounts = {};
+        const newSeniorityCounts = {};
+        const newLocationCounts = {};
+
+        responseData.jobs.forEach((job) => {
+          newScheduleCounts[job.time] = (newScheduleCounts[job.time] || 0) + 1;
+          newSeniorityCounts[job.level] =
+            (newSeniorityCounts[job.level] || 0) + 1;
+          newLocationCounts[job.schedule] =
+            (newLocationCounts[job.schedule] || 0) + 1;
+        });
+
+        setScheduleCounts(newScheduleCounts);
+        setSeniorityCounts(newSeniorityCounts);
+        setLocationCounts(newLocationCounts);
       } catch (error) {
         setisLoading(false);
       }
     };
+
     fetchJobs();
   }, []);
 
@@ -47,7 +73,7 @@ export const JobProvider = ({ children }) => {
     );
 
     setfilteredJobs(newFilteredJobs);
-    filterJobsByCheckbox(state);
+    filterJobsByCheckbox();
   };
 
   // Search Filter
@@ -59,44 +85,43 @@ export const JobProvider = ({ children }) => {
     setfilteredJobs(searchedJobs);
   };
 
-  const filterJobsByCheckbox = (state) => {
-    const filtered = filteredJobs.filter((job) => {
-      // Filter by schedule
-      if (
-        state.some(
-          (checkbox) => checkbox.checked && checkbox.label === job.time
-        )
-      ) {
-        return true;
+  const filterJobsByCheckbox = () => {
+    const checkboxCategories = [
+      { state: checkboxSchedule, filterType: "time" },
+      { state: checkboxSeniority, filterType: "level" },
+      { state: checkboxSalary, filterType: "salary" },
+      { state: checkboxLocation, filterType: "schedule" },
+    ];
+
+    const filtered = jobs.filter((job) => {
+      for (let { state, filterType } of checkboxCategories) {
+        const checkedBoxes = state.filter((checkbox) => checkbox.checked);
+
+        if (checkedBoxes.length > 0) {
+          if (filterType === "salary") {
+            if (
+              !checkedBoxes.some(
+                (checkbox) =>
+                  job[filterType] >= checkbox.label[0] &&
+                  job[filterType] <= checkbox.label[2]
+              )
+            ) {
+              return false;
+            }
+          } else {
+            if (
+              !checkedBoxes.some(
+                (checkbox) => checkbox.label === job[filterType]
+              )
+            ) {
+              return false;
+            }
+          }
+        }
       }
-      // Filter by seniority
-      if (
-        state.some(
-          (checkbox) => checkbox.checked && checkbox.label === job.level
-        )
-      ) {
-        return true;
-      }
-      // Filter by salary
-      if (
-        state.some(
-          (checkbox) =>
-            checkbox.checked &&
-            job.salary >= checkbox.label[0] &&
-            job.salary <= checkbox.label[2]
-        )
-      ) {
-        return true;
-      }
-      if (
-        state.some(
-          (checkbox) => checkbox.checked && checkbox.label === job.schedule
-        )
-      ) {
-        return true;
-      }
-      return false;
+      return true;
     });
+
     setfilteredJobs(filtered);
   };
 
@@ -113,6 +138,17 @@ export const JobProvider = ({ children }) => {
         clearFilter,
         handleCheckbox,
         isLoading,
+        checkboxSchedule,
+        checkboxLocation,
+        checkboxSalary,
+        checkboxSeniority,
+        setCheckboxSchedule,
+        setCheckboxLocation,
+        setCheckboxSalary,
+        setCheckboxSeniority,
+        scheduleCounts,
+        locationCounts,
+        seniorityCounts,
       }}
     >
       {children}

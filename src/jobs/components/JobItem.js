@@ -25,6 +25,10 @@ const JobItem = ({
   const date = new Date(createdAt);
   const dateFormat = date.toDateString();
 
+  const colors = ["royalblue", "greenyellow", "orange", "lightblue"];
+  const random = Math.round(Math.random() * 4);
+  const color = colors[random];
+
   return (
     <Card sx={{ padding: "10px" }}>
       <Box
@@ -34,7 +38,9 @@ const JobItem = ({
           justifyContent: "space-between",
         }}
       >
-        <div className="profile_img">{employer.em_name.substring(0, 2)}</div>
+        <div style={{ backgroundColor: color }} className="profile_img">
+          {employer.em_name.substring(0, 2)}
+        </div>
         <Typography variant="p" color="textSecondary">
           {dateFormat}
         </Typography>
