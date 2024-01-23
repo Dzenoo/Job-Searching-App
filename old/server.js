@@ -7,7 +7,7 @@ const jobRoutes = require("./routes/job-routes");
 const bodyParser = require("body-parser");
 const applyRoutes = require("./routes/apply-routes");
 const newsletter = require("./routes/newsletter");
-const HttpError = require("./models/HttpError");
+const HttpError = require("../models/HttpError");
 const cors = require("cors");
 const path = require("path");
 

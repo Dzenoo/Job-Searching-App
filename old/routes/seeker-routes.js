@@ -1,5 +1,5 @@
 const express = require("express");
-const seekerControllers = require("../controllers/seeker-controllers");
+const seekerControllers = require("../../controllers/seeker-controllers");
 const { check } = require("express-validator");
 
 const router = express.Router();

@@ -1,7 +1,7 @@
 const express = require("express");
-const applyControllers = require("../controllers/apply-controllers");
+const applyControllers = require("../../controllers/apply-controllers");
 const { check } = require("express-validator");
-const fileUpload = require("../middlewares/fileUpload");
+const fileUpload = require("../../middlewares/fileUpload");
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 const express = require("express");
-const jobControllers = require("../controllers/job-controllers");
+const jobControllers = require("../../controllers/job-controllers");
 const { check } = require("express-validator");
 
 const router = express.Router();
