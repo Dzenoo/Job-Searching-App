@@ -1,24 +1,23 @@
 import mongoose from "mongoose";
-// import validator from "validator";
 
 const ApplicationSchema = new mongoose.Schema(
   {
-    image: {},
-    industry: {},
-    company_description: {},
-    location: {},
-    size: {},
-    website: {},
-    address: {},
-    number: {},
-    email: {},
-    name: {},
-    jobs: {},
-    followers: {},
-    directMessages: {},
-    achievements: {},
-    events: {},
-    reviews: {},
+    cover_letter: {
+      type: Buffer,
+    },
+    status: {
+      type: String,
+      enum: {
+        values: ["Rejected", "Pending", "Accepted"],
+        message: "{VALUE} is not valid",
+      },
+    },
+    resume: {
+      type: Buffer,
+      required: [true, "Resume is required"],
+    },
+    seeker: { type: mongoose.Types.ObjectId, ref: "Seeker" },
+    job: { type: mongoose.Types.ObjectId, ref: "Job" },
   },
   { timestamps: true }
 );
