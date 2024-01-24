@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-// import validator from "validator";
 
 const AchievementSchema = new mongoose.Schema(
   {
@@ -8,6 +7,7 @@ const AchievementSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Achievements name is required"],
       minlength: [3, "Achievements name minimum"],
+      unique: true,
     },
     description: {
       type: String,
