@@ -30,7 +30,14 @@ const EmployerSchema = new mongoose.Schema(
         required: false,
       },
     ],
-    events: {},
+    events: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Event",
+        default: [],
+        required: false,
+      },
+    ],
     reviews: [
       {
         type: mongoose.Types.ObjectId,
