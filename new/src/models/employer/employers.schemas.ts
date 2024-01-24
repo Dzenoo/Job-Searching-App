@@ -15,10 +15,30 @@ const EmployerSchema = new mongoose.Schema(
     name: {},
     jobs: {},
     followers: {},
-    directMessages: {},
-    achievements: {},
+    directMessages: [
+      {
+        seekerId: { type: mongoose.Types.ObjectId, ref: "Seeker" },
+        messages: [{ type: mongoose.Types.ObjectId, ref: "Message" }],
+        default: [],
+      },
+    ],
+    achievements: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Achievement",
+        default: [],
+        required: false,
+      },
+    ],
     events: {},
-    reviews: {},
+    reviews: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Review",
+        default: [],
+        required: false,
+      },
+    ],
   },
   { timestamps: true }
 );
