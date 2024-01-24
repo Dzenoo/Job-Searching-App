@@ -28,5 +28,4 @@ async function initializeApp(): Promise<void> {
   await establishDatabaseConnection();
   initializeExpress();
 }
-
 initializeApp();
