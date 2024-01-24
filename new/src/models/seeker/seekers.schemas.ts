@@ -177,6 +177,33 @@ const SeekerSchema = new mongoose.Schema(
         required: false,
       },
     ],
+    alerts: {
+      title: {
+        type: String,
+        required: false,
+        default: "",
+        minlength: [3, "Title must be at least 3 characters long"],
+        maxlength: [30, "Title must not exceed 30 characters"],
+      },
+      type: {
+        type: String,
+        required: false,
+        default: "",
+        enum: {
+          values: ["Internship", "Full-Time", "Part-Time", "Freelance"],
+          message: "{VALUE} is not supported for Type",
+        },
+      },
+      level: {
+        type: String,
+        required: false,
+        default: "",
+        enum: {
+          values: ["Junior", "Medior", "Senior", "Lead"],
+          message: "{VALUE} is not supported for Level",
+        },
+      },
+    },
   },
   { timestamps: true }
 );

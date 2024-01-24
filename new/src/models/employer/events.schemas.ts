@@ -51,6 +51,14 @@ const EventSchema = new mongoose.Schema(
       ref: "Employer",
       required: [true, "Company is required"],
     },
+    seekers: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Seeker",
+        required: false,
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
