@@ -168,14 +168,14 @@ SeekerSchema.statics.findByCredentials = async <T extends string>(
   email: T,
   password: T
 ) => {
-  const seeker: any = Seeker.findOne({ email });
+  const seeker = await Seeker.findOne({ email });
 
   if (!seeker) {
     console.log("Not seeker founded");
     return;
   }
 
-  const isMatchedPasswords = await comparePassword(seeker.password, password);
+  const isMatchedPasswords = await comparePassword(password, seeker.password);
 
   if (!isMatchedPasswords) {
     console.log("Password is not true");
