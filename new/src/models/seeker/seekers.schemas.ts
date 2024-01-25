@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
+import { comparePassword, hashPassword } from "../../utils/bcrypts";
+import { signToken } from "../../utils/authTokens";
+
 const SeekerSchema = new mongoose.Schema(
   {
     image: {
       type: String,
-      required: false,
+
       default: "",
     },
     password: {
@@ -58,11 +61,10 @@ const SeekerSchema = new mongoose.Schema(
     cover_letter: {
       type: Buffer,
       default: undefined,
-      required: false,
     },
     portfolio: {
       type: String,
-      required: false,
+
       trim: true,
       minlength: [3, "Portfolio must be at least 3 characters long"],
       maxlength: [30, "Portfolio must be at most 30 characters long"],
@@ -76,7 +78,7 @@ const SeekerSchema = new mongoose.Schema(
     },
     linkedin: {
       type: String,
-      required: false,
+
       trim: true,
       minlength: [3, "Linkedin must be at least 3 characters long"],
       maxlength: [30, "Linkedin must be at most 30 characters long"],
@@ -90,7 +92,7 @@ const SeekerSchema = new mongoose.Schema(
     },
     github: {
       type: String,
-      required: false,
+
       trim: true,
       minlength: [3, "Github must be at least 3 characters long"],
       maxlength: [30, "Github must be at most 30 characters long"],
@@ -105,20 +107,17 @@ const SeekerSchema = new mongoose.Schema(
     resume: {
       type: Buffer,
       default: undefined,
-      required: false,
     },
     applications: [
       {
         type: mongoose.Types.ObjectId,
         ref: "Application",
-        required: false,
         default: [],
       },
     ],
     skills: [
       {
         type: String,
-        required: false,
         minlength: [3, "Skills must be at least 3 characters long"],
         maxlength: [16, "Skills must not exceed 16 characters"],
         trim: true,
@@ -148,7 +147,6 @@ const SeekerSchema = new mongoose.Schema(
           default: "",
         },
         default: [],
-        required: false,
       },
     ],
     savedJobs: [
@@ -156,7 +154,6 @@ const SeekerSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Job",
         default: [],
-        required: false,
       },
     ],
     following: [
@@ -164,7 +161,6 @@ const SeekerSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Employer",
         default: [],
-        required: false,
       },
     ],
     directMessages: [
@@ -174,20 +170,17 @@ const SeekerSchema = new mongoose.Schema(
           { type: mongoose.Types.ObjectId, ref: "Message", default: [] },
         ],
         default: [],
-        required: false,
       },
     ],
     alerts: {
       title: {
         type: String,
-        required: false,
         default: "",
         minlength: [3, "Title must be at least 3 characters long"],
         maxlength: [30, "Title must not exceed 30 characters"],
       },
       type: {
         type: String,
-        required: false,
         default: "",
         enum: {
           values: ["Internship", "Full-Time", "Part-Time", "Freelance"],
@@ -196,7 +189,6 @@ const SeekerSchema = new mongoose.Schema(
       },
       level: {
         type: String,
-        required: false,
         default: "",
         enum: {
           values: ["Junior", "Medior", "Senior", "Lead"],
@@ -207,6 +199,42 @@ const SeekerSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+SeekerSchema.pre("save", async function (next) {
+  const seeker = this;
+
+  if (seeker.isModified("password")) {
+    seeker.password = await hashPassword(seeker.password);
+  }
+
+  next();
+});
+
+SeekerSchema.statics.findByCredentials = async <T extends string>(
+  email: T,
+  password: T
+) => {
+  const seeker: any = Seeker.findOne({ email });
+
+  if (!seeker) {
+    console.log("Not seeker founded");
+    return;
+  }
+
+  const isMatchedPasswords = await comparePassword(seeker.password, password);
+
+  if (!isMatchedPasswords) {
+    console.log("Password is not true");
+    return;
+  }
+  return seeker;
+};
+
+SeekerSchema.methods.generateAuthToken = async function () {
+  const seeker = this;
+  const seekerTokens = signToken({ seekerId: seeker._id });
+  return seekerTokens;
+};
 
 const Seeker = mongoose.models.Seeker || mongoose.model("Seeker", SeekerSchema);
 

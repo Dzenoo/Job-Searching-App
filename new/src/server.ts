@@ -4,8 +4,9 @@ import http from "http";
 import "dotenv/config";
 
 import { connectToDatabase } from "./database/mongoose";
-import { initializePublicRoutes } from "./routes";
+import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
 import { Server } from "socket.io";
+import { handleError } from "./middlewares/errors";
 
 async function establishDatabaseConnection(): Promise<void> {
   try {
@@ -30,8 +31,11 @@ function initializeServer(): void {
   app.use(express.json());
 
   initializePublicRoutes(app);
+  initializePrivateRoutes(app);
 
   initializeSockets(io);
+
+  app.use(handleError);
 
   server.listen(3000, () => {
     console.log("Server is running on the port 3000");
