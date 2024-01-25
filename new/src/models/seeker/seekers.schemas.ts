@@ -9,15 +9,13 @@ const SeekerSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        "https://res.cloudinary.com/dzwb60tk1/image/upload/v1706206993/Untitled_design_roefj2.png",
+        "https://res.cloudinary.com/dzwb60tk1/image/upload/v1706206993/profile.png",
       trim: true,
     },
     password: {
       type: String,
       required: [true, "Password is required"],
-      trim: true,
       minlength: [3, "Password must be at least 3 characters long"],
-      maxlength: [30, "Password must be at most 30 characters long"],
     },
     email: {
       type: String,
@@ -37,39 +35,34 @@ const SeekerSchema = new mongoose.Schema(
     first_name: {
       type: String,
       required: [true, "First Name is required"],
-      trim: true,
       minlength: [3, "First Name must be at least 3 characters long"],
       maxlength: [30, "First Name must be at most 30 characters long"],
     },
     last_name: {
       type: String,
       required: [true, "Last Name is required"],
-      trim: true,
       minlength: [3, "Last Name must be at least 3 characters long"],
       maxlength: [30, "Last Name must be at most 30 characters long"],
     },
     cover_letter: {
       type: Buffer,
-      default: undefined,
+      default: null,
     },
     portfolio: {
       type: String,
-      trim: true,
       default: "",
     },
     linkedin: {
       type: String,
-      trim: true,
       default: "",
     },
     github: {
       type: String,
-      trim: true,
       default: "",
     },
     resume: {
       type: Buffer,
-      default: undefined,
+      default: null,
     },
     applications: [
       {
@@ -83,7 +76,6 @@ const SeekerSchema = new mongoose.Schema(
         type: String,
         minlength: [3, "Skills must be at least 3 characters long"],
         maxlength: [16, "Skills must not exceed 16 characters"],
-        trim: true,
         default: [],
       },
     ],
@@ -91,21 +83,17 @@ const SeekerSchema = new mongoose.Schema(
       {
         institution: {
           type: String,
-          trim: true,
           default: "",
         },
         graduationDate: {
-          trim: true,
           type: Date,
           default: null,
         },
         fieldOfStudy: {
-          trim: true,
           type: String,
           default: "",
         },
         degree: {
-          trim: true,
           type: String,
           default: "",
         },
@@ -138,17 +126,14 @@ const SeekerSchema = new mongoose.Schema(
       title: {
         type: String,
         default: "",
-        trim: true,
       },
       type: {
         type: String,
         default: "",
-        trim: true,
       },
       level: {
         type: String,
         default: "",
-        trim: true,
       },
     },
   },
@@ -156,13 +141,13 @@ const SeekerSchema = new mongoose.Schema(
 );
 
 SeekerSchema.pre("save", async function (next) {
-  const seeker = this;
-
-  if (seeker.isModified("password")) {
-    seeker.password = await hashPassword(seeker.password);
+  if (!this.isModified("password")) return next();
+  try {
+    this.password = await hashPassword(this.password);
+    return next();
+  } catch (err: any) {
+    return next(err);
   }
-
-  next();
 });
 
 SeekerSchema.statics.findByCredentials = async <T extends string>(
