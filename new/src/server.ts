@@ -17,8 +17,8 @@ async function establishDatabaseConnection(): Promise<void> {
 }
 
 function initializeSockets(io: Server) {
-  io.on("connection", (socket) => {
-    console.log("WebSocket Connection is established" + socket);
+  io.on("connection", (_socket) => {
+    console.log("WebSocket Connection is established");
   });
 }
 

@@ -8,8 +8,8 @@ const SeekerSchema = new mongoose.Schema(
   {
     image: {
       type: String,
-
       default: "",
+      trim: true,
     },
     password: {
       type: String,
@@ -17,16 +17,6 @@ const SeekerSchema = new mongoose.Schema(
       trim: true,
       minlength: [3, "Password must be at least 3 characters long"],
       maxlength: [30, "Password must be at most 30 characters long"],
-      validate: {
-        validator: function (password: string) {
-          return (
-            validator.isStrongPassword(password, {
-              minLength: 3,
-            }) && password.includes(password)
-          );
-        },
-        message: "Password is not strong and cannot be value password",
-      },
     },
     email: {
       type: String,
@@ -49,7 +39,6 @@ const SeekerSchema = new mongoose.Schema(
       trim: true,
       minlength: [3, "First Name must be at least 3 characters long"],
       maxlength: [30, "First Name must be at most 30 characters long"],
-      unique: true,
     },
     last_name: {
       type: String,
@@ -64,45 +53,18 @@ const SeekerSchema = new mongoose.Schema(
     },
     portfolio: {
       type: String,
-
       trim: true,
-      minlength: [3, "Portfolio must be at least 3 characters long"],
-      maxlength: [30, "Portfolio must be at most 30 characters long"],
       default: "",
-      validate: {
-        validator: function (url: string) {
-          return validator.isURL(url);
-        },
-        message: "Portfolio url is not good provided",
-      },
     },
     linkedin: {
       type: String,
-
       trim: true,
-      minlength: [3, "Linkedin must be at least 3 characters long"],
-      maxlength: [30, "Linkedin must be at most 30 characters long"],
       default: "",
-      validate: {
-        validator: function (url: string) {
-          return validator.isURL(url);
-        },
-        message: "Linkedin url is not good provided",
-      },
     },
     github: {
       type: String,
-
       trim: true,
-      minlength: [3, "Github must be at least 3 characters long"],
-      maxlength: [30, "Github must be at most 30 characters long"],
       default: "",
-      validate: {
-        validator: function (url: string) {
-          return validator.isURL(url);
-        },
-        message: "Github url is not good provided",
-      },
     },
     resume: {
       type: Buffer,
@@ -146,7 +108,6 @@ const SeekerSchema = new mongoose.Schema(
           type: String,
           default: "",
         },
-        default: [],
       },
     ],
     savedJobs: [
@@ -176,24 +137,17 @@ const SeekerSchema = new mongoose.Schema(
       title: {
         type: String,
         default: "",
-        minlength: [3, "Title must be at least 3 characters long"],
-        maxlength: [30, "Title must not exceed 30 characters"],
+        trim: true,
       },
       type: {
         type: String,
         default: "",
-        enum: {
-          values: ["Internship", "Full-Time", "Part-Time", "Freelance"],
-          message: "{VALUE} is not supported for Type",
-        },
+        trim: true,
       },
       level: {
         type: String,
         default: "",
-        enum: {
-          values: ["Junior", "Medior", "Senior", "Lead"],
-          message: "{VALUE} is not supported for Level",
-        },
+        trim: true,
       },
     },
   },
