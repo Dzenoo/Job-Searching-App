@@ -1,8 +1,0 @@
-{
-  "env": {
-    "DB_USER": "Dzenis",
-    "DB_PASSWORD": "BZjS88NZKV9lV0et",
-    "DB_NAME": "job-prod",
-    "JWT": "strongsecret"
-  }
-}
