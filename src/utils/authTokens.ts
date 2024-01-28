@@ -9,7 +9,6 @@ export const signToken = <T extends object, Q extends SignOptions>(
     expiresIn: "7 days",
     ...options,
   });
-
 export const verifyToken = <T extends string>(
   token: T
 ): { [key: string]: any } => {
