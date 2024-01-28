@@ -1,5 +1,6 @@
 import Seeker from "../../models/seeker/seekers.schemas";
 import { asyncErrors } from "../../errors";
+import { responseServerHandler } from "../../utils/response";
 
 export const signupSeeker = asyncErrors(
   async (request, response): Promise<void> => {
@@ -9,9 +10,13 @@ export const signupSeeker = asyncErrors(
           (property) => !request.body[property]
         ).length > 0
       ) {
-        response.status(400).send({
-          message: "Please provide valid credentials",
-        });
+        responseServerHandler(
+          {
+            message: "Please provide valid credentials",
+          },
+          400,
+          response
+        );
       }
 
       const existingSeeker = await Seeker.findOne({
@@ -19,27 +24,35 @@ export const signupSeeker = asyncErrors(
       });
 
       if (existingSeeker) {
-        response
-          .status(400)
-          .json({ message: "This email already exists, please try again" });
+        responseServerHandler(
+          { message: "This email already exists, please try again" },
+          404,
+          response
+        );
       }
 
       const newSeeker = await Seeker.create(request.body);
       const seekerToken = await newSeeker.generateAuthToken();
 
       if (!seekerToken || !newSeeker) {
-        response.status(500).send({
-          message: "Cannot register account, please try again",
-        });
+        responseServerHandler(
+          {
+            message: "Cannot register account, please try again",
+          },
+          500,
+          response
+        );
       }
 
       await newSeeker.save();
 
-      response
-        .status(201)
-        .send({ seeker: newSeeker, seekerToken: seekerToken });
+      responseServerHandler(
+        { seeker: newSeeker._id, seekerToken: seekerToken },
+        201,
+        response
+      );
     } catch (error: any) {
-      response.status(400).json({ message: error.message });
+      responseServerHandler({ message: error.message }, 400, response);
     }
   }
 );
@@ -51,9 +64,13 @@ export const loginSeeker = asyncErrors(
         ["password", "email"].filter((property) => !request.body[property])
           .length > 0
       ) {
-        response.status(400).send({
-          message: "Please provide valid credentials",
-        });
+        responseServerHandler(
+          {
+            message: "Please provide valid credentials",
+          },
+          400,
+          response
+        );
       }
 
       // @ts-ignore
@@ -63,24 +80,37 @@ export const loginSeeker = asyncErrors(
       );
 
       if (!existingSeeker) {
-        response.status(500).send({
-          message: "Invalid credentials for account, please try again",
-        });
+        responseServerHandler(
+          {
+            message: "Invalid credentials for account, please try again",
+          },
+          500,
+          response
+        );
       }
 
       const seekerToken = await existingSeeker.generateAuthToken();
 
       if (!seekerToken) {
-        response.status(500).send({
-          message: "Cannot login account, please try again",
-        });
+        responseServerHandler(
+          {
+            message: "Cannot login account, please try again",
+          },
+          500,
+          response
+        );
       }
 
-      response
-        .status(200)
-        .send({ seeker: existingSeeker, seekerToken: seekerToken });
+      responseServerHandler(
+        {
+          seeker: existingSeeker._id,
+          seekerToken: seekerToken,
+        },
+        200,
+        response
+      );
     } catch (error: any) {
-      response.status(400).json({ message: error.message });
+      responseServerHandler({ message: error.message }, 400, response);
     }
   }
 );
