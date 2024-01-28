@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import { signToken } from "../../utils/authTokens";
+import { comparePassword, hashPassword } from "../../utils/bcrypts";
 
 const EmployerSchema = new mongoose.Schema(
   {
     image: {
       type: String,
-      required: false,
-      default: "",
+      default:
+        "https://res.cloudinary.com/dzwb60tk1/image/upload/v1706466618/company_ky267f.png",
     },
     industry: {
       type: String,
@@ -17,7 +19,6 @@ const EmployerSchema = new mongoose.Schema(
     },
     company_description: {
       type: String,
-      required: false,
       trim: true,
       minlength: [3, "Description must be at least 3 characters long"],
       maxlength: [30, "Description must be at most 30 characters long"],
@@ -41,7 +42,6 @@ const EmployerSchema = new mongoose.Schema(
     },
     website: {
       type: String,
-      required: false,
       trim: true,
       minlength: [3, "Website must be at least 3 characters long"],
       maxlength: [30, "Website must be at most 30 characters long"],
@@ -63,8 +63,8 @@ const EmployerSchema = new mongoose.Schema(
     number: {
       type: Number,
       required: [true, "Number is required"],
-      min: [3, "Number must be at least 3"],
-      max: [30, "Number must be at most 30"],
+      minlength: [3, "Number must be at least 3"],
+      maxlength: [30, "Number must be at most 30"],
     },
     email: {
       type: String,
@@ -92,26 +92,13 @@ const EmployerSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      trim: true,
       minlength: [3, "Password must be at least 3 characters long"],
-      maxlength: [30, "Password must be at most 30 characters long"],
-      validate: {
-        validator: function (password: string) {
-          return (
-            validator.isStrongPassword(password, {
-              minLength: 3,
-            }) && password.includes(password)
-          );
-        },
-        message: "Password is not strong and cannot be value password",
-      },
     },
     jobs: [
       {
         type: mongoose.Types.ObjectId,
         ref: "Job",
         default: [],
-        required: false,
       },
     ],
     followers: [
@@ -119,7 +106,6 @@ const EmployerSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Seeker",
         default: [],
-        required: false,
       },
     ],
     directMessages: [
@@ -129,7 +115,6 @@ const EmployerSchema = new mongoose.Schema(
           { type: mongoose.Types.ObjectId, ref: "Message", default: [] },
         ],
         default: [],
-        required: false,
       },
     ],
     achievements: [
@@ -137,7 +122,6 @@ const EmployerSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Achievement",
         default: [],
-        required: false,
       },
     ],
     events: [
@@ -145,7 +129,6 @@ const EmployerSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Event",
         default: [],
-        required: false,
       },
     ],
     reviews: [
@@ -153,12 +136,50 @@ const EmployerSchema = new mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Review",
         default: [],
-        required: false,
       },
     ],
   },
   { timestamps: true }
 );
+
+EmployerSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  try {
+    this.password = await hashPassword(this.password);
+    return next();
+  } catch (err: any) {
+    return next(err);
+  }
+});
+
+EmployerSchema.statics.findByCredentials = async <T extends string>(
+  email: T,
+  password: T
+) => {
+  const employer = await Employer.findOne({ email });
+
+  if (!employer) {
+    console.log("Not employer founded");
+    return;
+  }
+
+  const isMatchedPasswords = await comparePassword(password, employer.password);
+
+  if (!isMatchedPasswords) {
+    console.log("Password is not true");
+    return;
+  }
+  return employer;
+};
+
+EmployerSchema.methods.generateAuthToken = async function () {
+  const employer = this;
+  const employerTokens = signToken({
+    employerId: employer._id,
+    userType: "employer",
+  });
+  return employerTokens;
+};
 
 const Employer =
   mongoose.models.Employer || mongoose.model("Employer", EmployerSchema);

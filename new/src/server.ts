@@ -31,6 +31,7 @@ function initializeServer(): void {
   app.use(express.json());
 
   initializePublicRoutes(app);
+
   initializePrivateRoutes(app);
 
   initializeSockets(io);

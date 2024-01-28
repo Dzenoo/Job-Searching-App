@@ -24,6 +24,6 @@
     "pretty": true,
     "esModuleInterop": true
   },
-  "include": ["typings/**/*", "src/**/*.ts"],
+  "include": ["typings/**/*.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -1,14 +1,20 @@
-import Seeker from "../../models/seeker/seekers.schemas";
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
+import Employer from "../../models/employer/employers.schemas";
 
-export const signupSeeker = asyncErrors(
+export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
     try {
       if (
-        ["password", "email", "last_name", "first_name"].filter(
-          (property) => !request.body[property]
-        ).length > 0
+        [
+          "password",
+          "email",
+          "name",
+          "number",
+          "address",
+          "size",
+          "industry",
+        ].filter((property) => !request.body[property]).length > 0
       ) {
         responseServerHandler(
           {
@@ -19,11 +25,11 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      const existingSeeker = await Seeker.findOne({
+      const existingEmployer = await Employer.findOne({
         email: request.body.email,
       });
 
-      if (existingSeeker) {
+      if (existingEmployer) {
         responseServerHandler(
           { message: "This email already exists, please try again" },
           404,
@@ -31,9 +37,9 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      const newSeeker = await Seeker.create(request.body);
+      const newEmployer = await Employer.create(request.body);
 
-      if (!newSeeker) {
+      if (!newEmployer) {
         responseServerHandler(
           {
             message: "Cannot register account, please try again",
@@ -43,16 +49,16 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      await newSeeker.save();
+      await newEmployer.save();
 
-      responseServerHandler({ seeker: newSeeker._id }, 201, response);
+      responseServerHandler({ employer: newEmployer._id }, 201, response);
     } catch (error: any) {
       responseServerHandler({ message: error.message }, 400, response);
     }
   }
 );
 
-export const loginSeeker = asyncErrors(
+export const loginEmployer = asyncErrors(
   async (request, response): Promise<void> => {
     try {
       if (
@@ -69,12 +75,12 @@ export const loginSeeker = asyncErrors(
       }
 
       // @ts-ignore
-      const existingSeeker = await Seeker.findByCredentials(
+      const existingEmployer = await Employer.findByCredentials(
         request.body.email,
         request.body.password
       );
 
-      if (!existingSeeker) {
+      if (!existingEmployer) {
         responseServerHandler(
           {
             message: "Invalid credentials for account, please try again",
@@ -84,9 +90,9 @@ export const loginSeeker = asyncErrors(
         );
       }
 
-      const seekerToken = await existingSeeker.generateAuthToken();
+      const employerToken = await existingEmployer.generateAuthToken();
 
-      if (!seekerToken) {
+      if (!employerToken) {
         responseServerHandler(
           {
             message: "Cannot login account, please try again",
@@ -96,12 +102,12 @@ export const loginSeeker = asyncErrors(
         );
       }
 
-      response.cookie("token", seekerToken, { httpOnly: true });
+      response.cookie("token", employerToken, { httpOnly: true });
 
       responseServerHandler(
         {
-          seeker: existingSeeker._id,
-          seekerToken: seekerToken,
+          employer: existingEmployer._id,
+          employerToken: employerToken,
         },
         200,
         response

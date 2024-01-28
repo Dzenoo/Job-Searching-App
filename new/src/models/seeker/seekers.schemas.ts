@@ -172,7 +172,7 @@ SeekerSchema.statics.findByCredentials = async <T extends string>(
 
 SeekerSchema.methods.generateAuthToken = async function () {
   const seeker = this;
-  const seekerTokens = signToken({ seekerId: seeker._id });
+  const seekerTokens = signToken({ seekerId: seeker._id, userType: "seeker" });
   return seekerTokens;
 };
 
