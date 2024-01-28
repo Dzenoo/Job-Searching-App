@@ -117,3 +117,17 @@ export const loginEmployer = asyncErrors(
     }
   }
 );
+
+export const getEmployer = asyncErrors(async (request, response) => {
+  try {
+    const employer = await Employer.findById(request.params.employerId);
+
+    if (!employer) {
+      responseServerHandler({ message: "Cannot Find Employer" }, 201, response);
+    }
+
+    responseServerHandler({ employer: employer }, 201, response);
+  } catch (error) {
+    console.log(error);
+  }
+});
