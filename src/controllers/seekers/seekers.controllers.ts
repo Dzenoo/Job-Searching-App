@@ -111,3 +111,17 @@ export const loginSeeker = asyncErrors(
     }
   }
 );
+
+export const getSeeker = asyncErrors(async (request, response) => {
+  try {
+    const seeker = await Seeker.findById(request.params.seekerId);
+
+    if (!seeker) {
+      responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);
+    }
+
+    responseServerHandler({ seeker: seeker }, 201, response);
+  } catch (error) {
+    console.log(error);
+  }
+});

@@ -17,6 +17,8 @@ export function initializePrivateRoutes(app: Express): void {
     response.send("Seeker");
   });
 
+  app.get("/seeker/:seekerId", authenticateUser, seekers.getSeeker);
+
   app.get("/employer/profile", authenticateUser, (_request, response) => {
     response.send("Employer");
   });

@@ -1,6 +1,6 @@
+import jwt from "jsonwebtoken";
 import { responseServerHandler } from "../utils/response";
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
 
 export const authenticateUser = (
   request: Request,
