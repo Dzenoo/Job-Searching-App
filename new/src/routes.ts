@@ -1,3 +1,4 @@
+import * as jobs from "./controllers/jobs/jobs.controllers";
 import * as employers from "./controllers/employers/employers.controllers";
 import * as seekers from "./controllers/seekers/seekers.controllers";
 import { Express } from "express";
@@ -19,4 +20,6 @@ export function initializePrivateRoutes(app: Express): void {
   app.get("/employer/profile", authenticateUser, (_request, response) => {
     response.send("Employer");
   });
+
+  app.post("/employer/create-new-job", authenticateUser, jobs.createJob);
 }
