@@ -1,6 +1,6 @@
-import Seeker from "../../models/seeker/seekers.schemas";
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
+import Seeker from "../../models/seeker/seekers.schemas";
 
 export const signupSeeker = asyncErrors(
   async (request, response): Promise<void> => {
