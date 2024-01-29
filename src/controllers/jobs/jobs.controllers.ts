@@ -158,9 +158,72 @@ export const deleteJob = asyncErrors(async (request, response) => {
   }
 });
 
-// export const getJobs = asyncErrors(async(request, response) => {
-//   try {
-//   } catch (error: any) {
-//     responseServerHandler({ message: error.message }, 400, response);
-//   }
-// });
+export const getJobs = asyncErrors(async (request, response) => {
+  try {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      type,
+      seniority,
+      salaryRange,
+      position,
+      srt,
+    } = request.query;
+
+    const conditions: any = {};
+
+    if (search) {
+      conditions.$or = [
+        { title: { $regex: new RegExp(String(search), "i") } },
+        { description: { $regex: new RegExp(String(search), "i") } },
+        { location: { $regex: new RegExp(String(search), "i") } },
+      ];
+    }
+
+    if (type) {
+      conditions.type = Array.isArray(type)
+        ? { $in: type }
+        : type.toString().split(",");
+    }
+
+    if (seniority) {
+      conditions.level = Array.isArray(seniority)
+        ? { $in: seniority }
+        : seniority.toString().split(",");
+    }
+
+    if (salaryRange) {
+      const salaryRanges = Array.isArray(salaryRange)
+        ? salaryRange
+        : salaryRange.toString().split(",");
+
+      const salaryConditions = salaryRanges.map((range) => {
+        const [minSalary, maxSalary] = range.toString().split("-");
+        return {
+          salary: { $gte: Number(minSalary), $lte: Number(maxSalary) },
+        };
+      });
+
+      conditions.$or = salaryConditions;
+    }
+
+    if (position) {
+      conditions.position = Array.isArray(position)
+        ? { $in: position }
+        : position.toString().split(",");
+    }
+
+    const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
+
+    const jobs = await Job.find(conditions)
+      .sort(sortOptions)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit))
+      .exec();
+
+    responseServerHandler({ jobs: jobs }, 200, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});

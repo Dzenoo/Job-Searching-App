@@ -10,6 +10,8 @@ export function initializePublicRoutes(app: Express): void {
 
   app.post("/employer-signup", employers.signupEmployer);
   app.post("/employer-login", employers.loginEmployer);
+
+  app.get("/jobs", jobs.getJobs);
 }
 
 export function initializePrivateRoutes(app: Express): void {
