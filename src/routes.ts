@@ -12,6 +12,7 @@ export function initializePublicRoutes(app: Express): void {
   app.post("/employer-login", employers.loginEmployer);
 
   app.get("/jobs", jobs.getJobs);
+  app.get("/jobs/:jobId", jobs.getJobById);
 }
 
 export function initializePrivateRoutes(app: Express): void {

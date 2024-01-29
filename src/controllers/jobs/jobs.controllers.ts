@@ -227,3 +227,20 @@ export const getJobs = asyncErrors(async (request, response) => {
     responseServerHandler({ message: error.message }, 400, response);
   }
 });
+
+export const getJobById = asyncErrors(async (request, response) => {
+  try {
+    const job = await Job.findById(request.params.jobId).populate({
+      path: "company",
+      select: "name company_description followers reviews size image",
+    });
+
+    if (!job) {
+      return responseServerHandler({ message: "Job not found" }, 404, response);
+    }
+
+    responseServerHandler({ job: job }, 400, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
