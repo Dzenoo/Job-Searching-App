@@ -18,6 +18,14 @@ export const createJob = asyncErrors(
         return;
       }
 
+      if (request.body.company || !request.body.skills) {
+        responseServerHandler(
+          "Cannot create job, please try again",
+          403,
+          response
+        );
+      }
+
       const newJob = await Job.create({ ...request.body, company: employerId });
 
       if (!newJob) {
