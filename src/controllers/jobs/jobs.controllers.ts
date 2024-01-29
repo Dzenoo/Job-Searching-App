@@ -11,7 +11,7 @@ export const createJob = asyncErrors(
 
       if (!employerId) {
         responseServerHandler(
-          "Unauthorized - Company information missing",
+          { message: "Unauthorized - Company information missing" },
           403,
           response
         );
@@ -20,7 +20,7 @@ export const createJob = asyncErrors(
 
       if (request.body.company || !request.body.skills) {
         responseServerHandler(
-          "Cannot create job, please try again",
+          { message: "Cannot create job, please try again" },
           403,
           response
         );
@@ -30,7 +30,7 @@ export const createJob = asyncErrors(
 
       if (!newJob) {
         responseServerHandler(
-          "Cannot create job, please try again",
+          { message: "Cannot create job, please try again" },
           403,
           response
         );
@@ -42,7 +42,7 @@ export const createJob = asyncErrors(
 
       if (!employer) {
         responseServerHandler(
-          "Cannot create job, please try again",
+          { message: "Cannot create job, please try again" },
           403,
           response
         );
@@ -54,3 +54,65 @@ export const createJob = asyncErrors(
     }
   }
 );
+
+export const editJob = asyncErrors(async (request, response) => {
+  try {
+    const updateData = request.body;
+    // @ts-ignore
+    const { employerId } = request.user;
+
+    if (!employerId) {
+      responseServerHandler(
+        { message: "Unauthorized - Company information missing" },
+        403,
+        response
+      );
+      return;
+    }
+
+    // Validate update data
+    if (updateData.company || Object.keys(updateData).length === 0) {
+      responseServerHandler(
+        { message: "Data is not valid and job can't be edited" },
+        403,
+        response
+      );
+      return;
+    }
+
+    const editedJob = await Job.findByIdAndUpdate(
+      request.params.jobId,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!editedJob) {
+      return responseServerHandler(
+        { message: "Job not found or could not be updated" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ job: editedJob }, 201, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+// export const deleteJob = asyncErrors(async(request, response) => {
+//   try {
+//   } catch (error: any) {
+//     responseServerHandler({ message: error.message }, 400, response);
+//   }
+// });
+
+// export const getJobs = asyncErrors(async(request, response) => {
+//   try {
+//   } catch (error: any) {
+//     responseServerHandler({ message: error.message }, 400, response);
+//   }
+// });
