@@ -57,17 +57,19 @@ export const createJob = asyncErrors(
 
 export const editJob = asyncErrors(async (request, response) => {
   try {
-    const updateData = request.body;
     // @ts-ignore
     const { employerId } = request.user;
+    const updateData = request.body;
+    const jobId = request.params.jobId;
 
-    if (!employerId) {
+    const job = await Job.findById(jobId);
+
+    if (employerId.toString() !== job.company.toString()) {
       responseServerHandler(
-        { message: "Unauthorized - Company information missing" },
+        { message: "Unauthorized, employer is not owner of the job" },
         403,
         response
       );
-      return;
     }
 
     // Validate update data
@@ -77,17 +79,12 @@ export const editJob = asyncErrors(async (request, response) => {
         403,
         response
       );
-      return;
     }
 
-    const editedJob = await Job.findByIdAndUpdate(
-      request.params.jobId,
-      updateData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const editedJob = await Job.findByIdAndUpdate(jobId, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!editedJob) {
       return responseServerHandler(
@@ -103,12 +100,12 @@ export const editJob = asyncErrors(async (request, response) => {
   }
 });
 
-// export const deleteJob = asyncErrors(async(request, response) => {
-//   try {
-//   } catch (error: any) {
-//     responseServerHandler({ message: error.message }, 400, response);
-//   }
-// });
+export const deleteJob = asyncErrors(async (_request, response) => {
+  try {
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
 
 // export const getJobs = asyncErrors(async(request, response) => {
 //   try {

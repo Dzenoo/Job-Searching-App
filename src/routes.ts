@@ -26,4 +26,5 @@ export function initializePrivateRoutes(app: Express): void {
   app.post("/employer/create-new-job", authenticateUser, jobs.createJob);
   app.get("/employer/:employerId", authenticateUser, employers.getEmployer);
   app.patch("/employer/:jobId/edit", authenticateUser, jobs.editJob);
+  app.delete("/employer/:jobId/delete", authenticateUser, jobs.deleteJob);
 }
