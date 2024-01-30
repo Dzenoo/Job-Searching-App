@@ -20,6 +20,11 @@ export function initializePrivateRoutes(app: Express): void {
   app.post("/seeker/jobs/:jobId/apply", authenticateUser, jobs.applyToJob);
   app.patch("/seeker/jobs/alerts", authenticateUser, jobs.generateJobAlert);
   app.patch("/seeker/jobs/:jobId/save", authenticateUser, jobs.saveJob);
+  app.patch(
+    "/seeker/:employerId/follow",
+    authenticateUser,
+    employers.followEmployer
+  );
 
   app.get("/employer/:employerId", authenticateUser, employers.getEmployer);
   app.patch("/employer/jobs/:jobId/edit", authenticateUser, jobs.editJob);

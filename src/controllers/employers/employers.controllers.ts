@@ -1,6 +1,7 @@
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
 import Employer from "../../models/employer/employers.schemas";
+import Seeker from "../../models/seeker/seekers.schemas";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -127,7 +128,58 @@ export const getEmployer = asyncErrors(async (request, response) => {
     }
 
     responseServerHandler({ employer: employer }, 201, response);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const followEmployer = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const employerId = request.params.employerId;
+
+    const [employer, seeker] = await Promise.all([
+      Employer.findById(employerId),
+      Seeker.findById(seekerId),
+    ]);
+
+    if (!employer || !seeker) {
+      return responseServerHandler(
+        { message: "Employer or Seeker cannot be found" },
+        201,
+        response
+      );
+    }
+
+    const isFollowing = employer.followers.includes(seekerId);
+
+    if (isFollowing) {
+      await Employer.findByIdAndUpdate(employerId, {
+        $pull: { followers: seekerId },
+      });
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $pull: { following: employerId },
+      });
+      responseServerHandler(
+        { message: "Employer successfully unfollowed" },
+        201,
+        response
+      );
+    } else {
+      await Employer.findByIdAndUpdate(employerId, {
+        $push: { followers: seekerId },
+      });
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $push: { following: employerId },
+      });
+      responseServerHandler(
+        { message: "Employer successfully followed" },
+        201,
+        response
+      );
+    }
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
   }
 });
