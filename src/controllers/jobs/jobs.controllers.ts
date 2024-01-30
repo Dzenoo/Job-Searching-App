@@ -251,6 +251,19 @@ export const applyToJob = asyncErrors(async (request, response) => {
     const { seekerId } = request.user;
     const jobId = request.params.jobId;
 
+    const existingApplication = await Application.findOne({
+      seeker: seekerId,
+      job: jobId,
+    });
+
+    if (existingApplication) {
+      return responseServerHandler(
+        { message: "You already applied to this job" },
+        403,
+        response
+      );
+    }
+
     const application = await Application.create({
       job: jobId,
       seeker: seekerId,
@@ -299,6 +312,43 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
       201,
       response
     );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const saveJob = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const jobId = request.params.jobId;
+
+    const job = await Job.findById(jobId);
+    const seeker = await Seeker.findById(seekerId);
+
+    if (!job) {
+      return responseServerHandler({ message: "Job not found" }, 404, response);
+    }
+
+    if (seeker.savedJobs.includes(jobId)) {
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $pull: { savedJobs: jobId },
+      });
+      responseServerHandler(
+        { message: "Job successfully unsaved" },
+        201,
+        response
+      );
+    } else {
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $push: { savedJobs: jobId },
+      });
+      responseServerHandler(
+        { message: "Job successfully saved" },
+        201,
+        response
+      );
+    }
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }
