@@ -16,19 +16,12 @@ export function initializePublicRoutes(app: Express): void {
 }
 
 export function initializePrivateRoutes(app: Express): void {
-  app.get("/seeker/profile", authenticateUser, (_request, response) => {
-    response.send("Seeker");
-  });
-
   app.get("/seeker/:seekerId", authenticateUser, seekers.getSeeker);
   app.post("/seeker/jobs/:jobId/apply", authenticateUser, jobs.applyToJob);
+  app.patch("/seeker/jobs/alerts", authenticateUser, jobs.generateJobAlert);
 
-  app.get("/employer/profile", authenticateUser, (_request, response) => {
-    response.send("Employer");
-  });
-
-  app.post("/employer/create-new-job", authenticateUser, jobs.createJob);
   app.get("/employer/:employerId", authenticateUser, employers.getEmployer);
-  app.patch("/employer/:jobId/edit", authenticateUser, jobs.editJob);
-  app.delete("/employer/:jobId/delete", authenticateUser, jobs.deleteJob);
+  app.patch("/employer/jobs/:jobId/edit", authenticateUser, jobs.editJob);
+  app.post("/employer/jobs/create-new-job", authenticateUser, jobs.createJob);
+  app.delete("/employer/jobs/:jobId/delete", authenticateUser, jobs.deleteJob);
 }

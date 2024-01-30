@@ -276,3 +276,30 @@ export const applyToJob = asyncErrors(async (request, response) => {
     responseServerHandler({ message: error.message }, 400, response);
   }
 });
+
+export const generateJobAlert = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+
+    if (!request.body.level || !request.body.type || !request.body.title) {
+      return responseServerHandler(
+        { message: "Cannot create job alert, please try again" },
+        500,
+        response
+      );
+    }
+
+    await Seeker.findByIdAndUpdate(seekerId, {
+      alerts: { ...request.body },
+    });
+
+    responseServerHandler(
+      { message: "Job alert successfully created" },
+      201,
+      response
+    );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
