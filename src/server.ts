@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
 import http from "http";
-import "dotenv/config";
+import dotenv from "dotenv";
 
 import { connectToDatabase } from "./database/mongoose";
 import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
 import { Server } from "socket.io";
 import { handleError } from "./middlewares/errors";
+
+dotenv.config({ path: ".env.local" });
 
 async function establishDatabaseConnection(): Promise<void> {
   try {

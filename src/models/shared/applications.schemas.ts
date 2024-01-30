@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 const ApplicationSchema = new mongoose.Schema(
   {
     cover_letter: {
-      type: Buffer,
+      type: String,
+      default: "",
+      trim: true,
     },
     status: {
       type: String,
@@ -13,7 +15,7 @@ const ApplicationSchema = new mongoose.Schema(
       },
     },
     resume: {
-      type: Buffer,
+      type: String,
       required: [true, "Resume is required"],
     },
     seeker: { type: mongoose.Types.ObjectId, ref: "Seeker" },

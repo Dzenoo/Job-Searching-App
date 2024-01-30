@@ -21,6 +21,7 @@ export function initializePrivateRoutes(app: Express): void {
   });
 
   app.get("/seeker/:seekerId", authenticateUser, seekers.getSeeker);
+  app.post("/seeker/jobs/:jobId/apply", authenticateUser, jobs.applyToJob);
 
   app.get("/employer/profile", authenticateUser, (_request, response) => {
     response.send("Employer");

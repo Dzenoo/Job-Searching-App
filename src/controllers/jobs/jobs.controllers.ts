@@ -239,7 +239,39 @@ export const getJobById = asyncErrors(async (request, response) => {
       return responseServerHandler({ message: "Job not found" }, 404, response);
     }
 
-    responseServerHandler({ job: job }, 400, response);
+    responseServerHandler({ job: job }, 201, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const applyToJob = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const jobId = request.params.jobId;
+
+    const application = await Application.create({
+      job: jobId,
+      seeker: seekerId,
+      status: "Pending",
+      coverLetter: request.body.coverLetter || "",
+      resume: "Resumelinkdocument",
+    });
+
+    await Job.findByIdAndUpdate(jobId, {
+      $push: { applications: application._id },
+    });
+
+    await Seeker.findByIdAndUpdate(seekerId, {
+      $push: { applications: application._id },
+    });
+
+    responseServerHandler(
+      { job: "Successfully Applied Job", application },
+      201,
+      response
+    );
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }
