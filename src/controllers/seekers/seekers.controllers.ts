@@ -112,7 +112,7 @@ export const loginSeeker = asyncErrors(
   }
 );
 
-export const getSeeker = asyncErrors(async (request, response) => {
+export const getSeekerProfile = asyncErrors(async (request, response) => {
   try {
     const seeker = await Seeker.findById(request.params.seekerId);
 

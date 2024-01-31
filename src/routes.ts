@@ -13,10 +13,13 @@ export function initializePublicRoutes(app: Express): void {
 
   app.get("/jobs", jobs.getJobs);
   app.get("/jobs/:jobId", jobs.getJobById);
+
+  app.get("/employers", employers.getEmployers);
+  app.get("/employers/:employerId", employers.getEmployerById);
 }
 
 export function initializePrivateRoutes(app: Express): void {
-  app.get("/seeker/:seekerId", authenticateUser, seekers.getSeeker);
+  app.get("/seeker/:seekerId", authenticateUser, seekers.getSeekerProfile);
   app.post("/seeker/jobs/:jobId/apply", authenticateUser, jobs.applyToJob);
   app.patch("/seeker/jobs/alerts", authenticateUser, jobs.generateJobAlert);
   app.patch("/seeker/jobs/:jobId/save", authenticateUser, jobs.saveJob);
@@ -25,8 +28,27 @@ export function initializePrivateRoutes(app: Express): void {
     authenticateUser,
     employers.followEmployer
   );
+  app.post(
+    "/seeker/:employerId/review",
+    authenticateUser,
+    employers.reviewEmployer
+  );
+  app.delete(
+    "/seeker/:employerId/review",
+    authenticateUser,
+    employers.deleteReviewEmployer
+  );
+  app.patch(
+    "/seeker/:employerId/review",
+    authenticateUser,
+    employers.editReviewEmployer
+  );
 
-  app.get("/employer/:employerId", authenticateUser, employers.getEmployer);
+  app.get(
+    "/employer/:employerId",
+    authenticateUser,
+    employers.getEmployerProfile
+  );
   app.patch("/employer/jobs/:jobId/edit", authenticateUser, jobs.editJob);
   app.post("/employer/jobs/create-new-job", authenticateUser, jobs.createJob);
   app.delete("/employer/jobs/:jobId/delete", authenticateUser, jobs.deleteJob);

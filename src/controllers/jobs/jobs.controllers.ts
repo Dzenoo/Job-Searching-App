@@ -74,7 +74,6 @@ export const editJob = asyncErrors(async (request, response) => {
       );
     }
 
-    // Validate update data
     if (updateData.company || Object.keys(updateData).length === 0) {
       responseServerHandler(
         { message: "Data is not valid and job can't be edited" },

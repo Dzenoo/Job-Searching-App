@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import validator from "validator";
 import { signToken } from "../../utils/authTokens";
 import { comparePassword, hashPassword } from "../../utils/bcrypts";
+import Review from "./reviews.schemas";
+import Event from "./events.schemas";
+import Achievement from "./achievements.schemas";
 
 const EmployerSchema = new mongoose.Schema(
   {
@@ -120,21 +123,21 @@ const EmployerSchema = new mongoose.Schema(
     achievements: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "Achievement",
+        ref: Achievement,
         default: [],
       },
     ],
     events: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "Event",
+        ref: Event,
         default: [],
       },
     ],
     reviews: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "Review",
+        ref: Review,
         default: [],
       },
     ],

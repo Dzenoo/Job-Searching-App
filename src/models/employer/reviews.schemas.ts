@@ -55,6 +55,11 @@ const ReviewSchema = new mongoose.Schema(
         maxlength: [30, "Technology name must be at most 30 characters long"],
       },
     ],
+    seeker: {
+      type: mongoose.Types.ObjectId,
+      ref: "Seeker",
+      required: [true, "Seeker is required"],
+    },
   },
   { timestamps: true }
 );
