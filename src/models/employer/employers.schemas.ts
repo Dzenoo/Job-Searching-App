@@ -183,7 +183,6 @@ EmployerSchema.methods.generateAuthToken = async function () {
   });
   return employerTokens;
 };
-
 const Employer =
   mongoose.models.Employer || mongoose.model("Employer", EmployerSchema);
 

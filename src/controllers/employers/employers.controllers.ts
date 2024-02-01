@@ -226,7 +226,9 @@ export const getEmployers = asyncErrors(async (request, response) => {
 
 export const getEmployerById = asyncErrors(async (request, response) => {
   try {
-    const employer = await Employer.findById(request.params.employerId)
+    // @ts-ignore
+    const { employerId } = request.user;
+    const employer = await Employer.findById(employerId)
       .populate({
         path: "jobs",
         select: "title position _id location level description",
@@ -379,6 +381,43 @@ export const editReviewEmployer = asyncErrors(async (request, response) => {
       201,
       response
     );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const editEmployerProfile = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const updateData = request.body;
+
+    if (updateData.password || Object.keys(updateData).length === 0) {
+      responseServerHandler(
+        { message: "Data is not valid and profile can't be edited" },
+        403,
+        response
+      );
+    }
+
+    const editedProfile = await Employer.findByIdAndUpdate(
+      employerId,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!editedProfile) {
+      return responseServerHandler(
+        { message: "Profile not found or could not be updated" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ job: editedProfile }, 201, response);
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }

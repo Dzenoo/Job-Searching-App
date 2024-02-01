@@ -50,10 +50,11 @@ export function initializePrivateRoutes(app: Express): void {
     employers.editReviewEmployer
   );
 
-  app.get(
-    "/employer/:employerId",
+  app.get("/employer/", authenticateUser, employers.getEmployerProfile);
+  app.patch(
+    "/employer/edit-employer-profile",
     authenticateUser,
-    employers.getEmployerProfile
+    employers.editEmployerProfile
   );
   app.patch("/employer/jobs/:jobId/edit", authenticateUser, jobs.editJob);
   app.post("/employer/jobs/create-new-job", authenticateUser, jobs.createJob);
