@@ -33,6 +33,7 @@ export function initializePrivateRoutes(app: Express): void {
     editReviewEmployer,
     deleteReviewEmployer,
     editEmployerProfile,
+    deleteEmployerProfile,
   } = employers;
   const {
     deleteJob,
@@ -71,4 +72,9 @@ export function initializePrivateRoutes(app: Express): void {
   app.patch("/employer/jobs/:jobId/edit", authenticateUser, editJob);
   app.post("/employer/jobs/create-new-job", authenticateUser, createJob);
   app.delete("/employer/jobs/:jobId/delete", authenticateUser, deleteJob);
+  app.delete(
+    "/employer/delete-employer-profile",
+    authenticateUser,
+    deleteEmployerProfile
+  );
 }

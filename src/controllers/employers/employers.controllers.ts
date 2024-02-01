@@ -3,6 +3,9 @@ import { responseServerHandler } from "../../utils/response";
 import Employer from "../../models/employer/employers.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Review from "../../models/employer/reviews.schemas";
+import Job from "../../models/shared/jobs.schemas";
+import Event from "../../models/employer/events.schemas";
+import Achievement from "../../models/employer/achievements.schemas";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -437,5 +440,55 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     responseServerHandler({ job: editedProfile }, 201, response);
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const deleteEmployerProfile = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const employer = await Employer.findById(employerId);
+    const jobIds = (employer.jobs || []).map(
+      (job: typeof Job | any) => job._id
+    );
+
+    if (!employer) {
+      return responseServerHandler(
+        { message: "Employer not found" },
+        404,
+        response
+      );
+    }
+
+    await Job.deleteMany({ company: employerId });
+    await Review.deleteMany({ company: employerId });
+    await Event.deleteMany({ company: employerId });
+
+    await Achievement.updateMany(
+      { employer: employerId },
+      { $pull: { employer: employerId } }
+    );
+
+    await Seeker.updateMany(
+      {
+        $or: [{ following: employerId }, { savedJobs: { $in: jobIds } }],
+      },
+      {
+        $pull: {
+          following: employerId,
+          savedJobs: { $in: jobIds },
+        },
+      }
+    );
+
+    await Employer.findByIdAndDelete(employerId);
+
+    responseServerHandler(
+      { message: "Employer profile and associated data deleted successfully" },
+      200,
+      response
+    );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 500, response);
   }
 });
