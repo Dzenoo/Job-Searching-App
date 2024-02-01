@@ -119,7 +119,6 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
     if (!seeker) {
       responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);
     }
-
     responseServerHandler({ seeker: seeker }, 201, response);
   } catch (error) {
     console.log(error);

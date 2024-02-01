@@ -4,7 +4,6 @@ const ApplicationSchema = new mongoose.Schema(
   {
     cover_letter: {
       type: String,
-      default: "",
       trim: true,
     },
     status: {

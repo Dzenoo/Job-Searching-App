@@ -281,7 +281,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
       job: jobId,
       seeker: seekerId,
       status: "Pending",
-      coverLetter: request.body.coverLetter || "",
+      cover_letter: request.body.coverLetter || "",
       resume: resumeKey,
     });
 
