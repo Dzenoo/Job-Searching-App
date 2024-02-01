@@ -8,7 +8,7 @@ import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
 import { Server } from "socket.io";
 import { handleError } from "./middlewares/errors";
 
-dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env", override: true });
 
 async function establishDatabaseConnection(): Promise<void> {
   try {

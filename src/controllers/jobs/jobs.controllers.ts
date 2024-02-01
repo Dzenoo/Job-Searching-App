@@ -4,6 +4,7 @@ import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
+import { initializeAws } from "../../utils/aws";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
@@ -249,6 +250,15 @@ export const applyToJob = asyncErrors(async (request, response) => {
     // @ts-ignore
     const { seekerId } = request.user;
     const jobId = request.params.jobId;
+    const resumeFile = request.file;
+
+    if (!resumeFile) {
+      return responseServerHandler(
+        { message: "Resume is not valid" },
+        403,
+        response
+      );
+    }
 
     const existingApplication = await Application.findOne({
       seeker: seekerId,
@@ -263,12 +273,16 @@ export const applyToJob = asyncErrors(async (request, response) => {
       );
     }
 
+    const resumeKey = `user_${seekerId}_${Date.now()}.pdf`;
+    const uploads = await initializeAws(resumeFile, resumeKey);
+    await uploads.done();
+
     const application = await Application.create({
       job: jobId,
       seeker: seekerId,
       status: "Pending",
       coverLetter: request.body.coverLetter || "",
-      resume: "Resumelinkdocument",
+      resume: resumeKey,
     });
 
     await Job.findByIdAndUpdate(jobId, {
