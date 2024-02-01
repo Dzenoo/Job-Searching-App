@@ -44,10 +44,6 @@ const SeekerSchema = new mongoose.Schema(
       minlength: [3, "Last Name must be at least 3 characters long"],
       maxlength: [30, "Last Name must be at most 30 characters long"],
     },
-    cover_letter: {
-      type: Buffer,
-      default: null,
-    },
     portfolio: {
       type: String,
       default: "",
@@ -59,10 +55,6 @@ const SeekerSchema = new mongoose.Schema(
     github: {
       type: String,
       default: "",
-    },
-    resume: {
-      type: Buffer,
-      default: null,
     },
     applications: [
       {

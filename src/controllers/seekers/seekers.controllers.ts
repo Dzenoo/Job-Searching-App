@@ -114,7 +114,9 @@ export const loginSeeker = asyncErrors(
 
 export const getSeekerProfile = asyncErrors(async (request, response) => {
   try {
-    const seeker = await Seeker.findById(request.params.seekerId);
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const seeker = await Seeker.findById(seekerId);
 
     if (!seeker) {
       responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);
@@ -122,5 +124,54 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
     responseServerHandler({ seeker: seeker }, 201, response);
   } catch (error) {
     console.log(error);
+  }
+});
+
+export const editSeekerProfile = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const updateData = request.body;
+
+    const allowedProperties = [
+      "first_name",
+      "last_name",
+      "github",
+      "linkedin",
+      "portfolio",
+      "skills",
+    ];
+
+    const disallowedProperties = Object.keys(updateData).filter(
+      (prop) => !allowedProperties.includes(prop)
+    );
+
+    if (
+      disallowedProperties.length > 0 ||
+      Object.keys(updateData).length === 0
+    ) {
+      responseServerHandler(
+        { message: "Data is not valid and profile can't be edited" },
+        403,
+        response
+      );
+    }
+
+    const editedProfile = await Seeker.findByIdAndUpdate(seekerId, updateData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!editedProfile) {
+      return responseServerHandler(
+        { message: "Profile not found or could not be updated" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ job: editedProfile }, 201, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
   }
 });

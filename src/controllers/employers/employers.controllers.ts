@@ -392,7 +392,24 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     const { employerId } = request.user;
     const updateData = request.body;
 
-    if (updateData.password || Object.keys(updateData).length === 0) {
+    const allowedProperties = [
+      "industry",
+      "company_description",
+      "size",
+      "name",
+      "number",
+      "address",
+      "website",
+    ];
+
+    const disallowedProperties = Object.keys(updateData).filter(
+      (prop) => !allowedProperties.includes(prop)
+    );
+
+    if (
+      disallowedProperties.length > 0 ||
+      Object.keys(updateData).length === 0
+    ) {
       responseServerHandler(
         { message: "Data is not valid and profile can't be edited" },
         403,
