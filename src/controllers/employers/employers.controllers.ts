@@ -5,7 +5,7 @@ import Seeker from "../../models/seeker/seekers.schemas";
 import Review from "../../models/employer/reviews.schemas";
 import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
-import Achievement from "../../models/employer/achievements.schemas";
+import { initializeAws } from "../../utils/aws";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -468,11 +468,6 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
     await Review.deleteMany({ company: employerId });
     await Event.deleteMany({ company: employerId });
 
-    await Achievement.updateMany(
-      { employer: employerId },
-      { $pull: { employer: employerId } }
-    );
-
     await Seeker.updateMany(
       {
         $or: [{ following: employerId }, { savedJobs: { $in: jobIds } }],
@@ -494,5 +489,68 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
     );
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 500, response);
+  }
+});
+
+export const createNewEvent = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const existingEvent = await Event.findOne({
+      title: request.body.title,
+    });
+    const image = request.file;
+
+    if (existingEvent) {
+      responseServerHandler(
+        { message: "Event with this title already exists" },
+        400,
+        response
+      );
+      return;
+    }
+
+    const allowedProperties = [
+      "title",
+      "date",
+      "description",
+      "image",
+      "location",
+      "category",
+    ];
+
+    const disallowedProperties = Object.keys(request.body).filter(
+      (prop) => !allowedProperties.includes(prop)
+    );
+
+    if (
+      disallowedProperties.length > 0 ||
+      Object.keys(request.body).length === 0
+    ) {
+      responseServerHandler(
+        { message: "Data is not valid and event can't be created" },
+        403,
+        response
+      );
+    }
+    console.log(disallowedProperties);
+
+    const imageKey = `user_${employerId}_${Date.now()}.png`;
+    const uploads = await initializeAws(image, imageKey);
+    await uploads.done();
+
+    const newEvent = await Event.create({
+      ...request.body,
+      company: employerId,
+      image: imageKey,
+    });
+
+    await Employer.findByIdAndUpdate(employerId, {
+      $push: { events: newEvent._id },
+    });
+
+    responseServerHandler({ event: newEvent }, 201, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
   }
 });

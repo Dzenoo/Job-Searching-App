@@ -4,7 +4,6 @@ import { signToken } from "../../utils/authTokens";
 import { comparePassword, hashPassword } from "../../utils/bcrypts";
 import Review from "./reviews.schemas";
 import Event from "./events.schemas";
-import Achievement from "./achievements.schemas";
 
 const EmployerSchema = new mongoose.Schema(
   {
@@ -117,13 +116,6 @@ const EmployerSchema = new mongoose.Schema(
         messages: [
           { type: mongoose.Types.ObjectId, ref: "Message", default: [] },
         ],
-        default: [],
-      },
-    ],
-    achievements: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: Achievement,
         default: [],
       },
     ],
