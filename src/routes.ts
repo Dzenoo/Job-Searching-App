@@ -40,6 +40,7 @@ export function initializePrivateRoutes(app: Express): void {
     editEmployerProfile,
     deleteEmployerProfile,
     createNewEvent,
+    editEvent,
   } = employers;
   const {
     deleteJob,
@@ -95,4 +96,5 @@ export function initializePrivateRoutes(app: Express): void {
     upload.single("image"),
     createNewEvent
   );
+  app.patch("/employer/events/:eventId/edit", authenticateUser, editEvent);
 }

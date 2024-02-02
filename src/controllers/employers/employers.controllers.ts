@@ -533,7 +533,6 @@ export const createNewEvent = asyncErrors(async (request, response) => {
         response
       );
     }
-    console.log(disallowedProperties);
 
     const imageKey = `user_${employerId}_${Date.now()}.png`;
     const uploads = await initializeAws(image, imageKey);
@@ -550,6 +549,73 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     });
 
     responseServerHandler({ event: newEvent }, 201, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const editEvent = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const updateData = request.body;
+    const existingEvent = await Event.findById(request.params.eventId);
+
+    if (!existingEvent) {
+      responseServerHandler({ message: "Cannot find event" }, 404, response);
+      return;
+    }
+
+    if (existingEvent.company.toString() !== employerId) {
+      responseServerHandler(
+        { message: "Unauthorized. You are not the owner of this event." },
+        403,
+        response
+      );
+      return;
+    }
+
+    const allowedProperties = [
+      "title",
+      "date",
+      "description",
+      "location",
+      "category",
+    ];
+
+    const disallowedProperties = Object.keys(updateData).filter(
+      (prop) => !allowedProperties.includes(prop)
+    );
+
+    if (
+      disallowedProperties.length > 0 ||
+      Object.keys(updateData).length === 0
+    ) {
+      responseServerHandler(
+        { message: "Data is not valid and event can't be edited" },
+        403,
+        response
+      );
+    }
+
+    const editedEvent = await Event.findByIdAndUpdate(
+      existingEvent._id,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!editedEvent) {
+      return responseServerHandler(
+        { message: "Event not found or could not be updated" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ event: editedEvent }, 201, response);
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }
