@@ -22,8 +22,8 @@
     "downlevelIteration": true,
     "declaration": true,
     "pretty": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
-  "include": ["typings/**/*.ts", "src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["typings/**/*.ts", "src/**/*.ts", ".eslintrc.js"],
+  "exclude": ["node_modules"],
 }

@@ -3,7 +3,7 @@ import { AuthTokenError } from "../errors";
 
 export const signToken = <T extends object, Q extends SignOptions>(
   payload: T,
-  options?: Q
+  options?: Q,
 ): string =>
   jwt.sign(payload, process.env.JWT_SECRET! as string, {
     expiresIn: "7 days",
@@ -11,7 +11,7 @@ export const signToken = <T extends object, Q extends SignOptions>(
   });
 
 export const verifyToken = <T extends string>(
-  token: T
+  token: T,
 ): { [key: string]: any } => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET! as string);

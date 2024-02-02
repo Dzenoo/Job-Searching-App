@@ -81,7 +81,7 @@ const JobSchema = new mongoose.Schema(
       { type: mongoose.Types.ObjectId, ref: "Application", default: [] },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Job = mongoose.models.Job || mongoose.model("Job", JobSchema);

@@ -134,7 +134,7 @@ const EmployerSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 EmployerSchema.pre("save", async function (next) {
@@ -149,7 +149,7 @@ EmployerSchema.pre("save", async function (next) {
 
 EmployerSchema.statics.findByCredentials = async <T extends string>(
   email: T,
-  password: T
+  password: T,
 ) => {
   const employer = await Employer.findOne({ email });
 

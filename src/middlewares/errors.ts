@@ -1,7 +1,7 @@
 import { ErrorRequestHandler } from "express";
 import { NodeError } from "../errors";
 
-export const handleError: ErrorRequestHandler = (error, _req, res, _next) => {
+export const handleError: ErrorRequestHandler = (error, _req, res) => {
   console.error(error);
 
   const isErrorClient = error instanceof NodeError;

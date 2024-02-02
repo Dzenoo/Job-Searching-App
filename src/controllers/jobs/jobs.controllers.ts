@@ -24,7 +24,7 @@ export const createJob = asyncErrors(
     ];
 
     const disallowedProperties = Object.keys(request.body).filter(
-      (prop) => !allowedProperties.includes(prop)
+      (prop) => !allowedProperties.includes(prop),
     );
 
     if (
@@ -34,7 +34,7 @@ export const createJob = asyncErrors(
       responseServerHandler(
         { message: "Data is not valid and job can't be created" },
         403,
-        response
+        response,
       );
       return;
     }
@@ -45,7 +45,7 @@ export const createJob = asyncErrors(
       responseServerHandler(
         { message: "Cannot create job, please try again" },
         403,
-        response
+        response,
       );
     }
 
@@ -54,7 +54,7 @@ export const createJob = asyncErrors(
     });
 
     responseServerHandler({ job: newJob._id }, 201, response);
-  }
+  },
 );
 
 export const editJob = asyncErrors(async (request, response) => {
@@ -81,14 +81,14 @@ export const editJob = asyncErrors(async (request, response) => {
   ];
 
   const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop)
+    (prop) => !allowedProperties.includes(prop),
   );
 
   if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
     responseServerHandler(
       { message: "Data is not valid and job can't be edited" },
       403,
-      response
+      response,
     );
   }
 
@@ -96,7 +96,7 @@ export const editJob = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Unauthorized, employer is not owner of the job" },
       403,
-      response
+      response,
     );
   }
 
@@ -109,7 +109,7 @@ export const editJob = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "Job not found or could not be updated" },
       404,
-      response
+      response,
     );
   }
 
@@ -131,7 +131,7 @@ export const deleteJob = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Unauthorized, employer is not the owner of the job" },
       403,
-      response
+      response,
     );
     return;
   }
@@ -154,7 +154,7 @@ export const deleteJob = asyncErrors(async (request, response) => {
         applications: applications.map((app) => app._id),
         savedJobs: [jobId],
       },
-    }
+    },
   );
 
   await Employer.findByIdAndUpdate(employerId, {
@@ -253,7 +253,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "Resume is not valid" },
       403,
-      response
+      response,
     );
   }
 
@@ -266,7 +266,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "You already applied to this job" },
       403,
-      response
+      response,
     );
   }
 
@@ -293,7 +293,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
   responseServerHandler(
     { job: "Successfully Applied Job", application },
     201,
-    response
+    response,
   );
 });
 
@@ -305,7 +305,7 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "Cannot create job alert, please try again" },
       500,
-      response
+      response,
     );
   }
 
@@ -316,7 +316,7 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
   responseServerHandler(
     { message: "Job alert successfully created" },
     201,
-    response
+    response,
   );
 });
 
@@ -339,7 +339,7 @@ export const saveJob = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Job successfully unsaved" },
       201,
-      response
+      response,
     );
   } else {
     await Seeker.findByIdAndUpdate(seekerId, {

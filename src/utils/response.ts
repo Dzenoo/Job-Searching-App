@@ -1,9 +1,9 @@
 import { Response } from "express";
 
-export function responseServerHandler<
-  T extends any,
-  Q extends number,
-  Y extends Response
->(message: T, code: Q, response: Y) {
+export function responseServerHandler<Q extends number, Y extends Response>(
+  message: any,
+  code: Q,
+  response: Y,
+) {
   response.status(code).send(message);
 }

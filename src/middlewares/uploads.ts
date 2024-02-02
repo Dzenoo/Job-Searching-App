@@ -9,7 +9,7 @@ const upload = multer({
   fileFilter: (_request, file, cb) => {
     if (file.mimetype !== "application/pdf" && file.mimetype !== "image/png") {
       return cb(
-        new Error("Invalid file type. Only PDF and PNG files are allowed.")
+        new Error("Invalid file type. Only PDF and PNG files are allowed."),
       );
     }
     cb(null, true);

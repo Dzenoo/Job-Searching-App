@@ -3,7 +3,7 @@ export class NodeError extends Error {
     public message: string,
     public code: string | any,
     public status: number,
-    public data: { [key: string]: any } = {}
+    public data: { [key: string]: any } = {},
   ) {
     super();
   }

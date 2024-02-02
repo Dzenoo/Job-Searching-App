@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from "express";
 export const authenticateUser = (
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const token = request.headers.authorization?.split(" ")[1];
 
@@ -18,7 +18,7 @@ export const authenticateUser = (
       return responseServerHandler(
         "Unauthorized - Invalid token",
         401,
-        response
+        response,
       );
     }
 
@@ -33,7 +33,7 @@ export const authenticateUser = (
         return responseServerHandler(
           "Unauthorized - Seekers cannot access employer routes",
           403,
-          response
+          response,
         );
       }
     } else if (userType === "employer") {
@@ -45,14 +45,14 @@ export const authenticateUser = (
         return responseServerHandler(
           "Unauthorized - Employers cannot access seeker routes",
           403,
-          response
+          response,
         );
       }
     } else {
       return responseServerHandler(
         "Unauthorized - Invalid user type",
         403,
-        response
+        response,
       );
     }
   });
