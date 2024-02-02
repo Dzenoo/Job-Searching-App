@@ -44,6 +44,7 @@ export function initializePrivateRoutes(app: Express): void {
     deleteEvent,
     registerEvent,
     createDirectMessages,
+    typeMessage,
   } = employers;
   const {
     deleteJob,
@@ -53,7 +54,7 @@ export function initializePrivateRoutes(app: Express): void {
     generateJobAlert,
     applyToJob,
   } = jobs;
-
+  app.patch("/type-message/:employerId/:seekerId", typeMessage);
   app.get("/seeker", authenticateUser, getSeekerProfile);
   app.delete(
     "/seeker/delete-seeker-profile",

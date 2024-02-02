@@ -6,10 +6,6 @@ const MessageSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       required: [true, "Sender must be defined"],
     },
-    receiver: {
-      type: mongoose.Types.ObjectId,
-      required: [true, "Receiver must be defined"],
-    },
     content: {
       type: String,
       minlength: [3, "Message cannot be empty"],

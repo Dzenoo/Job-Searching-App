@@ -6,6 +6,7 @@ import Review from "../../models/employer/reviews.schemas";
 import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
 import { initializeAws } from "../../utils/aws";
+import Message from "../../models/shared/messages.schemas";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -768,6 +769,74 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
 
     responseServerHandler(
       { message: "Direct messages successfully created" },
+      201,
+      response
+    );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const typeMessage = asyncErrors(async (request, response) => {
+  try {
+    const { sender, content } = request.body;
+    const { employerId, seekerId } = request.params;
+
+    const existingEmployer = await Employer.findById(employerId);
+    const existingSeeker = await Seeker.findById(seekerId);
+
+    if (!existingEmployer || !existingSeeker) {
+      responseServerHandler(
+        { message: "Employer or Seeker not found" },
+        404,
+        response
+      );
+    }
+
+    const existingDirectMessages = existingEmployer.directMessages.find(
+      (message: any) => message.seekerId.toString() === seekerId.toString()
+    );
+
+    if (!existingDirectMessages) {
+      responseServerHandler(
+        { message: "Direct messages do not exist" },
+        404,
+        response
+      );
+      return;
+    }
+
+    const newMessage = await Message.create({
+      sender: sender,
+      content: content,
+    });
+
+    await Employer.findByIdAndUpdate(
+      employerId,
+      {
+        $push: {
+          "directMessages.$[elem].messages": newMessage._id,
+        },
+      },
+      {
+        arrayFilters: [{ "elem.seekerId": seekerId }],
+      }
+    );
+
+    await Seeker.findByIdAndUpdate(
+      seekerId,
+      {
+        $push: {
+          "directMessages.$[elem].messages": newMessage._id,
+        },
+      },
+      {
+        arrayFilters: [{ "elem.employerId": employerId }],
+      }
+    );
+
+    responseServerHandler(
+      { message: "Message successfully sent" },
       201,
       response
     );
