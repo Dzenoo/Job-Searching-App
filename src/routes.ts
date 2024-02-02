@@ -25,7 +25,12 @@ export function initializePublicRoutes(app: Express): void {
 }
 
 export function initializePrivateRoutes(app: Express): void {
-  const { getSeekerProfile, editSeekerProfile, deleteSeekerProfile } = seekers;
+  const {
+    getSeekerProfile,
+    editSeekerProfile,
+    deleteSeekerProfile,
+    getSeekers,
+  } = seekers;
   const {
     getEmployerProfile,
     followEmployer,
@@ -45,13 +50,19 @@ export function initializePrivateRoutes(app: Express): void {
   } = jobs;
 
   app.get("/seeker", authenticateUser, getSeekerProfile);
+  app.delete(
+    "/seeker/delete-seeker-profile",
+    authenticateUser,
+    deleteSeekerProfile
+  );
+  app.patch("/seeker/edit-seeker-profile", authenticateUser, editSeekerProfile);
+  app.patch("/seeker/jobs/alerts", authenticateUser, generateJobAlert);
   app.post(
     "/seeker/jobs/:jobId/apply",
     authenticateUser,
     upload.single("resume"),
     applyToJob
   );
-  app.patch("/seeker/jobs/alerts", authenticateUser, generateJobAlert);
   app.patch("/seeker/jobs/:jobId/save", authenticateUser, saveJob);
   app.patch("/seeker/:employerId/follow", authenticateUser, followEmployer);
   app.post("/seeker/:employerId/review", authenticateUser, reviewEmployer);
@@ -61,12 +72,6 @@ export function initializePrivateRoutes(app: Express): void {
     deleteReviewEmployer
   );
   app.patch("/seeker/:employerId/review", authenticateUser, editReviewEmployer);
-  app.patch("/seeker/edit-seeker-profile", authenticateUser, editSeekerProfile);
-  app.delete(
-    "/seeker/delete-seeker-profile",
-    authenticateUser,
-    deleteSeekerProfile
-  );
 
   app.get("/employer/", authenticateUser, getEmployerProfile);
   app.patch(
@@ -74,12 +79,13 @@ export function initializePrivateRoutes(app: Express): void {
     authenticateUser,
     editEmployerProfile
   );
-  app.patch("/employer/jobs/:jobId/edit", authenticateUser, editJob);
-  app.post("/employer/jobs/create-new-job", authenticateUser, createJob);
-  app.delete("/employer/jobs/:jobId/delete", authenticateUser, deleteJob);
   app.delete(
     "/employer/delete-employer-profile",
     authenticateUser,
     deleteEmployerProfile
   );
+  app.post("/employer/jobs/create-new-job", authenticateUser, createJob);
+  app.patch("/employer/jobs/:jobId/edit", authenticateUser, editJob);
+  app.delete("/employer/jobs/:jobId/delete", authenticateUser, deleteJob);
+  app.get("/employer/seekers", authenticateUser, getSeekers);
 }

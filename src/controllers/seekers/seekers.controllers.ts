@@ -126,6 +126,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
     if (!seeker) {
       responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);
     }
+
     responseServerHandler({ seeker: seeker }, 201, response);
   } catch (error) {
     console.log(error);
@@ -235,6 +236,44 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
         200,
         response
       );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const getSeekers = asyncErrors(async (request, response) => {
+  try {
+    const { page = 1, limit = 10, search, skills } = request.query;
+
+    const conditions: any = {};
+
+    if (search) {
+      conditions.$or = [
+        { first_name: { $regex: new RegExp(String(search), "i") } },
+        { email: { $regex: new RegExp(String(search), "i") } },
+        { github: { $regex: new RegExp(String(search), "i") } },
+      ];
+    }
+
+    if (skills && typeof skills === "string") {
+      conditions.skills = { $in: skills.split(",") };
+    } else {
+      conditions.skills = [];
+    }
+
+    const seekers = await Seeker.find(conditions)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit))
+      .select(
+        "_id first_name last_name email skills github linkedin portfolio image"
+      )
+      .exec();
+
+    if (!seekers) {
+      responseServerHandler({ message: "Cannot Find Seekers" }, 404, response);
+    }
+
+    responseServerHandler({ seekers: seekers }, 200, response);
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }
