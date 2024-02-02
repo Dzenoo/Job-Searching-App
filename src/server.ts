@@ -10,6 +10,8 @@ import { handleError } from "./middlewares/errors";
 
 dotenv.config({ path: ".env", override: true });
 
+let io: Server;
+
 async function establishDatabaseConnection(): Promise<void> {
   try {
     await connectToDatabase();
@@ -18,16 +20,30 @@ async function establishDatabaseConnection(): Promise<void> {
   }
 }
 
-function initializeSockets(io: Server) {
-  io.on("connection", (_socket) => {
-    console.log("WebSocket Connection is established");
+export const initializeSocket = (server: http.Server) => {
+  io = new Server(server, {
+    cors: {
+      origin: "*",
+    },
   });
-}
+
+  io.on("connection", (socket) => {
+    console.log("User connected");
+
+    socket.on("joinRoom", (room) => {
+      socket.join(room);
+      console.log(`User joined room: ${room}`);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("User disconnected");
+    });
+  });
+};
 
 function initializeServer(): void {
   const app = express();
   const server = http.createServer(app);
-  const io = new Server(server);
 
   app.use(cors());
   app.use(express.json());
@@ -36,7 +52,7 @@ function initializeServer(): void {
 
   initializePrivateRoutes(app);
 
-  initializeSockets(io);
+  initializeSocket(server);
 
   app.use(handleError);
 
@@ -51,3 +67,5 @@ async function initializeApp(): Promise<void> {
 }
 
 initializeApp();
+
+export { io };

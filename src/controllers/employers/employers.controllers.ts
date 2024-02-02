@@ -7,6 +7,7 @@ import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
 import { initializeAws } from "../../utils/aws";
 import Message from "../../models/shared/messages.schemas";
+import { io } from "../../server";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -757,6 +758,8 @@ export const typeMessage = asyncErrors(async (request, response) => {
       arrayFilters: [{ "elem.employerId": employerId }],
     }
   );
+
+  io.to(`${employerId}-${seekerId}`).emit("newMessage", newMessage);
 
   responseServerHandler(
     { message: "Message successfully sent" },
