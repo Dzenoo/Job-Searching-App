@@ -64,20 +64,42 @@ export const editJob = asyncErrors(async (request, response) => {
     const { employerId } = request.user;
     const updateData = request.body;
     const jobId = request.params.jobId;
-
     const job = await Job.findById(jobId);
 
-    if (employerId.toString() !== job.company.toString()) {
+    if (!job) {
+      return responseServerHandler({ message: "Job not found" }, 404, response);
+    }
+
+    const allowedProperties = [
+      "title",
+      "location",
+      "type",
+      "skills",
+      "description",
+      "level",
+      "salary",
+      "expiration_date",
+      "position",
+    ];
+
+    const disallowedProperties = Object.keys(updateData).filter(
+      (prop) => !allowedProperties.includes(prop)
+    );
+
+    if (
+      disallowedProperties.length > 0 ||
+      Object.keys(updateData).length === 0
+    ) {
       responseServerHandler(
-        { message: "Unauthorized, employer is not owner of the job" },
+        { message: "Data is not valid and job can't be edited" },
         403,
         response
       );
     }
 
-    if (updateData.company || Object.keys(updateData).length === 0) {
+    if (employerId.toString() !== job.company.toString()) {
       responseServerHandler(
-        { message: "Data is not valid and job can't be edited" },
+        { message: "Unauthorized, employer is not owner of the job" },
         403,
         response
       );
