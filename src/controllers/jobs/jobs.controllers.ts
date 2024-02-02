@@ -8,70 +8,8 @@ import { initializeAws } from "../../utils/aws";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
-    try {
-      // @ts-ignore
-      const { employerId } = request.user;
-
-      const allowedProperties = [
-        "title",
-        "location",
-        "type",
-        "skills",
-        "description",
-        "level",
-        "salary",
-        "expiration_date",
-        "position",
-      ];
-
-      const disallowedProperties = Object.keys(request.body).filter(
-        (prop) => !allowedProperties.includes(prop)
-      );
-
-      if (
-        disallowedProperties.length > 0 ||
-        Object.keys(request.body).length === 0
-      ) {
-        responseServerHandler(
-          { message: "Data is not valid and job can't be created" },
-          403,
-          response
-        );
-        return;
-      }
-
-      const newJob = await Job.create({ ...request.body, company: employerId });
-
-      if (!newJob) {
-        responseServerHandler(
-          { message: "Cannot create job, please try again" },
-          403,
-          response
-        );
-      }
-
-      await Employer.findByIdAndUpdate(employerId, {
-        $push: { jobs: newJob._id },
-      });
-
-      responseServerHandler({ job: newJob._id }, 201, response);
-    } catch (error: any) {
-      responseServerHandler({ message: error.message }, 400, response);
-    }
-  }
-);
-
-export const editJob = asyncErrors(async (request, response) => {
-  try {
     // @ts-ignore
     const { employerId } = request.user;
-    const updateData = request.body;
-    const jobId = request.params.jobId;
-    const job = await Job.findById(jobId);
-
-    if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
-    }
 
     const allowedProperties = [
       "title",
@@ -85,309 +23,328 @@ export const editJob = asyncErrors(async (request, response) => {
       "position",
     ];
 
-    const disallowedProperties = Object.keys(updateData).filter(
+    const disallowedProperties = Object.keys(request.body).filter(
       (prop) => !allowedProperties.includes(prop)
     );
 
     if (
       disallowedProperties.length > 0 ||
-      Object.keys(updateData).length === 0
+      Object.keys(request.body).length === 0
     ) {
       responseServerHandler(
-        { message: "Data is not valid and job can't be edited" },
-        403,
-        response
-      );
-    }
-
-    if (employerId.toString() !== job.company.toString()) {
-      responseServerHandler(
-        { message: "Unauthorized, employer is not owner of the job" },
-        403,
-        response
-      );
-    }
-
-    const editedJob = await Job.findByIdAndUpdate(jobId, updateData, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!editedJob) {
-      return responseServerHandler(
-        { message: "Job not found or could not be updated" },
-        404,
-        response
-      );
-    }
-
-    responseServerHandler({ job: editedJob }, 201, response);
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
-  }
-});
-
-export const deleteJob = asyncErrors(async (request, response) => {
-  try {
-    // @ts-ignore
-    const { employerId } = request.user;
-    const jobId = request.params.jobId;
-
-    const job = await Job.findById(jobId);
-
-    if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
-    }
-
-    if (employerId.toString() !== job.company.toString()) {
-      responseServerHandler(
-        { message: "Unauthorized, employer is not the owner of the job" },
+        { message: "Data is not valid and job can't be created" },
         403,
         response
       );
       return;
     }
 
-    const applications = await Application.find({ job: jobId });
+    const newJob = await Job.create({ ...request.body, company: employerId });
 
-    await Job.findByIdAndDelete(jobId);
-
-    await Application.deleteMany({ job: jobId });
-
-    await Seeker.updateMany(
-      {
-        $or: [
-          { applications: { $in: applications.map((app) => app._id) } },
-          { savedJobs: jobId },
-        ],
-      },
-      {
-        $pullAll: {
-          applications: applications.map((app) => app._id),
-          savedJobs: [jobId],
-        },
-      }
-    );
+    if (!newJob) {
+      responseServerHandler(
+        { message: "Cannot create job, please try again" },
+        403,
+        response
+      );
+    }
 
     await Employer.findByIdAndUpdate(employerId, {
-      $pull: { jobs: jobId },
+      $push: { jobs: newJob._id },
     });
 
+    responseServerHandler({ job: newJob._id }, 201, response);
+  }
+);
+
+export const editJob = asyncErrors(async (request, response) => {
+  // @ts-ignore
+  const { employerId } = request.user;
+  const updateData = request.body;
+  const jobId = request.params.jobId;
+  const job = await Job.findById(jobId);
+
+  if (!job) {
+    return responseServerHandler({ message: "Job not found" }, 404, response);
+  }
+
+  const allowedProperties = [
+    "title",
+    "location",
+    "type",
+    "skills",
+    "description",
+    "level",
+    "salary",
+    "expiration_date",
+    "position",
+  ];
+
+  const disallowedProperties = Object.keys(updateData).filter(
+    (prop) => !allowedProperties.includes(prop)
+  );
+
+  if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
     responseServerHandler(
-      { message: "Job Deleted Successfully" },
-      200,
+      { message: "Data is not valid and job can't be edited" },
+      403,
       response
     );
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
   }
+
+  if (employerId.toString() !== job.company.toString()) {
+    responseServerHandler(
+      { message: "Unauthorized, employer is not owner of the job" },
+      403,
+      response
+    );
+  }
+
+  const editedJob = await Job.findByIdAndUpdate(jobId, updateData, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!editedJob) {
+    return responseServerHandler(
+      { message: "Job not found or could not be updated" },
+      404,
+      response
+    );
+  }
+
+  responseServerHandler({ job: editedJob }, 201, response);
+});
+
+export const deleteJob = asyncErrors(async (request, response) => {
+  // @ts-ignore
+  const { employerId } = request.user;
+  const jobId = request.params.jobId;
+
+  const job = await Job.findById(jobId);
+
+  if (!job) {
+    return responseServerHandler({ message: "Job not found" }, 404, response);
+  }
+
+  if (employerId.toString() !== job.company.toString()) {
+    responseServerHandler(
+      { message: "Unauthorized, employer is not the owner of the job" },
+      403,
+      response
+    );
+    return;
+  }
+
+  const applications = await Application.find({ job: jobId });
+
+  await Job.findByIdAndDelete(jobId);
+
+  await Application.deleteMany({ job: jobId });
+
+  await Seeker.updateMany(
+    {
+      $or: [
+        { applications: { $in: applications.map((app) => app._id) } },
+        { savedJobs: jobId },
+      ],
+    },
+    {
+      $pullAll: {
+        applications: applications.map((app) => app._id),
+        savedJobs: [jobId],
+      },
+    }
+  );
+
+  await Employer.findByIdAndUpdate(employerId, {
+    $pull: { jobs: jobId },
+  });
+
+  responseServerHandler({ message: "Job Deleted Successfully" }, 200, response);
 });
 
 export const getJobs = asyncErrors(async (request, response) => {
-  try {
-    const {
-      page = 1,
-      limit = 10,
-      search,
-      type,
-      seniority,
-      salaryRange,
-      position,
-      srt,
-    } = request.query;
+  const {
+    page = 1,
+    limit = 10,
+    search,
+    type,
+    seniority,
+    salaryRange,
+    position,
+    srt,
+  } = request.query;
 
-    const conditions: any = {};
+  const conditions: any = {};
 
-    if (search) {
-      conditions.$or = [
-        { title: { $regex: new RegExp(String(search), "i") } },
-        { description: { $regex: new RegExp(String(search), "i") } },
-        { location: { $regex: new RegExp(String(search), "i") } },
-      ];
-    }
-
-    if (type) {
-      conditions.type = Array.isArray(type)
-        ? { $in: type }
-        : type.toString().split(",");
-    }
-
-    if (seniority) {
-      conditions.level = Array.isArray(seniority)
-        ? { $in: seniority }
-        : seniority.toString().split(",");
-    }
-
-    if (salaryRange) {
-      const salaryRanges = Array.isArray(salaryRange)
-        ? salaryRange
-        : salaryRange.toString().split(",");
-
-      const salaryConditions = salaryRanges.map((range) => {
-        const [minSalary, maxSalary] = range.toString().split("-");
-        return {
-          salary: { $gte: Number(minSalary), $lte: Number(maxSalary) },
-        };
-      });
-
-      conditions.$or = salaryConditions;
-    }
-
-    if (position) {
-      conditions.position = Array.isArray(position)
-        ? { $in: position }
-        : position.toString().split(",");
-    }
-
-    const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
-
-    const jobs = await Job.find(conditions)
-      .sort(sortOptions)
-      .skip((Number(page) - 1) * Number(limit))
-      .limit(Number(limit))
-      .exec();
-
-    responseServerHandler({ jobs: jobs }, 200, response);
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
+  if (search) {
+    conditions.$or = [
+      { title: { $regex: new RegExp(String(search), "i") } },
+      { description: { $regex: new RegExp(String(search), "i") } },
+      { location: { $regex: new RegExp(String(search), "i") } },
+    ];
   }
+
+  if (type) {
+    conditions.type = Array.isArray(type)
+      ? { $in: type }
+      : type.toString().split(",");
+  }
+
+  if (seniority) {
+    conditions.level = Array.isArray(seniority)
+      ? { $in: seniority }
+      : seniority.toString().split(",");
+  }
+
+  if (salaryRange) {
+    const salaryRanges = Array.isArray(salaryRange)
+      ? salaryRange
+      : salaryRange.toString().split(",");
+
+    const salaryConditions = salaryRanges.map((range) => {
+      const [minSalary, maxSalary] = range.toString().split("-");
+      return {
+        salary: { $gte: Number(minSalary), $lte: Number(maxSalary) },
+      };
+    });
+
+    conditions.$or = salaryConditions;
+  }
+
+  if (position) {
+    conditions.position = Array.isArray(position)
+      ? { $in: position }
+      : position.toString().split(",");
+  }
+
+  const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
+
+  const jobs = await Job.find(conditions)
+    .sort(sortOptions)
+    .skip((Number(page) - 1) * Number(limit))
+    .limit(Number(limit))
+    .exec();
+
+  responseServerHandler({ jobs: jobs }, 200, response);
 });
 
 export const getJobById = asyncErrors(async (request, response) => {
-  try {
-    const job = await Job.findById(request.params.jobId).populate({
-      path: "company",
-      select: "name company_description followers reviews size image",
-    });
+  const job = await Job.findById(request.params.jobId).populate({
+    path: "company",
+    select: "name company_description followers reviews size image",
+  });
 
-    if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
-    }
-
-    responseServerHandler({ job: job }, 201, response);
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
+  if (!job) {
+    return responseServerHandler({ message: "Job not found" }, 404, response);
   }
+
+  responseServerHandler({ job: job }, 201, response);
 });
 
 export const applyToJob = asyncErrors(async (request, response) => {
-  try {
-    // @ts-ignore
-    const { seekerId } = request.user;
-    const jobId = request.params.jobId;
-    const resumeFile = request.file;
+  // @ts-ignore
+  const { seekerId } = request.user;
+  const jobId = request.params.jobId;
+  const resumeFile = request.file;
 
-    if (!resumeFile) {
-      return responseServerHandler(
-        { message: "Resume is not valid" },
-        403,
-        response
-      );
-    }
-
-    const existingApplication = await Application.findOne({
-      seeker: seekerId,
-      job: jobId,
-    });
-
-    if (existingApplication) {
-      return responseServerHandler(
-        { message: "You already applied to this job" },
-        403,
-        response
-      );
-    }
-
-    const resumeKey = `user_${seekerId}_${Date.now()}.pdf`;
-    const uploads = await initializeAws(resumeFile, resumeKey);
-    await uploads.done();
-
-    const application = await Application.create({
-      job: jobId,
-      seeker: seekerId,
-      status: "Pending",
-      cover_letter: request.body.coverLetter || "",
-      resume: resumeKey,
-    });
-
-    await Job.findByIdAndUpdate(jobId, {
-      $push: { applications: application._id },
-    });
-
-    await Seeker.findByIdAndUpdate(seekerId, {
-      $push: { applications: application._id },
-    });
-
-    responseServerHandler(
-      { job: "Successfully Applied Job", application },
-      201,
+  if (!resumeFile) {
+    return responseServerHandler(
+      { message: "Resume is not valid" },
+      403,
       response
     );
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
   }
+
+  const existingApplication = await Application.findOne({
+    seeker: seekerId,
+    job: jobId,
+  });
+
+  if (existingApplication) {
+    return responseServerHandler(
+      { message: "You already applied to this job" },
+      403,
+      response
+    );
+  }
+
+  const resumeKey = `user_${seekerId}_${Date.now()}.pdf`;
+  const uploads = await initializeAws(resumeFile, resumeKey);
+  await uploads.done();
+
+  const application = await Application.create({
+    job: jobId,
+    seeker: seekerId,
+    status: "Pending",
+    cover_letter: request.body.coverLetter || "",
+    resume: resumeKey,
+  });
+
+  await Job.findByIdAndUpdate(jobId, {
+    $push: { applications: application._id },
+  });
+
+  await Seeker.findByIdAndUpdate(seekerId, {
+    $push: { applications: application._id },
+  });
+
+  responseServerHandler(
+    { job: "Successfully Applied Job", application },
+    201,
+    response
+  );
 });
 
 export const generateJobAlert = asyncErrors(async (request, response) => {
-  try {
-    // @ts-ignore
-    const { seekerId } = request.user;
+  // @ts-ignore
+  const { seekerId } = request.user;
 
-    if (!request.body.level || !request.body.type || !request.body.title) {
-      return responseServerHandler(
-        { message: "Cannot create job alert, please try again" },
-        500,
-        response
-      );
-    }
-
-    await Seeker.findByIdAndUpdate(seekerId, {
-      alerts: { ...request.body },
-    });
-
-    responseServerHandler(
-      { message: "Job alert successfully created" },
-      201,
+  if (!request.body.level || !request.body.type || !request.body.title) {
+    return responseServerHandler(
+      { message: "Cannot create job alert, please try again" },
+      500,
       response
     );
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
   }
+
+  await Seeker.findByIdAndUpdate(seekerId, {
+    alerts: { ...request.body },
+  });
+
+  responseServerHandler(
+    { message: "Job alert successfully created" },
+    201,
+    response
+  );
 });
 
 export const saveJob = asyncErrors(async (request, response) => {
-  try {
-    // @ts-ignore
-    const { seekerId } = request.user;
-    const jobId = request.params.jobId;
+  // @ts-ignore
+  const { seekerId } = request.user;
+  const jobId = request.params.jobId;
 
-    const job = await Job.findById(jobId);
-    const seeker = await Seeker.findById(seekerId);
+  const job = await Job.findById(jobId);
+  const seeker = await Seeker.findById(seekerId);
 
-    if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
-    }
+  if (!job) {
+    return responseServerHandler({ message: "Job not found" }, 404, response);
+  }
 
-    if (seeker.savedJobs.includes(jobId)) {
-      await Seeker.findByIdAndUpdate(seekerId, {
-        $pull: { savedJobs: jobId },
-      });
-      responseServerHandler(
-        { message: "Job successfully unsaved" },
-        201,
-        response
-      );
-    } else {
-      await Seeker.findByIdAndUpdate(seekerId, {
-        $push: { savedJobs: jobId },
-      });
-      responseServerHandler(
-        { message: "Job successfully saved" },
-        201,
-        response
-      );
-    }
-  } catch (error: any) {
-    responseServerHandler({ message: error.message }, 400, response);
+  if (seeker.savedJobs.includes(jobId)) {
+    await Seeker.findByIdAndUpdate(seekerId, {
+      $pull: { savedJobs: jobId },
+    });
+    responseServerHandler(
+      { message: "Job successfully unsaved" },
+      201,
+      response
+    );
+  } else {
+    await Seeker.findByIdAndUpdate(seekerId, {
+      $push: { savedJobs: jobId },
+    });
+    responseServerHandler({ message: "Job successfully saved" }, 201, response);
   }
 });
