@@ -42,6 +42,7 @@ export function initializePrivateRoutes(app: Express): void {
     createNewEvent,
     editEvent,
     deleteEvent,
+    registerEvent,
   } = employers;
   const {
     deleteJob,
@@ -75,6 +76,11 @@ export function initializePrivateRoutes(app: Express): void {
     deleteReviewEmployer
   );
   app.patch("/seeker/:employerId/review", authenticateUser, editReviewEmployer);
+  app.patch(
+    "/seeker/events/:eventId/register",
+    authenticateUser,
+    registerEvent
+  );
 
   app.get("/employer/", authenticateUser, getEmployerProfile);
   app.patch(

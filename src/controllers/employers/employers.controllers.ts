@@ -663,3 +663,46 @@ export const deleteEvent = asyncErrors(async (request, response) => {
     responseServerHandler({ message: error.message }, 400, response);
   }
 });
+
+export const registerEvent = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const eventId = request.params.eventId;
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      responseServerHandler({ message: "Cannot Find Event" }, 404, response);
+    }
+
+    const isRegistered = event.seekers.includes(seekerId);
+
+    if (isRegistered) {
+      await Event.findByIdAndUpdate(eventId, {
+        $pull: { seekers: seekerId },
+      });
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $pull: { events: eventId },
+      });
+      responseServerHandler(
+        { message: "Event successfully unregistered" },
+        201,
+        response
+      );
+    } else {
+      await Event.findByIdAndUpdate(eventId, {
+        $push: { seekers: seekerId },
+      });
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $push: { events: eventId },
+      });
+      responseServerHandler(
+        { message: "Event successfully registered" },
+        201,
+        response
+      );
+    }
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
