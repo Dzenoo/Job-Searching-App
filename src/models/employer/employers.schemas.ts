@@ -112,11 +112,11 @@ const EmployerSchema = new mongoose.Schema(
     ],
     directMessages: [
       {
+        _id: false,
         seekerId: { type: mongoose.Types.ObjectId, ref: "Seeker" },
         messages: [
           { type: mongoose.Types.ObjectId, ref: "Message", default: [] },
         ],
-        default: [],
       },
     ],
     events: [

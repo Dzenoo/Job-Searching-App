@@ -706,3 +706,72 @@ export const registerEvent = asyncErrors(async (request, response) => {
     responseServerHandler({ message: error.message }, 400, response);
   }
 });
+
+export const createDirectMessages = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const { seekerId } = request.params;
+    const existingEmployer = await Employer.findById(employerId);
+    const existingSeeker = await Seeker.findById(seekerId);
+
+    if (!existingEmployer || !existingSeeker) {
+      responseServerHandler(
+        { message: "Employer or Seeker not found" },
+        404,
+        response
+      );
+    }
+
+    const existingDirectMessages = existingEmployer.directMessages.find(
+      (message: any) => message.seekerId.toString() === seekerId.toString()
+    );
+
+    if (existingDirectMessages) {
+      responseServerHandler(
+        { message: "Direct messages already exist" },
+        400,
+        response
+      );
+      return;
+    }
+
+    const directMessagesEmployerData = {
+      seekerId: seekerId,
+      messages: [],
+    };
+
+    const directMessagesSeekerData = {
+      employerId: employerId,
+      messages: [],
+    };
+
+    await Employer.findByIdAndUpdate(
+      employerId,
+      {
+        $push: { directMessages: directMessagesEmployerData },
+      },
+      {
+        new: true,
+      }
+    );
+
+    await Seeker.findByIdAndUpdate(
+      seekerId,
+      {
+        $push: { directMessages: directMessagesSeekerData },
+      },
+      {
+        new: true,
+      }
+    );
+
+    responseServerHandler(
+      { message: "Direct messages successfully created" },
+      201,
+      response
+    );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});

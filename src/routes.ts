@@ -43,6 +43,7 @@ export function initializePrivateRoutes(app: Express): void {
     editEvent,
     deleteEvent,
     registerEvent,
+    createDirectMessages,
   } = employers;
   const {
     deleteJob,
@@ -105,4 +106,9 @@ export function initializePrivateRoutes(app: Express): void {
   );
   app.patch("/employer/events/:eventId/edit", authenticateUser, editEvent);
   app.delete("/employer/events/:eventId/delete", authenticateUser, deleteEvent);
+  app.post(
+    "/employer/:seekerId/direct-messages",
+    authenticateUser,
+    createDirectMessages
+  );
 }
