@@ -12,21 +12,32 @@ export const createJob = asyncErrors(
       // @ts-ignore
       const { employerId } = request.user;
 
-      if (!employerId) {
+      const allowedProperties = [
+        "title",
+        "location",
+        "type",
+        "skills",
+        "description",
+        "level",
+        "salary",
+        "expiration_date",
+        "position",
+      ];
+
+      const disallowedProperties = Object.keys(request.body).filter(
+        (prop) => !allowedProperties.includes(prop)
+      );
+
+      if (
+        disallowedProperties.length > 0 ||
+        Object.keys(request.body).length === 0
+      ) {
         responseServerHandler(
-          { message: "Unauthorized - Company information missing" },
+          { message: "Data is not valid and job can't be created" },
           403,
           response
         );
         return;
-      }
-
-      if (request.body.company || !request.body.skills) {
-        responseServerHandler(
-          { message: "Cannot create job, please try again" },
-          403,
-          response
-        );
       }
 
       const newJob = await Job.create({ ...request.body, company: employerId });
@@ -39,17 +50,9 @@ export const createJob = asyncErrors(
         );
       }
 
-      const employer = await Employer.findByIdAndUpdate(employerId, {
+      await Employer.findByIdAndUpdate(employerId, {
         $push: { jobs: newJob._id },
       });
-
-      if (!employer) {
-        responseServerHandler(
-          { message: "Cannot create job, please try again" },
-          403,
-          response
-        );
-      }
 
       responseServerHandler({ job: newJob._id }, 201, response);
     } catch (error: any) {

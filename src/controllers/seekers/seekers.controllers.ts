@@ -200,42 +200,43 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
     const applications = await Application.find({ seeker: seekerId });
     const reviews = await Review.find({ seeker: seekerId });
 
-    await Application.deleteMany({ seeker: seekerId }),
-      await Review.deleteMany({ seeker: seekerId }),
-      await Event.updateMany(
-        { seekers: seekerId },
-        { $pull: { seekers: seekerId } }
-      ),
-      await Job.updateMany(
-        { applications: { $in: applications.map((app) => app._id) } },
-        {
-          $pull: {
-            applications: { $in: applications.map((app) => app._id) },
-          },
-        }
-      ),
-      await Employer.updateMany(
-        {
-          $or: [
-            { followers: seekerId },
-            { reviews: { $in: reviews.map((review) => review._id) } },
-          ],
+    await Application.deleteMany({ seeker: seekerId });
+    await Review.deleteMany({ seeker: seekerId });
+    await Event.updateMany(
+      { seekers: seekerId },
+      { $pull: { seekers: seekerId } }
+    );
+    await Job.updateMany(
+      { applications: { $in: applications.map((app) => app._id) } },
+      {
+        $pull: {
+          applications: { $in: applications.map((app) => app._id) },
         },
-        {
-          $pull: {
-            followers: seekerId,
-            reviews: { $in: reviews.map((review) => review._id) },
-          },
-        }
-      ),
-      await Seeker.findByIdAndDelete(seekerId),
-      responseServerHandler(
-        {
-          message: "Seeker profile and associated data deleted successfully",
+      }
+    );
+    await Employer.updateMany(
+      {
+        $or: [
+          { followers: seekerId },
+          { reviews: { $in: reviews.map((review) => review._id) } },
+        ],
+      },
+      {
+        $pull: {
+          followers: seekerId,
+          reviews: { $in: reviews.map((review) => review._id) },
         },
-        200,
-        response
-      );
+      }
+    );
+    await Seeker.findByIdAndDelete(seekerId);
+
+    responseServerHandler(
+      {
+        message: "Seeker profile and associated data deleted successfully",
+      },
+      200,
+      response
+    );
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }
