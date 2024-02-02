@@ -13,7 +13,7 @@ const MessageSchema = new mongoose.Schema(
       required: [true, "Message cannot be empty"],
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 const Message =
   mongoose.models.Message || mongoose.model("Message", MessageSchema);

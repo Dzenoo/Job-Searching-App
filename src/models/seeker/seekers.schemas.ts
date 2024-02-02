@@ -136,7 +136,7 @@ const SeekerSchema = new mongoose.Schema(
       },
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 SeekerSchema.pre("save", async function (next) {
@@ -151,7 +151,7 @@ SeekerSchema.pre("save", async function (next) {
 
 SeekerSchema.statics.findByCredentials = async <T extends string>(
   email: T,
-  password: T,
+  password: T
 ) => {
   const seeker = await Seeker.findOne({ email });
 

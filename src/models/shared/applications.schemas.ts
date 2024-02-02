@@ -20,7 +20,7 @@ const ApplicationSchema = new mongoose.Schema(
     seeker: { type: mongoose.Types.ObjectId, ref: "Seeker" },
     job: { type: mongoose.Types.ObjectId, ref: "Job" },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const Application =

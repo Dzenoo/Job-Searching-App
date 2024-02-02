@@ -59,7 +59,7 @@ export function initializePrivateRoutes(app: Express): void {
   app.delete(
     "/seeker/delete-seeker-profile",
     authenticateUser,
-    deleteSeekerProfile,
+    deleteSeekerProfile
   );
   app.patch("/seeker/edit-seeker-profile", authenticateUser, editSeekerProfile);
   app.patch("/seeker/jobs/alerts", authenticateUser, generateJobAlert);
@@ -67,7 +67,7 @@ export function initializePrivateRoutes(app: Express): void {
     "/seeker/jobs/:jobId/apply",
     authenticateUser,
     upload.single("resume"),
-    applyToJob,
+    applyToJob
   );
   app.patch("/seeker/jobs/:jobId/save", authenticateUser, saveJob);
   app.patch("/seeker/:employerId/follow", authenticateUser, followEmployer);
@@ -75,25 +75,25 @@ export function initializePrivateRoutes(app: Express): void {
   app.delete(
     "/seeker/:employerId/review",
     authenticateUser,
-    deleteReviewEmployer,
+    deleteReviewEmployer
   );
   app.patch("/seeker/:employerId/review", authenticateUser, editReviewEmployer);
   app.patch(
     "/seeker/events/:eventId/register",
     authenticateUser,
-    registerEvent,
+    registerEvent
   );
 
   app.get("/employer", authenticateUser, getEmployerProfile);
   app.patch(
     "/employer/edit-employer-profile",
     authenticateUser,
-    editEmployerProfile,
+    editEmployerProfile
   );
   app.delete(
     "/employer/delete-employer-profile",
     authenticateUser,
-    deleteEmployerProfile,
+    deleteEmployerProfile
   );
   app.post("/employer/jobs/create-new-job", authenticateUser, createJob);
   app.patch("/employer/jobs/:jobId/edit", authenticateUser, editJob);
@@ -103,13 +103,13 @@ export function initializePrivateRoutes(app: Express): void {
     "/employer/events/new",
     authenticateUser,
     upload.single("image"),
-    createNewEvent,
+    createNewEvent
   );
   app.patch("/employer/events/:eventId/edit", authenticateUser, editEvent);
   app.delete("/employer/events/:eventId/delete", authenticateUser, deleteEvent);
   app.post(
     "/employer/:seekerId/direct-messages",
     authenticateUser,
-    createDirectMessages,
+    createDirectMessages
   );
 }

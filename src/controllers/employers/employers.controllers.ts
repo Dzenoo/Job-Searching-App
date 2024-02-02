@@ -27,7 +27,7 @@ export const signupEmployer = asyncErrors(
           message: "Please provide valid credentials",
         },
         400,
-        response,
+        response
       );
     }
 
@@ -39,7 +39,7 @@ export const signupEmployer = asyncErrors(
       responseServerHandler(
         { message: "This email already exists, please try again" },
         400,
-        response,
+        response
       );
     }
 
@@ -51,14 +51,14 @@ export const signupEmployer = asyncErrors(
           message: "Cannot register account, please try again",
         },
         500,
-        response,
+        response
       );
     }
 
     await newEmployer.save();
 
     responseServerHandler({ employer: newEmployer._id }, 201, response);
-  },
+  }
 );
 
 export const loginEmployer = asyncErrors(
@@ -72,14 +72,14 @@ export const loginEmployer = asyncErrors(
           message: "Please provide valid credentials",
         },
         400,
-        response,
+        response
       );
     }
 
     // @ts-ignore
     const existingEmployer = await Employer.findByCredentials(
       request.body.email,
-      request.body.password,
+      request.body.password
     );
 
     if (!existingEmployer) {
@@ -88,7 +88,7 @@ export const loginEmployer = asyncErrors(
           message: "Invalid credentials for account, please try again",
         },
         500,
-        response,
+        response
       );
     }
 
@@ -100,7 +100,7 @@ export const loginEmployer = asyncErrors(
           message: "Cannot login account, please try again",
         },
         500,
-        response,
+        response
       );
     }
 
@@ -112,9 +112,9 @@ export const loginEmployer = asyncErrors(
         employerToken: employerToken,
       },
       200,
-      response,
+      response
     );
-  },
+  }
 );
 
 export const followEmployer = asyncErrors(async (request, response) => {
@@ -131,7 +131,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "Employer or Seeker cannot be found" },
       404,
-      response,
+      response
     );
   }
 
@@ -147,7 +147,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Employer successfully unfollowed" },
       201,
-      response,
+      response
     );
   } else {
     await Employer.findByIdAndUpdate(employerId, {
@@ -159,7 +159,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Employer successfully followed" },
       201,
-      response,
+      response
     );
   }
 });
@@ -201,7 +201,7 @@ export const getEmployers = asyncErrors(async (request, response) => {
     .skip((Number(page) - 1) * Number(limit))
     .limit(Number(limit))
     .select(
-      "image name company_description reviews followers events size address",
+      "image name company_description reviews followers events size address"
     )
     .exec();
 
@@ -223,7 +223,7 @@ export const getEmployerById = asyncErrors(async (request, response) => {
     .populate("reviews")
     .populate("events")
     .select(
-      "name reviews events email address size website followers number company_description industry image",
+      "name reviews events email address size website followers number company_description industry image"
     )
     .exec();
 
@@ -243,7 +243,7 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "Cannot Find Employer" },
       404,
-      response,
+      response
     );
   }
 
@@ -255,7 +255,7 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Already reviewed this employer" },
       400,
-      response,
+      response
     );
     return;
   }
@@ -273,7 +273,7 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
   responseServerHandler(
     { message: "Review successfully added" },
     201,
-    response,
+    response
   );
 });
 
@@ -305,7 +305,7 @@ export const deleteReviewEmployer = asyncErrors(async (request, response) => {
   responseServerHandler(
     { message: "Review successfully deleted" },
     201,
-    response,
+    response
   );
 });
 
@@ -325,7 +325,7 @@ export const editReviewEmployer = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Data is not valid and review can't be edited" },
       403,
-      response,
+      response
     );
   }
 
@@ -333,7 +333,7 @@ export const editReviewEmployer = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Unauthorized. You are not the owner of this review." },
       403,
-      response,
+      response
     );
     return;
   }
@@ -344,21 +344,21 @@ export const editReviewEmployer = asyncErrors(async (request, response) => {
     {
       new: true,
       runValidators: true,
-    },
+    }
   );
 
   if (!editedReview) {
     return responseServerHandler(
       { message: "Review not found or could not be updated" },
       404,
-      response,
+      response
     );
   }
 
   responseServerHandler(
     { message: "Review successfully edited" },
     201,
-    response,
+    response
   );
 });
 
@@ -378,14 +378,14 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
   ];
 
   const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop),
+    (prop) => !allowedProperties.includes(prop)
   );
 
   if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
     responseServerHandler(
       { message: "Data is not valid and profile can't be edited" },
       403,
-      response,
+      response
     );
   }
 
@@ -395,14 +395,14 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     {
       new: true,
       runValidators: true,
-    },
+    }
   );
 
   if (!editedProfile) {
     return responseServerHandler(
       { message: "Profile not found or could not be updated" },
       404,
-      response,
+      response
     );
   }
 
@@ -419,7 +419,7 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
     return responseServerHandler(
       { message: "Employer not found" },
       404,
-      response,
+      response
     );
   }
 
@@ -436,7 +436,7 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
         following: employerId,
         savedJobs: { $in: jobIds },
       },
-    },
+    }
   );
 
   await Employer.findByIdAndDelete(employerId);
@@ -444,7 +444,7 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
   responseServerHandler(
     { message: "Employer profile and associated data deleted successfully" },
     200,
-    response,
+    response
   );
 });
 
@@ -460,7 +460,7 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Event with this title already exists" },
       400,
-      response,
+      response
     );
     return;
   }
@@ -475,7 +475,7 @@ export const createNewEvent = asyncErrors(async (request, response) => {
   ];
 
   const disallowedProperties = Object.keys(request.body).filter(
-    (prop) => !allowedProperties.includes(prop),
+    (prop) => !allowedProperties.includes(prop)
   );
 
   if (
@@ -485,7 +485,7 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Data is not valid and event can't be created" },
       403,
-      response,
+      response
     );
   }
 
@@ -521,7 +521,7 @@ export const editEvent = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Unauthorized. You are not the owner of this event." },
       403,
-      response,
+      response
     );
     return;
   }
@@ -535,14 +535,14 @@ export const editEvent = asyncErrors(async (request, response) => {
   ];
 
   const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop),
+    (prop) => !allowedProperties.includes(prop)
   );
 
   if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
     responseServerHandler(
       { message: "Data is not valid and event can't be edited" },
       403,
-      response,
+      response
     );
   }
 
@@ -552,14 +552,14 @@ export const editEvent = asyncErrors(async (request, response) => {
     {
       new: true,
       runValidators: true,
-    },
+    }
   );
 
   if (!editedEvent) {
     return responseServerHandler(
       { message: "Event not found or could not be updated" },
       404,
-      response,
+      response
     );
   }
 
@@ -580,7 +580,7 @@ export const deleteEvent = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Unauthorized. You are not the owner of this event." },
       403,
-      response,
+      response
     );
     return;
   }
@@ -593,7 +593,7 @@ export const deleteEvent = asyncErrors(async (request, response) => {
     { events: existingEvent._id },
     {
       $pull: { events: existingEvent._id },
-    },
+    }
   );
 
   await Event.findByIdAndDelete(existingEvent._id);
@@ -601,7 +601,7 @@ export const deleteEvent = asyncErrors(async (request, response) => {
   responseServerHandler(
     { message: "Event successfully deleted" },
     201,
-    response,
+    response
   );
 });
 
@@ -627,7 +627,7 @@ export const registerEvent = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Event successfully unregistered" },
       201,
-      response,
+      response
     );
   } else {
     await Event.findByIdAndUpdate(eventId, {
@@ -639,7 +639,7 @@ export const registerEvent = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Event successfully registered" },
       201,
-      response,
+      response
     );
   }
 });
@@ -655,19 +655,19 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Employer or Seeker not found" },
       404,
-      response,
+      response
     );
   }
 
   const existingDirectMessages = existingEmployer.directMessages.find(
-    (message: any) => message.seekerId.toString() === seekerId.toString(),
+    (message: any) => message.seekerId.toString() === seekerId.toString()
   );
 
   if (existingDirectMessages) {
     responseServerHandler(
       { message: "Direct messages already exist" },
       400,
-      response,
+      response
     );
     return;
   }
@@ -689,7 +689,7 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
     },
     {
       new: true,
-    },
+    }
   );
 
   await Seeker.findByIdAndUpdate(
@@ -699,13 +699,13 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
     },
     {
       new: true,
-    },
+    }
   );
 
   responseServerHandler(
     { message: "Direct messages successfully created" },
     201,
-    response,
+    response
   );
 });
 
@@ -720,19 +720,19 @@ export const typeMessage = asyncErrors(async (request, response) => {
     responseServerHandler(
       { message: "Employer or Seeker not found" },
       404,
-      response,
+      response
     );
   }
 
   const existingDirectMessages = existingEmployer.directMessages.find(
-    (message: any) => message.seekerId.toString() === seekerId.toString(),
+    (message: any) => message.seekerId.toString() === seekerId.toString()
   );
 
   if (!existingDirectMessages) {
     responseServerHandler(
       { message: "Direct messages do not exist" },
       404,
-      response,
+      response
     );
     return;
   }
@@ -751,7 +751,7 @@ export const typeMessage = asyncErrors(async (request, response) => {
     },
     {
       arrayFilters: [{ "elem.seekerId": seekerId }],
-    },
+    }
   );
 
   await Seeker.findByIdAndUpdate(
@@ -763,7 +763,7 @@ export const typeMessage = asyncErrors(async (request, response) => {
     },
     {
       arrayFilters: [{ "elem.employerId": employerId }],
-    },
+    }
   );
 
   io.to(`${employerId}-${seekerId}`).emit("newMessage", newMessage);
@@ -771,6 +771,6 @@ export const typeMessage = asyncErrors(async (request, response) => {
   responseServerHandler(
     { message: "Message successfully sent" },
     201,
-    response,
+    response
   );
 });

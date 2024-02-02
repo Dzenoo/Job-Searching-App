@@ -61,7 +61,7 @@ const ReviewSchema = new mongoose.Schema(
       required: [true, "Seeker is required"],
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 const Review = mongoose.models.Review || mongoose.model("Review", ReviewSchema);
 export default Review;
