@@ -55,7 +55,6 @@ const EventSchema = new mongoose.Schema(
       {
         type: mongoose.Types.ObjectId,
         ref: "Seeker",
-        required: false,
         default: [],
       },
     ],

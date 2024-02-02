@@ -185,5 +185,4 @@ EmployerSchema.methods.generateAuthToken = async function () {
 };
 const Employer =
   mongoose.models.Employer || mongoose.model("Employer", EmployerSchema);
-
 export default Employer;

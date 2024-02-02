@@ -25,7 +25,7 @@ export function initializePublicRoutes(app: Express): void {
 }
 
 export function initializePrivateRoutes(app: Express): void {
-  const { getSeekerProfile, editSeekerProfile } = seekers;
+  const { getSeekerProfile, editSeekerProfile, deleteSeekerProfile } = seekers;
   const {
     getEmployerProfile,
     followEmployer,
@@ -62,6 +62,11 @@ export function initializePrivateRoutes(app: Express): void {
   );
   app.patch("/seeker/:employerId/review", authenticateUser, editReviewEmployer);
   app.patch("/seeker/edit-seeker-profile", authenticateUser, editSeekerProfile);
+  app.delete(
+    "/seeker/delete-seeker-profile",
+    authenticateUser,
+    deleteSeekerProfile
+  );
 
   app.get("/employer/", authenticateUser, getEmployerProfile);
   app.patch(

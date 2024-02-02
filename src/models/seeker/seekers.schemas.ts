@@ -114,6 +114,13 @@ const SeekerSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    events: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Event",
+        default: [],
+      },
+    ],
     alerts: {
       title: {
         type: String,

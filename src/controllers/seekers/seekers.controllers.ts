@@ -1,6 +1,11 @@
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
 import Seeker from "../../models/seeker/seekers.schemas";
+import Employer from "../../models/employer/employers.schemas";
+import Application from "../../models/shared/applications.schemas";
+import Job from "../../models/shared/jobs.schemas";
+import Review from "../../models/employer/reviews.schemas";
+import Event from "../../models/employer/events.schemas";
 
 export const signupSeeker = asyncErrors(
   async (request, response): Promise<void> => {
@@ -171,6 +176,65 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
     }
 
     responseServerHandler({ job: editedProfile }, 201, response);
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
+
+export const deleteSeekerProfile = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const seeker = await Seeker.findById(seekerId);
+
+    if (!seeker) {
+      responseServerHandler(
+        { message: "Seeker not found or could not be deleted" },
+        404,
+        response
+      );
+      return;
+    }
+
+    const applications = await Application.find({ seeker: seekerId });
+    const reviews = await Review.find({ seeker: seekerId });
+
+    await Application.deleteMany({ seeker: seekerId }),
+      await Review.deleteMany({ seeker: seekerId }),
+      await Event.updateMany(
+        { seekers: seekerId },
+        { $pull: { seekers: seekerId } }
+      ),
+      await Job.updateMany(
+        { applications: { $in: applications.map((app) => app._id) } },
+        {
+          $pull: {
+            applications: { $in: applications.map((app) => app._id) },
+          },
+        }
+      ),
+      await Employer.updateMany(
+        {
+          $or: [
+            { followers: seekerId },
+            { reviews: { $in: reviews.map((review) => review._id) } },
+          ],
+        },
+        {
+          $pull: {
+            followers: seekerId,
+            reviews: { $in: reviews.map((review) => review._id) },
+          },
+        }
+      ),
+      await Seeker.findByIdAndDelete(seekerId),
+      responseServerHandler(
+        {
+          message: "Seeker profile and associated data deleted successfully",
+        },
+        200,
+        response
+      );
   } catch (error: any) {
     responseServerHandler({ message: error.message }, 400, response);
   }

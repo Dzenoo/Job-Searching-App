@@ -260,7 +260,11 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
     const employer = await Employer.findById(employerId);
 
     if (!employer) {
-      responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
+      return responseServerHandler(
+        { message: "Cannot Find Employer" },
+        404,
+        response
+      );
     }
 
     const existingReview = await Review.findOne({
