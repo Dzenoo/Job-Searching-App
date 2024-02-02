@@ -620,3 +620,46 @@ export const editEvent = asyncErrors(async (request, response) => {
     responseServerHandler({ message: error.message }, 400, response);
   }
 });
+
+export const deleteEvent = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const existingEvent = await Event.findById(request.params.eventId);
+
+    if (!existingEvent) {
+      responseServerHandler({ message: "Cannot find event" }, 404, response);
+      return;
+    }
+
+    if (existingEvent.company.toString() !== employerId) {
+      responseServerHandler(
+        { message: "Unauthorized. You are not the owner of this event." },
+        403,
+        response
+      );
+      return;
+    }
+
+    await Employer.findByIdAndUpdate(employerId, {
+      $pull: { events: existingEvent._id },
+    });
+
+    await Seeker.updateMany(
+      { events: existingEvent._id },
+      {
+        $pull: { events: existingEvent._id },
+      }
+    );
+
+    await Event.findByIdAndDelete(existingEvent._id);
+
+    responseServerHandler(
+      { message: "Event successfully deleted" },
+      201,
+      response
+    );
+  } catch (error: any) {
+    responseServerHandler({ message: error.message }, 400, response);
+  }
+});
