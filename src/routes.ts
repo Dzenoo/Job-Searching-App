@@ -84,7 +84,7 @@ export function initializePrivateRoutes(app: Express): void {
     registerEvent
   );
 
-  app.get("/employer/", authenticateUser, getEmployerProfile);
+  app.get("/employer", authenticateUser, getEmployerProfile);
   app.patch(
     "/employer/edit-employer-profile",
     authenticateUser,

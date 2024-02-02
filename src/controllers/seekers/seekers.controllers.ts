@@ -112,7 +112,12 @@ export const loginSeeker = asyncErrors(
 export const getSeekerProfile = asyncErrors(async (request, response) => {
   // @ts-ignore
   const { seekerId } = request.user;
-  const seeker = await Seeker.findById(seekerId);
+  const seeker = await Seeker.findById(seekerId)
+    .populate({
+      path: "directMessages.messages",
+      select: "content sender createdAt",
+    })
+    .exec();
 
   if (!seeker) {
     responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);

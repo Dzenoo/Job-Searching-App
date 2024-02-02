@@ -5,8 +5,8 @@ import Seeker from "../../models/seeker/seekers.schemas";
 import Review from "../../models/employer/reviews.schemas";
 import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
-import { initializeAws } from "../../utils/aws";
 import Message from "../../models/shared/messages.schemas";
+import { initializeAws } from "../../utils/aws";
 import { io } from "../../server";
 
 export const signupEmployer = asyncErrors(
@@ -165,7 +165,14 @@ export const followEmployer = asyncErrors(async (request, response) => {
 });
 
 export const getEmployerProfile = asyncErrors(async (request, response) => {
-  const employer = await Employer.findById(request.params.employerId);
+  // @ts-ignore
+  const { employerId } = request.user;
+  const employer = await Employer.findById(employerId)
+    .populate({
+      path: "directMessages.messages",
+      select: "content sender createdAt",
+    })
+    .exec();
 
   if (!employer) {
     responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
