@@ -105,6 +105,7 @@ export function initializePrivateRoutes(app: Express): void {
     upload.single("image"),
     createNewEvent
   );
+
   app.patch("/employer/events/:eventId/edit", authenticateUser, editEvent);
   app.delete("/employer/events/:eventId/delete", authenticateUser, deleteEvent);
   app.post(
