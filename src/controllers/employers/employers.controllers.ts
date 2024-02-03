@@ -273,7 +273,13 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
   });
 
   await Employer.findByIdAndUpdate(employerId, {
-    $push: { reviews: review._id },
+    $push: {
+      reviews: review._id,
+      notifications: {
+        title: "New Review Notification",
+        message: `${review.title} has been added to your profile`,
+      },
+    },
   });
 
   responseServerHandler(
