@@ -1,10 +1,10 @@
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
+import { initializeAws } from "../../utils/aws";
 import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
-import { initializeAws } from "../../utils/aws";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
@@ -51,6 +51,21 @@ export const createJob = asyncErrors(
 
     await Employer.findByIdAndUpdate(employerId, {
       $push: { jobs: newJob._id },
+    });
+
+    const matchedSeekers = await Seeker.find({
+      "alerts.type": newJob.type,
+      "alerts.level": { $in: newJob.level },
+      "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
+    }).exec();
+
+    matchedSeekers.forEach((seeker) => {
+      seeker.notifications.push({
+        title: "New Matching Job",
+        message: `A new job has been posted matching your alert criteria. ${newJob.title} at ${newJob.location}, ${newJob._id}`,
+      });
+
+      seeker.save();
     });
 
     responseServerHandler({ job: newJob._id }, 201, response);

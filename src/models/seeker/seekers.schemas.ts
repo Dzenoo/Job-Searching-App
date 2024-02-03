@@ -56,6 +56,22 @@ const SeekerSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    notifications: [
+      {
+        title: {
+          type: String,
+          required: true,
+        },
+        message: {
+          type: String,
+          required: true,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     applications: [
       {
         type: mongoose.Types.ObjectId,

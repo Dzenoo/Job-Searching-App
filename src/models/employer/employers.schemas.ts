@@ -96,6 +96,22 @@ const EmployerSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [3, "Password must be at least 3 characters long"],
     },
+    notifications: [
+      {
+        title: {
+          type: String,
+          required: true,
+        },
+        message: {
+          type: String,
+          required: true,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     jobs: [
       {
         type: mongoose.Types.ObjectId,
