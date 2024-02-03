@@ -10,7 +10,7 @@ const EmployerSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        "https://res.cloudinary.com/dzwb60tk1/image/upload/v1706466618/company_ky267f.png",
+        "https://res.cloudinary.com/drfmmwlsl/image/upload/v1706974632/lgtw5us7dsyjbjpbuwzw.png",
     },
     industry: {
       type: String,
