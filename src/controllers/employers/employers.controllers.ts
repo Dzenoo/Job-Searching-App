@@ -151,7 +151,13 @@ export const followEmployer = asyncErrors(async (request, response) => {
     );
   } else {
     await Employer.findByIdAndUpdate(employerId, {
-      $push: { followers: seekerId },
+      $push: {
+        followers: seekerId,
+        notifications: {
+          title: "New Followers Notification",
+          message: `${seeker.first_name} is now following you`,
+        },
+      },
     });
     await Seeker.findByIdAndUpdate(seekerId, {
       $push: { following: employerId },
