@@ -30,6 +30,8 @@ export function initializePrivateRoutes(app: Express): void {
     editSeekerProfile,
     deleteSeekerProfile,
     getSeekers,
+    addNewEducation,
+    deleteEducation,
   } = seekers;
   const {
     getEmployerProfile,
@@ -66,6 +68,12 @@ export function initializePrivateRoutes(app: Express): void {
     deleteSeekerProfile
   );
   app.patch("/seeker/edit-seeker-profile", authenticateUser, editSeekerProfile);
+  app.patch("/seeker/add-new-education", authenticateUser, addNewEducation);
+  app.delete(
+    "/seeker/delete-education/:educationId",
+    authenticateUser,
+    deleteEducation
+  );
   app.patch("/seeker/jobs/alerts", authenticateUser, generateJobAlert);
   app.post(
     "/seeker/jobs/:jobId/apply",

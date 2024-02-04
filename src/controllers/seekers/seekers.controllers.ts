@@ -257,3 +257,89 @@ export const getSeekers = asyncErrors(async (request, response) => {
 
   responseServerHandler({ seekers: seekers }, 200, response);
 });
+
+export const addNewEducation = asyncErrors(async (request, response) => {
+  // @ts-ignore
+  const { seekerId } = request.user;
+  const newEducation = request.body;
+
+  const allowedProperties = [
+    "institution",
+    "graduationDate",
+    "fieldOfStudy",
+    "degree",
+  ];
+
+  const disallowedProperties = Object.keys(newEducation).filter(
+    (prop) => !allowedProperties.includes(prop)
+  );
+
+  if (
+    disallowedProperties.length > 0 ||
+    Object.keys(newEducation).length === 0
+  ) {
+    responseServerHandler(
+      { message: "Data is not valid and education can't be added" },
+      403,
+      response
+    );
+  }
+
+  const seeker = await Seeker.findByIdAndUpdate(
+    seekerId,
+    {
+      $push: { education: newEducation },
+    },
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+
+  if (!seeker) {
+    responseServerHandler(
+      { message: "Seeker not found or could not add education" },
+      404,
+      response
+    );
+    return;
+  }
+
+  responseServerHandler({ seeker: seeker }, 201, response);
+});
+
+export const deleteEducation = asyncErrors(async (request, response) => {
+  // @ts-ignore
+  const { seekerId } = request.user;
+  const { educationId } = request.params;
+  const seeker = await Seeker.findById(seekerId);
+
+  for (const education of seeker.education) {
+    if (education._id.toString() === educationId) {
+      await Seeker.findByIdAndUpdate(
+        seekerId,
+        {
+          $pull: { education: { _id: educationId } },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
+    if (!seeker) {
+      responseServerHandler(
+        { message: "Seeker not found or could not delete education" },
+        404,
+        response
+      );
+      return;
+    }
+
+    responseServerHandler(
+      { message: "Education successfully deleted" },
+      201,
+      response
+    );
+  }
+});
