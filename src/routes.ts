@@ -33,6 +33,7 @@ export function initializePrivateRoutes(app: Express): void {
     addNewEducation,
     deleteEducation,
   } = seekers;
+
   const {
     getEmployerProfile,
     followEmployer,
@@ -48,6 +49,7 @@ export function initializePrivateRoutes(app: Express): void {
     createDirectMessages,
     typeMessage,
   } = employers;
+
   const {
     deleteJob,
     createJob,
@@ -56,6 +58,7 @@ export function initializePrivateRoutes(app: Express): void {
     generateJobAlert,
     applyToJob,
   } = jobs;
+
   app.patch(
     "/type-message/:employerId/:seekerId",
     authenticateUser,
