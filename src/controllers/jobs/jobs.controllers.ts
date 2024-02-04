@@ -1,11 +1,11 @@
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
 import { initializeAws } from "../../utils/aws";
+import { validate } from "../validations/validateData";
 import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
-import { validate } from "../validations/validateData";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
