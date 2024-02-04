@@ -5,11 +5,13 @@ import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
+import { validate } from "../validations/validateData";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
     // @ts-ignore
     const { employerId } = request.user;
+    const jobData = request.body;
 
     const allowedProperties = [
       "title",
@@ -23,23 +25,13 @@ export const createJob = asyncErrors(
       "position",
     ];
 
-    const disallowedProperties = Object.keys(request.body).filter(
-      (prop) => !allowedProperties.includes(prop)
-    );
+    validate(allowedProperties, jobData, (error, message) => {
+      if (error) {
+        responseServerHandler({ message: message }, 403, response);
+      }
+    });
 
-    if (
-      disallowedProperties.length > 0 ||
-      Object.keys(request.body).length === 0
-    ) {
-      responseServerHandler(
-        { message: "Data is not valid and job can't be created" },
-        403,
-        response
-      );
-      return;
-    }
-
-    const newJob = await Job.create({ ...request.body, company: employerId });
+    const newJob = await Job.create({ ...jobData, company: employerId });
 
     if (!newJob) {
       responseServerHandler(
@@ -95,17 +87,11 @@ export const editJob = asyncErrors(async (request, response) => {
     "position",
   ];
 
-  const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop)
-  );
-
-  if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
-    responseServerHandler(
-      { message: "Data is not valid and job can't be edited" },
-      403,
-      response
-    );
-  }
+  validate(allowedProperties, updateData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   if (employerId.toString() !== job.company.toString()) {
     responseServerHandler(
@@ -315,17 +301,17 @@ export const applyToJob = asyncErrors(async (request, response) => {
 export const generateJobAlert = asyncErrors(async (request, response) => {
   // @ts-ignore
   const { seekerId } = request.user;
+  const allowedProperties = ["level", "type", "title"];
+  const newAlert = request.body;
 
-  if (!request.body.level || !request.body.type || !request.body.title) {
-    return responseServerHandler(
-      { message: "Cannot create job alert, please try again" },
-      500,
-      response
-    );
-  }
+  validate(allowedProperties, newAlert, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   await Seeker.findByIdAndUpdate(seekerId, {
-    alerts: { ...request.body },
+    alerts: { ...newAlert },
   });
 
   responseServerHandler(

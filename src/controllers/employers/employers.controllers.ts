@@ -8,28 +8,26 @@ import Event from "../../models/employer/events.schemas";
 import Message from "../../models/shared/messages.schemas";
 import { initializeAws } from "../../utils/aws";
 import { io } from "../../server";
+import { validate } from "../validations/validateData";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
-    if (
-      [
-        "password",
-        "email",
-        "name",
-        "number",
-        "address",
-        "size",
-        "industry",
-      ].filter((property) => !request.body[property]).length > 0
-    ) {
-      responseServerHandler(
-        {
-          message: "Please provide valid credentials",
-        },
-        400,
-        response
-      );
-    }
+    const employerData = request.body;
+    const allowedProperties = [
+      "password",
+      "email",
+      "name",
+      "number",
+      "address",
+      "size",
+      "industry",
+    ];
+
+    validate(allowedProperties, employerData, (error, message) => {
+      if (error) {
+        responseServerHandler({ message: message }, 403, response);
+      }
+    });
 
     const existingEmployer = await Employer.findOne({
       email: request.body.email,
@@ -63,18 +61,14 @@ export const signupEmployer = asyncErrors(
 
 export const loginEmployer = asyncErrors(
   async (request, response): Promise<void> => {
-    if (
-      ["password", "email"].filter((property) => !request.body[property])
-        .length > 0
-    ) {
-      responseServerHandler(
-        {
-          message: "Please provide valid credentials",
-        },
-        400,
-        response
-      );
-    }
+    const employerData = request.body;
+    const allowedProperties = ["email", "password"];
+
+    validate(allowedProperties, employerData, (error, message) => {
+      if (error) {
+        responseServerHandler({ message: message }, 403, response);
+      }
+    });
 
     // @ts-ignore
     const existingEmployer = await Employer.findByCredentials(
@@ -244,6 +238,7 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
   const { seekerId } = request.user;
   const employerId = request.params.employerId;
   const employer = await Employer.findById(employerId);
+  const reviewData = request.body;
 
   if (!employer) {
     return responseServerHandler(
@@ -265,6 +260,21 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
     );
     return;
   }
+
+  const allowedProperties = [
+    "positive_review",
+    "negative_review",
+    "technologies",
+    "job_position",
+    "type",
+    "time",
+  ];
+
+  validate(allowedProperties, reviewData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   const review = await Review.create({
     ...request.body,
@@ -333,13 +343,21 @@ export const editReviewEmployer = asyncErrors(async (request, response) => {
     return;
   }
 
-  if (Object.keys(updateData).length === 0) {
-    responseServerHandler(
-      { message: "Data is not valid and review can't be edited" },
-      403,
-      response
-    );
-  }
+  const allowedProperties = [
+    "positive_review",
+    "negative_review",
+    "technologies",
+    "job_position",
+    "type",
+    "time",
+    "reviewId",
+  ];
+
+  validate(allowedProperties, updateData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   if (existingReview.seeker.toString() !== seekerId) {
     responseServerHandler(
@@ -389,17 +407,11 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     "website",
   ];
 
-  const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop)
-  );
-
-  if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
-    responseServerHandler(
-      { message: "Data is not valid and profile can't be edited" },
-      403,
-      response
-    );
-  }
+  validate(allowedProperties, updateData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   const editedProfile = await Employer.findByIdAndUpdate(
     employerId,
@@ -467,6 +479,7 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     title: request.body.title,
   });
   const image = request.file;
+  const eventsData = request.body;
 
   if (existingEvent) {
     responseServerHandler(
@@ -486,20 +499,11 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     "category",
   ];
 
-  const disallowedProperties = Object.keys(request.body).filter(
-    (prop) => !allowedProperties.includes(prop)
-  );
-
-  if (
-    disallowedProperties.length > 0 ||
-    Object.keys(request.body).length === 0
-  ) {
-    responseServerHandler(
-      { message: "Data is not valid and event can't be created" },
-      403,
-      response
-    );
-  }
+  validate(allowedProperties, eventsData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   const imageKey = `user_${employerId}_${Date.now()}.png`;
   const uploads = await initializeAws(image, imageKey);
@@ -546,17 +550,11 @@ export const editEvent = asyncErrors(async (request, response) => {
     "category",
   ];
 
-  const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop)
-  );
-
-  if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
-    responseServerHandler(
-      { message: "Data is not valid and event can't be edited" },
-      403,
-      response
-    );
-  }
+  validate(allowedProperties, updateData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   const editedEvent = await Event.findByIdAndUpdate(
     existingEvent._id,

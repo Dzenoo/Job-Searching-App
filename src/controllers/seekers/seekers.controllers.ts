@@ -1,5 +1,6 @@
 import { asyncErrors } from "../../errors";
 import { responseServerHandler } from "../../utils/response";
+import { validate } from "../validations/validateData";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
@@ -9,19 +10,14 @@ import Event from "../../models/employer/events.schemas";
 
 export const signupSeeker = asyncErrors(
   async (request, response): Promise<void> => {
-    if (
-      ["password", "email", "last_name", "first_name"].filter(
-        (property) => !request.body[property]
-      ).length > 0
-    ) {
-      responseServerHandler(
-        {
-          message: "Please provide valid credentials",
-        },
-        400,
-        response
-      );
-    }
+    const allowedProperties = ["first_name", "last_name", "email", "password"];
+    const seekerData = request.body;
+
+    validate(allowedProperties, seekerData, (error, message) => {
+      if (error) {
+        responseServerHandler({ message: message }, 403, response);
+      }
+    });
 
     const existingSeeker = await Seeker.findOne({
       email: request.body.email,
@@ -55,18 +51,14 @@ export const signupSeeker = asyncErrors(
 
 export const loginSeeker = asyncErrors(
   async (request, response): Promise<void> => {
-    if (
-      ["password", "email"].filter((property) => !request.body[property])
-        .length > 0
-    ) {
-      responseServerHandler(
-        {
-          message: "Please provide valid credentials",
-        },
-        400,
-        response
-      );
-    }
+    const allowedProperties = ["email", "password"];
+    const seekerData = request.body;
+
+    validate(allowedProperties, seekerData, (error, message) => {
+      if (error) {
+        responseServerHandler({ message: message }, 403, response);
+      }
+    });
 
     // @ts-ignore
     const existingSeeker = await Seeker.findByCredentials(
@@ -140,17 +132,11 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
     "skills",
   ];
 
-  const disallowedProperties = Object.keys(updateData).filter(
-    (prop) => !allowedProperties.includes(prop)
-  );
-
-  if (disallowedProperties.length > 0 || Object.keys(updateData).length === 0) {
-    responseServerHandler(
-      { message: "Data is not valid and profile can't be edited" },
-      403,
-      response
-    );
-  }
+  validate(allowedProperties, updateData, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   const editedProfile = await Seeker.findByIdAndUpdate(seekerId, updateData, {
     new: true,
@@ -270,20 +256,11 @@ export const addNewEducation = asyncErrors(async (request, response) => {
     "degree",
   ];
 
-  const disallowedProperties = Object.keys(newEducation).filter(
-    (prop) => !allowedProperties.includes(prop)
-  );
-
-  if (
-    disallowedProperties.length > 0 ||
-    Object.keys(newEducation).length === 0
-  ) {
-    responseServerHandler(
-      { message: "Data is not valid and education can't be added" },
-      403,
-      response
-    );
-  }
+  validate(allowedProperties, newEducation, (error, message) => {
+    if (error) {
+      responseServerHandler({ message: message }, 403, response);
+    }
+  });
 
   const seeker = await Seeker.findByIdAndUpdate(
     seekerId,
