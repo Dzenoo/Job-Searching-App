@@ -25,6 +25,13 @@ const JobSchema = new mongoose.Schema(
       required: [true, "Location is required"],
       trim: true,
     },
+    overview: {
+      type: String,
+      required: [true, "Overview is required"],
+      minlength: [30, "Overview must be at least 30 characters long"],
+      maxlength: [300, "Overview must not exceed 300 characters"],
+      trim: true,
+    },
     type: {
       type: String,
       required: [true, "Type is required"],
