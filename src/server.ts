@@ -5,8 +5,8 @@ import dotenv from "dotenv";
 
 import { connectToDatabase } from "./database/mongoose";
 import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
-import { Server } from "socket.io";
 import { handleError } from "./middlewares/errors";
+import { Server } from "socket.io";
 
 dotenv.config({ path: ".env", override: true });
 
