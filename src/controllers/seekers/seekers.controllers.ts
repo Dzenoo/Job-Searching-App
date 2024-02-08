@@ -1,6 +1,5 @@
 import { asyncErrors } from "../../errors";
-import { responseServerHandler } from "../../utils/response";
-import { validate } from "../validations/validateData";
+import { validate, responseServerHandler } from "../../utils/index";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";

@@ -1,14 +1,16 @@
 import { asyncErrors } from "../../errors";
-import { responseServerHandler } from "../../utils/response";
+import { io } from "../../server";
+import {
+  validate,
+  initializeAws,
+  responseServerHandler,
+} from "../../utils/index";
 import Employer from "../../models/employer/employers.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Review from "../../models/employer/reviews.schemas";
 import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
 import Message from "../../models/shared/messages.schemas";
-import { initializeAws } from "../../utils/aws";
-import { io } from "../../server";
-import { validate } from "../validations/validateData";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {

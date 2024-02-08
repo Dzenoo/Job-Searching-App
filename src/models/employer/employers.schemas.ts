@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { signToken } from "../../utils/authTokens";
-import { comparePassword, hashPassword } from "../../utils/bcrypts";
 import Review from "./reviews.schemas";
 import Event from "./events.schemas";
+import { comparePassword, hashPassword, signToken } from "../../utils/index";
 
 const EmployerSchema = new mongoose.Schema(
   {
