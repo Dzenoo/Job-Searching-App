@@ -23,6 +23,7 @@ export const createJob = asyncErrors(
       "salary",
       "expiration_date",
       "position",
+      "overview",
     ];
 
     validate(allowedProperties, jobData, (error, message) => {
@@ -85,6 +86,7 @@ export const editJob = asyncErrors(async (request, response) => {
     "salary",
     "expiration_date",
     "position",
+    "overview",
   ];
 
   validate(allowedProperties, updateData, (error, message) => {
