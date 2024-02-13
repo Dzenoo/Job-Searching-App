@@ -82,7 +82,7 @@ const JobSchema = new mongoose.Schema(
       type: String,
       required: [true, "Description is required"],
       minlength: [30, "Description must be at least 30 characters long"],
-      maxlength: [300, "Description must not exceed 300 characters"],
+      maxlength: [600, "Description must not exceed 600 characters"],
     },
     applications: [
       { type: mongoose.Types.ObjectId, ref: "Application", default: [] },

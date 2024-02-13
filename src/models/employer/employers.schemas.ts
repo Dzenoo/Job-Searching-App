@@ -21,8 +21,6 @@ const EmployerSchema = new mongoose.Schema(
     company_description: {
       type: String,
       trim: true,
-      minlength: [3, "Description must be at least 3 characters long"],
-      maxlength: [30, "Description must be at most 30 characters long"],
       default: "",
     },
     size: {
@@ -44,15 +42,7 @@ const EmployerSchema = new mongoose.Schema(
     website: {
       type: String,
       trim: true,
-      minlength: [3, "Website must be at least 3 characters long"],
-      maxlength: [30, "Website must be at most 30 characters long"],
       default: "",
-      validate: {
-        validator: function (url: string) {
-          return validator.isURL(url);
-        },
-        message: "Website url is not good provided",
-      },
     },
     address: {
       type: String,

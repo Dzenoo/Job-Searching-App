@@ -31,13 +31,16 @@ export const signupEmployer = asyncErrors(
       }
     });
 
-    const existingEmployer = await Employer.findOne({
+    const existingEmployerEmail = await Employer.findOne({
       email: request.body.email,
     });
+    const existingEmployerName = await Employer.findOne({
+      name: request.body.name,
+    });
 
-    if (existingEmployer) {
+    if (existingEmployerEmail || existingEmployerName) {
       responseServerHandler(
-        { message: "This email already exists, please try again" },
+        { message: "This account already exists, please try again" },
         400,
         response
       );
@@ -196,7 +199,13 @@ export const getEmployers = asyncErrors(async (request, response) => {
     ];
   }
 
-  const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
+  const sortOptions: any = {};
+
+  if (srt) {
+    if (srt === "followers" || srt === "events" || srt === "reviews") {
+      sortOptions[srt] = -1;
+    }
+  }
 
   const employers = await Employer.find(conditions)
     .sort(sortOptions)
@@ -274,7 +283,7 @@ export const reviewEmployer = asyncErrors(async (request, response) => {
 
   validate(allowedProperties, reviewData, (error, message) => {
     if (error) {
-      responseServerHandler({ message: message }, 403, response);
+      return responseServerHandler({ message: message }, 403, response);
     }
   });
 
