@@ -224,23 +224,47 @@ export const getEmployers = asyncErrors(async (request, response) => {
 });
 
 export const getEmployerById = asyncErrors(async (request, response) => {
-  // @ts-ignore
-  const { employerId } = request.user;
+  const { employerId } = request.params;
+  const { page = 1, limit = 10, type } = request.query;
+
+  const skip = (Number(page) - 1) * Number(limit);
+  let populateQuery: any;
+
+  switch (type) {
+    case "jobs":
+      populateQuery = {
+        path: "jobs",
+        options: { skip, limit: Number(limit) },
+        select: "title position _id location level description",
+      };
+      break;
+    case "reviews":
+      populateQuery = {
+        path: "reviews",
+        options: { skip, limit: Number(limit) },
+      };
+      break;
+    case "events":
+      populateQuery = {
+        path: "events",
+        options: { skip, limit: Number(limit) },
+      };
+      break;
+    default:
+      populateQuery = {};
+  }
+
   const employer = await Employer.findById(employerId)
-    .populate({
-      path: "jobs",
-      select: "title position _id location level description",
-    })
-    .populate("reviews")
-    .populate("events")
+    .populate(populateQuery)
     .select(
-      "name reviews events email address size website followers number company_description industry image"
+      "name reviews events email address size website followers number company_description industry image jobs"
     )
     .exec();
 
   if (!employer) {
     responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
   }
+
   responseServerHandler({ employer: employer }, 201, response);
 });
 
