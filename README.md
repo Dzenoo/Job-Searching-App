@@ -1,1 +1,0 @@
-This project is a robust API built using Node.js, Express.js, and TypeScript, designed to power a job searching application. Leveraging the strengths of these technologies, the API provides a scalable and efficient backend to support various features crucial to a job search platform.
