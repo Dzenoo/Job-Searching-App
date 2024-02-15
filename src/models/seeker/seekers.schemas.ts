@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { signToken, comparePassword, hashPassword } from "../../utils/index";
+import { signToken } from "../../utils/jwt";
+import { comparePassword, hashPassword } from "../../utils/bcrypt";
 
 const SeekerSchema = new mongoose.Schema(
   {

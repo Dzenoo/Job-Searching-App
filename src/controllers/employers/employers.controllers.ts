@@ -1,10 +1,7 @@
 import { asyncErrors } from "../../errors";
 import { io } from "../../server";
-import {
-  validate,
-  initializeAws,
-  responseServerHandler,
-} from "../../utils/index";
+import { responseServerHandler, validate } from "../../utils/validation";
+import { initializeAws } from "../../utils/aws";
 import Employer from "../../models/employer/employers.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Review from "../../models/employer/reviews.schemas";

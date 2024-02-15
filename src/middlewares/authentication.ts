@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { responseServerHandler } from "../utils/index";
+import { responseServerHandler } from "../utils/validation";
 import { NextFunction, Request, Response } from "express";
 
 export const authenticateUser = (
