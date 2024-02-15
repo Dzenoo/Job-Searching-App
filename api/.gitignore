@@ -1,4 +1,0 @@
-/node_modules
-/.env.local
-/.env
-/src/utils/aws.ts
