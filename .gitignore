@@ -1,4 +1,4 @@
 /node_modules
 /.env.local
 /.env
-/src/credentials.ts
+/src/utils/aws.ts
