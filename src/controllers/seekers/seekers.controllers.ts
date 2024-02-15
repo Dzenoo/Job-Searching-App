@@ -23,7 +23,7 @@ export const signupSeeker = asyncErrors(
     });
 
     if (existingSeeker) {
-      responseServerHandler(
+      return responseServerHandler(
         { message: "This email already exists, please try again" },
         404,
         response

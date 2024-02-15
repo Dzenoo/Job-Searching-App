@@ -540,14 +540,14 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     }
   });
 
-  const imageKey = `user_${employerId}_${Date.now()}.png`;
-  const uploads = await initializeAws(image, imageKey);
+  const imageKey = `${employerId}_${Date.now()}.png`;
+  const uploads = await initializeAws(image, imageKey, "events");
   await uploads.done();
 
   const newEvent = await Event.create({
     ...request.body,
     company: employerId,
-    image: imageKey,
+    image: `events/${imageKey}`,
   });
 
   await Employer.findByIdAndUpdate(employerId, {

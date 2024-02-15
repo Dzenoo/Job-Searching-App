@@ -43,7 +43,11 @@ const comparePassword = async <T extends string>(
   return isMatched;
 };
 
-async function initializeAws<T extends string>(file: any, key: T) {
+async function initializeAws<T extends string>(
+  file: any,
+  key: T,
+  folder: string
+) {
   const client = new S3Client({
     credentials: fromEnv(),
     region: AWS_REGION_NAME,
@@ -55,7 +59,7 @@ async function initializeAws<T extends string>(file: any, key: T) {
     client: client,
     params: {
       Bucket: AWS_BUCKET_NAME,
-      Key: key,
+      Key: `${folder}/${key}`,
       Body: fileBuffer,
     },
     leavePartsOnError: false,

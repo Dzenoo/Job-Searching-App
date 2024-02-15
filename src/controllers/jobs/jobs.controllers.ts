@@ -272,7 +272,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
   }
 
   const resumeKey = `user_${seekerId}_${Date.now()}.pdf`;
-  const uploads = await initializeAws(resumeFile, resumeKey);
+  const uploads = await initializeAws(resumeFile, resumeKey, "documents");
   await uploads.done();
 
   const application = await Application.create({
@@ -280,7 +280,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
     seeker: seekerId,
     status: "Pending",
     cover_letter: request.body.coverLetter || "",
-    resume: resumeKey,
+    resume: `documents/${resumeKey}`,
   });
 
   await Job.findByIdAndUpdate(jobId, {
