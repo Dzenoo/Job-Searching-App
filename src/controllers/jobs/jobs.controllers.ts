@@ -27,6 +27,7 @@ export const createJob = asyncErrors(
     validate(allowedProperties, jobData, (error, message) => {
       if (error) {
         responseServerHandler({ message: message }, 403, response);
+        return;
       }
     });
 
@@ -38,6 +39,7 @@ export const createJob = asyncErrors(
         403,
         response
       );
+      return;
     }
 
     await Employer.findByIdAndUpdate(employerId, {
@@ -90,6 +92,7 @@ export const editJob = asyncErrors(async (request, response) => {
   validate(allowedProperties, updateData, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 
@@ -99,6 +102,7 @@ export const editJob = asyncErrors(async (request, response) => {
       403,
       response
     );
+    return;
   }
 
   const editedJob = await Job.findByIdAndUpdate(jobId, updateData, {
@@ -307,6 +311,7 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
   validate(allowedProperties, newAlert, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 

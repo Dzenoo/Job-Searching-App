@@ -15,6 +15,7 @@ export const signupSeeker = asyncErrors(
     validate(allowedProperties, seekerData, (error, message) => {
       if (error) {
         responseServerHandler({ message: message }, 403, response);
+        return;
       }
     });
 
@@ -40,6 +41,7 @@ export const signupSeeker = asyncErrors(
         500,
         response
       );
+      return;
     }
 
     await newSeeker.save();
@@ -56,6 +58,7 @@ export const loginSeeker = asyncErrors(
     validate(allowedProperties, seekerData, (error, message) => {
       if (error) {
         responseServerHandler({ message: message }, 403, response);
+        return;
       }
     });
 
@@ -73,6 +76,7 @@ export const loginSeeker = asyncErrors(
         500,
         response
       );
+      return;
     }
 
     const seekerToken = await existingSeeker.generateAuthToken();
@@ -85,6 +89,7 @@ export const loginSeeker = asyncErrors(
         500,
         response
       );
+      return;
     }
 
     response.cookie("token", seekerToken, { httpOnly: true });
@@ -112,6 +117,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
 
   if (!seeker) {
     responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);
+    return;
   }
 
   responseServerHandler({ seeker: seeker }, 201, response);
@@ -134,6 +140,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
   validate(allowedProperties, updateData, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 
@@ -238,6 +245,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
 
   if (!seekers) {
     responseServerHandler({ message: "Cannot Find Seekers" }, 404, response);
+    return;
   }
 
   responseServerHandler({ seekers: seekers }, 200, response);
@@ -258,6 +266,7 @@ export const addNewEducation = asyncErrors(async (request, response) => {
   validate(allowedProperties, newEducation, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 

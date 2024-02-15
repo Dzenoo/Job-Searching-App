@@ -28,6 +28,7 @@ export const signupEmployer = asyncErrors(
     validate(allowedProperties, employerData, (error, message) => {
       if (error) {
         responseServerHandler({ message: message }, 403, response);
+        return;
       }
     });
 
@@ -56,6 +57,7 @@ export const signupEmployer = asyncErrors(
         500,
         response
       );
+      return;
     }
 
     await newEmployer.save();
@@ -72,6 +74,7 @@ export const loginEmployer = asyncErrors(
     validate(allowedProperties, employerData, (error, message) => {
       if (error) {
         responseServerHandler({ message: message }, 403, response);
+        return;
       }
     });
 
@@ -89,6 +92,7 @@ export const loginEmployer = asyncErrors(
         500,
         response
       );
+      return;
     }
 
     const employerToken = await existingEmployer.generateAuthToken();
@@ -101,6 +105,7 @@ export const loginEmployer = asyncErrors(
         500,
         response
       );
+      return;
     }
 
     response.cookie("token", employerToken, { httpOnly: true });
@@ -181,6 +186,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
 
   if (!employer) {
     responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
+    return;
   }
 
   responseServerHandler({ employer: employer }, 201, response);
@@ -218,6 +224,7 @@ export const getEmployers = asyncErrors(async (request, response) => {
 
   if (!employers) {
     responseServerHandler({ message: "Cannot Find Employers" }, 404, response);
+    return;
   }
 
   responseServerHandler({ employers: employers }, 201, response);
@@ -263,6 +270,7 @@ export const getEmployerById = asyncErrors(async (request, response) => {
 
   if (!employer) {
     responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
+    return;
   }
 
   responseServerHandler({ employer: employer }, 201, response);
@@ -342,6 +350,7 @@ export const deleteReviewEmployer = asyncErrors(async (request, response) => {
 
   if (!employer) {
     responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
+    return;
   }
 
   const existingReview = await Review.findOne({
@@ -391,6 +400,7 @@ export const editReviewEmployer = asyncErrors(async (request, response) => {
   validate(allowedProperties, updateData, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 
@@ -445,6 +455,7 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
   validate(allowedProperties, updateData, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 
@@ -537,6 +548,7 @@ export const createNewEvent = asyncErrors(async (request, response) => {
   validate(allowedProperties, eventsData, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 
@@ -588,6 +600,7 @@ export const editEvent = asyncErrors(async (request, response) => {
   validate(allowedProperties, updateData, (error, message) => {
     if (error) {
       responseServerHandler({ message: message }, 403, response);
+      return;
     }
   });
 
@@ -658,6 +671,7 @@ export const registerEvent = asyncErrors(async (request, response) => {
 
   if (!event) {
     responseServerHandler({ message: "Cannot Find Event" }, 404, response);
+    return;
   }
 
   const isRegistered = event.seekers.includes(seekerId);
@@ -702,6 +716,7 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
       404,
       response
     );
+    return;
   }
 
   const existingDirectMessages = existingEmployer.directMessages.find(
