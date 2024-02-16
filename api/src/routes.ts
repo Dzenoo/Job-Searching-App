@@ -112,6 +112,7 @@ export function initializePrivateRoutes(app: Express): void {
     saveJob,
     generateJobAlert,
     applyToJob,
+    updateApplicationStatus,
   } = jobs;
 
   generateRoutes(
@@ -241,6 +242,11 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.POST,
         path: "/employer/:seekerId/direct-messages",
         handlers: [createDirectMessages],
+      },
+      {
+        method: EXPRESS_APP_METHODS.PATCH,
+        path: "/employer/:applicationId/status",
+        handlers: [updateApplicationStatus],
       },
     ],
     true

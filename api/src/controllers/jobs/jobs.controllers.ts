@@ -355,3 +355,37 @@ export const saveJob = asyncErrors(async (request, response) => {
     responseServerHandler({ message: "Job successfully saved" }, 201, response);
   }
 });
+
+export const updateApplicationStatus = asyncErrors(
+  async (request, response) => {
+    const { applicationId } = request.params;
+    const { status } = request.body;
+    const existingApplication = await Application.findById(applicationId);
+
+    if (!status) {
+      return responseServerHandler(
+        { message: "Please enter valid status" },
+        500,
+        response
+      );
+    }
+
+    if (!existingApplication) {
+      return responseServerHandler(
+        { message: "Application not found" },
+        404,
+        response
+      );
+    }
+
+    const application = await Application.findByIdAndUpdate(
+      applicationId,
+      {
+        status: status,
+      },
+      { new: true, runValidators: true }
+    );
+
+    responseServerHandler({ application }, 201, response);
+  }
+);
