@@ -108,10 +108,18 @@ export const loginSeeker = asyncErrors(
 export const getSeekerProfile = asyncErrors(async (request, response) => {
   // @ts-ignore
   const { seekerId } = request.user;
+
+  const { page = 1, limit = 10 } = request.query;
+  const skip = (Number(page) - 1) * Number(limit);
+
   const seeker = await Seeker.findById(seekerId)
     .populate({
       path: "directMessages.messages",
       select: "content sender createdAt",
+    })
+    .populate({
+      path: "savedJobs",
+      options: { skip, limit: Number(limit) },
     })
     .exec();
 
