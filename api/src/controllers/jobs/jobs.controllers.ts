@@ -5,6 +5,7 @@ import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
+import { initializeChatbots } from "../../server";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
@@ -298,6 +299,32 @@ export const applyToJob = asyncErrors(async (request, response) => {
 
   responseServerHandler(
     { job: "Successfully Applied Job", application },
+    201,
+    response
+  );
+});
+
+export const generateCoverLetter = asyncErrors(async (request, response) => {
+  // @ts-ignore
+  const { seekerId } = request.user;
+  const { jobId } = request.params;
+
+  const job = await Job.findById(jobId).populate("company").select("name");
+  const seeker = await Seeker.findById(seekerId);
+  const openai = initializeChatbots();
+
+  const response_chat = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "user",
+        content: `Write a cover letter for the job ${job.title} at ${job.company.name}, where applicant for job is user with name ${seeker.first_name}`,
+      },
+    ],
+  });
+
+  responseServerHandler(
+    { cover_letter: response_chat.choices[0].message.content },
     201,
     response
   );

@@ -7,6 +7,7 @@ import { connectToDatabase } from "./database/mongoose";
 import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
 import { handleError } from "./middlewares/errors";
 import { Server } from "socket.io";
+import { OpenAI } from "openai";
 
 dotenv.config({ path: ".env", override: true });
 
@@ -19,6 +20,14 @@ async function establishDatabaseConnection(): Promise<void> {
     console.log(error);
   }
 }
+
+export const initializeChatbots = (): OpenAI => {
+  const openai = new OpenAI({
+    apiKey: process.env.CHAT_API_KEY,
+  });
+
+  return openai;
+};
 
 export const initializeSocket = (server: http.Server) => {
   io = new Server(server, {

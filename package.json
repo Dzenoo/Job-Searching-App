@@ -8,6 +8,5 @@
     "install-dependencies": "npm install && cd api && npm install && cd ../client && npm install",
     "build": "cd api && npm run build && cd ../client && npm run build",
     "start:production": "cd api && npm run start:production && cd ../client && npm run start:production"
-  },
-  "dependencies": {}
+  }
 }

@@ -113,6 +113,7 @@ export function initializePrivateRoutes(app: Express): void {
     generateJobAlert,
     applyToJob,
     updateApplicationStatus,
+    generateCoverLetter,
   } = jobs;
 
   generateRoutes(
@@ -152,6 +153,11 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/seeker/jobs/alerts",
         handlers: [generateJobAlert],
+      },
+      {
+        method: EXPRESS_APP_METHODS.POST,
+        path: "/seeker/:jobId/generate-cover-letter",
+        handlers: [generateCoverLetter],
       },
       {
         method: EXPRESS_APP_METHODS.POST,
