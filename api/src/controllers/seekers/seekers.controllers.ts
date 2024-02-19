@@ -121,6 +121,13 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
       path: "savedJobs",
       options: { skip, limit: Number(limit) },
     })
+    .populate({
+      path: "applications",
+      populate: {
+        path: "job",
+        model: Job,
+      },
+    })
     .exec();
 
   if (!seeker) {
