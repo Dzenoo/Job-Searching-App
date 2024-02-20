@@ -280,6 +280,19 @@ export const getSeekers = asyncErrors(async (request, response) => {
   responseServerHandler({ seekers: seekers }, 200, response);
 });
 
+export const getSeekerById = asyncErrors(async (request, response) => {
+  const seeker = await Seeker.findById(request.params.seekerId).select(
+    "_id first_name last_name email biography education skills github linkedin portfolio image"
+  );
+
+  if (!seeker) {
+    responseServerHandler({ message: "Seeker not found" }, 404, response);
+    return;
+  }
+
+  responseServerHandler({ seeker: seeker }, 201, response);
+});
+
 export const addNewEducation = asyncErrors(async (request, response) => {
   // @ts-ignore
   const { seekerId } = request.user;

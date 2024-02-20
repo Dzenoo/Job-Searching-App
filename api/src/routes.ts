@@ -86,6 +86,7 @@ export function initializePrivateRoutes(app: Express): void {
     deleteSeekerProfile,
     getSeekers,
     addNewEducation,
+    getSeekerById,
     deleteEducation,
   } = seekers;
 
@@ -228,6 +229,11 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.GET,
         path: "/employer/seekers",
         handlers: [getSeekers],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/employer/seekers/:seekerId",
+        handlers: [getSeekerById],
       },
       {
         method: EXPRESS_APP_METHODS.POST,
