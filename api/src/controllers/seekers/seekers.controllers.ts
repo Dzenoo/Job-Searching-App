@@ -120,14 +120,28 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
     .populate({
       path: "savedJobs",
       options: { skip, limit: Number(limit) },
+      select: "_id title location level expiration_date createdAt applications",
+      populate: {
+        path: "company",
+        select: "_id image name",
+      },
     })
     .populate({
       path: "applications",
       populate: {
         path: "job",
         model: Job,
+        select: "_id title type level position",
+        populate: {
+          path: "company",
+          select: "_id image name size address industry",
+        },
       },
+      select: "_id status createdAt updatedAt",
     })
+    .select(
+      "_id first_name last_name email biography image education skills alerts github linkedin portfolio"
+    )
     .exec();
 
   if (!seeker) {
