@@ -5,6 +5,10 @@ import { comparePassword, hashPassword } from "../../utils/bcrypt";
 
 const SeekerSchema = new mongoose.Schema(
   {
+    biography: {
+      type: String,
+      default: "",
+    },
     image: {
       type: String,
       default:
