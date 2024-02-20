@@ -174,12 +174,85 @@ export const followEmployer = asyncErrors(async (request, response) => {
 export const getEmployerProfile = asyncErrors(async (request, response) => {
   // @ts-ignore
   const { employerId } = request.user;
-  const employer = await Employer.findById(employerId)
-    .populate({
-      path: "directMessages.messages",
-      select: "content sender createdAt",
-    })
-    .exec();
+  const { page = 1, limit = 10, type, search, srt } = request.query;
+  const skip = (Number(page) - 1) * Number(limit);
+  const sort = String(srt);
+
+  let populateQuery: any = {};
+  switch (type) {
+    case "jobs":
+      populateQuery = {
+        path: "jobs",
+        options: {
+          skip,
+          limit: Number(limit),
+          sort: sort ? { [sort]: 1 } : { _id: 1 },
+        },
+        select:
+          "title position _id location level type applications expiration_date salary",
+      };
+      break;
+    case "reviews":
+      populateQuery = {
+        path: "reviews",
+        options: {
+          skip,
+          limit: Number(limit),
+          sort: sort ? { [sort]: 1 } : { _id: 1 },
+        },
+      };
+      break;
+    case "events":
+      populateQuery = {
+        path: "events",
+        options: {
+          skip,
+          limit: Number(limit),
+          sort: sort ? { [sort]: 1 } : { _id: 1 },
+        },
+      };
+      break;
+    case "messages":
+      populateQuery = {
+        path: "directMessages.messages",
+        select: "content sender createdAt",
+      };
+      break;
+    default:
+      break;
+  }
+
+  let searchQuery = {};
+  if (search) {
+    const searchFields: string[] = [];
+    switch (type) {
+      case "jobs":
+        searchFields.push("title", "position", "location");
+        break;
+      case "reviews":
+        searchFields.push("type");
+        break;
+      case "events":
+        searchFields.push("title", "description");
+        break;
+      default:
+        break;
+    }
+
+    const searchConditions = searchFields.map((field) => ({
+      [field]: { $regex: search, $options: "i" },
+    }));
+    searchQuery = { $or: searchConditions };
+  }
+
+  const employer = type
+    ? await Employer.findById(employerId)
+        .populate({
+          ...populateQuery,
+          match: searchQuery,
+        })
+        .exec()
+    : await Employer.findById(employerId).exec();
 
   if (!employer) {
     responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
