@@ -95,10 +95,7 @@ export const editReview = asyncErrors(async (request, response) => {
     const allowedProperties = [
       "positive_review",
       "negative_review",
-      "technologies",
       "job_position",
-      "type",
-      "time",
       "reviewId",
     ];
 
