@@ -229,3 +229,58 @@ export const registerEvent = asyncErrors(async (request, response) => {
     );
   }
 });
+
+export const getEvents = asyncErrors(async (request, response) => {
+  try {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      category,
+      location,
+      srt,
+    } = request.query;
+
+    const conditions: any = {};
+
+    if (search) {
+      conditions.$or = [
+        { title: { $regex: new RegExp(String(search), "i") } },
+        { description: { $regex: new RegExp(String(search), "i") } },
+        { location: { $regex: new RegExp(String(search), "i") } },
+      ];
+    }
+
+    if (category) {
+      conditions.category = Array.isArray(category)
+        ? { $in: category }
+        : category.toString().split(",");
+    }
+
+    if (location) {
+      conditions.location = Array.isArray(location)
+        ? { $in: location }
+        : location.toString().split(",");
+    }
+
+    const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
+
+    const events = await Event.find(conditions)
+      .sort(sortOptions)
+      .populate({
+        path: "company",
+        select: "name image address",
+      })
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit))
+      .exec();
+
+    responseServerHandler({ events: events }, 200, response);
+  } catch (error) {
+    responseServerHandler(
+      { message: "Cannot get events, please try again" },
+      400,
+      response
+    );
+  }
+});

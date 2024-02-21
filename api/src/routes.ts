@@ -85,7 +85,8 @@ export function initializePublicRoutes(app: Express): void {
 
 export function initializePrivateRoutes(app: Express): void {
   const { addReview, editReview, deleteReview } = reviews;
-  const { createNewEvent, editEvent, deleteEvent, registerEvent } = events;
+  const { createNewEvent, editEvent, deleteEvent, registerEvent, getEvents } =
+    events;
   const { createDirectMessages, typeMessage } = messages;
   const { deleteJob, createJob, editJob, saveJob, generateJobAlert } = jobs;
   const {
@@ -182,6 +183,11 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/seeker/:employerId/review",
         handlers: [editReview],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/seeker/events",
+        handlers: [getEvents],
       },
       {
         method: EXPRESS_APP_METHODS.PATCH,
