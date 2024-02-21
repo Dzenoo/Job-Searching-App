@@ -115,6 +115,7 @@ export function initializePrivateRoutes(app: Express): void {
     applyToJob,
     updateApplicationStatus,
     generateCoverLetter,
+    getApplicationsForJob,
   } = jobs;
 
   generateRoutes(
@@ -224,6 +225,11 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.DELETE,
         path: "/employer/jobs/:jobId/delete",
         handlers: [deleteJob],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/employer/applications/:jobId",
+        handlers: [getApplicationsForJob],
       },
       {
         method: EXPRESS_APP_METHODS.GET,

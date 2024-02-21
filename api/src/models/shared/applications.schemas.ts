@@ -9,7 +9,7 @@ const ApplicationSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ["Rejected", "Pending", "Accepted"],
+        values: ["Rejected", "Pending", "Accepted", "Interview"],
         message: "{VALUE} is not valid",
       },
     },

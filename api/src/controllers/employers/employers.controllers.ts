@@ -622,7 +622,7 @@ export const createNewEvent = asyncErrors(async (request, response) => {
     }
   });
 
-  const imageKey = `${employerId}_${Date.now()}.png`;
+  const imageKey = `employer_${employerId}.png`;
   const uploads = await initializeAws(image, imageKey, "events");
   await uploads.done();
 

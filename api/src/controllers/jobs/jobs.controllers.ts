@@ -277,7 +277,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
     );
   }
 
-  const resumeKey = `user_${seekerId}_${Date.now()}.pdf`;
+  const resumeKey = `user_${seekerId}.pdf`;
   const uploads = await initializeAws(resumeFile, resumeKey, "documents");
   await uploads.done();
 
@@ -416,3 +416,33 @@ export const updateApplicationStatus = asyncErrors(
     responseServerHandler({ application }, 201, response);
   }
 );
+
+export const getApplicationsForJob = asyncErrors(async (request, response) => {
+  const { page = 1, limit = 10, type } = request.query;
+
+  const conditions: any = { job: request.params.jobId };
+
+  if (type) {
+    conditions.status = type;
+  }
+
+  const applications = await Application.find(conditions)
+    .populate({
+      path: "seeker",
+      select:
+        "first_name last_name _id email email linkedin github portfolio image",
+    })
+    .skip((Number(page) - 1) * Number(limit))
+    .limit(Number(limit))
+    .exec();
+
+  if (!applications) {
+    responseServerHandler(
+      { message: "Cannot found applications" },
+      404,
+      response
+    );
+  }
+
+  responseServerHandler({ applications: applications }, 201, response);
+});
