@@ -1,6 +1,10 @@
 import * as jobs from "./controllers/jobs/jobs.controllers";
 import * as employers from "./controllers/employers/employers.controllers";
 import * as seekers from "./controllers/seekers/seekers.controllers";
+import * as applications from "./controllers/applications/applications.controllers";
+import * as events from "./controllers/events/events.controllers";
+import * as reviews from "./controllers/reviews/reviews.controllers";
+import * as messages from "./controllers/messages/messages.controllers";
 import upload from "./middlewares/uploads";
 import { Express, RequestHandler } from "express";
 import { authenticateUser } from "./middlewares/authentication";
@@ -80,6 +84,10 @@ export function initializePublicRoutes(app: Express): void {
 }
 
 export function initializePrivateRoutes(app: Express): void {
+  const { addReview, editReview, deleteReview } = reviews;
+  const { createNewEvent, editEvent, deleteEvent, registerEvent } = events;
+  const { createDirectMessages, typeMessage } = messages;
+  const { deleteJob, createJob, editJob, saveJob, generateJobAlert } = jobs;
   const {
     getSeekerProfile,
     editSeekerProfile,
@@ -89,34 +97,18 @@ export function initializePrivateRoutes(app: Express): void {
     getSeekerById,
     deleteEducation,
   } = seekers;
-
   const {
     getEmployerProfile,
     followEmployer,
-    reviewEmployer,
-    editReviewEmployer,
-    deleteReviewEmployer,
     editEmployerProfile,
     deleteEmployerProfile,
-    createNewEvent,
-    editEvent,
-    deleteEvent,
-    registerEvent,
-    createDirectMessages,
-    typeMessage,
   } = employers;
-
   const {
-    deleteJob,
-    createJob,
-    editJob,
-    saveJob,
-    generateJobAlert,
     applyToJob,
     updateApplicationStatus,
     generateCoverLetter,
     getApplicationsForJob,
-  } = jobs;
+  } = applications;
 
   generateRoutes(
     app,
@@ -179,17 +171,17 @@ export function initializePrivateRoutes(app: Express): void {
       {
         method: EXPRESS_APP_METHODS.POST,
         path: "/seeker/:employerId/review",
-        handlers: [reviewEmployer],
+        handlers: [addReview],
       },
       {
         method: EXPRESS_APP_METHODS.DELETE,
         path: "/seeker/:employerId/review",
-        handlers: [deleteReviewEmployer],
+        handlers: [deleteReview],
       },
       {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/seeker/:employerId/review",
-        handlers: [editReviewEmployer],
+        handlers: [editReview],
       },
       {
         method: EXPRESS_APP_METHODS.PATCH,
