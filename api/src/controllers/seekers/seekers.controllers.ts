@@ -20,8 +20,7 @@ export const signupSeeker = asyncErrors(
 
       validate(allowedProperties, seekerData, (error, message) => {
         if (error) {
-          responseServerHandler({ message: message }, 403, response);
-          return;
+          return responseServerHandler({ message: message }, 403, response);
         }
       });
 
@@ -40,14 +39,13 @@ export const signupSeeker = asyncErrors(
       const newSeeker = await Seeker.create(request.body);
 
       if (!newSeeker) {
-        responseServerHandler(
+        return responseServerHandler(
           {
             message: "Cannot register account, please try again",
           },
           500,
           response
         );
-        return;
       }
 
       await newSeeker.save();
@@ -67,8 +65,7 @@ export const loginSeeker = asyncErrors(
 
       validate(allowedProperties, seekerData, (error, message) => {
         if (error) {
-          responseServerHandler({ message: message }, 403, response);
-          return;
+          return responseServerHandler({ message: message }, 403, response);
         }
       });
 
@@ -79,27 +76,25 @@ export const loginSeeker = asyncErrors(
       );
 
       if (!existingSeeker) {
-        responseServerHandler(
+        return responseServerHandler(
           {
             message: "Invalid credentials for account, please try again",
           },
           500,
           response
         );
-        return;
       }
 
       const seekerToken = await existingSeeker.generateAuthToken();
 
       if (!seekerToken) {
-        responseServerHandler(
+        return responseServerHandler(
           {
             message: "Cannot login account, please try again",
           },
           500,
           response
         );
-        return;
       }
 
       response.cookie("token", seekerToken, { httpOnly: true });
@@ -160,8 +155,11 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
       .exec();
 
     if (!seeker) {
-      responseServerHandler({ message: "Cannot Find Seeker" }, 201, response);
-      return;
+      return responseServerHandler(
+        { message: "Cannot Find Seeker" },
+        201,
+        response
+      );
     }
 
     responseServerHandler({ seeker: seeker }, 201, response);
@@ -191,8 +189,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
 
     validate(allowedProperties, updateData, (error, message) => {
       if (error) {
-        responseServerHandler({ message: message }, 403, response);
-        return;
+        return responseServerHandler({ message: message }, 403, response);
       }
     });
 
@@ -226,12 +223,11 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
     const seeker = await Seeker.findById(seekerId);
 
     if (!seeker) {
-      responseServerHandler(
+      return responseServerHandler(
         { message: "Seeker not found or could not be deleted" },
         404,
         response
       );
-      return;
     }
 
     const applications = await Application.find({ seeker: seekerId });
@@ -312,8 +308,11 @@ export const getSeekers = asyncErrors(async (request, response) => {
       .exec();
 
     if (!seekers) {
-      responseServerHandler({ message: "Cannot Find Seekers" }, 404, response);
-      return;
+      return responseServerHandler(
+        { message: "Cannot Find Seekers" },
+        404,
+        response
+      );
     }
 
     responseServerHandler({ seekers: seekers }, 200, response);
@@ -333,8 +332,11 @@ export const getSeekerById = asyncErrors(async (request, response) => {
     );
 
     if (!seeker) {
-      responseServerHandler({ message: "Seeker not found" }, 404, response);
-      return;
+      return responseServerHandler(
+        { message: "Seeker not found" },
+        404,
+        response
+      );
     }
 
     responseServerHandler({ seeker: seeker }, 201, response);
@@ -362,8 +364,7 @@ export const addNewEducation = asyncErrors(async (request, response) => {
 
     validate(allowedProperties, newEducation, (error, message) => {
       if (error) {
-        responseServerHandler({ message: message }, 403, response);
-        return;
+        return responseServerHandler({ message: message }, 403, response);
       }
     });
 
@@ -379,12 +380,11 @@ export const addNewEducation = asyncErrors(async (request, response) => {
     );
 
     if (!seeker) {
-      responseServerHandler(
+      return responseServerHandler(
         { message: "Seeker not found or could not add education" },
         404,
         response
       );
-      return;
     }
 
     responseServerHandler({ seeker: seeker }, 201, response);
@@ -418,12 +418,11 @@ export const deleteEducation = asyncErrors(async (request, response) => {
       }
 
       if (!seeker) {
-        responseServerHandler(
+        return responseServerHandler(
           { message: "Seeker not found or could not delete education" },
           404,
           response
         );
-        return;
       }
 
       responseServerHandler(

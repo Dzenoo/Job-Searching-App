@@ -8,418 +8,481 @@ import Event from "../../models/employer/events.schemas";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
-    const employerData = request.body;
-    const allowedProperties = [
-      "password",
-      "email",
-      "name",
-      "number",
-      "address",
-      "size",
-      "industry",
-    ];
+    try {
+      const employerData = request.body;
+      const allowedProperties = [
+        "password",
+        "email",
+        "name",
+        "number",
+        "address",
+        "size",
+        "industry",
+      ];
 
-    validate(allowedProperties, employerData, (error, message) => {
-      if (error) {
-        responseServerHandler({ message: message }, 403, response);
-        return;
+      validate(allowedProperties, employerData, (error, message) => {
+        if (error) {
+          return responseServerHandler({ message: message }, 403, response);
+        }
+      });
+
+      const existingEmployerEmail = await Employer.findOne({
+        email: request.body.email,
+      });
+      const existingEmployerName = await Employer.findOne({
+        name: request.body.name,
+      });
+
+      if (existingEmployerEmail || existingEmployerName) {
+        return responseServerHandler(
+          { message: "This account already exists, please try again" },
+          400,
+          response
+        );
       }
-    });
 
-    const existingEmployerEmail = await Employer.findOne({
-      email: request.body.email,
-    });
-    const existingEmployerName = await Employer.findOne({
-      name: request.body.name,
-    });
+      const newEmployer = await Employer.create(request.body);
 
-    if (existingEmployerEmail || existingEmployerName) {
+      if (!newEmployer) {
+        return responseServerHandler(
+          {
+            message: "Cannot register account, please try again",
+          },
+          500,
+          response
+        );
+      }
+
+      await newEmployer.save();
+
+      responseServerHandler({ employer: newEmployer._id }, 201, response);
+    } catch (error) {
       responseServerHandler(
-        { message: "This account already exists, please try again" },
+        { message: "Cannot register profile, please try again" },
         400,
         response
       );
     }
-
-    const newEmployer = await Employer.create(request.body);
-
-    if (!newEmployer) {
-      responseServerHandler(
-        {
-          message: "Cannot register account, please try again",
-        },
-        500,
-        response
-      );
-      return;
-    }
-
-    await newEmployer.save();
-
-    responseServerHandler({ employer: newEmployer._id }, 201, response);
   }
 );
 
 export const loginEmployer = asyncErrors(
   async (request, response): Promise<void> => {
-    const employerData = request.body;
-    const allowedProperties = ["email", "password"];
+    try {
+      const employerData = request.body;
+      const allowedProperties = ["email", "password"];
 
-    validate(allowedProperties, employerData, (error, message) => {
-      if (error) {
-        responseServerHandler({ message: message }, 403, response);
-        return;
+      validate(allowedProperties, employerData, (error, message) => {
+        if (error) {
+          return responseServerHandler({ message: message }, 403, response);
+        }
+      });
+
+      // @ts-ignore
+      const existingEmployer = await Employer.findByCredentials(
+        request.body.email,
+        request.body.password
+      );
+
+      if (!existingEmployer) {
+        return responseServerHandler(
+          {
+            message: "Invalid credentials for account, please try again",
+          },
+          500,
+          response
+        );
       }
-    });
 
-    // @ts-ignore
-    const existingEmployer = await Employer.findByCredentials(
-      request.body.email,
-      request.body.password
-    );
+      const employerToken = await existingEmployer.generateAuthToken();
 
-    if (!existingEmployer) {
+      if (!employerToken) {
+        return responseServerHandler(
+          {
+            message: "Cannot login account, please try again",
+          },
+          500,
+          response
+        );
+      }
+
+      response.cookie("token", employerToken, { httpOnly: true });
+
       responseServerHandler(
         {
-          message: "Invalid credentials for account, please try again",
+          employer: existingEmployer._id,
+          employerToken: employerToken,
         },
-        500,
+        200,
         response
       );
-      return;
-    }
-
-    const employerToken = await existingEmployer.generateAuthToken();
-
-    if (!employerToken) {
+    } catch (error) {
       responseServerHandler(
-        {
-          message: "Cannot login account, please try again",
-        },
-        500,
+        { message: "Cannot login now, please try again" },
+        400,
         response
       );
-      return;
     }
-
-    response.cookie("token", employerToken, { httpOnly: true });
-
-    responseServerHandler(
-      {
-        employer: existingEmployer._id,
-        employerToken: employerToken,
-      },
-      200,
-      response
-    );
   }
 );
 
 export const followEmployer = asyncErrors(async (request, response) => {
-  // @ts-ignore
-  const { seekerId } = request.user;
-  const employerId = request.params.employerId;
+  try {
+    // @ts-ignore
+    const { seekerId } = request.user;
+    const employerId = request.params.employerId;
 
-  const [employer, seeker] = await Promise.all([
-    Employer.findById(employerId),
-    Seeker.findById(seekerId),
-  ]);
+    const [employer, seeker] = await Promise.all([
+      Employer.findById(employerId),
+      Seeker.findById(seekerId),
+    ]);
 
-  if (!employer || !seeker) {
-    return responseServerHandler(
-      { message: "Employer or Seeker cannot be found" },
-      404,
-      response
-    );
-  }
+    if (!employer || !seeker) {
+      return responseServerHandler(
+        { message: "Employer or Seeker cannot be found" },
+        404,
+        response
+      );
+    }
 
-  const isFollowing = employer.followers.includes(seekerId);
+    const isFollowing = employer.followers.includes(seekerId);
 
-  if (isFollowing) {
-    await Employer.findByIdAndUpdate(employerId, {
-      $pull: { followers: seekerId },
-    });
-    await Seeker.findByIdAndUpdate(seekerId, {
-      $pull: { following: employerId },
-    });
-    responseServerHandler(
-      { message: "Employer successfully unfollowed" },
-      201,
-      response
-    );
-  } else {
-    await Employer.findByIdAndUpdate(employerId, {
-      $push: {
-        followers: seekerId,
-        notifications: {
-          title: "New Followers Notification",
-          message: `${seeker.first_name} is now following you`,
+    if (isFollowing) {
+      await Employer.findByIdAndUpdate(employerId, {
+        $pull: { followers: seekerId },
+      });
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $pull: { following: employerId },
+      });
+      responseServerHandler(
+        { message: "Employer successfully unfollowed" },
+        201,
+        response
+      );
+    } else {
+      await Employer.findByIdAndUpdate(employerId, {
+        $push: {
+          followers: seekerId,
+          notifications: {
+            title: "New Followers Notification",
+            message: `${seeker.first_name} is now following you`,
+          },
         },
-      },
-    });
-    await Seeker.findByIdAndUpdate(seekerId, {
-      $push: { following: employerId },
-    });
+      });
+      await Seeker.findByIdAndUpdate(seekerId, {
+        $push: { following: employerId },
+      });
+      responseServerHandler(
+        { message: "Employer successfully followed" },
+        201,
+        response
+      );
+    }
+  } catch (error) {
     responseServerHandler(
-      { message: "Employer successfully followed" },
-      201,
+      {
+        message: "Cannot follow or unfollow employer profile, please try again",
+      },
+      400,
       response
     );
   }
 });
 
 export const getEmployerProfile = asyncErrors(async (request, response) => {
-  // @ts-ignore
-  const { employerId } = request.user;
-  const { page = 1, limit = 10, type, search, srt } = request.query;
-  const skip = (Number(page) - 1) * Number(limit);
-  const sort = String(srt);
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const { page = 1, limit = 10, type, search, srt } = request.query;
+    const skip = (Number(page) - 1) * Number(limit);
+    const sort = String(srt);
 
-  let populateQuery: any = {};
-  switch (type) {
-    case "jobs":
-      populateQuery = {
-        path: "jobs",
-        options: {
-          skip,
-          limit: Number(limit),
-          sort: sort ? { [sort]: 1 } : { _id: 1 },
-        },
-        select:
-          "title position _id location level type applications expiration_date salary",
-      };
-      break;
-    case "reviews":
-      populateQuery = {
-        path: "reviews",
-        options: {
-          skip,
-          limit: Number(limit),
-          sort: sort ? { [sort]: 1 } : { _id: 1 },
-        },
-      };
-      break;
-    case "events":
-      populateQuery = {
-        path: "events",
-        options: {
-          skip,
-          limit: Number(limit),
-          sort: sort ? { [sort]: 1 } : { _id: 1 },
-        },
-      };
-      break;
-    case "messages":
-      populateQuery = {
-        path: "directMessages.messages",
-        select: "content sender createdAt",
-      };
-      break;
-    default:
-      break;
-  }
-
-  let searchQuery = {};
-  if (search) {
-    const searchFields: string[] = [];
+    let populateQuery: any = {};
     switch (type) {
       case "jobs":
-        searchFields.push("title", "position", "location");
+        populateQuery = {
+          path: "jobs",
+          options: {
+            skip,
+            limit: Number(limit),
+            sort: sort ? { [sort]: 1 } : { _id: 1 },
+          },
+          select:
+            "title position _id location level type applications expiration_date salary",
+        };
         break;
       case "reviews":
-        searchFields.push("type");
+        populateQuery = {
+          path: "reviews",
+          options: {
+            skip,
+            limit: Number(limit),
+            sort: sort ? { [sort]: 1 } : { _id: 1 },
+          },
+        };
         break;
       case "events":
-        searchFields.push("title", "description");
+        populateQuery = {
+          path: "events",
+          options: {
+            skip,
+            limit: Number(limit),
+            sort: sort ? { [sort]: 1 } : { _id: 1 },
+          },
+        };
+        break;
+      case "messages":
+        populateQuery = {
+          path: "directMessages.messages",
+          select: "content sender createdAt",
+        };
         break;
       default:
         break;
     }
 
-    const searchConditions = searchFields.map((field) => ({
-      [field]: { $regex: search, $options: "i" },
-    }));
-    searchQuery = { $or: searchConditions };
+    let searchQuery = {};
+    if (search) {
+      const searchFields: string[] = [];
+      switch (type) {
+        case "jobs":
+          searchFields.push("title", "position", "location");
+          break;
+        case "reviews":
+          searchFields.push("type");
+          break;
+        case "events":
+          searchFields.push("title", "description");
+          break;
+        default:
+          break;
+      }
+
+      const searchConditions = searchFields.map((field) => ({
+        [field]: { $regex: search, $options: "i" },
+      }));
+      searchQuery = { $or: searchConditions };
+    }
+
+    const employer = type
+      ? await Employer.findById(employerId)
+          .populate({
+            ...populateQuery,
+            match: searchQuery,
+          })
+          .exec()
+      : await Employer.findById(employerId).exec();
+
+    if (!employer) {
+      return responseServerHandler(
+        { message: "Cannot Find Employer" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ employer: employer }, 201, response);
+  } catch (error) {
+    responseServerHandler(
+      { message: "Cannot get profile, please try again" },
+      400,
+      response
+    );
   }
-
-  const employer = type
-    ? await Employer.findById(employerId)
-        .populate({
-          ...populateQuery,
-          match: searchQuery,
-        })
-        .exec()
-    : await Employer.findById(employerId).exec();
-
-  if (!employer) {
-    responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
-    return;
-  }
-
-  responseServerHandler({ employer: employer }, 201, response);
 });
 
 export const editEmployerProfile = asyncErrors(async (request, response) => {
-  // @ts-ignore
-  const { employerId } = request.user;
-  const updateData = request.body;
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const updateData = request.body;
 
-  const allowedProperties = [
-    "industry",
-    "company_description",
-    "size",
-    "name",
-    "number",
-    "address",
-    "website",
-  ];
+    const allowedProperties = [
+      "industry",
+      "company_description",
+      "size",
+      "name",
+      "number",
+      "address",
+      "website",
+    ];
 
-  validate(allowedProperties, updateData, (error, message) => {
-    if (error) {
-      responseServerHandler({ message: message }, 403, response);
-      return;
+    validate(allowedProperties, updateData, (error, message) => {
+      if (error) {
+        return responseServerHandler({ message: message }, 403, response);
+      }
+    });
+
+    const editedProfile = await Employer.findByIdAndUpdate(
+      employerId,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!editedProfile) {
+      return responseServerHandler(
+        { message: "Profile not found or could not be updated" },
+        404,
+        response
+      );
     }
-  });
 
-  const editedProfile = await Employer.findByIdAndUpdate(
-    employerId,
-    updateData,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
-
-  if (!editedProfile) {
-    return responseServerHandler(
-      { message: "Profile not found or could not be updated" },
-      404,
+    responseServerHandler({ job: editedProfile }, 201, response);
+  } catch (error) {
+    responseServerHandler(
+      { message: "Cannot edit profile, please try again" },
+      400,
       response
     );
   }
-
-  responseServerHandler({ job: editedProfile }, 201, response);
 });
 
 export const deleteEmployerProfile = asyncErrors(async (request, response) => {
-  // @ts-ignore
-  const { employerId } = request.user;
-  const employer = await Employer.findById(employerId);
-  const jobIds = (employer.jobs || []).map((job: typeof Job | any) => job._id);
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const employer = await Employer.findById(employerId);
+    const jobIds = (employer.jobs || []).map(
+      (job: typeof Job | any) => job._id
+    );
 
-  if (!employer) {
-    return responseServerHandler(
-      { message: "Employer not found" },
-      404,
+    if (!employer) {
+      return responseServerHandler(
+        { message: "Employer not found" },
+        404,
+        response
+      );
+    }
+
+    await Job.deleteMany({ company: employerId });
+    await Review.deleteMany({ company: employerId });
+    await Event.deleteMany({ company: employerId });
+
+    await Seeker.updateMany(
+      {
+        $or: [{ following: employerId }, { savedJobs: { $in: jobIds } }],
+      },
+      {
+        $pull: {
+          following: employerId,
+          savedJobs: { $in: jobIds },
+        },
+      }
+    );
+
+    await Employer.findByIdAndDelete(employerId);
+
+    responseServerHandler(
+      { message: "Employer profile and associated data deleted successfully" },
+      200,
+      response
+    );
+  } catch (error) {
+    responseServerHandler(
+      { message: "Cannot delete profile, please try again" },
+      400,
       response
     );
   }
-
-  await Job.deleteMany({ company: employerId });
-  await Review.deleteMany({ company: employerId });
-  await Event.deleteMany({ company: employerId });
-
-  await Seeker.updateMany(
-    {
-      $or: [{ following: employerId }, { savedJobs: { $in: jobIds } }],
-    },
-    {
-      $pull: {
-        following: employerId,
-        savedJobs: { $in: jobIds },
-      },
-    }
-  );
-
-  await Employer.findByIdAndDelete(employerId);
-
-  responseServerHandler(
-    { message: "Employer profile and associated data deleted successfully" },
-    200,
-    response
-  );
 });
 
 export const getEmployerById = asyncErrors(async (request, response) => {
-  const { employerId } = request.params;
-  const { page = 1, limit = 10, type } = request.query;
+  try {
+    const { employerId } = request.params;
+    const { page = 1, limit = 10, type } = request.query;
 
-  const skip = (Number(page) - 1) * Number(limit);
-  let populateQuery: any;
+    const skip = (Number(page) - 1) * Number(limit);
+    let populateQuery: any;
 
-  switch (type) {
-    case "jobs":
-      populateQuery = {
-        path: "jobs",
-        options: { skip, limit: Number(limit) },
-        select: "title position _id location level description",
-      };
-      break;
-    case "reviews":
-      populateQuery = {
-        path: "reviews",
-        options: { skip, limit: Number(limit) },
-      };
-      break;
-    case "events":
-      populateQuery = {
-        path: "events",
-        options: { skip, limit: Number(limit) },
-      };
-      break;
-    default:
-      populateQuery = {};
+    switch (type) {
+      case "jobs":
+        populateQuery = {
+          path: "jobs",
+          options: { skip, limit: Number(limit) },
+          select: "title position _id location level description",
+        };
+        break;
+      case "reviews":
+        populateQuery = {
+          path: "reviews",
+          options: { skip, limit: Number(limit) },
+        };
+        break;
+      case "events":
+        populateQuery = {
+          path: "events",
+          options: { skip, limit: Number(limit) },
+        };
+        break;
+      default:
+        populateQuery = {};
+    }
+
+    const employer = await Employer.findById(employerId)
+      .populate(populateQuery)
+      .select(
+        "name reviews events email address size website followers number company_description industry image jobs"
+      )
+      .exec();
+
+    if (!employer) {
+      return responseServerHandler(
+        { message: "Cannot Find Employer" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ employer: employer }, 201, response);
+  } catch (error) {
+    responseServerHandler({ message: "Cannot get employer" }, 400, response);
   }
-
-  const employer = await Employer.findById(employerId)
-    .populate(populateQuery)
-    .select(
-      "name reviews events email address size website followers number company_description industry image jobs"
-    )
-    .exec();
-
-  if (!employer) {
-    responseServerHandler({ message: "Cannot Find Employer" }, 404, response);
-    return;
-  }
-
-  responseServerHandler({ employer: employer }, 201, response);
 });
 
 export const getEmployers = asyncErrors(async (request, response) => {
-  const { page = 1, limit = 10, search, srt } = request.query;
+  try {
+    const { page = 1, limit = 10, search, srt } = request.query;
 
-  const conditions: any = {};
+    const conditions: any = {};
 
-  if (search) {
-    conditions.$or = [
-      { name: { $regex: new RegExp(String(search), "i") } },
-      { address: { $regex: new RegExp(String(search), "i") } },
-      { company_description: { $regex: new RegExp(String(search), "i") } },
-    ];
-  }
-
-  const sortOptions: any = {};
-
-  if (srt) {
-    if (srt === "followers" || srt === "events" || srt === "reviews") {
-      sortOptions[srt] = -1;
+    if (search) {
+      conditions.$or = [
+        { name: { $regex: new RegExp(String(search), "i") } },
+        { address: { $regex: new RegExp(String(search), "i") } },
+        { company_description: { $regex: new RegExp(String(search), "i") } },
+      ];
     }
+
+    const sortOptions: any = {};
+
+    if (srt) {
+      if (srt === "followers" || srt === "events" || srt === "reviews") {
+        sortOptions[srt] = -1;
+      }
+    }
+
+    const employers = await Employer.find(conditions)
+      .sort(sortOptions)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit))
+      .select(
+        "image name company_description reviews followers events size address"
+      )
+      .exec();
+
+    if (!employers) {
+      return responseServerHandler(
+        { message: "Cannot Find Employers" },
+        404,
+        response
+      );
+    }
+
+    responseServerHandler({ employers: employers }, 201, response);
+  } catch (error) {
+    responseServerHandler({ message: "Cannot get employers" }, 400, response);
   }
-
-  const employers = await Employer.find(conditions)
-    .sort(sortOptions)
-    .skip((Number(page) - 1) * Number(limit))
-    .limit(Number(limit))
-    .select(
-      "image name company_description reviews followers events size address"
-    )
-    .exec();
-
-  if (!employers) {
-    responseServerHandler({ message: "Cannot Find Employers" }, 404, response);
-    return;
-  }
-
-  responseServerHandler({ employers: employers }, 201, response);
 });
