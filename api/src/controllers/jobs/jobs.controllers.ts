@@ -85,16 +85,14 @@ export const editJob = asyncErrors(async (request, response) => {
     }
 
     const allowedProperties = [
-      "title",
-      "location",
       "type",
-      "skills",
       "description",
       "level",
       "salary",
       "expiration_date",
       "position",
       "overview",
+      "title",
     ];
 
     validate(allowedProperties, updateData, (error, message) => {
