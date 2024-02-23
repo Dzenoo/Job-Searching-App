@@ -5,6 +5,8 @@ import Seeker from "../../models/seeker/seekers.schemas";
 import Review from "../../models/employer/reviews.schemas";
 import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
+import { uuidv7 } from "uuidv7";
+import { initializeAws } from "../../utils/aws";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -295,7 +297,7 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
     const { employerId } = request.user;
-    const updateData = request.body;
+    const updateData = { ...request.body, image: request.file };
 
     const allowedProperties = [
       "industry",
@@ -305,6 +307,7 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
       "number",
       "address",
       "website",
+      "image",
     ];
 
     validate(allowedProperties, updateData, (error, message) => {
@@ -312,6 +315,21 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
         return responseServerHandler({ message: message }, 403, response);
       }
     });
+
+    if (request.file) {
+      // const currentSeeker = await Seeker.findById(seekerId);
+
+      // Delete the existing image from AWS S3
+      // if (currentSeeker.image) {
+      // }
+
+      const result = uuidv7();
+      const imageKey = `employer_${result}.png`;
+      const uploads = await initializeAws(request.file, imageKey, "employers");
+      await uploads.done();
+
+      updateData.image = `employers/${imageKey}`;
+    }
 
     const editedProfile = await Employer.findByIdAndUpdate(
       employerId,
@@ -330,7 +348,7 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ job: editedProfile }, 201, response);
+    responseServerHandler({ employer: editedProfile }, 201, response);
   } catch (error) {
     responseServerHandler(
       { message: "Cannot edit profile, please try again" },

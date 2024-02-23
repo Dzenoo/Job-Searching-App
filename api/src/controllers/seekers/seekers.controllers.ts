@@ -178,7 +178,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
     const { seekerId } = request.user;
-    const updateData = { ...request.body };
+    const updateData = { ...request.body, image: request.file };
 
     const allowedProperties = [
       "first_name",
@@ -224,7 +224,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ job: editedProfile }, 201, response);
+    responseServerHandler({ seeker: editedProfile }, 201, response);
   } catch (errors) {
     responseServerHandler(
       { message: "Cannot edit profile, please try again" },

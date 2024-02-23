@@ -202,7 +202,7 @@ export function initializePrivateRoutes(app: Express): void {
       {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/employer/edit-employer-profile",
-        handlers: [editEmployerProfile],
+        handlers: [upload.single("image"), editEmployerProfile],
       },
       {
         method: EXPRESS_APP_METHODS.DELETE,
