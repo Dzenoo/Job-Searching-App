@@ -132,7 +132,7 @@ export function initializePrivateRoutes(app: Express): void {
       {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/seeker/edit-seeker-profile",
-        handlers: [editSeekerProfile],
+        handlers: [upload.single("image"), editSeekerProfile],
       },
       {
         method: EXPRESS_APP_METHODS.PATCH,

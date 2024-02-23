@@ -1,5 +1,7 @@
 import { asyncErrors } from "../../errors";
 import { validate, responseServerHandler } from "../../utils/validation";
+import { initializeAws } from "../../utils/aws";
+import { uuidv7 } from "uuidv7";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
@@ -176,7 +178,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
     const { seekerId } = request.user;
-    const updateData = request.body;
+    const updateData = { ...request.body };
 
     const allowedProperties = [
       "first_name",
@@ -185,6 +187,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       "linkedin",
       "portfolio",
       "skills",
+      "image",
     ];
 
     validate(allowedProperties, updateData, (error, message) => {
@@ -192,6 +195,21 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
         return responseServerHandler({ message: message }, 403, response);
       }
     });
+
+    if (request.file) {
+      // const currentSeeker = await Seeker.findById(seekerId);
+
+      // Delete the existing image from AWS S3
+      // if (currentSeeker.image) {
+      // }
+
+      const result = uuidv7();
+      const imageKey = `seeker_${result}.png`;
+      const uploads = await initializeAws(request.file, imageKey, "seekers");
+      await uploads.done();
+
+      updateData.image = `seekers/${imageKey}`;
+    }
 
     const editedProfile = await Seeker.findByIdAndUpdate(seekerId, updateData, {
       new: true,
