@@ -1,14 +1,87 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --white-base-color: #ffffff;
+  --white-grayish-color: #f6f6f6;
+  --white-light-color: #d6e6ff;
+  --gray-light-color: #d7d7d7;
+  --gray-bold-color: #7c8694;
+  --gray-base-color: #919191;
+  --black-base-color: #000000;
+  --blue-base-color: #0066ff;
+  --red-base-color: #d70000;
+  --green-base-color: #007d05;
+  --blue-opacity-color: 0, 102, 255, 0.1;
+  --red-opacity-color: 255, 0, 0, 0.1;
+  --green-opacity-color: 0, 255, 41, 0.1;
+  --yellow-opacity-color: 255, 199, 3, 0.1;
 }
 
 body {
+  background-color: var(--background-base-color);
+  padding: 30px;
 }
 
 @layer utilities {
+  .text-base-black {
+    @apply text-2xl font-bold text-[--black-base-color];
+  }
+
+  .text-base-blue {
+    @apply text-2xl font-bold text-[--blue-base-color];
+  }
+
+  .text-base-gray {
+    @apply text-2xl font-bold text-[--gray-base-color];
+  }
+
+  .text-base-white {
+    @apply text-2xl font-bold text-[--white-base-color];
+  }
+
+  .text-initial-black {
+    @apply text-base font-normal text-[--black-base-color];
+  }
+
+  .text-initial-blue {
+    @apply text-base font-normal text-[--blue-base-color];
+  }
+
+  .text-initial-gray {
+    @apply text-base font-normal text-[--gray-base-color];
+  }
+
+  .text-initial-white {
+    @apply text-base font-normal text-[--white-base-color];
+  }
+
+  .text-low-black {
+    @apply text-sm font-light text-[--black-base-color];
+  }
+
+  .text-low-blue {
+    @apply text-sm font-light text-[--blue-base-color];
+  }
+
+  .text-low-gray {
+    @apply text-sm font-light text-[--gray-base-color];
+  }
+
+  .text-low-gray {
+    @apply text-sm font-light text-[--white-base-color];
+  }
+
+  .border-base-gray {
+    @apply border-[--gray-light-color];
+  }
+
+  .border-base-blue {
+    @apply border-[--blue-base-color];
+  }
+
+  .border-base-black {
+    @apply border-[--black-base-color];
+  }
 }

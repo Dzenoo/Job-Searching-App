@@ -9,3 +9,4 @@
 **/src/utils/aws.ts
 next-env.d.ts
 *.tsbuildinfo
+.next
