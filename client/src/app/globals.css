@@ -21,7 +21,6 @@
 
 body {
   background-color: var(--background-base-color);
-  padding: 30px;
 }
 
 @layer utilities {
@@ -83,5 +82,9 @@ body {
 
   .border-base-black {
     @apply border-[--black-base-color];
+  }
+
+  .base-margin {
+    @apply px-16 py-3 overflow-auto max-lg:px-8 max-sm:px-4;
   }
 }
