@@ -68,7 +68,7 @@ body {
     @apply text-sm font-light text-[--gray-base-color];
   }
 
-  .text-low-gray {
+  .text-low-white {
     @apply text-sm font-light text-[--white-base-color];
   }
 

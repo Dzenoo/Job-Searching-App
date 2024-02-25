@@ -1,0 +1,1 @@
+export { ChooseTypeAccount } from "./choose";
