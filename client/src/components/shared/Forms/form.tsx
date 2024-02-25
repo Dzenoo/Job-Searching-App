@@ -10,9 +10,14 @@ import {
 const Form = React.forwardRef<
   HTMLFormElement,
   FormProps<React.FormHTMLAttributes<HTMLFormElement>>
->(({ className, children, ...props }, ref) => {
+>(({ className, children, onSubmit, ...props }, ref) => {
   return (
-    <form ref={ref} {...props} className={twMerge("px-3", className)}>
+    <form
+      ref={ref}
+      {...props}
+      className={twMerge("px-3", className)}
+      onSubmit={onSubmit}
+    >
       {children}
     </form>
   );
@@ -41,7 +46,7 @@ const FormInfo = React.forwardRef<HTMLParagraphElement, FormInfoProps>(
           ref={ref}
           {...props}
           className={twMerge(
-            "text-[16px] font-light leading-3",
+            "text-[13px] font-light leading-3",
             className,
             FormInfoVariants[variant]
           )}

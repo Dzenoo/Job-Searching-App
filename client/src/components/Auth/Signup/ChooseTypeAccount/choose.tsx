@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { Tab } from "@/components/shared/Tab";
 import { TabChooseAccount, TypeOfAccount } from "./types";
 import { Briefcase, Building } from "lucide-react";
-
 import Link from "next/link";
+import SeekersSignupForm from "../SeekersSignupForm/form";
 
 const ChooseTypeAccount: React.FC = () => {
   const [typeOfAccount, setTypeOfAccount] = useState<TypeOfAccount>(
@@ -56,7 +56,9 @@ const ChooseTypeAccount: React.FC = () => {
         </div>
       )}
       {employer && <div>EMPLOYER SIGNUP FORM</div>}
-      {seeker && <div>SEEKER SIGNUP FORM</div>}
+      {seeker && (
+        <SeekersSignupForm handleTypeSelection={handleTypeSelection} />
+      )}
     </section>
   );
 };
