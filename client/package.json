@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "job-searching-app-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,9 +11,13 @@
   "dependencies": {
     "next": "14.1.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.50.1",
+    "react-query": "^3.39.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

@@ -19,6 +19,7 @@ const SeekerSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: [3, "Password must be at least 3 characters long"],
+      maxlength: [30, "Password must be at most 30 characters long"],
     },
     email: {
       type: String,
