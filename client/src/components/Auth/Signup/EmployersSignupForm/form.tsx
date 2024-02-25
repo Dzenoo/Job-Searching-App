@@ -200,4 +200,4 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
   );
 };
 
-export default EmployersSignupForm;
+export { EmployersSignupForm };

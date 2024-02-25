@@ -5,8 +5,8 @@ import { Tab } from "@/components/shared/Tab";
 import { TabChooseAccount, TypeOfAccount } from "./types";
 import { Briefcase, Building } from "lucide-react";
 import Link from "next/link";
-import SeekersSignupForm from "../SeekersSignupForm/form";
-import EmployersSignupForm from "../EmployersSignupForm/form";
+import { SeekersSignupForm } from "../SeekersSignupForm";
+import { EmployersSignupForm } from "../EmployersSignupForm";
 
 const ChooseTypeAccount: React.FC = () => {
   const [typeOfAccount, setTypeOfAccount] = useState<TypeOfAccount>(

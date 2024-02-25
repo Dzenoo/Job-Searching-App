@@ -153,4 +153,4 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   );
 };
 
-export default SeekersSignupForm;
+export { SeekersSignupForm };
