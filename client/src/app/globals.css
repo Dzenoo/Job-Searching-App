@@ -18,7 +18,6 @@
   --green-opacity-color: 0, 255, 41, 0.1;
   --yellow-opacity-color: 255, 199, 3, 0.1;
 }
-
 body {
   background-color: var(--background-base-color);
 }
