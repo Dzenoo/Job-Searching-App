@@ -14,6 +14,7 @@ import {
   EmployersNavbarAvatar,
   EmployersNavbarLinks,
 } from "./Employers";
+import { usePathname } from "next/navigation";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const AuthenticationDivLinks: React.FC = () => {
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, userType } = useAuthentication().getCookieHandler();
+  const pathname = usePathname();
   const isSeeker = userType === "seeker";
   const isEmployer = userType === "employer";
 
@@ -45,7 +47,7 @@ const Navbar: React.FC = () => {
       <div>
         {isAuthenticated && isSeeker ? (
           <div>
-            <SeekersNavbarLinks />
+            <SeekersNavbarLinks pathname={pathname} />
           </div>
         ) : (
           isAuthenticated &&
