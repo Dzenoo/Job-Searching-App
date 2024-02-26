@@ -3,7 +3,6 @@
 import React from "react";
 import useAuthentication from "@/hooks/useAuthentication";
 import Logo from "./Logo/logo";
-import { LinkElement } from "@/components/shared/Link";
 import {
   SeekersNavbarActions,
   SeekersNavbarAvatar,
@@ -14,6 +13,7 @@ import {
   EmployersNavbarAvatar,
   EmployersNavbarLinks,
 } from "./Employers";
+import { LinkElement } from "@/components/shared/Link";
 import { usePathname } from "next/navigation";
 
 const AuthenticationDivLinks: React.FC = () => {
