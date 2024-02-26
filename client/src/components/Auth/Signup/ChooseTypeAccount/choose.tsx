@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { Tab } from "@/components/shared/Tab";
 import { TabChooseAccount, TypeOfAccount } from "./types";
 import { Briefcase, Building } from "lucide-react";
-import Link from "next/link";
 import { SeekersSignupForm } from "../SeekersSignupForm";
 import { EmployersSignupForm } from "../EmployersSignupForm";
+import Link from "next/link";
 
 const ChooseTypeAccount: React.FC = () => {
   const [typeOfAccount, setTypeOfAccount] = useState<TypeOfAccount>(
@@ -24,7 +24,7 @@ const ChooseTypeAccount: React.FC = () => {
     typeOfAccount === TypeOfAccount.Employer;
 
   return (
-    <section>
+    <div>
       {!isSelectedAccount && (
         <div className="flex flex-col justify-center items-center gap-16">
           <div>
@@ -64,7 +64,7 @@ const ChooseTypeAccount: React.FC = () => {
       {seeker && (
         <SeekersSignupForm handleTypeSelection={handleTypeSelection} />
       )}
-    </section>
+    </div>
   );
 };
 

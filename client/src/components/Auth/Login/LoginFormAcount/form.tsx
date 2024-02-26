@@ -1,101 +1,74 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { SeekerRegistrationSchemas } from "@/utils/validation";
 import { Button } from "@/components/shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/shared/Forms";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/shared/Input";
-import { SeekersSignupFormTypes } from "./types";
-import { TypeOfAccount } from "../ChooseTypeAccount/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { LoginFormTypes } from "./types";
+import { TypeOfAccount } from "../../Signup/ChooseTypeAccount/types";
+import { LoginSchemasForm } from "@/utils/validation";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/shared/Card/card";
-import zod from "zod";
 import Link from "next/link";
+import zod from "zod";
 
-const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
+const LoginFormAccount: React.FC<LoginFormTypes> = ({
   handleTypeSelection,
+  type,
 }) => {
   const {
     handleSubmit,
     control,
     formState: { errors, isValid, isSubmitting },
-  } = useForm<zod.infer<typeof SeekerRegistrationSchemas>>({
-    resolver: zodResolver(SeekerRegistrationSchemas),
+  } = useForm<zod.infer<typeof LoginSchemasForm>>({
+    resolver: zodResolver(LoginSchemasForm),
     defaultValues: {
-      first_name: "",
-      last_name: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (values: zod.infer<typeof SeekerRegistrationSchemas>) => {};
+  const onSubmit = (values: zod.infer<typeof LoginSchemasForm>) => {};
 
   return (
-    <Card className="flex flex-col gap-7 py-6">
+    <Card className="flex flex-col gap-7 py-6 lg:w-[430px]">
       <CardHeader>
         <div className="flex items-center justify-center gap-3 flex-col">
           <div>
             <p className="text-low-gray">
-              Hiring a talent?{" "}
+              Login to{" "}
               <button
-                className="text-[--blue-base-color] font-bold"
+                className={`text-[--blue-base-color] ${
+                  type === TypeOfAccount.Seeker && "font-bold"
+                }`}
+                onClick={() => handleTypeSelection(TypeOfAccount.Seeker)}
+              >
+                Seeker
+              </button>{" "}
+              or{" "}
+              <button
+                className={`text-[--blue-base-color] ${
+                  type === TypeOfAccount.Employer && "font-bold"
+                }`}
                 onClick={() => handleTypeSelection(TypeOfAccount.Employer)}
               >
                 Employer
-              </button>
+              </button>{" "}
+              Account
             </p>
           </div>
           <div>
-            <h1 className="text-base-black">Sign up to find job you want</h1>
+            <h1 className="text-base-black">Login to JobTalentify</h1>
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex items-center gap-3 max-[600px]:flex-wrap">
-            <FormItem className="w-full">
-              <Controller
-                name="first_name"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    label="First Name"
-                    type="text"
-                    placeholder="First Name"
-                  />
-                )}
-              />
-              {errors.first_name?.message && (
-                <FormInfo variant="danger">
-                  {errors.first_name.message}
-                </FormInfo>
-              )}
-            </FormItem>
-            <FormItem className="w-full">
-              <Controller
-                name="last_name"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    label="Last Name"
-                    type="text"
-                    placeholder="Last Name"
-                  />
-                )}
-              />
-              {errors.last_name?.message && (
-                <FormInfo variant="danger">{errors.last_name.message}</FormInfo>
-              )}
-            </FormItem>
-          </div>
-          <FormItem className="w-full">
+          <FormItem>
             <Controller
               name="email"
               control={control}
@@ -136,16 +109,16 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
               disabled={isSubmitting}
               className="m-auto block relative px-10"
             >
-              {isSubmitting ? "Registering..." : "Register"}
+              {isSubmitting ? "Logging..." : "Login"}
             </Button>
           </div>
         </Form>
       </CardContent>
       <CardFooter>
         <p className="text-initial-gray relative text-center">
-          Already have account?{" "}
-          <Link href="/login" className="text-blue-600 underline">
-            Login
+          Dont have account?{" "}
+          <Link href="/signup" className="text-blue-600 underline">
+            Signup
           </Link>
         </p>
       </CardFooter>
@@ -153,4 +126,4 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   );
 };
 
-export { SeekersSignupForm };
+export { LoginFormAccount };

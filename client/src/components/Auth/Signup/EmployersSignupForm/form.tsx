@@ -44,7 +44,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
   ) => {};
 
   return (
-    <Card className="flex flex-col gap-7 py-6 w-[600px]">
+    <Card className="flex flex-col gap-7 py-6 lg:w-[600px]">
       <CardHeader>
         <div className="flex items-center justify-center gap-3 flex-col">
           <div>
@@ -133,7 +133,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
               <FormInfo variant="danger">{errors.password.message}</FormInfo>
             )}
           </FormItem>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 max-[400px]:flex-wrap">
             <FormItem className="w-full">
               <Controller
                 name="industry"

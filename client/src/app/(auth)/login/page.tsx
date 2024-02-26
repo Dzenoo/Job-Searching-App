@@ -1,7 +1,12 @@
 import React from "react";
+import { ChooseLoginType } from "@/components/Auth/Login/ChooseLoginType";
 
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <section className="py-16 flex justify-center h-screen">
+      <ChooseLoginType />
+    </section>
+  );
 };
 
 export default LoginPage;
