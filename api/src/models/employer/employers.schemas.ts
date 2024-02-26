@@ -30,7 +30,7 @@ const EmployerSchema = new mongoose.Schema(
       required: [true, "Company size is required"],
       enum: {
         values: [
-          "Less than 17",
+          "Less-than-17",
           "20-50",
           "50-100",
           "100-250",

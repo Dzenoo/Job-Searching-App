@@ -1,4 +1,5 @@
 export const industries = [
+  { value: "", label: "Select the industry" },
   { value: "technology", label: "Technology" },
   { value: "healthcare", label: "Healthcare" },
   { value: "finance", label: "Finance" },

@@ -17,7 +17,6 @@ import zod from "zod";
 import Link from "next/link";
 import { useMutation } from "react-query";
 import { signupSeeker } from "@/utils/actions";
-import { AxiosError } from "axios";
 
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   handleTypeSelection,

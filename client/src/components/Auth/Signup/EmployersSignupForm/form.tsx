@@ -8,6 +8,10 @@ import { Input } from "@/components/shared/Input";
 import { EmployersSignupFormTypes } from "./types";
 import { TypeOfAccount } from "../ChooseTypeAccount/types";
 import { Select } from "@/components/shared/Select";
+import { industries } from "@/constants/industries";
+import { companySizes } from "@/constants/company-sizes-types";
+import { useMutation } from "react-query";
+import { signupEmployer } from "@/utils/actions";
 import {
   Card,
   CardContent,
@@ -16,13 +20,12 @@ import {
 } from "@/components/shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
-import { industries } from "@/constants/industries";
-import { companySizes } from "@/constants/company-sizes-types";
 
 const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
   handleTypeSelection,
 }) => {
   const {
+    reset,
     handleSubmit,
     control,
     formState: { errors, isValid, isSubmitting },
@@ -39,9 +42,22 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
     },
   });
 
-  const onSubmit = (
+  const { mutateAsync: signupEmployerMutation } = useMutation({
+    mutationFn: signupEmployer,
+    onSuccess: (data) => {
+      console.log(data);
+      reset();
+    },
+    onError: (error: any) => {
+      alert(error.response.data.message);
+    },
+  });
+
+  const onSubmit = async (
     values: zod.infer<typeof EmployersRegistrationSchemas>
-  ) => {};
+  ) => {
+    await signupEmployerMutation(values);
+  };
 
   return (
     <Card className="flex flex-col gap-7 py-6 lg:w-[600px]">
