@@ -16,6 +16,7 @@ const useAuthentication = () => {
 
   const deleteCookieHandler = React.useCallback(() => {
     Cookies.remove("token");
+    window.location.href = "/login";
   }, []);
 
   const getCookieHandler = React.useCallback((): AuthData => {

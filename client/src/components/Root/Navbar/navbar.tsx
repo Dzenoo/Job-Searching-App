@@ -34,7 +34,8 @@ const AuthenticationDivLinks: React.FC = () => {
 };
 
 const Navbar: React.FC = () => {
-  const { isAuthenticated, userType } = useAuthentication().getCookieHandler();
+  const { deleteCookieHandler, getCookieHandler } = useAuthentication();
+  const { isAuthenticated, userType } = getCookieHandler();
   const pathname = usePathname();
   const isSeeker = userType === "seeker";
   const isEmployer = userType === "employer";
@@ -62,7 +63,10 @@ const Navbar: React.FC = () => {
         {isAuthenticated && isSeeker ? (
           <div className="flex items-center gap-3">
             <div>
-              <SeekersNavbarActions />
+              <SeekersNavbarActions
+                pathname={pathname}
+                logout={deleteCookieHandler}
+              />
             </div>
             <div>
               <SeekersNavbarAvatar />
