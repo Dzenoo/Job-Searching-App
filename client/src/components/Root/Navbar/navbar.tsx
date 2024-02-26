@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
       </div>
       <div>
         {isAuthenticated && isSeeker ? (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-6">
             <div>
               <SeekersNavbarActions
                 pathname={pathname}

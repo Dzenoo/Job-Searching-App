@@ -3,7 +3,6 @@ import axios from "axios";
 type AxiosHeadersConfig = {
   [key: string]: string;
 };
-
 const DEFAULT_API_URL = "http://localhost:7000";
 
 export const postApiHandler = <T>(
