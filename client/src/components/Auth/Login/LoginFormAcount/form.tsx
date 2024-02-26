@@ -9,6 +9,7 @@ import { TypeOfAccount } from "../../Signup/ChooseTypeAccount/types";
 import { LoginSchemasForm } from "@/utils/validation";
 import { useMutation } from "react-query";
 import { loginUserAccount } from "@/utils/actions";
+import { toast } from "react-toastify";
 import {
   Card,
   CardContent,
@@ -42,7 +43,7 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
       reset();
     },
     onError: (error: any) => {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     },
   });
 

@@ -7,6 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/shared/Input";
 import { SeekersSignupFormTypes } from "./types";
 import { TypeOfAccount } from "../ChooseTypeAccount/types";
+import { useMutation } from "react-query";
+import { signupSeeker } from "@/utils/actions";
+import { toast } from "react-toastify";
 import {
   Card,
   CardContent,
@@ -15,8 +18,6 @@ import {
 } from "@/components/shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
-import { useMutation } from "react-query";
-import { signupSeeker } from "@/utils/actions";
 
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   handleTypeSelection,
@@ -43,7 +44,7 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
       reset();
     },
     onError: (error: any) => {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     },
   });
 

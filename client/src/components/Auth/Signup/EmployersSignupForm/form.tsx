@@ -12,6 +12,7 @@ import { industries } from "@/constants/industries";
 import { companySizes } from "@/constants/company-sizes-types";
 import { useMutation } from "react-query";
 import { signupEmployer } from "@/utils/actions";
+import { toast } from "react-toastify";
 import {
   Card,
   CardContent,
@@ -49,7 +50,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
       reset();
     },
     onError: (error: any) => {
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     },
   });
 

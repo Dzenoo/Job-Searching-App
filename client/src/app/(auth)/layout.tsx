@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import { Navbar } from "@/components/Root/Navbar";
 import { Inter } from "next/font/google";
 import { QueryContextProvider } from "@/contexts/react-query-client";
+import { ToastContainer } from "react-toastify";
 import "../globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +25,7 @@ export default function AuthLayout({
         <body className={inter.className}>
           <Navbar />
           <main>{children}</main>
+          <ToastContainer />
         </body>
       </html>
     </QueryContextProvider>
