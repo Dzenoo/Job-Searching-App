@@ -45,9 +45,9 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
 
   const { mutateAsync: signupEmployerMutation } = useMutation({
     mutationFn: signupEmployer,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       reset();
+      window.location.href = "/login";
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);

@@ -1,22 +1,19 @@
-import { LinkElement } from "@/components/shared/Link";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+"use client";
 
-const Logo: React.FC = () => {
-  return (
-    <Link href="/">
-      <Image
-        src="/images/logo/logo-light.png"
-        alt="light-talentify-logo"
-        width={170}
-        height={170}
-        loading="lazy"
-        style={{ objectFit: "cover", width: "auto", height: "auto" }}
-      />
-    </Link>
-  );
-};
+import React from "react";
+import useAuthentication from "@/hooks/useAuthentication";
+import Logo from "./Logo/logo";
+import { LinkElement } from "@/components/shared/Link";
+import {
+  SeekersNavbarActions,
+  SeekersNavbarAvatar,
+  SeekersNavbarLinks,
+} from "./Seekers";
+import {
+  EmployersNavbarActions,
+  EmployersNavbarAvatar,
+  EmployersNavbarLinks,
+} from "./Employers";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -36,16 +33,53 @@ const AuthenticationDivLinks: React.FC = () => {
 };
 
 const Navbar: React.FC = () => {
+  const { isAuthenticated, userType } = useAuthentication().getCookieHandler();
+  const isSeeker = userType === "seeker";
+
   return (
     <header className="base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray">
       <div>
         <Logo />
       </div>
       <div>
-        <AuthenticationDivLinks />
+        {isAuthenticated && isSeeker ? (
+          <div>
+            <SeekersNavbarLinks />
+          </div>
+        ) : (
+          <div>
+            <EmployersNavbarLinks />
+          </div>
+        )}
       </div>
+      <div>
+        {isAuthenticated && isSeeker ? (
+          <div className="flex items-center gap-3">
+            <div>
+              <SeekersNavbarActions />
+            </div>
+            <div>
+              <SeekersNavbarAvatar />
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <div>
+              <EmployersNavbarActions />
+            </div>
+            <div>
+              <EmployersNavbarAvatar />
+            </div>
+          </div>
+        )}
+      </div>
+      {!isAuthenticated && (
+        <div>
+          <AuthenticationDivLinks />
+        </div>
+      )}
     </header>
   );
 };
 
-export { Navbar };
+export default Navbar;

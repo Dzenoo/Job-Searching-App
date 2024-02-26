@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { ChooseLoginType } from "@/components/Auth/Login/ChooseLoginType";
+import Authenticated from "@/components/Hoc/authenticated";
 
 const LoginPage = () => {
   return (
@@ -9,4 +12,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Authenticated(LoginPage);

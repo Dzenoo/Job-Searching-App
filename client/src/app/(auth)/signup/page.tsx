@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import { ChooseTypeAccount } from "@/components/Auth/Signup/ChooseTypeAccount";
+import Authenticated from "@/components/Hoc/authenticated";
 
 const SignupPage: React.FC = () => {
   return (
@@ -9,4 +11,4 @@ const SignupPage: React.FC = () => {
   );
 };
 
-export default SignupPage;
+export default Authenticated(SignupPage);

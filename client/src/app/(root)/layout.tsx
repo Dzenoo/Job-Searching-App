@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Navbar } from "@/components/Root/Navbar";
 import { QueryContextProvider } from "@/contexts/react-query-client";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("@/components/Root/Navbar/Navbar"), {
+  ssr: false,
+});
+
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -103,8 +103,6 @@ export const loginSeeker = asyncErrors(
         );
       }
 
-      response.cookie("token", seekerToken, { httpOnly: true });
-
       responseServerHandler(
         {
           seeker: existingSeeker._id,

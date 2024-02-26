@@ -1,8 +1,13 @@
 import { Metadata } from "next";
-import { Navbar } from "@/components/Root/Navbar";
 import { Inter } from "next/font/google";
 import { QueryContextProvider } from "@/contexts/react-query-client";
 import { ToastContainer } from "react-toastify";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("@/components/Root/Navbar/Navbar"), {
+  ssr: false,
+});
+
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 

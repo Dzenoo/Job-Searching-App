@@ -18,11 +18,13 @@ import {
 } from "@/components/shared/Card/card";
 import Link from "next/link";
 import zod from "zod";
+import useAuthentication from "@/hooks/useAuthentication";
 
 const LoginFormAccount: React.FC<LoginFormTypes> = ({
   handleTypeSelection,
   type,
 }) => {
+  const { storeCookieHandler } = useAuthentication();
   const {
     reset,
     handleSubmit,
@@ -38,9 +40,10 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
 
   const { mutateAsync: loginToAccount } = useMutation({
     mutationFn: loginUserAccount,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: (data: any) => {
       reset();
+      storeCookieHandler(data.seekerToken);
+      window.location.href = "/";
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);

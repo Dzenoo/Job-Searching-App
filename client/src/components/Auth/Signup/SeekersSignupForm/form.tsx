@@ -39,9 +39,9 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
 
   const { mutateAsync: signupSeekerMutation } = useMutation({
     mutationFn: signupSeeker,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       reset();
+      window.location.href = "/login";
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);
