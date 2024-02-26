@@ -35,6 +35,7 @@ const AuthenticationDivLinks: React.FC = () => {
 const Navbar: React.FC = () => {
   const { isAuthenticated, userType } = useAuthentication().getCookieHandler();
   const isSeeker = userType === "seeker";
+  const isEmployer = userType === "employer";
 
   return (
     <header className="base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray">
@@ -47,9 +48,12 @@ const Navbar: React.FC = () => {
             <SeekersNavbarLinks />
           </div>
         ) : (
-          <div>
-            <EmployersNavbarLinks />
-          </div>
+          isAuthenticated &&
+          isEmployer && (
+            <div>
+              <EmployersNavbarLinks />
+            </div>
+          )
         )}
       </div>
       <div>
@@ -63,14 +67,17 @@ const Navbar: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center gap-3">
-            <div>
-              <EmployersNavbarActions />
+          isAuthenticated &&
+          isEmployer && (
+            <div className="flex items-center gap-3">
+              <div>
+                <EmployersNavbarActions />
+              </div>
+              <div>
+                <EmployersNavbarAvatar />
+              </div>
             </div>
-            <div>
-              <EmployersNavbarAvatar />
-            </div>
-          </div>
+          )
         )}
       </div>
       {!isAuthenticated && (

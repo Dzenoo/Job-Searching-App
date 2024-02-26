@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/shared/Input";
 import { SeekersSignupFormTypes } from "./types";
 import { TypeOfAccount } from "../ChooseTypeAccount/types";
+import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
 import { signupSeeker } from "@/utils/actions";
 import { toast } from "react-toastify";
@@ -155,7 +156,7 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
               disabled={isSubmitting}
               className="m-auto block relative px-10"
             >
-              {isSubmitting ? "Registering..." : "Register"}
+              {isSubmitting ? <ClipLoader color="#fff" /> : "Register"}
             </Button>
           </div>
         </Form>

@@ -10,6 +10,7 @@ import { TypeOfAccount } from "../ChooseTypeAccount/types";
 import { Select } from "@/components/shared/Select";
 import { industries } from "@/constants/industries";
 import { companySizes } from "@/constants/company-sizes-types";
+import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
 import { signupEmployer } from "@/utils/actions";
 import { toast } from "react-toastify";
@@ -200,7 +201,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
               disabled={isSubmitting}
               className="m-auto block relative px-10"
             >
-              {isSubmitting ? "Registering..." : "Register"}
+              {isSubmitting ? <ClipLoader color="#fff" /> : "Register"}
             </Button>
           </div>
         </Form>

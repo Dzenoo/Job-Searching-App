@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { LoginFormTypes } from "./types";
 import { TypeOfAccount } from "../../Signup/ChooseTypeAccount/types";
 import { LoginSchemasForm } from "@/utils/validation";
+import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
 import { loginUserAccount } from "@/utils/actions";
 import { toast } from "react-toastify";
@@ -129,7 +130,7 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
               disabled={isSubmitting}
               className="m-auto block relative px-10"
             >
-              {isSubmitting ? "Logging..." : "Login"}
+              {isSubmitting ? <ClipLoader /> : "Login"}
             </Button>
           </div>
         </Form>
