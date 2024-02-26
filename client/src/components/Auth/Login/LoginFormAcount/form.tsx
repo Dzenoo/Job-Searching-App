@@ -7,6 +7,8 @@ import { Controller, useForm } from "react-hook-form";
 import { LoginFormTypes } from "./types";
 import { TypeOfAccount } from "../../Signup/ChooseTypeAccount/types";
 import { LoginSchemasForm } from "@/utils/validation";
+import { useMutation } from "react-query";
+import { loginUserAccount } from "@/utils/actions";
 import {
   Card,
   CardContent,
@@ -21,6 +23,7 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
   type,
 }) => {
   const {
+    reset,
     handleSubmit,
     control,
     formState: { errors, isValid, isSubmitting },
@@ -32,7 +35,20 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
     },
   });
 
-  const onSubmit = (values: zod.infer<typeof LoginSchemasForm>) => {};
+  const { mutateAsync: loginToAccount } = useMutation({
+    mutationFn: loginUserAccount,
+    onSuccess: (data) => {
+      console.log(data);
+      reset();
+    },
+    onError: (error: any) => {
+      alert(error.response.data.message);
+    },
+  });
+
+  const onSubmit = async (loginData: zod.infer<typeof LoginSchemasForm>) => {
+    await loginToAccount({ type, loginData });
+  };
 
   return (
     <Card className="flex flex-col gap-7 py-6 lg:w-[430px]">

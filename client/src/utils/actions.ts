@@ -1,3 +1,4 @@
+import { TypeOfAccount } from "@/components/Auth/Signup/ChooseTypeAccount/types";
 import { postApiHandler } from "./api";
 
 export const signupSeeker = async (data: {
@@ -16,3 +17,17 @@ export const signupEmployer = async (data: {
   size: string;
   address: string;
 }) => postApiHandler("employer-signup", data);
+
+export const loginUserAccount = async ({
+  type,
+  loginData,
+}: {
+  type: TypeOfAccount;
+  loginData: {
+    email: string;
+    password: string;
+  };
+}) => {
+  const path = type === "employer" ? "employer-login" : "seeker-login";
+  return postApiHandler(path, loginData);
+};
