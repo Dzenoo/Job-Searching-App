@@ -15,11 +15,15 @@ import {
 } from "@/components/shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
+import { useMutation } from "react-query";
+import { signupSeeker } from "@/utils/actions";
+import { AxiosError } from "axios";
 
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   handleTypeSelection,
 }) => {
   const {
+    reset,
     handleSubmit,
     control,
     formState: { errors, isValid, isSubmitting },
@@ -33,7 +37,22 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
     },
   });
 
-  const onSubmit = (values: zod.infer<typeof SeekerRegistrationSchemas>) => {};
+  const { mutateAsync: signupSeekerMutation } = useMutation({
+    mutationFn: signupSeeker,
+    onSuccess: (data) => {
+      console.log(data);
+      reset();
+    },
+    onError: (error: any) => {
+      alert(error.response.data.message);
+    },
+  });
+
+  const onSubmit = async (
+    values: zod.infer<typeof SeekerRegistrationSchemas>
+  ) => {
+    await signupSeekerMutation(values);
+  };
 
   return (
     <Card className="flex flex-col gap-7 py-6">

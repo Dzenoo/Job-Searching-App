@@ -33,7 +33,7 @@ export const signupSeeker = asyncErrors(
       if (existingSeeker) {
         return responseServerHandler(
           { message: "This email already exists, please try again" },
-          404,
+          400,
           response
         );
       }
@@ -52,7 +52,11 @@ export const signupSeeker = asyncErrors(
 
       await newSeeker.save();
 
-      responseServerHandler({ seeker: newSeeker._id }, 201, response);
+      responseServerHandler(
+        { seeker: newSeeker._id, seekerToken: newSeeker.generateAuthToken },
+        201,
+        response
+      );
     } catch (errors) {
       responseServerHandler({ message: "Error for signup" }, 400, response);
     }

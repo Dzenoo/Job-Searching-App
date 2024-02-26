@@ -65,8 +65,8 @@ function initializeServer(): void {
 
   app.use(handleError);
 
-  server.listen(3000, () => {
-    console.log("Server is running on the port 3000");
+  server.listen(7000, () => {
+    console.log("Server is running on the port 7000");
   });
 }
 

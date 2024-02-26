@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Navbar } from "@/components/Root/Navbar";
 import { Inter } from "next/font/google";
+import { QueryContextProvider } from "@/contexts/react-query-client";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,11 +18,13 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        <main>{children}</main>
-      </body>
-    </html>
+    <QueryContextProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Navbar />
+          <main>{children}</main>
+        </body>
+      </html>
+    </QueryContextProvider>
   );
 }
