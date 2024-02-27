@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
           isAuthenticated &&
           isEmployer && (
             <div>
-              <EmployersNavbarLinks />
+              <EmployersNavbarLinks pathname={pathname} />
             </div>
           )
         )}
@@ -77,7 +77,10 @@ const Navbar: React.FC = () => {
           isEmployer && (
             <div className="flex items-center gap-3">
               <div>
-                <EmployersNavbarActions />
+                <EmployersNavbarActions
+                  logout={deleteCookieHandler}
+                  pathname={pathname}
+                />
               </div>
               <div>
                 <EmployersNavbarAvatar />

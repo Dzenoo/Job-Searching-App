@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { ChooseTypeAccount } from "@/components/Auth/Signup/ChooseTypeAccount";
 import Authenticated from "@/components/Hoc/authenticated";

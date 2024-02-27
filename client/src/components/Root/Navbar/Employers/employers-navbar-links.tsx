@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Building, Home, Search } from "lucide-react";
+import { Building, Home } from "lucide-react";
 
 type EmployersNavbarLinksProps = {
   pathname: string;
@@ -17,12 +17,6 @@ const EmployersNavbarLinks: React.FC<EmployersNavbarLinksProps> = ({
           title: "Home",
           href: "/",
           icon: <Home />,
-        },
-        {
-          id: "2",
-          title: "Find Jobs",
-          href: "/jobs",
-          icon: <Search />,
         },
         {
           id: "3",
