@@ -39,8 +39,8 @@ const SeekersNavbarLinks: React.FC<SeekersNavbarLinksProps> = ({
         <Link
           key={id}
           href={href}
-          className={`flex items-center gap-3 text-[--gray-base-color] transition-colors hover:text-[--black-base-color] ${
-            pathname === href && "text-[#0066ff]"
+          className={`flex items-center gap-3 transition-colors hover:text-[--black-base-color] ${
+            pathname === href ? "text-[#0066ff]" : "text-[--gray-base-color]"
           }`}
         >
           <div>{icon}</div>

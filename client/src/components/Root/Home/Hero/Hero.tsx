@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
           </p>
         </div>
         <div className="pt-4">
-          <LinkElement href="/find-jobs" variant="default">
+          <LinkElement href="/jobs" variant="default">
             Find Jobs Now
           </LinkElement>
         </div>

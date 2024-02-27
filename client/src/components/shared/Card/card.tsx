@@ -43,7 +43,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         {...props}
         className={twMerge(
-          "rounded-lg p-3 shadow-lg bg-white overflow-auto flex flex-col gap-3",
+          "rounded-lg p-3 shadow-lg bg-white overflow-auto flex flex-col gap-3 transition-colors hover:bg-gray-100",
           className
         )}
         ref={ref}
