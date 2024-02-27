@@ -30,7 +30,7 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
   ({ children, ...props }, ref) => {
     return (
-      <div {...props} ref={ref}>
+      <div {...props} ref={ref} className="py-3">
         {children}
       </div>
     );
@@ -43,7 +43,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         {...props}
         className={twMerge(
-          "rounded-lg p-3 shadow-lg bg-white overflow-auto flex flex-col gap-3 transition-colors hover:bg-gray-100",
+          "rounded-lg shadow-lg bg-white p-6 overflow-auto flex flex-col gap-3",
           className
         )}
         ref={ref}
