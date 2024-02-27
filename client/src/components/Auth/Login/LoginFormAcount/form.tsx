@@ -43,7 +43,7 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
     mutationFn: loginUserAccount,
     onSuccess: (data: any) => {
       reset();
-      storeCookieHandler(data.seekerToken);
+      storeCookieHandler(data.token);
       window.location.href = "/";
     },
     onError: (error: any) => {

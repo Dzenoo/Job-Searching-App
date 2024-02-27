@@ -113,7 +113,7 @@ export const loginEmployer = asyncErrors(
       responseServerHandler(
         {
           employer: existingEmployer._id,
-          employerToken: employerToken,
+          token: employerToken,
         },
         200,
         response

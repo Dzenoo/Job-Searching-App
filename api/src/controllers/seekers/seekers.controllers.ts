@@ -106,7 +106,7 @@ export const loginSeeker = asyncErrors(
       responseServerHandler(
         {
           seeker: existingSeeker._id,
-          seekerToken: seekerToken,
+          token: seekerToken,
         },
         200,
         response
