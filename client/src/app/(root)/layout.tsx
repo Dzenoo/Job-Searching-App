@@ -8,6 +8,7 @@ const Navbar = dynamic(() => import("@/components/Root/Navbar/Navbar"), {
 });
 
 import "../globals.css";
+import Footer from "@/components/Root/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <Navbar />
           <main className="base-margin">{children}</main>
+          <Footer />
         </body>
       </html>
     </QueryContextProvider>
