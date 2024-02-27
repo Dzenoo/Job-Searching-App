@@ -28,7 +28,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Navbar />
-          <main className="base-margin h-screen">{children}</main>
+          <main className="base-margin">{children}</main>
           <Footer />
         </body>
       </html>
