@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { QueryContextProvider } from "@/contexts/react-query-client";
+import { Poppins } from "next/font/google";
 import dynamic from "next/dynamic";
 
 const Navbar = dynamic(() => import("@/components/Root/Navbar/Navbar"), {
@@ -10,7 +10,7 @@ const Navbar = dynamic(() => import("@/components/Root/Navbar/Navbar"), {
 import "../globals.css";
 import Footer from "@/components/Root/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Poppins({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Job Talentify Platform",
@@ -28,7 +28,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Navbar />
-          <main className="base-margin">{children}</main>
+          <main className="base-margin h-screen">{children}</main>
           <Footer />
         </body>
       </html>

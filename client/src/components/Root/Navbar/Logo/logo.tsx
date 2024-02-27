@@ -7,8 +7,8 @@ const Logo: React.FC = () => {
       <Image
         src="/images/logo/logo-light.png"
         alt="light-talentify-logo"
-        width={170}
-        height={170}
+        width={300}
+        height={300}
         loading="lazy"
         style={{ objectFit: "cover", width: "auto", height: "auto" }}
       />

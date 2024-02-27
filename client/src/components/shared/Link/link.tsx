@@ -8,7 +8,7 @@ const LinkElement = React.forwardRef<HTMLAnchorElement, LinkProps>(
     return (
       <Link
         className={twMerge(
-          "px-6 py-3 rounded-lg leading-6 disabled:opacity-60 disabled:cursor-not-allowed transition-colors",
+          "px-6 py-3 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed transition-colors",
           className,
           LinkVariants[variant]
         )}
