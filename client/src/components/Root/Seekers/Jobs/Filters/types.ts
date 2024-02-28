@@ -1,4 +1,4 @@
-type FiltersCheckoxesTypes = {
+type FiltersCheckboxesTypes = {
   id: string;
   title: string;
   value: string;
@@ -9,7 +9,7 @@ type FiltersCheckoxesTypes = {
 type FiltersContentProps = {
   id: string;
   title: string;
-  checkboxes: FiltersCheckoxesTypes[];
+  checkboxes: FiltersCheckboxesTypes[];
 };
 
-export { type FiltersCheckoxesTypes, type FiltersContentProps };
+export { type FiltersCheckboxesTypes, type FiltersContentProps };

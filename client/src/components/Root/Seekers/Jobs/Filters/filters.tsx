@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/shared/Card";
 import { CardContent } from "@/components/shared/Card/card";
 import { Checkbox } from "@/components/shared/Checkbox";
 import { ListFilter } from "lucide-react";
-import { FiltersCheckoxesTypes, FiltersContentProps } from "./types";
+import { FiltersCheckboxesTypes, FiltersContentProps } from "./types";
 import { JobsFiltersData } from "@/constants/jobs";
 import useSearchParams from "@/hooks/useSearchParams";
 
@@ -36,34 +36,32 @@ const renderFilterDiv = <T extends FiltersContentProps>({
   title,
   checkboxes,
 }: T) => {
-  const { updateSearchParams, deleteSearchParams, searchParams } =
-    useSearchParams();
-
-  function handleCheckboxFilters(
-    e: React.ChangeEvent<HTMLInputElement>,
-    checkbox: FiltersCheckoxesTypes
-  ) {
-    const selectedValues: string[] =
-      searchParams.get(checkbox.type)?.split(",") || [];
-
-    if (e.target.checked) {
-      selectedValues.push(checkbox.value);
+  const { filters, setFilters, updateURL } = useSearchParams();
+  const handleCheckboxChange = (type: any, value: any, isChecked: boolean) => {
+    const updatedFilters: any = { ...filters };
+    if (isChecked) {
+      // Add value to the filter
+      if (updatedFilters[type]) {
+        updatedFilters[type] = Array.from(
+          new Set([...updatedFilters[type], value])
+        );
+      } else {
+        updatedFilters[type] = [value];
+      }
     } else {
-      const index = selectedValues.indexOf(checkbox.value);
-      if (index !== -1) {
-        selectedValues.splice(index, 1);
+      // Remove value from the filter
+      if (updatedFilters[type]) {
+        updatedFilters[type] = updatedFilters[type].filter(
+          (v: any) => v !== value
+        );
+        if (updatedFilters[type].length === 0) {
+          delete updatedFilters[type];
+        }
       }
     }
-
-    if (selectedValues.length > 0) {
-      updateSearchParams({
-        type: checkbox.type,
-        value: selectedValues.join(","),
-      });
-    } else {
-      deleteSearchParams({ type: checkbox.type, value: "" });
-    }
-  }
+    setFilters(updatedFilters);
+    updateURL(updatedFilters);
+  };
 
   return (
     <div
@@ -75,19 +73,20 @@ const renderFilterDiv = <T extends FiltersContentProps>({
       </div>
       <div className="flex flex-col gap-6">
         {checkboxes.map((checkbox) => (
-          <div
-            key={checkbox.id}
-            className="flex items-center justify-between gap-3"
-          >
-            <div>
-              <Checkbox
-                label={checkbox.title}
-                onChange={(e) => handleCheckboxFilters(e, checkbox)}
-              />
-            </div>
-            <div>
-              <p>({checkbox.count})</p>
-            </div>
+          <div key={checkbox.id}>
+            <Checkbox
+              label={checkbox.title}
+              checked={
+                filters[checkbox.type]?.includes(checkbox.value) ?? false
+              }
+              onChange={(e) =>
+                handleCheckboxChange(
+                  checkbox.type,
+                  checkbox.value,
+                  e.target.checked
+                )
+              }
+            />
           </div>
         ))}
       </div>

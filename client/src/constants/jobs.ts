@@ -70,7 +70,7 @@ export const JobsFiltersData = [
         count: 30,
       },
       {
-        id: "3",
+        id: "4",
         title: "Freelance",
         value: "freelance",
         type: "type",
@@ -131,7 +131,7 @@ export const JobsFiltersData = [
         count: 30,
       },
       {
-        id: "3",
+        id: "4",
         title: "70 000$ - 100 000$",
         value: "70000-100000",
         type: "salaryRange",

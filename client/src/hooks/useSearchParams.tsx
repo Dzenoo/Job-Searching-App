@@ -1,35 +1,32 @@
-import { useRouter } from "next/navigation";
-
-type SearchParamsProps = {
-  type: string;
-  value: string;
-};
-
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 const useSearchParams = () => {
   const router = useRouter();
-  const searchParams = new URLSearchParams(window.location.search);
-
-  function updateSearchParams({ type, value }: SearchParamsProps): void {
-    searchParams.set(type, value);
-
-    const newPathname = `${
-      window.location.pathname
-    }?${searchParams.toString()}`;
-
-    router.push(newPathname);
-  }
-
-  function deleteSearchParams({ type }: SearchParamsProps): void {
-    searchParams.delete(type);
-
-    const newPathname = `${
-      window.location.pathname
-    }?${searchParams.toString()}`;
-
-    router.push(newPathname);
-  }
-
-  return { deleteSearchParams, updateSearchParams, searchParams };
+  const pathname = usePathname();
+  const [filters, setFilters] = useState<any>({});
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const paramsObj: any = {};
+    searchParams.forEach((value, key) => {
+      if (paramsObj[key]) {
+        paramsObj[key] = [...paramsObj[key], value];
+      } else {
+        paramsObj[key] = [value];
+      }
+    });
+    setFilters(paramsObj);
+  }, [pathname]);
+  const updateURL = (updatedFilters: any) => {
+    const searchParams = new URLSearchParams();
+    Object.keys(updatedFilters).forEach((key) => {
+      updatedFilters[key].forEach((value: any) => {
+        searchParams.append(key, value);
+      });
+    });
+    const newPathname = `${pathname}?${searchParams.toString()}`;
+    router.push(newPathname, undefined);
+  };
+  return { filters, setFilters, updateURL };
 };
 
 export default useSearchParams;
