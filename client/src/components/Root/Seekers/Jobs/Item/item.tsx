@@ -10,6 +10,7 @@ import {
 import { Bookmark, GraduationCap, MapPin, Timer } from "lucide-react";
 import { FooterInfoDataProps, JobItemProps } from "./types";
 import { checkExpired, formatDate, getTime } from "@/utils/date";
+import Link from "next/link";
 
 const JobItem: React.FC<JobItemProps> = ({ job }) => {
   const isJobExpired = checkExpired(job.expiration_date);
@@ -36,7 +37,7 @@ const JobItem: React.FC<JobItemProps> = ({ job }) => {
 
   return (
     <li key={job.title}>
-      <Card className="hover:bg-gray-100">
+      <Card>
         <CardHeader className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div>
@@ -50,7 +51,9 @@ const JobItem: React.FC<JobItemProps> = ({ job }) => {
             </div>
             <div className="flex flex-col gap-[3px]">
               <div>
-                <h1 className="text-base-black font-bold">{job.title}</h1>
+                <Link href={job.title}>
+                  <h1 className="text-base-black font-bold">{job.title}</h1>
+                </Link>
               </div>
               <div className="flex items-center gap-3">
                 <div>

@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import React from "react";
 import { Card } from "@/components/shared/Card";
 import { CardContent } from "@/components/shared/Card/card";
 import { Checkbox } from "@/components/shared/Checkbox";
@@ -8,7 +9,7 @@ import { FiltersCheckboxesTypes, FiltersContentProps } from "./types";
 import { JobsFiltersData } from "@/constants/jobs";
 import useSearchParams from "@/hooks/useSearchParams";
 
-const Filters: React.FC = () => {
+const FilterJobs: React.FC = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-3 justify-between">
@@ -36,32 +37,7 @@ const renderFilterDiv = <T extends FiltersContentProps>({
   title,
   checkboxes,
 }: T) => {
-  const { filters, setFilters, updateURL } = useSearchParams();
-  const handleCheckboxChange = (type: any, value: any, isChecked: boolean) => {
-    const updatedFilters: any = { ...filters };
-    if (isChecked) {
-      // Add value to the filter
-      if (updatedFilters[type]) {
-        updatedFilters[type] = Array.from(
-          new Set([...updatedFilters[type], value])
-        );
-      } else {
-        updatedFilters[type] = [value];
-      }
-    } else {
-      // Remove value from the filter
-      if (updatedFilters[type]) {
-        updatedFilters[type] = updatedFilters[type].filter(
-          (v: any) => v !== value
-        );
-        if (updatedFilters[type].length === 0) {
-          delete updatedFilters[type];
-        }
-      }
-    }
-    setFilters(updatedFilters);
-    updateURL(updatedFilters);
-  };
+  const { filters, updateSearchParams } = useSearchParams();
 
   return (
     <div
@@ -72,7 +48,7 @@ const renderFilterDiv = <T extends FiltersContentProps>({
         <h1 className="text-base-black">{title}</h1>
       </div>
       <div className="flex flex-col gap-6">
-        {checkboxes.map((checkbox) => (
+        {checkboxes.map((checkbox: FiltersCheckboxesTypes) => (
           <div key={checkbox.id}>
             <Checkbox
               label={checkbox.title}
@@ -80,10 +56,10 @@ const renderFilterDiv = <T extends FiltersContentProps>({
                 filters[checkbox.type]?.includes(checkbox.value) ?? false
               }
               onChange={(e) =>
-                handleCheckboxChange(
+                updateSearchParams(
                   checkbox.type,
                   checkbox.value,
-                  e.target.checked
+                  e.target.checked ? "add" : "remove"
                 )
               }
             />
@@ -94,4 +70,4 @@ const renderFilterDiv = <T extends FiltersContentProps>({
   );
 };
 
-export { Filters };
+export { FilterJobs };
