@@ -8,9 +8,9 @@ import {
 } from "./types";
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ children, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     return (
-      <div {...props} ref={ref}>
+      <div {...props} ref={ref} className={twMerge("py-3", className)}>
         {children}
       </div>
     );
@@ -18,9 +18,13 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 );
 
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ children, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     return (
-      <div {...props} ref={ref}>
+      <div
+        {...props}
+        ref={ref}
+        className={twMerge("py-3 border-t border-gray-300", className)}
+      >
         {children}
       </div>
     );
@@ -28,9 +32,9 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 );
 
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ children, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     return (
-      <div {...props} ref={ref} className="py-3">
+      <div {...props} ref={ref} className={twMerge("py-3", className)}>
         {children}
       </div>
     );
