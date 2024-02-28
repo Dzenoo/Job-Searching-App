@@ -4,7 +4,7 @@ import { Select } from "@/components/shared/Select";
 import useSearchParams from "@/hooks/useSearchParams";
 
 const SearchJobs: React.FC = () => {
-  const { updateSearchParams } = useSearchParams();
+  const { performanceSearchParams, updateSearchParams } = useSearchParams();
 
   return (
     <div className="flex justify-between gap-3">
@@ -12,7 +12,7 @@ const SearchJobs: React.FC = () => {
         <Input
           placeholder="Search Jobs..."
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            updateSearchParams("query", e.target.value, "add")
+            performanceSearchParams("query", e.target.value, "add")
           }
         />
       </div>

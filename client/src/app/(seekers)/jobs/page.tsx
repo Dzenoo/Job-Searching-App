@@ -29,4 +29,4 @@ const Jobs = ({
   );
 };
 
-export default Protected(Jobs);
+export default Protected(Jobs, ["seeker"]);
