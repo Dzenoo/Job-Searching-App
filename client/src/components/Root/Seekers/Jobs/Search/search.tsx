@@ -4,12 +4,14 @@ import { Select } from "@/components/shared/Select";
 import useSearchParams from "@/hooks/useSearchParams";
 
 const SearchJobs: React.FC = () => {
-  const { performanceSearchParams, updateSearchParams } = useSearchParams();
+  const { performanceSearchParams, updateSearchParams, searchParams } =
+    useSearchParams();
 
   return (
     <div className="flex justify-between gap-3">
       <div className="basis-full">
         <Input
+          defaultValue={searchParams.get("query")?.toString()}
           placeholder="Search Jobs..."
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             performanceSearchParams("query", e.target.value, "add")
@@ -18,13 +20,14 @@ const SearchJobs: React.FC = () => {
       </div>
       <div>
         <Select
+          defaultValue={searchParams.get("sort")?.toString()}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             updateSearchParams("sort", e.target.value, "add")
           }
           options={[
             { label: "Sort By Date", value: "" },
-            { label: "Newest", value: "asc" },
-            { label: "Descending", value: "desc" },
+            { label: "Descending", value: "asc" },
+            { label: "Newest", value: "desc" },
           ]}
         />
       </div>

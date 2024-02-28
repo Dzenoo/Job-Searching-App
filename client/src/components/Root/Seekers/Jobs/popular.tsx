@@ -1,7 +1,11 @@
 import { Card, CardContent } from "@/components/shared/Card";
 import React from "react";
+import { PopularsJobsInfoProps } from "./types";
+import useSearchParams from "@/hooks/useSearchParams";
 
-const PopularJobsInfo: React.FC = () => {
+const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
+  const { updateSearchParams } = useSearchParams();
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -9,9 +13,15 @@ const PopularJobsInfo: React.FC = () => {
       </div>
       <Card>
         <CardContent className="flex flex-col gap-3">
-          <p className="text-initial-blue">Frontend Developer</p>
-          <p className="text-initial-blue">Backend Developer</p>
-          <p className="text-initial-blue">Data Scientist</p>
+          {jobs?.map((job) => (
+            <button
+              key={job._id}
+              className="text-initial-blue"
+              onClick={() => updateSearchParams("query", job.title, "add")}
+            >
+              {job.title}
+            </button>
+          ))}
         </CardContent>
       </Card>
     </div>

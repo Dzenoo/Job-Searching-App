@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense, useEffect } from "react";
 import Protected from "@/components/Hoc/protected";
 import { JobsList } from "@/components/Root/Seekers/Jobs";
 import { FilterJobs } from "@/components/Root/Seekers/Jobs/Filters";
@@ -15,7 +15,7 @@ const Jobs = ({
 }: {
   searchParams: { [key: string]: string };
 }) => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryFn: () =>
       getJobs({
         page: searchParams.page || "1",
@@ -26,48 +26,39 @@ const Jobs = ({
         seniority: searchParams.seniority || "",
         type: searchParams.type || "",
       }),
-    queryKey: [
-      "jobs",
-      {
-        page: searchParams.page,
-        srt: searchParams.sort,
-        search: searchParams.query,
-        position: searchParams.position,
-        salaryRange: searchParams.salaryRange,
-        seniority: searchParams.seniority,
-        type: searchParams.type,
-      },
-    ],
+    queryKey: ["jobs"],
   });
 
-  if (!data) {
-    return <div>No Data Founded</div>;
-  }
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    refetch();
+  }, [searchParams]);
+
   let fetchedJobs: any = data;
 
   return (
     <section className="flex gap-7 justify-between py-6">
       <div className="basis-1/2">
-        <PopularJobsInfo />
+        <PopularJobsInfo jobs={fetchedJobs?.popularJobs} />
       </div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
           <SearchJobs />
         </div>
         <div>
-          <JobsList jobs={fetchedJobs.jobs} />
+          <Suspense fallback={<div>LOADING</div>}>
+            <JobsList jobs={fetchedJobs?.jobs} />
+          </Suspense>
         </div>
-        <div className="py-6">
-          <Pagination
-            totalItems={fetchedJobs.jobs.length}
-            itemsPerPage={3}
-            currentPage={Number(searchParams?.page) || 1}
-            visiblePages={6}
-          />
-        </div>
+        {fetchedJobs?.jobs.length > 0 && (
+          <div className="py-6">
+            <Pagination
+              totalItems={fetchedJobs.totalJobs}
+              itemsPerPage={10}
+              currentPage={Number(searchParams?.page) || 1}
+              visiblePages={6}
+            />
+          </div>
+        )}
       </div>
       <div className="basis-1/2">
         <FilterJobs />

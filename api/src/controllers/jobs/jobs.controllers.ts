@@ -278,6 +278,12 @@ export const getJobs = asyncErrors(async (request, response) => {
 
     const conditions: any = {};
 
+    const totalJobs = await Job.find({}).lean().countDocuments({});
+
+    const popularJobs = await Job.find({
+      $expr: { $gt: [{ $size: "$applications" }, 30] },
+    }).select("title");
+
     if (search) {
       conditions.$or = [
         { title: { $regex: new RegExp(String(search), "i") } },
@@ -327,8 +333,14 @@ export const getJobs = asyncErrors(async (request, response) => {
       .limit(Number(limit))
       .exec();
 
-    responseServerHandler({ jobs: jobs }, 200, response);
+    responseServerHandler(
+      { jobs: jobs, totalJobs: totalJobs, popularJobs: popularJobs },
+      200,
+      response
+    );
   } catch (error) {
+    console.log(error);
+
     responseServerHandler(
       { message: "Cannot get jobs, please try again" },
       400,

@@ -4,4 +4,11 @@ type JobListProps = {
   jobs: JobProps[];
 };
 
-export { type JobListProps };
+type PopularsJobsInfoProps = {
+  jobs: {
+    _id: string;
+    title: string;
+  }[];
+};
+
+export { type JobListProps, type PopularsJobsInfoProps };
