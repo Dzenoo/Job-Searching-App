@@ -11,7 +11,7 @@ import useSearchParams from "@/hooks/useSearchParams";
 
 const FilterJobs: React.FC = () => {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center gap-3 justify-between">
         <div>
           <h1 className="text-base-black">Filters</h1>
@@ -20,7 +20,6 @@ const FilterJobs: React.FC = () => {
           <ListFilter />
         </div>
       </div>
-      <div>Selected</div>
       <Card>
         <CardContent>
           <div className="flex flex-col gap-10">

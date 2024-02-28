@@ -29,7 +29,7 @@ const Jobs = ({
           <Pagination
             totalItems={100}
             itemsPerPage={10}
-            currentPage={Number(searchParams?.page)}
+            currentPage={Number(searchParams?.page) || 1}
             visiblePages={6}
           />
         </div>
