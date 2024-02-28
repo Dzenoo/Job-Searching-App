@@ -5,6 +5,7 @@ import Protected from "@/components/Hoc/protected";
 import { JobsList } from "@/components/Root/Seekers/Jobs";
 import { FilterJobs } from "@/components/Root/Seekers/Jobs/Filters";
 import { SearchJobs } from "@/components/Root/Seekers/Jobs/Search";
+import { Pagination } from "@/components/shared/Pagination";
 
 const Jobs = ({
   searchParams,
@@ -12,14 +13,22 @@ const Jobs = ({
   searchParams: { [key: string]: string };
 }) => {
   return (
-    <section className="flex gap-3 justify-between">
+    <section className="flex gap-7 justify-between">
       <div className="basis-1/2">Popular</div>
-      <div className="basis-full grow flex flex-col gap-3">
+      <div className="basis-full grow flex flex-col gap-6">
         <div>
           <SearchJobs />
         </div>
         <div>
           <JobsList />
+        </div>
+        <div className="py-16">
+          <Pagination
+            totalItems={100}
+            itemsPerPage={10}
+            currentPage={Number(searchParams?.page)}
+            visiblePages={6}
+          />
         </div>
       </div>
       <div className="basis-1/2">
