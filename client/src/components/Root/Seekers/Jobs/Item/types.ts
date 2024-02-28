@@ -1,16 +1,5 @@
 type JobItemProps = {
-  job: {
-    title: string;
-    position: string;
-    location: string;
-    type: string;
-    skills: string[];
-    level: string;
-    salary: number;
-    expiration_date: string;
-    description: string;
-    overview: string;
-  };
+  job: JobProps;
 };
 
 type FooterInfoDataProps = {
@@ -19,4 +8,17 @@ type FooterInfoDataProps = {
   id: string;
 };
 
-export { type JobItemProps, type FooterInfoDataProps };
+type JobProps = {
+  title: string;
+  position: string;
+  location: string;
+  type: string;
+  skills: string[];
+  level: string;
+  salary: number;
+  expiration_date: string;
+  description: string;
+  overview: string;
+};
+
+export { type JobItemProps, type FooterInfoDataProps, type JobProps };

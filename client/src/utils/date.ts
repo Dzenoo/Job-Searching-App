@@ -13,7 +13,6 @@ export const checkExpired = (date: string) => {
 export const getTime = (date: string) => {
   const postedDateTime = moment(date);
   const currentDateTime = moment();
-
   const diffInSeconds = currentDateTime.diff(postedDateTime, "seconds");
   const diffInMinutes = currentDateTime.diff(postedDateTime, "minutes");
   const diffInHours = currentDateTime.diff(postedDateTime, "hours");

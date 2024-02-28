@@ -7,12 +7,47 @@ import { FilterJobs } from "@/components/Root/Seekers/Jobs/Filters";
 import { SearchJobs } from "@/components/Root/Seekers/Jobs/Search";
 import { Pagination } from "@/components/shared/Pagination";
 import { PopularJobsInfo } from "@/components/Root/Seekers/Jobs/popular";
+import { useQuery } from "react-query";
+import { getJobs } from "@/utils/actions";
 
 const Jobs = ({
   searchParams,
 }: {
   searchParams: { [key: string]: string };
 }) => {
+  const { data, isLoading, isError } = useQuery({
+    queryFn: () =>
+      getJobs({
+        page: searchParams.page || "1",
+        srt: searchParams.sort || "",
+        search: searchParams.query || "",
+        position: searchParams.position || "",
+        salaryRange: searchParams.salaryRange || "",
+        seniority: searchParams.seniority || "",
+        type: searchParams.type || "",
+      }),
+    queryKey: [
+      "jobs",
+      {
+        page: searchParams.page,
+        srt: searchParams.sort,
+        search: searchParams.query,
+        position: searchParams.position,
+        salaryRange: searchParams.salaryRange,
+        seniority: searchParams.seniority,
+        type: searchParams.type,
+      },
+    ],
+  });
+
+  if (!data) {
+    return <div>No Data Founded</div>;
+  }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  let fetchedJobs: any = data;
+
   return (
     <section className="flex gap-7 justify-between py-6">
       <div className="basis-1/2">
@@ -23,12 +58,12 @@ const Jobs = ({
           <SearchJobs />
         </div>
         <div>
-          <JobsList />
+          <JobsList jobs={fetchedJobs.jobs} />
         </div>
         <div className="py-6">
           <Pagination
-            totalItems={100}
-            itemsPerPage={10}
+            totalItems={fetchedJobs.jobs.length}
+            itemsPerPage={3}
             currentPage={Number(searchParams?.page) || 1}
             visiblePages={6}
           />

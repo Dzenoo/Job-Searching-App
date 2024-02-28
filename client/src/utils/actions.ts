@@ -1,5 +1,5 @@
 import { TypeOfAccount } from "@/components/Auth/Signup/ChooseTypeAccount/types";
-import { postApiHandler } from "./api";
+import { getApiHandler, postApiHandler } from "./api";
 
 export const signupSeeker = async (data: {
   first_name: string;
@@ -30,4 +30,26 @@ export const loginUserAccount = async ({
 }) => {
   const path = type === "employer" ? "employer-login" : "seeker-login";
   return postApiHandler(path, loginData);
+};
+
+export const getJobs = async ({
+  page = "1",
+  srt,
+  search,
+  salaryRange,
+  type,
+  seniority,
+  position,
+}: {
+  page: string;
+  srt: string;
+  search: string;
+  salaryRange: string | string[];
+  type: string | string[];
+  seniority: string | string[];
+  position: string | string[];
+}) => {
+  return getApiHandler(
+    `jobs?page=${page}&srt=${srt}&search=${search}&salaryRange=${salaryRange}&position=${position}&seniority=${seniority}&type=${type}`
+  );
 };
