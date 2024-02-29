@@ -16,25 +16,13 @@ import {
   MapPinIcon,
   Timer,
 } from "lucide-react";
-import { SkillsInformationsData } from "@/constants/skills";
+import { getSkillsData } from "@/utils/helpers";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job }) => {
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.expiration_date);
+  const categorizedSkills = getSkillsData(job?.skills);
   const isJobSaved = true;
-
-  const categorizedSkills: { [key: string]: string[] } = {};
-
-  SkillsInformationsData.forEach((category) => {
-    category.data.forEach((skill) => {
-      if (!categorizedSkills[category.category]) {
-        categorizedSkills[category.category] = [];
-      }
-      if (job?.skills.includes(skill.title)) {
-        categorizedSkills[category.category].push(skill.title);
-      }
-    });
-  });
 
   const CompanyInformationsData = new Array(
     {
@@ -175,13 +163,13 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job }) => {
             <div>
               <h1 className="font-bold">Skills</h1>
             </div>
-            <div>
+            <div className="py-3 flex gap-6">
               {Object.entries(categorizedSkills).map(
                 ([category, skills]) =>
                   skills.length > 0 && (
-                    <div key={category}>
+                    <div key={category} className="flex flex-col gap-3">
                       <div>
-                        <h1 className="font-bold">{category}</h1>
+                        <h1 className="text-initial-black">{category}</h1>
                       </div>
                       <div className="flex flex-wrap gap-3">
                         {skills.map((skill, index) => (
