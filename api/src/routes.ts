@@ -41,46 +41,43 @@ export function initializePublicRoutes(app: Express): void {
   const { loginSeeker, signupSeeker } = seekers;
   const { loginEmployer, signupEmployer, getEmployerById, getEmployers } =
     employers;
-  const { getJobById, getJobs } = jobs;
 
-  generateRoutes(app, [
-    {
-      method: EXPRESS_APP_METHODS.POST,
-      path: "/seeker-signup",
-      handlers: [signupSeeker],
-    },
-    {
-      method: EXPRESS_APP_METHODS.POST,
-      path: "/seeker-login",
-      handlers: [loginSeeker],
-    },
-    {
-      method: EXPRESS_APP_METHODS.POST,
-      path: "/employer-signup",
-      handlers: [signupEmployer],
-    },
-    {
-      method: EXPRESS_APP_METHODS.POST,
-      path: "/employer-login",
-      handlers: [loginEmployer],
-    },
-    { method: EXPRESS_APP_METHODS.GET, path: "/jobs", handlers: [getJobs] },
-    {
-      method: EXPRESS_APP_METHODS.GET,
-      path: "/jobs/:jobId",
-      handlers: [getJobById],
-    },
-    {
-      method: EXPRESS_APP_METHODS.GET,
-      path: "/employers",
-      handlers: [getEmployers],
-    },
-    {
-      method: EXPRESS_APP_METHODS.GET,
-      path: "/employers/:employerId",
-      handlers: [getEmployerById],
-    },
-  ]);
+  generateRoutes(
+    app,
+    [
+      {
+        method: EXPRESS_APP_METHODS.POST,
+        path: "/seeker-signup",
+        handlers: [signupSeeker],
+      },
+      {
+        method: EXPRESS_APP_METHODS.POST,
+        path: "/seeker-login",
+        handlers: [loginSeeker],
+      },
+      {
+        method: EXPRESS_APP_METHODS.POST,
+        path: "/employer-signup",
+        handlers: [signupEmployer],
+      },
+      {
+        method: EXPRESS_APP_METHODS.POST,
+        path: "/employer-login",
+        handlers: [loginEmployer],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/employers",
+        handlers: [getEmployers],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/employers/:employerId",
+        handlers: [getEmployerById],
+      },
+    ],
+    false
+  );
 }
 
 export function initializePrivateRoutes(app: Express): void {
@@ -88,7 +85,15 @@ export function initializePrivateRoutes(app: Express): void {
   const { createNewEvent, editEvent, deleteEvent, registerEvent, getEvents } =
     events;
   const { createDirectMessages, typeMessage } = messages;
-  const { deleteJob, createJob, editJob, saveJob, generateJobAlert } = jobs;
+  const {
+    deleteJob,
+    createJob,
+    editJob,
+    saveJob,
+    generateJobAlert,
+    getJobById,
+    getJobs,
+  } = jobs;
   const {
     getSeekerProfile,
     editSeekerProfile,
@@ -178,6 +183,16 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.DELETE,
         path: "/seeker/:employerId/review",
         handlers: [deleteReview],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/seeker/jobs",
+        handlers: [getJobs],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/seeker/jobs/:jobId",
+        handlers: [getJobById],
       },
       {
         method: EXPRESS_APP_METHODS.PATCH,

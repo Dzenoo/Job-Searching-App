@@ -360,7 +360,11 @@ export const getJobById = asyncErrors(async (request, response) => {
       return responseServerHandler({ message: "Job not found" }, 404, response);
     }
 
-    responseServerHandler({ job: job }, 201, response);
+    const jobs = await Job.find({
+      title: job.title,
+    }).exec();
+
+    responseServerHandler({ job: job, jobs: jobs }, 201, response);
   } catch (error) {
     responseServerHandler(
       { message: "Cannot get job, please try again" },

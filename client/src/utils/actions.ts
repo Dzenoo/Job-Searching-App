@@ -40,7 +40,9 @@ export const getJobs = async ({
   type,
   seniority,
   position,
+  token,
 }: {
+  token: string;
   page: string;
   srt: string;
   search: string;
@@ -50,6 +52,10 @@ export const getJobs = async ({
   position: string | string[];
 }) => {
   return getApiHandler(
-    `jobs?page=${page}&srt=${srt}&search=${search}&salaryRange=${salaryRange}&position=${position}&seniority=${seniority}&type=${type}`
+    `seeker/jobs?page=${page}&srt=${srt}&search=${search}&salaryRange=${salaryRange}&position=${position}&seniority=${seniority}&type=${type}`,
+    token as string
   );
 };
+
+export const getJobById = async (jobId: string, token: string) =>
+  getApiHandler(`seeker/jobs/${jobId}`, token);

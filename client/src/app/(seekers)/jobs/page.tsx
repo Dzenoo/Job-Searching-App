@@ -10,15 +10,18 @@ import { PopularJobsInfo } from "@/components/Root/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
 import { getJobs } from "@/utils/actions";
 import LoadingJobsSkeleton from "@/components/Root/Seekers/Jobs/LoadingJobsSkeleton";
+import useAuthentication from "@/hooks/useAuthentication";
 
 const Jobs = ({
   searchParams,
 }: {
   searchParams: { [key: string]: string };
 }) => {
+  const { token } = useAuthentication().getCookieHandler();
   const { data, isLoading, refetch } = useQuery({
     queryFn: () =>
       getJobs({
+        token: token as string,
         page: searchParams.page || "1",
         srt: searchParams.sort || "",
         search: searchParams.query || "",

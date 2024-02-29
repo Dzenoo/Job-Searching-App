@@ -52,7 +52,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
             </div>
             <div className="flex flex-col gap-[3px]">
               <div>
-                <Link href={job.title}>
+                <Link href={`/jobs/${job._id}`}>
                   <h1 className="text-base-black font-bold">{job.title}</h1>
                 </Link>
               </div>
