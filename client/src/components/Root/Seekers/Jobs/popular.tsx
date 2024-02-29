@@ -13,6 +13,11 @@ const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
       </div>
       <Card>
         <CardContent className="flex flex-col gap-3">
+          {jobs?.length === 0 && (
+            <div className="text-center">
+              <p className="text-initial-gray">No jobs found</p>
+            </div>
+          )}
           {jobs?.map((job) => (
             <button
               key={job._id}

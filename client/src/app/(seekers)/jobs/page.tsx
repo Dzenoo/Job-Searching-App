@@ -9,6 +9,7 @@ import { Pagination } from "@/components/shared/Pagination";
 import { PopularJobsInfo } from "@/components/Root/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
 import { getJobs } from "@/utils/actions";
+import LoadingJobsSkeleton from "@/components/Root/Seekers/Jobs/LoadingJobsSkeleton";
 
 const Jobs = ({
   searchParams,
@@ -45,14 +46,16 @@ const Jobs = ({
           <SearchJobs />
         </div>
         <div>
-          <Suspense fallback={<div>LOADING</div>}>
+          {isLoading ? (
+            <LoadingJobsSkeleton />
+          ) : (
             <JobsList jobs={fetchedJobs?.jobs} />
-          </Suspense>
+          )}
         </div>
         {fetchedJobs?.jobs.length > 0 && (
           <div className="py-6">
             <Pagination
-              totalItems={fetchedJobs.totalJobs}
+              totalItems={fetchedJobs?.jobs.length}
               itemsPerPage={10}
               currentPage={Number(searchParams?.page) || 1}
               visiblePages={6}
