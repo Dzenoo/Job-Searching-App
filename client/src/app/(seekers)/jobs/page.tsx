@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import Protected from "@/components/Hoc/protected";
 import { JobsList } from "@/components/Root/Seekers/Jobs";
 import { FilterJobs } from "@/components/Root/Seekers/Jobs/Filters";

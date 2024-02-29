@@ -12,10 +12,11 @@ import { FooterInfoDataProps, JobItemProps } from "./types";
 import { checkExpired, formatDate, getTime } from "@/utils/date";
 import Link from "next/link";
 
-const JobItem: React.FC<JobItemProps> = ({ job }) => {
+const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const isJobExpired = checkExpired(job.expiration_date);
   const expirationDate = formatDate(job.expiration_date);
   const createdTime = getTime(job.expiration_date);
+  const isJobSaved = false;
 
   let FooterInfoData: FooterInfoDataProps[] = new Array(
     {
@@ -67,15 +68,20 @@ const JobItem: React.FC<JobItemProps> = ({ job }) => {
           </div>
           <div>
             <Button variant="outlined">
-              <Bookmark color="gray" />
+              <Bookmark
+                color={isJobSaved ? "#0066FF" : "gray"}
+                fill={isJobSaved ? "#0066FF" : "#ffffff"}
+              />
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div>
-            <p className="text-initial-gray">{job.overview}</p>
-          </div>
-        </CardContent>
+        {showDescription && (
+          <CardContent>
+            <div>
+              <p className="text-initial-gray">{job.overview}</p>
+            </div>
+          </CardContent>
+        )}
         <CardFooter className="border-t border-gray-100 pt-6 flex items-center justify-between">
           <div className="flex items-center gap-6">
             {FooterInfoData.map((data: FooterInfoDataProps) =>

@@ -1,5 +1,6 @@
 type JobItemProps = {
   job: JobProps;
+  showDescription?: boolean;
 };
 
 type FooterInfoDataProps = {
