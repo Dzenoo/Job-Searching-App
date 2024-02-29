@@ -1,0 +1,1 @@
+export { JobDetailsInfo } from "./details";

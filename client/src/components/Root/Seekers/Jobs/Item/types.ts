@@ -3,12 +3,6 @@ type JobItemProps = {
   showDescription?: boolean;
 };
 
-type FooterInfoDataProps = {
-  data: string;
-  icon: React.JSX.Element;
-  id: string;
-};
-
 type JobProps = {
   title: string;
   position: string;
@@ -21,6 +15,8 @@ type JobProps = {
   expiration_date: string;
   description: string;
   overview: string;
+  applications: string[];
+  createdAt: string;
 };
 
-export { type JobItemProps, type FooterInfoDataProps, type JobProps };
+export { type JobItemProps, type JobProps };

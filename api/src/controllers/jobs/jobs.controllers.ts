@@ -331,6 +331,9 @@ export const getJobs = asyncErrors(async (request, response) => {
       .sort(sortOptions)
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit))
+      .select(
+        "_id title overview company applications location expiration_date level createdAt"
+      )
       .exec();
 
     responseServerHandler(
@@ -351,10 +354,14 @@ export const getJobs = asyncErrors(async (request, response) => {
 
 export const getJobById = asyncErrors(async (request, response) => {
   try {
-    const job = await Job.findById(request.params.jobId).populate({
-      path: "company",
-      select: "name company_description followers reviews size image",
-    });
+    const job = await Job.findById(request.params.jobId)
+      .populate({
+        path: "company",
+        select: "name company_description followers reviews size image",
+      })
+      .select(
+        "_id title overview company position applications location expiration_date level createdAt salary skills description type"
+      );
 
     if (!job) {
       return responseServerHandler({ message: "Job not found" }, 404, response);
@@ -362,9 +369,17 @@ export const getJobById = asyncErrors(async (request, response) => {
 
     const jobs = await Job.find({
       title: job.title,
-    }).exec();
+    })
+      .select(
+        "_id title overview company position applications location expiration_date level createdAt"
+      )
+      .exec();
 
-    responseServerHandler({ job: job, jobs: jobs }, 201, response);
+    const filteredJobsData = jobs.filter(
+      (job) => job._id.toString() !== request.params.jobId
+    );
+
+    responseServerHandler({ job: job, jobs: filteredJobsData }, 201, response);
   } catch (error) {
     responseServerHandler(
       { message: "Cannot get job, please try again" },

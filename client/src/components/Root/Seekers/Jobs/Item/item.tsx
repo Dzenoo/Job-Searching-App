@@ -8,9 +8,10 @@ import {
   CardHeader,
 } from "@/components/shared/Card/card";
 import { Bookmark, GraduationCap, MapPin, Timer } from "lucide-react";
-import { FooterInfoDataProps, JobItemProps } from "./types";
+import { JobItemProps } from "./types";
 import { checkExpired, formatDate, getTime } from "@/utils/date";
 import Link from "next/link";
+import { renderIconText } from "@/utils/jsx";
 
 const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const isJobExpired = checkExpired(job.expiration_date);
@@ -18,7 +19,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const createdTime = getTime(job.expiration_date);
   const isJobSaved = false;
 
-  let FooterInfoData: FooterInfoDataProps[] = new Array(
+  let FooterInfoData = new Array(
     {
       id: "1",
       data: job.location,
@@ -61,7 +62,9 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
                   <p className="text-low-gray">Company Name</p>
                 </div>
                 <div>
-                  <p className="text-low-gray">30 Applicants</p>
+                  <p className="text-low-gray">
+                    {job.applications.length} Applicants
+                  </p>
                 </div>
               </div>
             </div>
@@ -82,11 +85,9 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
             </div>
           </CardContent>
         )}
-        <CardFooter className="border-t border-gray-100 pt-6 flex items-center justify-between">
+        <CardFooter className="border-t border-gray-100 pt-6 flex items-center justify-between gap-3">
           <div className="flex items-center gap-6">
-            {FooterInfoData.map((data: FooterInfoDataProps) =>
-              renderFooterInformations(data)
-            )}
+            {FooterInfoData.map((data) => renderIconText(data))}
           </div>
           <div className="flex items-center gap-3">
             {isJobExpired && (
@@ -100,7 +101,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
               </div>
             )}
             <div>
-              <p className="text-initial-gray">{createdTime}</p>
+              <p className="text-initial-gray truncate">{createdTime}</p>
             </div>
           </div>
         </CardFooter>
@@ -108,18 +109,5 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
     </li>
   );
 };
-
-const renderFooterInformations = <T extends FooterInfoDataProps>({
-  icon,
-  data,
-  id,
-}: T) => (
-  <div key={id} className="flex items-center gap-3">
-    <div>{icon}</div>
-    <div>
-      <p className="text-initial-gray">{data}</p>
-    </div>
-  </div>
-);
 
 export { JobItem };
