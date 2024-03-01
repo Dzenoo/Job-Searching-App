@@ -86,4 +86,8 @@ body {
   .base-margin {
     @apply px-16 py-3 overflow-auto max-lg:px-8 max-sm:px-4;
   }
+
+  .bg-opacity-overlay {
+    background-color: rgba(0, 0, 0, 0.16);
+  }
 }

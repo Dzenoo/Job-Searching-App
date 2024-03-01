@@ -20,11 +20,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <div
-        {...props}
-        ref={ref}
-        className={twMerge("py-3 border-t border-gray-300", className)}
-      >
+      <div {...props} ref={ref} className={twMerge("py-3", className)}>
         {children}
       </div>
     );

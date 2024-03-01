@@ -1,11 +1,12 @@
 import React from "react";
-import { JobDetailsInfoProps } from "./types";
 import Image from "next/image";
 import Link from "next/link";
+import { JobDetailsInfoProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/shared/Card";
 import { renderIconText } from "@/utils/jsx";
 import { Button } from "@/components/shared/Button";
 import { formatDate, getTime } from "@/utils/date";
+import { getSkillsData } from "@/utils/helpers";
 import {
   Bookmark,
   Building,
@@ -16,9 +17,8 @@ import {
   MapPinIcon,
   Timer,
 } from "lucide-react";
-import { getSkillsData } from "@/utils/helpers";
 
-const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job }) => {
+const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.expiration_date);
   const categorizedSkills = getSkillsData(job?.skills);
@@ -131,7 +131,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job }) => {
           </div>
           <div className="flex gap-3">
             <div>
-              <Button className="px-6" variant="default">
+              <Button className="px-6" variant="default" onClick={onApplyJob}>
                 Apply to Job
               </Button>
             </div>
@@ -156,9 +156,19 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job }) => {
             {JobDetailsData.map((data) => renderJobDetails(data))}
           </div>
           <div>
-            <p className="text-initial-gray">{job?.overview}</p>
+            <div>
+              <h1 className="font-bold">Overview</h1>
+            </div>
+            <div className="py-3">
+              <p className="text-initial-gray">{job?.overview}</p>
+            </div>
           </div>
-          <div>{job?.description}</div>
+          <div>
+            <div>
+              <h1 className="font-bold">Description</h1>
+            </div>
+            <div className="py-3">{job?.description}</div>
+          </div>
           <div>
             <div>
               <h1 className="font-bold">Skills</h1>
