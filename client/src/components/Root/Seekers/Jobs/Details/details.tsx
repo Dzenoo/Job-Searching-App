@@ -17,6 +17,7 @@ import {
   MapPinIcon,
   Timer,
 } from "lucide-react";
+import SaveJobButton from "../save";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const expirationDate = formatDate(job?.expiration_date);
@@ -135,14 +136,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
                 Apply to Job
               </Button>
             </div>
-            <div>
-              <Button variant="outlined">
-                <Bookmark
-                  color={isJobSaved ? "#0066FF" : "gray"}
-                  fill={isJobSaved ? "#0066FF" : "#ffffff"}
-                />
-              </Button>
-            </div>
+            <SaveJobButton jobId={job?._id} />
           </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">

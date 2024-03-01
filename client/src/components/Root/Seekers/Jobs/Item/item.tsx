@@ -1,23 +1,22 @@
 import React from "react";
 import Image from "next/image";
-import { Button } from "@/components/shared/Button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/shared/Card/card";
-import { Bookmark, GraduationCap, MapPin, Timer } from "lucide-react";
+import { GraduationCap, MapPin, Timer } from "lucide-react";
 import { JobItemProps } from "./types";
 import { checkExpired, formatDate, getTime } from "@/utils/date";
-import Link from "next/link";
 import { renderIconText } from "@/utils/jsx";
+import Link from "next/link";
+import SaveJobButton from "../save";
 
 const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const isJobExpired = checkExpired(job.expiration_date);
   const expirationDate = formatDate(job.expiration_date);
   const createdTime = getTime(job.expiration_date);
-  const isJobSaved = false;
 
   let FooterInfoData = new Array(
     {
@@ -69,14 +68,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
               </div>
             </div>
           </div>
-          <div>
-            <Button variant="outlined">
-              <Bookmark
-                color={isJobSaved ? "#0066FF" : "gray"}
-                fill={isJobSaved ? "#0066FF" : "#ffffff"}
-              />
-            </Button>
-          </div>
+          <SaveJobButton jobId={job?._id} />
         </CardHeader>
         {showDescription && (
           <CardContent>

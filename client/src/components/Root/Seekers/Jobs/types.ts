@@ -11,4 +11,13 @@ type PopularsJobsInfoProps = {
   }[];
 };
 
-export { type JobListProps, type PopularsJobsInfoProps };
+type SaveJobButtonProps = {
+  jobId: string;
+  token?: string;
+};
+
+export {
+  type JobListProps,
+  type PopularsJobsInfoProps,
+  type SaveJobButtonProps,
+};

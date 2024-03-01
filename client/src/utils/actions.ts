@@ -1,5 +1,5 @@
 import { TypeOfAccount } from "@/components/Auth/Signup/ChooseTypeAccount/types";
-import { getApiHandler, postApiHandler } from "./api";
+import { getApiHandler, patchApiHandler, postApiHandler } from "./api";
 
 export const signupSeeker = async (data: {
   first_name: string;
@@ -78,4 +78,8 @@ export const addCoverLetter = async (jobId: string, token: string) => {
     {},
     token
   );
+};
+
+export const saveJob = async (jobId: string, token: string) => {
+  return await patchApiHandler(`seeker/jobs/${jobId}/save`, {}, token);
 };
