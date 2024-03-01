@@ -36,7 +36,6 @@ const Jobs = ({
   useEffect(() => {
     refetch();
   }, [searchParams]);
-
   let fetchedJobs: any = data;
 
   return (
