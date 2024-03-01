@@ -1,6 +1,5 @@
 import { Button } from "@/components/shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/shared/Forms";
-import { Input } from "@/components/shared/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -10,8 +9,9 @@ import zod from "zod";
 import { ClipLoader } from "react-spinners";
 import { ApplyToJobSchemas } from "@/utils/validation";
 import { useDropzone } from "react-dropzone";
-import { applyToJob } from "@/utils/actions";
+import { addCoverLetter, applyToJob } from "@/utils/actions";
 import { Textarea } from "@/components/shared/Textarea";
+import { queryClient } from "@/contexts/react-query-client";
 
 type ApplyToJobProps = {
   jobId: string;
@@ -34,10 +34,12 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
   });
 
   const {
+    register,
+    setValue,
     reset,
     handleSubmit,
     control,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid, isSubmitting, defaultValues },
   } = useForm<zod.infer<typeof ApplyToJobSchemas>>({
     resolver: zodResolver(ApplyToJobSchemas),
     defaultValues: {
@@ -50,11 +52,26 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
     onSuccess: () => {
       reset();
       toast.success("Successfully Applied to Job");
+      queryClient.invalidateQueries(["jobs"]);
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);
     },
   });
+
+  const { mutateAsync: coverLetterJob, isLoading: coverLetterLoading } =
+    useMutation({
+      mutationFn: async () => {
+        const response = await addCoverLetter(jobId, token);
+        return response;
+      },
+      onSuccess: (response: any) => {
+        setValue("coverLetter", response.cover_letter);
+      },
+      onError: (error: any) => {
+        toast.error(error.response.data.message);
+      },
+    });
 
   const onSubmit = async (values: zod.infer<typeof ApplyToJobSchemas>) => {
     if (!selectedFile) {
@@ -115,6 +132,18 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
                   label="Cover Letter (optional)"
                   type="text"
                   placeholder="Cover Letter"
+                  value={field.value}
+                  action={
+                    <Button
+                      variant="outlined"
+                      onClick={async () => await coverLetterJob()}
+                      type="button"
+                      disabled={coverLetterLoading}
+                    >
+                      {coverLetterLoading && <ClipLoader color="blue" />}{" "}
+                      Generate By Ai
+                    </Button>
+                  }
                 />
               )}
             />

@@ -3,14 +3,17 @@ import { LabelVariants, TextareaProps, TextareaVariants } from "./types";
 import { twMerge } from "tailwind-merge";
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ label, variant = "default", className, ...props }, ref) => {
+  ({ label, variant = "default", action, className, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-[0.6em]">
-        {label && (
-          <label className={twMerge("font-medium", LabelVariants[variant])}>
-            {label}
-          </label>
-        )}
+        <div className="flex items-center justify-between gap-3">
+          {label && (
+            <label className={twMerge("font-medium", LabelVariants[variant])}>
+              {label}
+            </label>
+          )}
+          {action && <div>{action}</div>}
+        </div>
         <textarea
           ref={ref}
           {...props}

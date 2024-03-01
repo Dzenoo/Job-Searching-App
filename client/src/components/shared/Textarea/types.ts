@@ -13,6 +13,7 @@ enum TextareaVariants {
 type TextareaProps = {
   label?: string;
   variant?: keyof typeof TextareaVariants;
+  action?: React.ReactNode;
 } & Omit<React.InputHTMLAttributes<HTMLTextAreaElement>, "children">;
 
 export { LabelVariants, TextareaVariants, type TextareaProps };

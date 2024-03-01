@@ -37,19 +37,25 @@ const LoadingJobDetails = () => {
         <div className="flex flex-col gap-6">
           <div className="w-40 h-4 rounded-full bg-gray-300"></div>
           <div className="flex items-center gap-3">
-            {Array.from({ length: 3 }).map((_item) => (
-              <div className="w-40 h-4 rounded-full bg-gray-300"></div>
+            {Array.from({ length: 3 }).map((_item, ind) => (
+              <div
+                key={ind}
+                className="w-40 h-4 rounded-full bg-gray-300"
+              ></div>
             ))}
           </div>
           <div className="flex items-center gap-3">
-            {Array.from({ length: 4 }).map((_item) => (
-              <div className="w-full h-40 rounded-xl bg-gray-300"></div>
+            {Array.from({ length: 4 }).map((_item, ind) => (
+              <div
+                key={ind}
+                className="w-full h-40 rounded-xl bg-gray-300"
+              ></div>
             ))}
           </div>
         </div>
         <div className="flex flex-col gap-6">
-          {Array.from({ length: 3 }).map((_item) => (
-            <div className="w-full h-4 rounded-xl bg-gray-300"></div>
+          {Array.from({ length: 3 }).map((_item, ind) => (
+            <div key={ind} className="w-full h-4 rounded-xl bg-gray-300"></div>
           ))}
         </div>
       </div>

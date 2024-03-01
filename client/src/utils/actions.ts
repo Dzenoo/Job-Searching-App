@@ -71,3 +71,11 @@ export const applyToJob = async (
     token,
     "multipart/form-data"
   );
+
+export const addCoverLetter = async (jobId: string, token: string) => {
+  return await postApiHandler(
+    `seeker/${jobId}/generate-cover-letter`,
+    {},
+    token
+  );
+};
