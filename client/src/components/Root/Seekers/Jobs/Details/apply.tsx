@@ -11,6 +11,7 @@ import { ClipLoader } from "react-spinners";
 import { ApplyToJobSchemas } from "@/utils/validation";
 import { useDropzone } from "react-dropzone";
 import { applyToJob } from "@/utils/actions";
+import { Textarea } from "@/components/shared/Textarea";
 
 type ApplyToJobProps = {
   jobId: string;
@@ -109,7 +110,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
               name="coverLetter"
               control={control}
               render={({ field }) => (
-                <Input
+                <Textarea
                   {...field}
                   label="Cover Letter (optional)"
                   type="text"
@@ -126,7 +127,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
               variant="default"
               type="submit"
               disabled={isSubmitting || !selectedFile}
-              className="m-auto block relative px-10"
+              className="w-full"
             >
               {isSubmitting ? <ClipLoader color="#fff" /> : "Apply"}
             </Button>
