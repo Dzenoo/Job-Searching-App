@@ -4,12 +4,13 @@ import Protected from "@/components/Hoc/protected";
 import AddJobAlert from "@/components/Root/Seekers/Jobs/Details/alerts";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
+import ApplyToJob from "@/components/Root/Seekers/Jobs/Details/apply";
+import LoadingJobDetails from "@/components/Root/Seekers/Jobs/Details/LoadingJobDetails";
 import { JobsList } from "@/components/Root/Seekers/Jobs";
 import { JobDetailsInfo } from "@/components/Root/Seekers/Jobs/Details";
 import { getJobById } from "@/utils/actions";
 import { useQuery } from "react-query";
 import { Dialog } from "@/components/shared/Dialog";
-import ApplyToJob from "@/components/Root/Seekers/Jobs/Details/apply";
 
 const JobDetailsPage = ({
   params: { jobId },
@@ -27,6 +28,10 @@ const JobDetailsPage = ({
     queryKey: ["job"],
   });
   let fetchedJobs: any = data;
+
+  if (isLoading) {
+    return <LoadingJobDetails />;
+  }
 
   return (
     <section className="flex gap-7 py-6 justify-between">
