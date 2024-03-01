@@ -9,6 +9,7 @@ import { JobDetailsInfo } from "@/components/Root/Seekers/Jobs/Details";
 import { getJobById } from "@/utils/actions";
 import { useQuery } from "react-query";
 import { Dialog } from "@/components/shared/Dialog";
+import ApplyToJob from "@/components/Root/Seekers/Jobs/Details/apply";
 
 const JobDetailsPage = ({
   params: { jobId },
@@ -17,7 +18,7 @@ const JobDetailsPage = ({
 }) => {
   const { openDialog, closeDialog, dialogs } = useDialogs({
     applyToJob: {
-      isOpen: true,
+      isOpen: false,
     },
   });
   const { token } = useAuthentication().getCookieHandler();
@@ -45,11 +46,7 @@ const JobDetailsPage = ({
         <Dialog
           onCloseDialog={() => closeDialog("applyToJob")}
           isOpen={dialogs.applyToJob.isOpen}
-          render={({ exit }) => (
-            <>
-              <div>APPLY TO JOB</div>
-            </>
-          )}
+          render={() => <ApplyToJob jobId={jobId} token={token!} />}
         />
       </div>
     </section>

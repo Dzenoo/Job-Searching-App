@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import { QueryContextProvider } from "@/contexts/react-query-client";
+import { ToastContainer } from "react-toastify";
 import { Poppins } from "next/font/google";
 import dynamic from "next/dynamic";
+import Footer from "@/components/Root/Footer/Footer";
 
 const Navbar = dynamic(() => import("@/components/Root/Navbar/Navbar"), {
   ssr: false,
 });
 
 import "../globals.css";
-import Footer from "@/components/Root/Footer/Footer";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -30,6 +32,7 @@ export default function RootLayout({
           <Navbar />
           <main className="base-margin">{children}</main>
           <Footer />
+          <ToastContainer />
         </body>
       </html>
     </QueryContextProvider>

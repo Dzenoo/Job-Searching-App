@@ -7,11 +7,12 @@ const DEFAULT_API_URL = "http://localhost:7000";
 
 export const postApiHandler = <T>(
   url: string,
-  data: {},
-  token?: string
+  data: {} | FormData,
+  token?: string,
+  contentType: string = "application/json"
 ): Promise<T> => {
   const headers: AxiosHeadersConfig = {
-    "Content-Type": "application/json",
+    "Content-Type": contentType,
   };
 
   if (token) {
@@ -20,7 +21,7 @@ export const postApiHandler = <T>(
 
   return new Promise((resolve, reject) => {
     axios
-      .post(`${DEFAULT_API_URL}/${url}`, JSON.stringify(data), { headers })
+      .post(`${DEFAULT_API_URL}/${url}`, data, { headers })
       .then((response) => resolve(response.data))
       .catch((error) => reject(error));
   });

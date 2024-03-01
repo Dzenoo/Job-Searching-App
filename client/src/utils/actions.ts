@@ -59,3 +59,15 @@ export const getJobs = async ({
 
 export const getJobById = async (jobId: string, token: string) =>
   getApiHandler(`seeker/jobs/${jobId}`, token);
+
+export const applyToJob = async (
+  jobId: string,
+  token: string,
+  formData: FormData
+) =>
+  await postApiHandler(
+    `seeker/jobs/${jobId}/apply`,
+    formData,
+    token,
+    "multipart/form-data"
+  );

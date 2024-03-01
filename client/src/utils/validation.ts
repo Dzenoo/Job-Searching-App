@@ -63,3 +63,7 @@ export const LoginSchemasForm = zod.object({
       "Password must contain symbols and numbers"
     ),
 });
+
+export const ApplyToJobSchemas = zod.object({
+  coverLetter: zod.string().optional(),
+});
