@@ -278,8 +278,6 @@ export const getJobs = asyncErrors(async (request, response) => {
 
     const conditions: any = {};
 
-    const totalJobs = await Job.find({}).lean().countDocuments({});
-
     const popularJobs = await Job.find({
       $expr: { $gt: [{ $size: "$applications" }, 30] },
     }).select("title");
@@ -335,6 +333,7 @@ export const getJobs = asyncErrors(async (request, response) => {
         "_id title overview company applications location expiration_date level createdAt"
       )
       .exec();
+    const totalJobs = await Job.countDocuments(conditions);
 
     responseServerHandler(
       { jobs: jobs, totalJobs: totalJobs, popularJobs: popularJobs },

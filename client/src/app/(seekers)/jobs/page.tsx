@@ -57,7 +57,7 @@ const Jobs = ({
         {fetchedJobs?.jobs.length > 0 && (
           <div className="py-6">
             <Pagination
-              totalItems={fetchedJobs?.jobs.length}
+              totalItems={fetchedJobs?.totalJobs}
               itemsPerPage={10}
               currentPage={Number(searchParams?.page) || 1}
               visiblePages={6}
