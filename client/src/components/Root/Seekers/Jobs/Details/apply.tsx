@@ -34,12 +34,11 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
   });
 
   const {
-    register,
     setValue,
     reset,
     handleSubmit,
     control,
-    formState: { errors, isValid, isSubmitting, defaultValues },
+    formState: { errors, isSubmitting },
   } = useForm<zod.infer<typeof ApplyToJobSchemas>>({
     resolver: zodResolver(ApplyToJobSchemas),
     defaultValues: {
@@ -61,10 +60,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
 
   const { mutateAsync: coverLetterJob, isLoading: coverLetterLoading } =
     useMutation({
-      mutationFn: async () => {
-        const response = await addCoverLetter(jobId, token);
-        return response;
-      },
+      mutationFn: () => addCoverLetter(jobId, token),
       onSuccess: (response: any) => {
         setValue("coverLetter", response.cover_letter);
       },

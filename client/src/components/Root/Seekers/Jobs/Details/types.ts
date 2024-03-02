@@ -5,4 +5,11 @@ type JobDetailsInfoProps = {
   onApplyJob: () => void;
 };
 
-export { type JobDetailsInfoProps };
+type JobAlertProps = {
+  level: string;
+  type: string;
+  title: string;
+  token: string;
+};
+
+export { type JobDetailsInfoProps, type JobAlertProps };

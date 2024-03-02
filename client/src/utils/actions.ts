@@ -6,7 +6,7 @@ export const signupSeeker = async (data: {
   last_name: string;
   email: string;
   password: string;
-}) => postApiHandler("seeker-signup", data);
+}) => await postApiHandler("seeker-signup", data);
 
 export const signupEmployer = async (data: {
   number: string;
@@ -16,7 +16,7 @@ export const signupEmployer = async (data: {
   industry: string;
   size: string;
   address: string;
-}) => postApiHandler("employer-signup", data);
+}) => await postApiHandler("employer-signup", data);
 
 export const loginUserAccount = async ({
   type,
@@ -27,10 +27,11 @@ export const loginUserAccount = async ({
     email: string;
     password: string;
   };
-}) => {
-  const path = type === "employer" ? "employer-login" : "seeker-login";
-  return postApiHandler(path, loginData);
-};
+}) =>
+  await postApiHandler(
+    type === "employer" ? "employer-login" : "seeker-login",
+    loginData
+  );
 
 export const getJobs = async ({
   page = "1",
@@ -50,15 +51,14 @@ export const getJobs = async ({
   type: string | string[];
   seniority: string | string[];
   position: string | string[];
-}) => {
-  return getApiHandler(
+}) =>
+  await getApiHandler(
     `seeker/jobs?page=${page}&srt=${srt}&search=${search}&salaryRange=${salaryRange}&position=${position}&seniority=${seniority}&type=${type}`,
     token as string
   );
-};
 
 export const getJobById = async (jobId: string, token: string) =>
-  getApiHandler(`seeker/jobs/${jobId}`, token);
+  await getApiHandler(`seeker/jobs/${jobId}`, token);
 
 export const applyToJob = async (
   jobId: string,
@@ -72,14 +72,11 @@ export const applyToJob = async (
     "multipart/form-data"
   );
 
-export const addCoverLetter = async (jobId: string, token: string) => {
-  return await postApiHandler(
-    `seeker/${jobId}/generate-cover-letter`,
-    {},
-    token
-  );
-};
+export const addCoverLetter = async (jobId: string, token: string) =>
+  await postApiHandler(`seeker/${jobId}/generate-cover-letter`, {}, token);
 
-export const saveJob = async (jobId: string, token: string) => {
-  return await patchApiHandler(`seeker/jobs/${jobId}/save`, {}, token);
-};
+export const saveJob = async (jobId: string, token: string) =>
+  await patchApiHandler(`seeker/jobs/${jobId}/save`, {}, token);
+
+export const addJobAlert = async (token: string, data: any) =>
+  await patchApiHandler(`seeker/jobs/alerts`, data, token);

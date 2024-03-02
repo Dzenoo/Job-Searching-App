@@ -23,7 +23,6 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.expiration_date);
   const categorizedSkills = getSkillsData(job?.skills);
-  const isJobSaved = true;
 
   const CompanyInformationsData = new Array(
     {
