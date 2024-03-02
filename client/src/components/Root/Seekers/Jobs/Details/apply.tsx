@@ -136,8 +136,11 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
                       type="button"
                       disabled={coverLetterLoading}
                     >
-                      {coverLetterLoading && <ClipLoader color="blue" />}{" "}
-                      Generate By Ai
+                      {coverLetterLoading ? (
+                        <ClipLoader color="blue" />
+                      ) : (
+                        "Generate By Ai"
+                      )}
                     </Button>
                   }
                 />
