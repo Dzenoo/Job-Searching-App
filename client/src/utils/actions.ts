@@ -99,3 +99,14 @@ export const getEmployers = async ({
 
 export const followEmployer = async (employerId: string, token: string) =>
   await patchApiHandler(`seeker/${employerId}/follow`, {}, token);
+
+export const getEmployerById = async (
+  employerId: string,
+  token: string,
+  type: string = "reviews",
+  page: string = "1"
+) =>
+  await getApiHandler(
+    `seeker/employers/${employerId}?page=${page}&type=${type}`,
+    token
+  );
