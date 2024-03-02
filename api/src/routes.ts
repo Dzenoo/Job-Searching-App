@@ -39,8 +39,7 @@ function generateRoutes<
 
 export function initializePublicRoutes(app: Express): void {
   const { loginSeeker, signupSeeker } = seekers;
-  const { loginEmployer, signupEmployer, getEmployerById, getEmployers } =
-    employers;
+  const { loginEmployer, signupEmployer } = employers;
 
   generateRoutes(
     app,
@@ -64,16 +63,6 @@ export function initializePublicRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.POST,
         path: "/employer-login",
         handlers: [loginEmployer],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employers",
-        handlers: [getEmployers],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employers/:employerId",
-        handlers: [getEmployerById],
       },
     ],
     false
@@ -108,6 +97,8 @@ export function initializePrivateRoutes(app: Express): void {
     followEmployer,
     editEmployerProfile,
     deleteEmployerProfile,
+    getEmployerById,
+    getEmployers,
   } = employers;
   const {
     applyToJob,
@@ -183,6 +174,16 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.DELETE,
         path: "/seeker/:employerId/review",
         handlers: [deleteReview],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/seeker/employers",
+        handlers: [getEmployers],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/seeker/employers/:employerId",
+        handlers: [getEmployerById],
       },
       {
         method: EXPRESS_APP_METHODS.GET,

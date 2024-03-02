@@ -491,6 +491,7 @@ export const getEmployers = asyncErrors(async (request, response) => {
       )
       .exec();
 
+    const totalEmployers = await Employer.countDocuments(conditions);
     if (!employers) {
       return responseServerHandler(
         { message: "Cannot Find Employers" },
@@ -499,7 +500,11 @@ export const getEmployers = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ employers: employers }, 201, response);
+    responseServerHandler(
+      { employers: employers, totalEmployers: totalEmployers },
+      201,
+      response
+    );
   } catch (error) {
     responseServerHandler({ message: "Cannot get employers" }, 400, response);
   }

@@ -80,3 +80,19 @@ export const saveJob = async (jobId: string, token: string) =>
 
 export const addJobAlert = async (token: string, data: any) =>
   await patchApiHandler(`seeker/jobs/alerts`, data, token);
+
+export const getEmployers = async ({
+  page = "1",
+  srt,
+  search,
+  token,
+}: {
+  token: string;
+  page: string;
+  srt: string;
+  search: string;
+}) =>
+  await getApiHandler(
+    `seeker/employers?page=${page}&srt=${srt}&search=${search}`,
+    token as string
+  );

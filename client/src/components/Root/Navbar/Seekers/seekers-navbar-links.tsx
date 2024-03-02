@@ -26,7 +26,7 @@ const SeekersNavbarLinks: React.FC<SeekersNavbarLinksProps> = ({
         {
           id: "3",
           title: "Find Companies",
-          href: "/find-companies",
+          href: "/companies",
           icon: <Building />,
         },
         {
