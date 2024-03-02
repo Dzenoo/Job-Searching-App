@@ -23,7 +23,6 @@ const AddJobAlert: React.FC<JobAlertProps> = ({
     type,
     title,
   };
-
   const { mutate: addJobAlertMutate, isLoading } = useMutation({
     mutationFn: () => addJobAlert(token, jobAlertData),
     mutationKey: ["job"],

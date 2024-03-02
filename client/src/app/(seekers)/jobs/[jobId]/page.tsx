@@ -52,13 +52,11 @@ const JobDetailsPage = ({
       <div className="basis-1/2">
         <JobsList jobs={fetchedJobs?.jobs} />
       </div>
-      <div>
-        <Dialog
-          onCloseDialog={() => closeDialog("applyToJob")}
-          isOpen={dialogs.applyToJob.isOpen}
-          render={() => <ApplyToJob jobId={jobId} token={token!} />}
-        />
-      </div>
+      <Dialog
+        onCloseDialog={() => closeDialog("applyToJob")}
+        isOpen={dialogs.applyToJob.isOpen}
+        render={() => <ApplyToJob jobId={jobId} token={token!} />}
+      />
     </section>
   );
 };
