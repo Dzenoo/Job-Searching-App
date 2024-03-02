@@ -38,7 +38,7 @@ const Companies = ({
         <SearchEmployers />
       </div>
       <div>
-        <EmployersList employers={fetchedCompanies?.employers} />
+        <EmployersList employers={fetchedCompanies?.employers} token={token!} />
       </div>
       {fetchedCompanies?.employers.length > 0 && (
         <div className="py-6">

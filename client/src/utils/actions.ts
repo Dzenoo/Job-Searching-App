@@ -96,3 +96,6 @@ export const getEmployers = async ({
     `seeker/employers?page=${page}&srt=${srt}&search=${search}`,
     token as string
   );
+
+export const followEmployer = async (employerId: string, token: string) =>
+  await patchApiHandler(`seeker/${employerId}/follow`, {}, token);
