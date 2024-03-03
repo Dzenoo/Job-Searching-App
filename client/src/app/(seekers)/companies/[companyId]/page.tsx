@@ -4,9 +4,12 @@ import Protected from "@/components/Hoc/protected";
 import { EmployerDetailsInfo } from "@/components/Root/Seekers/Employers/Details";
 import { EmployerFilters } from "@/components/Root/Seekers/Employers/Filters";
 import { EmployerType } from "@/components/Root/Seekers/Employers/Filters/types";
+import { JobsList } from "@/components/Root/Seekers/Jobs";
+import LoadingJobsSkeleton from "@/components/Root/Seekers/Jobs/LoadingJobsSkeleton";
+import { Pagination } from "@/components/shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getEmployerById } from "@/utils/actions";
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 const CompanyDetails = ({
@@ -17,7 +20,7 @@ const CompanyDetails = ({
   searchParams: { [key: string]: keyof typeof EmployerType };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryFn: () =>
       getEmployerById(
         params.companyId,
@@ -28,20 +31,49 @@ const CompanyDetails = ({
     queryKey: ["company"],
   });
 
+  useEffect(() => {
+    refetch();
+  }, [searchParams]);
+
   const fetchedCompany: any = data;
 
-  if (isLoading) return <p>Loading...</p>;
+  const searchParamsJobs = searchParams?.type === "jobs";
+  const searchParamsReviews = searchParams?.type === "reviews";
+  const searchParamsEvents = searchParams?.type === "events";
 
+  let totalItems = 0;
+
+  if (searchParamsJobs && fetchedCompany?.totalJobs) {
+    totalItems = fetchedCompany?.totalJobs;
+  } else if (searchParamsReviews && fetchedCompany?.totalReviews) {
+    totalItems = fetchedCompany?.totalReviews;
+  } else if (searchParamsEvents && fetchedCompany?.totalEvents) {
+    totalItems = fetchedCompany?.totalEvents;
+  }
   return (
     <section className="py-6 overflow-hidden mx-40">
       <div>
-        <EmployerDetailsInfo
-          employer={fetchedCompany?.employer}
-          token={token!}
-        />
+        <EmployerDetailsInfo employer={fetchedCompany?.employer} />
       </div>
       <div>
         <EmployerFilters type={searchParams.type} />
+      </div>
+      <div className="flex flex-col gap-6 justify-center">
+        {searchParamsJobs && (
+          <>
+            {isLoading ? (
+              <LoadingJobsSkeleton />
+            ) : (
+              <JobsList jobs={fetchedCompany?.employer?.jobs} />
+            )}
+          </>
+        )}
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={10}
+          currentPage={Number(searchParams?.page) || 1}
+          visiblePages={6}
+        />
       </div>
     </section>
   );

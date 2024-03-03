@@ -47,7 +47,7 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
           <div className="flex flex-col gap-3 basis-full">
             <div className="flex items-center gap-3 justify-between">
               <div>
-                <Link href={`/companies/${employer._id}`}>
+                <Link href={`/companies/${employer._id}?type=jobs`}>
                   <h1 className="text-base-black font-bold">{employer.name}</h1>
                 </Link>
               </div>

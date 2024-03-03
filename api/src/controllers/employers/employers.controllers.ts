@@ -410,7 +410,7 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
 export const getEmployerById = asyncErrors(async (request, response) => {
   try {
     const { employerId } = request.params;
-    const { page = 1, limit = 10, type } = request.query;
+    const { page = 1, limit = 10, type = "jobs" } = request.query;
 
     const skip = (Number(page) - 1) * Number(limit);
     let populateQuery: any;
@@ -420,7 +420,12 @@ export const getEmployerById = asyncErrors(async (request, response) => {
         populateQuery = {
           path: "jobs",
           options: { skip, limit: Number(limit) },
-          select: "title position _id location level description",
+          select:
+            "title position _id location level applications expiration_date createdAt overview",
+          populate: {
+            path: "company",
+            select: "_id image name",
+          },
         };
         break;
       case "reviews":
@@ -454,7 +459,20 @@ export const getEmployerById = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ employer: employer }, 201, response);
+    const totalJobs = await Job.countDocuments({ company: employerId });
+    const totalReviews = await Review.countDocuments({ company: employerId });
+    const totalEvents = await Event.countDocuments({ company: employerId });
+
+    responseServerHandler(
+      {
+        employer: employer,
+        totalJobs: totalJobs,
+        totalReviews: totalReviews,
+        totalEvents: totalEvents,
+      },
+      201,
+      response
+    );
   } catch (error) {
     responseServerHandler({ message: "Cannot get employer" }, 400, response);
   }

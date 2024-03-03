@@ -1,6 +1,6 @@
 enum EmployerType {
   reviews = "reviews",
-  event = "events",
+  events = "events",
   jobs = "jobs",
 }
 
