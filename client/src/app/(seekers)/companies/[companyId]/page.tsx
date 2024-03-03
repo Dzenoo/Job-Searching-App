@@ -35,7 +35,10 @@ const CompanyDetails = ({
   return (
     <section className="py-6 overflow-hidden mx-40">
       <div>
-        <EmployerDetailsInfo employer={fetchedCompany?.employer} />
+        <EmployerDetailsInfo
+          employer={fetchedCompany?.employer}
+          token={token!}
+        />
       </div>
       <div>
         <EmployerFilters type={searchParams.type} />

@@ -6,21 +6,12 @@ import { Card, CardContent, CardFooter } from "@/components/shared/Card";
 import { Button } from "@/components/shared/Button";
 import { renderIconText } from "@/utils/jsx";
 import { Camera, FileText, Text } from "lucide-react";
-import { useMutation } from "react-query";
-import { followEmployer } from "@/utils/actions";
-import { toast } from "react-toastify";
+import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 
-const EmployerItem: React.FC<EmployersItemProps> = ({ employer, token }) => {
-  const { mutateAsync: followEmployerMutate, isLoading } = useMutation({
-    mutationFn: () => followEmployer(employer._id, token as string),
-    mutationKey: ["companies"],
-    onSuccess: (response: any) => {
-      toast.success(response.message);
-    },
-    onError: (error: any) => {
-      toast.error(error.response.data.message);
-    },
-  });
+const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
+  const { mutateAsync: followEmployerMutate, isLoading } = useFollowEmployer(
+    employer?._id
+  );
 
   const FooterEmployerData = new Array(
     {

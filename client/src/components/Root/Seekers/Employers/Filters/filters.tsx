@@ -25,7 +25,7 @@ const EmployerFilters: React.FC<EmployerTypeFilters> = ({ type }) => {
   );
 
   return (
-    <div>
+    <div className="flex items-center gap-3">
       {FilterButtons.map((button) => (
         <Button
           variant={type === button.filter ? "default" : "outlined"}

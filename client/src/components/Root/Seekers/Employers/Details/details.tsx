@@ -13,10 +13,14 @@ import { Building, Camera, FileText, Text } from "lucide-react";
 import { findIndustriesData } from "@/utils/helpers";
 import Link from "next/link";
 import { Button } from "@/components/shared/Button";
+import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 
 const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
   employer,
 }) => {
+  const { mutateAsync: followEmployerMutate, isLoading } = useFollowEmployer(
+    employer?._id
+  );
   const employerIndustry = findIndustriesData(employer?.industry);
 
   const FooterEmployerData = new Array(
@@ -89,7 +93,12 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
                 <Button variant="outlined">Review</Button>
               </div>
               <div>
-                <Button variant="default" className="px-10">
+                <Button
+                  variant="default"
+                  className="px-10"
+                  onClick={async () => await followEmployerMutate()}
+                  disabled={isLoading}
+                >
                   Follow
                 </Button>
               </div>

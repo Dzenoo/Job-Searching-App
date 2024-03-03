@@ -2,7 +2,7 @@ import React from "react";
 import { EmployersListProps } from "./types";
 import { EmployerItem } from "./Item";
 
-const EmployersList: React.FC<EmployersListProps> = ({ employers, token }) => {
+const EmployersList: React.FC<EmployersListProps> = ({ employers }) => {
   return (
     <div>
       {employers?.length === 0 && (
@@ -14,7 +14,7 @@ const EmployersList: React.FC<EmployersListProps> = ({ employers, token }) => {
       )}
       <ul className="grid gap-3 grid-cols-3">
         {employers?.map((employer) => (
-          <EmployerItem employer={employer} key={employer._id} token={token} />
+          <EmployerItem employer={employer} key={employer._id} />
         ))}
       </ul>
     </div>
