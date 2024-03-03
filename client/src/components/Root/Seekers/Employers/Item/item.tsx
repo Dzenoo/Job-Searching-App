@@ -46,10 +46,10 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer, token }) => {
         <div className="flex gap-3">
           <div>
             <Image
-              src="/images/company.png"
-              alt="company"
-              width={300}
-              height={300}
+              src={employer?.image}
+              alt={employer?.name}
+              width={100}
+              height={100}
               className="object-cover w-auto h-auto"
             />
           </div>

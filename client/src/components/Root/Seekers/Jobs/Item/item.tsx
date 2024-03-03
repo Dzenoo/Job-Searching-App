@@ -43,10 +43,10 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
           <div className="flex items-center gap-3">
             <div>
               <Image
-                src="/images/company.png"
-                alt="company"
-                width={300}
-                height={300}
+                src={job?.company.image}
+                alt={job?.company.name}
+                width={60}
+                height={60}
                 className="object-cover w-auto h-auto"
               />
             </div>
@@ -58,7 +58,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
               </div>
               <div className="flex items-center gap-3">
                 <div>
-                  <p className="text-low-gray">Company Name</p>
+                  <p className="text-low-gray">{job?.company.name}</p>
                 </div>
                 <div>
                   <p className="text-low-gray">

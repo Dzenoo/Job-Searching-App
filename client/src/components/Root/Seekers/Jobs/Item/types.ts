@@ -1,3 +1,5 @@
+import { EmployersProps } from "@/components/Root/Employers/types";
+
 type JobItemProps = {
   job: JobProps;
   showDescription?: boolean;
@@ -17,6 +19,7 @@ type JobProps = {
   overview: string;
   applications: string[];
   createdAt: string;
+  company: EmployersProps;
 };
 
 export { type JobItemProps, type JobProps };

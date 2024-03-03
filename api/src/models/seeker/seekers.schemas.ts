@@ -12,7 +12,7 @@ const SeekerSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        "https://res.cloudinary.com/drfmmwlsl/image/upload/v1706974589/wkqqezmsrkopd00k0i1r.png",
+        "https://res.cloudinary.com/drfmmwlsl/image/upload/v1709471817/o1bj9hofkvj18dictpxa.png",
       trim: true,
     },
     password: {

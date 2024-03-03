@@ -329,6 +329,7 @@ export const getJobs = asyncErrors(async (request, response) => {
       .sort(sortOptions)
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit))
+      .populate({ path: "company", select: "image name _id" })
       .select(
         "_id title overview company applications location expiration_date level createdAt"
       )
@@ -356,7 +357,8 @@ export const getJobById = asyncErrors(async (request, response) => {
     const job = await Job.findById(request.params.jobId)
       .populate({
         path: "company",
-        select: "name company_description followers reviews size image",
+        select:
+          "name company_description followers reviews size image industry",
       })
       .select(
         "_id title overview company position applications location expiration_date level createdAt salary skills description type"

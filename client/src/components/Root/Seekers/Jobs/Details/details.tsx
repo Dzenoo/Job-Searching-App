@@ -18,6 +18,7 @@ import {
   Timer,
 } from "lucide-react";
 import SaveJobButton from "../save";
+import Navigator from "@/components/shared/Navigator";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const expirationDate = formatDate(job?.expiration_date);
@@ -28,12 +29,12 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
     {
       id: "1",
       icon: <MapPinIcon color="gray" />,
-      data: "London, England",
+      data: job?.company.address || job?.location,
     },
     {
       id: "2",
       icon: <LayoutTemplate color="gray" />,
-      data: "50-100",
+      data: job?.company.size,
     }
   );
 
@@ -84,32 +85,14 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-6">
-        <div>
-          <Image
-            src={"/images/logo/logo-icon.png"}
-            alt="logo_light_talentify"
-            width={40}
-            height={40}
-            loading="lazy"
-          />
-        </div>
-        <div>
-          <Link href="/jobs" className="text-[--blue-base-color]">
-            Jobs
-          </Link>
-        </div>
-        <div>
-          <p className="text-initial-gray">{job?.title}</p>
-        </div>
-      </div>
+      <Navigator href={"/jobs"} title={job?.title} />
       <Card>
         <CardHeader className="flex justify-between gap-3">
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             <div>
               <Image
-                src={"/images/company.png"}
-                alt="company_profile_image"
+                src={job?.company.image}
+                alt={job?.company.name}
                 width={100}
                 height={100}
                 className="h-auto w-auto object-cover"
@@ -117,12 +100,12 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
             </div>
             <div className="flex flex-col gap-3">
               <div>
-                <h3 className="text-initial-black">Company Name</h3>
+                <h3 className="text-initial-black">{job?.company.name}</h3>
               </div>
               {renderIconText({
                 id: "3",
-                data: "Software Development",
                 icon: <Building color="gray" />,
+                data: job?.company.industry,
               })}
               <div className="flex items-center gap-3">
                 {CompanyInformationsData.map((data) => renderIconText(data))}

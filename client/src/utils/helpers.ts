@@ -1,3 +1,4 @@
+import { industries } from "@/constants/industries";
 import { SkillsInformationsData } from "@/constants/skills";
 
 export const getSkillsData = (skills: string[]) => {
@@ -15,4 +16,16 @@ export const getSkillsData = (skills: string[]) => {
   });
 
   return categorizedSkills;
+};
+
+export const findIndustriesData = (industry: string) => {
+  let foundedIndustry = "";
+
+  industries.forEach((industryData) => {
+    if (industryData.value === industry) {
+      foundedIndustry = industryData.label;
+    }
+  });
+
+  return foundedIndustry;
 };
