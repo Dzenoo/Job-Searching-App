@@ -25,7 +25,7 @@ const CompanyDetails = ({
       getEmployerById(
         params.companyId,
         token as string,
-        searchParams.type,
+        searchParams.typeEmp,
         searchParams.page
       ),
     queryKey: ["company"],
@@ -37,9 +37,9 @@ const CompanyDetails = ({
 
   const fetchedCompany: any = data;
 
-  const searchParamsJobs = searchParams?.type === "jobs";
-  const searchParamsReviews = searchParams?.type === "reviews";
-  const searchParamsEvents = searchParams?.type === "events";
+  const searchParamsJobs = searchParams?.typeEmp === "jobs";
+  const searchParamsReviews = searchParams?.typeEmp === "reviews";
+  const searchParamsEvents = searchParams?.typeEmp === "events";
 
   let totalItems = 0;
 

@@ -1,13 +1,10 @@
-"use client";
-
 import React from "react";
-import { Card } from "@/components/shared/Card";
-import { CardContent } from "@/components/shared/Card/card";
 import { ListFilter } from "lucide-react";
-import { JobsFiltersData } from "@/constants/jobs";
+import { Card, CardContent } from "@/components/shared/Card";
+import { EventsFiltersData } from "@/constants/events";
 import { FiltersCheckboxesSection } from "@/components/shared/FiltersCheckboxesSection";
 
-const FilterJobs: React.FC = () => {
+const FilterEvents: React.FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-3 justify-between">
@@ -21,7 +18,7 @@ const FilterJobs: React.FC = () => {
       <Card>
         <CardContent>
           <div className="flex flex-col gap-10">
-            {JobsFiltersData.map((filters) => (
+            {EventsFiltersData.map((filters) => (
               <FiltersCheckboxesSection
                 key={filters.id}
                 title={filters.title}
@@ -35,4 +32,4 @@ const FilterJobs: React.FC = () => {
   );
 };
 
-export { FilterJobs };
+export { FilterEvents };
