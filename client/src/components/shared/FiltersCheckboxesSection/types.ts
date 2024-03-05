@@ -3,12 +3,12 @@ type FiltersCheckboxesTypes = {
   title: string;
   value: string;
   type: string;
-  count: number;
 };
 
 type FiltersCheckboxesSectionTypes = {
   title: string;
   checkboxes: FiltersCheckboxesTypes[];
+  overflow?: boolean;
 };
 
 export { type FiltersCheckboxesTypes, type FiltersCheckboxesSectionTypes };

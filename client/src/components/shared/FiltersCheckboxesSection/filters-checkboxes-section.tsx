@@ -6,6 +6,7 @@ import { Checkbox } from "../Checkbox";
 const FiltersCheckboxesSection: React.FC<FiltersCheckboxesSectionTypes> = ({
   title,
   checkboxes,
+  overflow,
 }) => {
   const { filters, updateSearchParams } = useSearchParams();
 
@@ -14,7 +15,9 @@ const FiltersCheckboxesSection: React.FC<FiltersCheckboxesSectionTypes> = ({
       <div>
         <h1 className="text-base-black">{title}</h1>
       </div>
-      <div className="flex flex-col gap-6">
+      <div
+        className={`flex flex-col gap-6 overflow-y-auto ${overflow && "h-44"}`}
+      >
         {checkboxes.map((checkbox: FiltersCheckboxesTypes) => (
           <div key={checkbox.id}>
             <Checkbox

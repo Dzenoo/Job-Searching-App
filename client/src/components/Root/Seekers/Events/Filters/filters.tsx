@@ -23,6 +23,7 @@ const FilterEvents: React.FC = () => {
                 key={filters.id}
                 title={filters.title}
                 checkboxes={filters.checkboxes}
+                overflow
               />
             ))}
           </div>
