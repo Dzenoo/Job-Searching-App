@@ -7,44 +7,45 @@ const Tooltip: React.FC<TooltipProps> = ({
   position = "top",
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const showTooltip = () => setIsVisible(true);
   const hideTooltip = () => setIsVisible(false);
 
-  const getPositionStyles = () => {
-    switch (position) {
-      case "bottom":
-        return "bottom-full left-1/2 transform -translate-x-1/2 translate-y-1/2";
-      case "left":
-        return "top-1/2 right-full transform translate-x-full -translate-y-1/2";
-      case "right":
-        return "top-1/2 left-full transform -translate-x-full -translate-y-1/2";
-      default:
-        return "top-full left-1/2 transform -translate-x-1/2 -translate-y-full";
-    }
-  };
-
   return (
-    <div className="relative inline-block">
+    <div
+      className="relative inline-block"
+      onMouseEnter={showTooltip}
+      onMouseLeave={hideTooltip}
+    >
       {isVisible && (
         <div
-          ref={tooltipRef}
-          className={`w-auto bg-black text-white text-center rounded py-1 absolute z-10 ${getPositionStyles()} opacity-0 pointer-events-none whitespace-nowrap transition ease-in-out duration-300`}
-          role="tooltip"
-          aria-hidden={!isVisible}
+          className={`absolute bg-black text-white text-center rounded py-1 z-10 whitespace-nowrap ${
+            position === "top"
+              ? "bottom-full left-1/2 transform -translate-x-1/2 translate-y-1/2"
+              : ""
+          } ${
+            position === "bottom"
+              ? "top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              : ""
+          } ${
+            position === "left"
+              ? "top-1/2 right-full transform translate-x-full -translate-y-1/2"
+              : ""
+          } ${
+            position === "right"
+              ? "top-1/2 left-full transform -translate-x-full -translate-y-1/2"
+              : ""
+          }`}
+          style={{
+            visibility: isVisible ? "visible" : "hidden",
+            opacity: isVisible ? 1 : 0,
+            transition: "opacity 0.2s",
+          }}
         >
           {text}
-          <div className="arrow"></div>
         </div>
       )}
-      <div
-        className="inline-block cursor-pointer"
-        onMouseEnter={showTooltip}
-        onMouseLeave={hideTooltip}
-      >
-        {children}
-      </div>
+      <div className="inline-block cursor-pointer">{children}</div>
     </div>
   );
 };
