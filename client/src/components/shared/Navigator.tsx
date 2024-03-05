@@ -5,9 +5,10 @@ import React from "react";
 type NavigatorProps = {
   href: string;
   title: string;
+  info: string;
 };
 
-const Navigator: React.FC<NavigatorProps> = ({ href, title }) => {
+const Navigator: React.FC<NavigatorProps> = ({ href, title, info }) => {
   return (
     <div className="flex items-center gap-6">
       <div>
@@ -21,7 +22,7 @@ const Navigator: React.FC<NavigatorProps> = ({ href, title }) => {
       </div>
       <div>
         <Link href={href} className="text-[--blue-base-color]">
-          Jobs
+          {info}
         </Link>
       </div>
       <div>

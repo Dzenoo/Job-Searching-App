@@ -5,6 +5,7 @@ import useSearchParams from "@/hooks/useSearchParams";
 
 const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
   const { updateSearchParams } = useSearchParams();
+
   return (
     <div className="flex flex-col gap-6">
       <div>

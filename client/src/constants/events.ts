@@ -1,57 +1,143 @@
-import { fetchCountries } from "@/utils/actions";
+export const EventsData = [
+  {
+    _id: "1",
+    title: "Event 1",
+    date: "2024-03-01",
+    description: "Description for Event 1",
+    image: "image-url-1",
+    location: "Online",
+    category: "Virtual",
+    company: "Company1",
+    seekers: ["Seeker1", "Seeker2"],
+  },
+  {
+    _id: "2",
+    title: "Event 2",
+    date: "2024-03-05",
+    description: "Description for Event 2",
+    image: "image-url-2",
+    location: "Online",
+    category: "Virtual",
+    company: "Company2",
+    seekers: ["Seeker3", "Seeker4"],
+  },
+  {
+    _id: "3",
+    title: "Event 3",
+    date: "2024-03-10",
+    description: "Description for Event 3",
+    image: "image-url-3",
+    location: "Online",
+    category: "Virtual",
+    company: "Company3",
+    seekers: ["Seeker5", "Seeker6"],
+  },
+  {
+    _id: "4",
+    title: "Event 3",
+    date: "2024-03-10",
+    description: "Description for Event 3",
+    image: "image-url-3",
+    location: "Online",
+    category: "Virtual",
+    company: "Company3",
+    seekers: ["Seeker5", "Seeker6"],
+  },
+  {
+    _id: "5",
+    title: "Event 3",
+    date: "2024-03-10",
+    description: "Description for Event 3",
+    image: "image-url-3",
+    location: "Online",
+    category: "Virtual",
+    company: "Company3",
+    seekers: ["Seeker5", "Seeker6"],
+  },
+  {
+    _id: "6",
+    title: "Event 3",
+    date: "2024-03-10",
+    description: "Description for Event 3",
+    image: "image-url-3",
+    location: "Online",
+    category: "Virtual",
+    company: "Company3",
+    seekers: ["Seeker5", "Seeker6"],
+  },
+];
 
-export let EventsFiltersData = [
+export const EventsFiltersData = [
   {
     id: "1",
     title: "Category",
     checkboxes: [
       {
         id: "1",
-        title: "Internship",
-        value: "Internship",
-        type: "type",
+        title: "Technology",
+        value: "Technology",
+        type: "category",
       },
       {
         id: "2",
-        title: "Full-Time",
-        value: "Full-Time",
-        type: "type",
+        title: "Finance",
+        value: "Finance",
+        type: "category",
       },
       {
         id: "3",
-        title: "Part-Time",
-        value: "Part-Time",
-        type: "type",
+        title: "Marketing",
+        value: "Marketing",
+        type: "category",
       },
       {
         id: "4",
-        title: "Freelance",
-        value: "Freelance",
-        type: "type",
+        title: "Sales",
+        value: "Sales",
+        type: "category",
       },
     ],
   },
   {
     id: "2",
     title: "Location",
-    checkboxes: [],
+    checkboxes: [
+      {
+        id: "1",
+        title: "Online",
+        value: "Online",
+        type: "location",
+      },
+      {
+        id: "2",
+        title: "In Person",
+        value: "InPerson",
+        type: "location",
+      },
+      {
+        id: "3",
+        title: "Hybrid",
+        value: "Hybrid",
+        type: "location",
+      },
+      {
+        id: "4",
+        title: "Virtual",
+        value: "Virtual",
+        type: "location",
+      },
+      {
+        id: "5",
+        title: "Outdoor",
+        value: "Outdoor",
+        type: "location",
+      },
+      {
+        id: "6",
+        title: "Indoor",
+        value: "Indoor",
+        type: "location",
+      },
+    ],
   },
 ];
-
-fetchCountries().then((countries) => {
-  const mappedCountries = countries.map((country: any) => ({
-    id: country.cca,
-    title: country.name.common,
-    value: country.name.common,
-    type: "location",
-  }));
-
-  mappedCountries.sort((a: any, b: any) => a.title.localeCompare(b.title));
-
-  const locationFilter = EventsFiltersData.find(
-    (filter) => filter.title === "Location"
-  );
-  if (locationFilter) {
-    locationFilter.checkboxes = mappedCountries;
-  }
-});

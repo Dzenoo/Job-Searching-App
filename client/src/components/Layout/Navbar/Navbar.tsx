@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
   const isSeeker = userType === "seeker";
 
   return (
-    <header className="base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray">
+    <header className="base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray sticky top-0 bg-white">
       <div>
         <Logo />
       </div>

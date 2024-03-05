@@ -15,5 +15,4 @@ const Logo: React.FC = () => {
     </Link>
   );
 };
-
 export default Logo;

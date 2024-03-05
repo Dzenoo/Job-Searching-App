@@ -1,7 +1,7 @@
-import { EmployersProps } from "@/components/Employers/types";
+import { Employer } from "@/typings/employers";
 
 type EmployerDetailsInfoProps = {
-  employer: EmployersProps;
+  employer: Employer;
 };
 
 export { type EmployerDetailsInfoProps };

@@ -1,7 +1,7 @@
-import { JobProps } from "./Item/types";
+import { Job } from "@/typings/jobs";
 
 type JobListProps = {
-  jobs: JobProps[];
+  jobs: Job[];
 };
 
 type PopularsJobsInfoProps = {
