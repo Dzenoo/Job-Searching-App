@@ -85,7 +85,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <Navigator href={"/jobs"} title={job?.title} />
+      <Navigator href={"/"} title={job?.title} />
       <Card>
         <CardHeader className="flex justify-between gap-3">
           <div className="flex gap-3 items-center">
