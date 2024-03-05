@@ -56,7 +56,7 @@ const CompanyDetails = ({
         <EmployerDetailsInfo employer={fetchedCompany?.employer} />
       </div>
       <div>
-        <EmployerFilters type={searchParams.type} />
+        <EmployerFilters type={searchParams.typeEmp} />
       </div>
       <div className="flex flex-col gap-6 justify-center">
         {searchParamsJobs && (
