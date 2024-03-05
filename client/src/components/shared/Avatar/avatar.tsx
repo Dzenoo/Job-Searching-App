@@ -1,7 +1,8 @@
-import Image from "next/image";
 import React from "react";
+import { AvatarProps } from "./types";
+import Image from "next/image";
 
-const SeekersNavbarAvatar: React.FC = () => {
+const Avatar: React.FC<AvatarProps> = () => {
   return (
     <div className="flex items-center gap-3">
       <div>
@@ -19,4 +20,4 @@ const SeekersNavbarAvatar: React.FC = () => {
   );
 };
 
-export { SeekersNavbarAvatar };
+export { Avatar };

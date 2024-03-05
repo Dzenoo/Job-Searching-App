@@ -3,18 +3,17 @@
 import React from "react";
 import useAuthentication from "@/hooks/useAuthentication";
 import Logo from "./Logo/logo";
-import {
-  SeekersNavbarActions,
-  SeekersNavbarAvatar,
-  SeekersNavbarLinks,
-} from "./Seekers";
-import {
-  EmployersNavbarActions,
-  EmployersNavbarAvatar,
-  EmployersNavbarLinks,
-} from "./Employers";
 import { LinkElement } from "@/components/shared/Link";
 import { usePathname } from "next/navigation";
+import { NavbarLinksList } from "./List";
+import {
+  EmployersNavbarActions,
+  EmployersNavbarLinks,
+  SeekersNavbarActions,
+  SeekersNavbarLinks,
+} from "@/constants/navbar";
+import { NavbarActionsList } from "./Actions";
+import { Avatar } from "@/components/shared/Avatar";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -38,57 +37,34 @@ const Navbar: React.FC = () => {
   const { isAuthenticated, userType } = getCookieHandler();
   const pathname = usePathname();
   const isSeeker = userType === "seeker";
-  const isEmployer = userType === "employer";
 
   return (
     <header className="base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray">
       <div>
         <Logo />
       </div>
-      <div>
-        {isAuthenticated && isSeeker ? (
+      {isAuthenticated && (
+        <div>
+          <NavbarLinksList
+            pathname={pathname}
+            data={isSeeker ? SeekersNavbarLinks : EmployersNavbarLinks}
+          />
+        </div>
+      )}
+      {isAuthenticated && (
+        <div className="flex items-center gap-6">
           <div>
-            <SeekersNavbarLinks pathname={pathname} />
+            <NavbarActionsList
+              pathname={pathname}
+              logout={deleteCookieHandler}
+              data={isSeeker ? SeekersNavbarActions : EmployersNavbarActions}
+            />
           </div>
-        ) : (
-          isAuthenticated &&
-          isEmployer && (
-            <div>
-              <EmployersNavbarLinks pathname={pathname} />
-            </div>
-          )
-        )}
-      </div>
-      <div>
-        {isAuthenticated && isSeeker ? (
-          <div className="flex items-center gap-6">
-            <div>
-              <SeekersNavbarActions
-                pathname={pathname}
-                logout={deleteCookieHandler}
-              />
-            </div>
-            <div>
-              <SeekersNavbarAvatar />
-            </div>
+          <div>
+            <Avatar />
           </div>
-        ) : (
-          isAuthenticated &&
-          isEmployer && (
-            <div className="flex items-center gap-3">
-              <div>
-                <EmployersNavbarActions
-                  logout={deleteCookieHandler}
-                  pathname={pathname}
-                />
-              </div>
-              <div>
-                <EmployersNavbarAvatar />
-              </div>
-            </div>
-          )
-        )}
-      </div>
+        </div>
+      )}
       {!isAuthenticated && (
         <div>
           <AuthenticationDivLinks />
