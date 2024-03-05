@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Protected from "@/components/Hoc/protected";
-import { JobsList } from "@/components/Root/Seekers/Jobs";
-import { FilterJobs } from "@/components/Root/Seekers/Jobs/Filters";
-import { SearchJobs } from "@/components/Root/Seekers/Jobs/Search";
-import { Pagination } from "@/components/shared/Pagination";
-import { PopularJobsInfo } from "@/components/Root/Seekers/Jobs/popular";
+import { JobsList } from "@/components/Seekers/Jobs";
+import { FilterJobs } from "@/components/Seekers/Jobs/Filters";
+import { SearchJobs } from "@/components/Seekers/Jobs/Search";
+import { Pagination } from "@/components/Shared/Pagination";
+import { PopularJobsInfo } from "@/components/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
 import { getJobs } from "@/utils/actions";
-import LoadingJobsSkeleton from "@/components/Root/Seekers/Jobs/LoadingJobsSkeleton";
+import Protected from "@/components/Hoc/Protected";
+import LoadingJobsSkeleton from "@/components/Seekers/Jobs/LoadingJobsSkeleton";
 import useAuthentication from "@/hooks/useAuthentication";
 
 const Jobs = ({

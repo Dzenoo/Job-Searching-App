@@ -2,9 +2,9 @@
 
 import React from "react";
 import { ChooseLoginType } from "@/components/Auth/Login/ChooseLoginType";
-import Authenticated from "@/components/Hoc/authenticated";
+import Protected from "@/components/Hoc/Protected";
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   return (
     <section className="py-16 flex justify-center h-screen">
       <ChooseLoginType />
@@ -12,4 +12,4 @@ const LoginPage = () => {
   );
 };
 
-export default Authenticated(LoginPage);
+export default Protected(LoginPage, []);

@@ -1,9 +1,9 @@
 "use client";
 
-import Protected from "@/components/Hoc/protected";
-import { EventsList } from "@/components/Root/Seekers/Events";
-import { FilterEvents } from "@/components/Root/Seekers/Events/Filters";
-import { SearchEvents } from "@/components/Root/Seekers/Events/Search";
+import Protected from "@/components/Hoc/Protected";
+import { EventsList } from "@/components/Seekers/Events";
+import { FilterEvents } from "@/components/Seekers/Events/Filters";
+import { SearchEvents } from "@/components/Seekers/Events/Search";
 import React from "react";
 
 const Events = () => {

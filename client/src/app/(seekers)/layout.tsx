@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { QueryContextProvider } from "@/contexts/react-query-client";
 import { ToastContainer } from "react-toastify";
 import { Poppins } from "next/font/google";
-import Footer from "@/components/shared/Footer/Footer";
-import Navbar from "@/components/Root/Navbar/Navbar";
+import Footer from "@/components/Shared/Footer/Footer";
+import Navbar from "@/components/Layout/Navbar/Navbar";
 
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Tab } from "@/components/shared/Tab";
+import { Tab } from "@/components/Shared/Tab";
 import { TabChooseAccount, TypeOfAccount } from "./types";
 import { Briefcase, Building } from "lucide-react";
 import { SeekersSignupForm } from "../SeekersSignupForm";

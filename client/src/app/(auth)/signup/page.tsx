@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ChooseTypeAccount } from "@/components/Auth/Signup/ChooseTypeAccount";
-import Authenticated from "@/components/Hoc/authenticated";
+import Protected from "@/components/Hoc/Protected";
 
 const SignupPage: React.FC = () => {
   return (
@@ -12,4 +12,4 @@ const SignupPage: React.FC = () => {
   );
 };
 
-export default Authenticated(SignupPage);
+export default Protected(SignupPage, []);

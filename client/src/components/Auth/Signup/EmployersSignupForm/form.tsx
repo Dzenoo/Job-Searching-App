@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { EmployersRegistrationSchemas } from "@/utils/validation";
-import { Button } from "@/components/shared/Button";
-import { Form, FormInfo, FormItem } from "@/components/shared/Forms";
+import { Button } from "@/components/Shared/Button";
+import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/shared/Input";
+import { Input } from "@/components/Shared/Input";
 import { EmployersSignupFormTypes } from "./types";
 import { TypeOfAccount } from "../ChooseTypeAccount/types";
-import { Select } from "@/components/shared/Select";
+import { Select } from "@/components/Shared/Select";
 import { industries } from "@/constants/industries";
 import { companySizes } from "@/constants/company-sizes-types";
 import { ClipLoader } from "react-spinners";
@@ -19,7 +19,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/shared/Card/card";
+} from "@/components/Shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
 

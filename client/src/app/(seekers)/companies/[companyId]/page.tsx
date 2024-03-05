@@ -1,12 +1,12 @@
 "use client";
 
-import Protected from "@/components/Hoc/protected";
-import { EmployerDetailsInfo } from "@/components/Root/Seekers/Employers/Details";
-import { EmployerFilters } from "@/components/Root/Seekers/Employers/Filters";
-import { EmployerType } from "@/components/Root/Seekers/Employers/Filters/types";
-import { JobsList } from "@/components/Root/Seekers/Jobs";
-import LoadingJobsSkeleton from "@/components/Root/Seekers/Jobs/LoadingJobsSkeleton";
-import { Pagination } from "@/components/shared/Pagination";
+import Protected from "@/components/Hoc/Protected";
+import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
+import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
+import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
+import { JobsList } from "@/components/Seekers/Jobs";
+import LoadingJobsSkeleton from "@/components/Seekers/Jobs/LoadingJobsSkeleton";
+import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getEmployerById } from "@/utils/actions";
 import React, { useEffect } from "react";

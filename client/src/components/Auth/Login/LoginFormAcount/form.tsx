@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@/components/shared/Button";
-import { Form, FormInfo, FormItem } from "@/components/shared/Forms";
-import { Input } from "@/components/shared/Input";
+import { Button } from "@/components/Shared/Button";
+import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
+import { Input } from "@/components/Shared/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { LoginFormTypes } from "./types";
@@ -16,7 +16,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/shared/Card/card";
+} from "@/components/Shared/Card/card";
 import Link from "next/link";
 import zod from "zod";
 import useAuthentication from "@/hooks/useAuthentication";

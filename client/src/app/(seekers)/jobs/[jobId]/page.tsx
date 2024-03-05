@@ -1,16 +1,16 @@
 "use client";
 
-import Protected from "@/components/Hoc/protected";
-import AddJobAlert from "@/components/Root/Seekers/Jobs/Details/alerts";
+import Protected from "@/components/Hoc/Protected";
+import AddJobAlert from "@/components/Seekers/Jobs/Details/alerts";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
-import ApplyToJob from "@/components/Root/Seekers/Jobs/Details/apply";
-import LoadingJobDetails from "@/components/Root/Seekers/Jobs/Details/LoadingJobDetails";
-import { JobsList } from "@/components/Root/Seekers/Jobs";
-import { JobDetailsInfo } from "@/components/Root/Seekers/Jobs/Details";
+import ApplyToJob from "@/components/Seekers/Jobs/Details/apply";
+import LoadingJobDetails from "@/components/Seekers/Jobs/Details/LoadingJobDetails";
+import { JobsList } from "@/components/Seekers/Jobs";
+import { JobDetailsInfo } from "@/components/Seekers/Jobs/Details";
 import { getJobById } from "@/utils/actions";
 import { useQuery } from "react-query";
-import { Dialog } from "@/components/shared/Dialog";
+import { Dialog } from "@/components/Shared/Dialog";
 
 const JobDetailsPage = ({
   params: { jobId },
