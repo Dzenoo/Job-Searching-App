@@ -73,7 +73,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
         {showDescription && (
           <CardContent>
             <div>
-              <p className="text-initial-gray">{job.overview}</p>
+              <p className="text-initial-black">{job.overview}</p>
             </div>
           </CardContent>
         )}

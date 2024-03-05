@@ -11,7 +11,7 @@ const FiltersCheckboxesSection: React.FC<FiltersCheckboxesSectionTypes> = ({
   const { filters, updateSearchParams } = useSearchParams();
 
   return (
-    <div className="flex flex-col gap-6 border-b border-gray-300 pb-10">
+    <div className="flex flex-col gap-6 border-b border-blue-300 pb-10">
       <div>
         <h1 className="text-base-black">{title}</h1>
       </div>
