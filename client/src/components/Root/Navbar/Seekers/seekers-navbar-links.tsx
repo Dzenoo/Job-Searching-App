@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Building, FileText, Home, Search } from "lucide-react";
+import { Building, FileText, Search } from "lucide-react";
+
 type SeekersNavbarLinksProps = {
   pathname: string;
 };
@@ -13,14 +14,8 @@ const SeekersNavbarLinks: React.FC<SeekersNavbarLinksProps> = ({
       {Array.from([
         {
           id: "1",
-          title: "Home",
-          href: "/",
-          icon: <Home />,
-        },
-        {
-          id: "2",
           title: "Find Jobs",
-          href: "/jobs",
+          href: "/",
           icon: <Search />,
         },
         {
@@ -31,7 +26,7 @@ const SeekersNavbarLinks: React.FC<SeekersNavbarLinksProps> = ({
         },
         {
           id: "4",
-          title: "Events",
+          title: "Find Events",
           href: "/events",
           icon: <FileText />,
         },

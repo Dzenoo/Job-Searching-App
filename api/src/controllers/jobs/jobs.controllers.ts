@@ -374,6 +374,12 @@ export const getJobById = asyncErrors(async (request, response) => {
       .select(
         "_id title overview company position applications location expiration_date level createdAt"
       )
+      .populate({
+        path: "company",
+        model: Employer,
+        select:
+          "name company_description followers reviews size image industry",
+      })
       .exec();
 
     const filteredJobsData = jobs.filter(
