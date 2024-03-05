@@ -58,7 +58,9 @@ const useSearchParams = (): UseSearchParams => {
       searchParams.delete(param);
       values.forEach((v) => searchParams.append(param, v));
 
-      if (["query", "page", "sort", "applying", "typeEmp"].includes(param)) {
+      if (
+        ["query", "page", "sort", "applying", "typeEmp", "evt"].includes(param)
+      ) {
         searchParams.set(param, value);
         if (value === "") {
           searchParams.delete(param);

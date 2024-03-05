@@ -121,3 +121,6 @@ export const fetchCountries = async () => {
     return [];
   }
 };
+
+export const registerForEvent = async (eventId: string, token: string) =>
+  await patchApiHandler(`seeker/events/${eventId}/register`, {}, token);

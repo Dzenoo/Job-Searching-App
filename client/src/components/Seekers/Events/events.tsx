@@ -2,7 +2,7 @@ import React from "react";
 import { EventsListProps } from "./types";
 import { EventItem } from "./Item";
 
-const EventsList: React.FC<EventsListProps> = ({ events }) => {
+const EventsList: React.FC<EventsListProps> = ({ events, onRegisterEvent }) => {
   return (
     <div>
       <div>
@@ -15,7 +15,13 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
         )}
         <ul className="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {events.length > 0 &&
-            events?.map((event) => <EventItem event={event} />)}
+            events?.map((event) => (
+              <EventItem
+                event={event}
+                onRegisterEvent={onRegisterEvent}
+                key={event._id}
+              />
+            ))}
         </ul>
       </div>
     </div>

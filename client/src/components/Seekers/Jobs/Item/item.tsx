@@ -37,7 +37,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   );
 
   return (
-    <li key={job.title}>
+    <li>
       <Card>
         <CardHeader className="flex items-center justify-between">
           <div className="flex items-center gap-3">

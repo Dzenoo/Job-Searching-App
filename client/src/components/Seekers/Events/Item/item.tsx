@@ -10,8 +10,11 @@ import Image from "next/image";
 import { Button } from "@/components/Shared/Button";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { renderIconText } from "@/utils/jsx";
+import useSearchParams from "@/hooks/useSearchParams";
 
-const EventItem: React.FC<EventItemProps> = ({ event }) => {
+const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
+  const { updateSearchParams } = useSearchParams();
+
   let FooterInfoData = new Array(
     {
       id: "1",
@@ -31,7 +34,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => {
   );
 
   return (
-    <li key={event._id}>
+    <li>
       <Card className="p-0">
         <CardHeader className="py-0">
           <Image
@@ -49,7 +52,15 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => {
               <h1 className="text-base-black">Tech Talk Event</h1>
             </div>
             <div>
-              <Button variant="default">Register</Button>
+              <Button
+                variant="default"
+                onClick={() => {
+                  onRegisterEvent();
+                  updateSearchParams("evt", event._id, "add");
+                }}
+              >
+                Register
+              </Button>
             </div>
           </div>
           <div>
