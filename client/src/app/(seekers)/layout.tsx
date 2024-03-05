@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { QueryContextProvider } from "@/contexts/react-query-client";
 import { ToastContainer } from "react-toastify";
-import { Poppins } from "next/font/google";
 import Footer from "@/components/Shared/Footer/Footer";
 import Navbar from "@/components/Layout/Navbar/Navbar";
+import { Inter } from "next/font/google";
 
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
-const inter = Poppins({ subsets: ["latin"], weight: "400" });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Job Talentify Platform",
