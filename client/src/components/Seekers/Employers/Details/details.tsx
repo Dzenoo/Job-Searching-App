@@ -14,6 +14,7 @@ import { findIndustriesData } from "@/utils/helpers";
 import Link from "next/link";
 import { Button } from "@/components/Shared/Button";
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
+import { LinkElement } from "@/components/Shared/Link";
 
 const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
   employer,
@@ -90,7 +91,12 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
                 </Link>
               </div>
               <div>
-                <Button variant="outlined">Review</Button>
+                <LinkElement
+                  href={`/companies/${employer?._id}/review`}
+                  variant="outlined"
+                >
+                  Review
+                </LinkElement>
               </div>
               <div>
                 <Button

@@ -25,9 +25,11 @@ const Companies = ({
       }),
     queryKey: ["companies"],
   });
+
   useEffect(() => {
     refetch();
   }, [searchParams]);
+
   let fetchedCompanies: any = data;
 
   return (
