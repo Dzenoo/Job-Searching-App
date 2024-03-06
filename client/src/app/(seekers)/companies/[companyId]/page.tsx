@@ -4,10 +4,15 @@ import Protected from "@/components/Hoc/Protected";
 import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
 import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
 import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
+import { EventsList } from "@/components/Seekers/Events";
+import RegisterEvents from "@/components/Seekers/Events/register";
 import { JobsList } from "@/components/Seekers/Jobs";
 import LoadingJobsSkeleton from "@/components/Seekers/Jobs/LoadingJobsSkeleton";
+import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
+import { EventsData } from "@/constants/events";
 import useAuthentication from "@/hooks/useAuthentication";
+import useDialogs from "@/hooks/useDialogs";
 import { getEmployerById } from "@/utils/actions";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
@@ -29,6 +34,11 @@ const CompanyDetails = ({
         searchParams.page
       ),
     queryKey: ["company"],
+  });
+  const { openDialog, closeDialog, dialogs } = useDialogs({
+    registerForEvent: {
+      isOpen: false,
+    },
   });
 
   useEffect(() => {
@@ -58,7 +68,7 @@ const CompanyDetails = ({
       <div>
         <EmployerFilters type={searchParams.typeEmp} />
       </div>
-      <div className="flex flex-col gap-6 justify-center">
+      <div className="flex flex-col gap-6 justify-center overflow-auto py-6">
         {searchParamsJobs && (
           <>
             {isLoading ? (
@@ -68,12 +78,36 @@ const CompanyDetails = ({
             )}
           </>
         )}
-        <Pagination
-          totalItems={totalItems}
-          itemsPerPage={10}
-          currentPage={Number(searchParams?.page) || 1}
-          visiblePages={6}
-        />
+        {searchParamsEvents && (
+          <>
+            {isLoading ? (
+              "Events are loading"
+            ) : (
+              <EventsList
+                events={EventsData}
+                onRegisterEvent={() => openDialog("registerForEvent")}
+              />
+            )}
+            <Dialog
+              onCloseDialog={() => closeDialog("registerForEvent")}
+              isOpen={dialogs.registerForEvent.isOpen}
+              render={() => (
+                <RegisterEvents eventId={searchParams?.evt} token={token!} />
+              )}
+            />
+          </>
+        )}
+        {searchParamsReviews && (
+          <>{isLoading ? "Reviews are loading" : "Reviews"}</>
+        )}
+        {totalItems > 0 && (
+          <Pagination
+            totalItems={totalItems}
+            itemsPerPage={10}
+            currentPage={Number(searchParams?.page) || 1}
+            visiblePages={6}
+          />
+        )}
       </div>
     </section>
   );

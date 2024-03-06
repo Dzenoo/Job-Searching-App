@@ -28,7 +28,6 @@ const Companies = ({
   useEffect(() => {
     refetch();
   }, [searchParams]);
-
   let fetchedCompanies: any = data;
 
   return (
