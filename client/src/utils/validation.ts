@@ -39,7 +39,14 @@ export const EmployersRegistrationSchemas = zod.object({
       "First name must start with an uppercase letter"
     ),
   industry: zod.string().min(3).max(30),
-  size: zod.string().min(3).max(30),
+  size: zod.enum([
+    "Less-than-17",
+    "20-50",
+    "50-100",
+    "100-250",
+    "250-500",
+    "500-1000",
+  ]),
   address: zod.string().min(3).max(30),
   email: zod.string().min(3).max(255).email(),
   password: zod
@@ -66,4 +73,13 @@ export const LoginSchemasForm = zod.object({
 
 export const ApplyToJobSchemas = zod.object({
   coverLetter: zod.string().optional(),
+});
+
+export const ReviewEmployersSchemas = zod.object({
+  job_position: zod.string().min(3).max(30),
+  type: zod.enum(["Freelance", "Part-Time", "Full-Time", "Internship"]),
+  time: zod.enum(["Less than 1", "1-2", "2-4", "4-7", "7-10", "10 or greater"]),
+  negativeReview: zod.string().min(3).max(300),
+  positiveReview: zod.string().min(3).max(300),
+  technologies: zod.array(zod.string().min(3).max(30)),
 });

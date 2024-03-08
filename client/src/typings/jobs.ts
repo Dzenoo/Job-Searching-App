@@ -16,5 +16,4 @@ type Job = {
   createdAt: string;
   company: Employer;
 };
-
 export { type Job };
