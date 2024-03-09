@@ -40,6 +40,7 @@ export const EmployersRegistrationSchemas = zod.object({
     ),
   industry: zod.string().min(3).max(30),
   size: zod.enum([
+    "",
     "Less-than-17",
     "20-50",
     "50-100",

@@ -89,6 +89,7 @@ const CompanyDetails = ({
               />
             )}
             <Dialog
+              showCloseButton
               onCloseDialog={() => closeDialog("registerForEvent")}
               isOpen={dialogs.registerForEvent.isOpen}
               render={() => (

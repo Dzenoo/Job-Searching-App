@@ -1,6 +1,7 @@
 import { TypeOfAccount } from "@/components/Auth/Signup/ChooseTypeAccount/types";
 import { getApiHandler, patchApiHandler, postApiHandler } from "./api";
 import axios from "axios";
+import { ReviewTime, ReviewType } from "@/typings/reviews";
 
 export const signupSeeker = async (data: {
   first_name: string;
@@ -124,3 +125,16 @@ export const fetchCountries = async () => {
 
 export const registerForEvent = async (eventId: string, token: string) =>
   await patchApiHandler(`seeker/events/${eventId}/register`, {}, token);
+
+export const reviewEmployer = async (
+  employerId: string,
+  token: string,
+  formData: {
+    positive_review: string;
+    negative_review: string;
+    technologies: string[];
+    job_position: string;
+    type: keyof typeof ReviewType;
+    time: keyof typeof ReviewTime;
+  }
+) => await postApiHandler(`seeker/${employerId}/review`, formData, token);

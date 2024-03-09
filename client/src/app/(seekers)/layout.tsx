@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { QueryContextProvider } from "@/contexts/react-query-client";
 import { ToastContainer } from "react-toastify";
 import Footer from "@/components/Shared/Footer/Footer";
-import Navbar from "@/components/Layout/Navbar/Navbar";
 import { Inter } from "next/font/google";
+const Navbar = dynamic(() => import("@/components/Layout/Navbar/Navbar"), {
+  ssr: false,
+});
 
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -4,7 +4,7 @@ import Protected from "@/components/Hoc/Protected";
 import { ReviewCompanyForm } from "@/components/Seekers/Employers/Details/Review";
 import React from "react";
 
-const ReviewCompany = () => {
+const ReviewCompany = ({ params }: { params: { companyId: string } }) => {
   return (
     <section className="flex flex-col gap-7 py-6 overflow-hidden mx-40">
       <div className="flex flex-col gap-3">
@@ -19,7 +19,7 @@ const ReviewCompany = () => {
         </div>
       </div>
       <div>
-        <ReviewCompanyForm />
+        <ReviewCompanyForm employerId={params.companyId} />
       </div>
     </section>
   );
