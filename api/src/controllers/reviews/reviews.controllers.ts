@@ -32,8 +32,8 @@ export const addReview = asyncErrors(async (request, response) => {
     }
 
     const allowedProperties = [
-      "positive_review",
-      "negative_review",
+      "positiveReview",
+      "negativeReview",
       "technologies",
       "job_position",
       "type",
@@ -57,7 +57,7 @@ export const addReview = asyncErrors(async (request, response) => {
         reviews: review._id,
         notifications: {
           title: "New Review Notification",
-          message: `${review.title} has been added to your profile`,
+          message: `Review has been added to your profile`,
         },
       },
     });
