@@ -21,6 +21,7 @@ export const addReview = asyncErrors(async (request, response) => {
 
     const existingReview = await Review.findOne({
       seeker: seekerId,
+      company: employerId,
     });
 
     if (existingReview) {

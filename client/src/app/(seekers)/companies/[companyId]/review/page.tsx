@@ -1,7 +1,7 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
-import { ReviewCompanyForm } from "@/components/Seekers/Employers/Details/Review";
+import { ReviewCompanyForm } from "@/components/Seekers/Employers/Details/Reviews/New";
 import React from "react";
 
 const ReviewCompany = ({ params }: { params: { companyId: string } }) => {

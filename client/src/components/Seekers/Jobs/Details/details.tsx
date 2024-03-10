@@ -159,10 +159,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
                       </div>
                       <div className="flex flex-wrap gap-3">
                         {skills.map((skill, index) => (
-                          <div
-                            key={index}
-                            className="border border-gray-300 rounded-lg px-3 py-1"
-                          >
+                          <div key={index} className="tag">
                             {skill}
                           </div>
                         ))}

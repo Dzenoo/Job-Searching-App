@@ -1,5 +1,4 @@
 import React from "react";
-import { ReviewCompanyFormProps } from "./types";
 import { Card, CardContent } from "@/components/Shared/Card";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Controller, useForm } from "react-hook-form";
@@ -16,13 +15,14 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { Select } from "@/components/Shared/Select";
 import { Textarea } from "@/components/Shared/Textarea";
 import { Tag } from "@/components/Shared/Tag";
+import { redirect } from "next/navigation";
+import { ReviewCompanyFormProps } from "./types";
 
 const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   employerId,
 }) => {
   const { token } = useAuthentication().getCookieHandler();
   const {
-    reset,
     handleSubmit,
     control,
     formState: { errors, isValid, isSubmitting },
@@ -41,9 +41,8 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
 
   const { mutateAsync: reviewEmployerMutate } = useMutation({
     mutationFn: (formData: any) => reviewEmployer(employerId, token!, formData),
-    onSuccess: (data: any) => {
-      reset();
-      toast.success(data?.message);
+    onSuccess: () => {
+      redirect(`/companies/${employerId}?typeEmp=reviews`);
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);
@@ -215,7 +214,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
             <Button
               variant="default"
               type="submit"
-              disabled={isSubmitting || !isValid}
+              disabled={isSubmitting}
               className="px-10"
             >
               {isSubmitting ? <ClipLoader /> : "Review"}

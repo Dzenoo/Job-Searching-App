@@ -46,15 +46,23 @@ const ReviewSchema = new mongoose.Schema(
       minlength: [3, "Positive Review must be at least 3 characters long"],
       maxlength: [300, "Positive Review must be at most 300 characters long"],
     },
-    technologies: [
-      {
-        type: String,
-        required: [true, "Technology name is required"],
-        trim: true,
-        minlength: [3, "Technology name must be at least 3 characters long"],
-        maxlength: [30, "Technology name must be at most 30 characters long"],
-      },
-    ],
+    technologies: {
+      type: [
+        {
+          type: String,
+          trim: true,
+          minlength: [3, "Technology name must be at least 3 characters long"],
+          maxlength: [30, "Technology name must be at most 30 characters long"],
+          validate: {
+            validator: function (value: string) {
+              return value.trim().length > 0;
+            },
+            message: "Technology name cannot empty",
+          },
+        },
+      ],
+      required: true,
+    },
     seeker: {
       type: mongoose.Types.ObjectId,
       ref: "Seeker",

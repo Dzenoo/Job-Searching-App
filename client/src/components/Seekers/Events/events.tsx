@@ -18,7 +18,7 @@ const EventsList: React.FC<EventsListProps> = ({ events, onRegisterEvent }) => {
             events?.map((event) => (
               <EventItem
                 event={event}
-                onRegisterEvent={onRegisterEvent}
+                onRegisterEvent={onRegisterEvent!}
                 key={event._id}
               />
             ))}

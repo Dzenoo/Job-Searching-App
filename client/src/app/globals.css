@@ -94,6 +94,10 @@ body {
   .animate_opacity {
     animation: opacity 0.7s;
   }
+
+  .tag {
+    @apply border border-gray-300 rounded-lg px-3 py-1 overflow-auto;
+  }
 }
 
 @keyframes opacity {

@@ -10,6 +10,7 @@ type Review = {
   positiveReview: string;
   technologies: string[];
   seeker: string;
+  createdAt: string;
 };
 
 enum ReviewType {

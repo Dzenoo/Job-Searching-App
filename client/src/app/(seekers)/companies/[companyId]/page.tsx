@@ -2,6 +2,7 @@
 
 import Protected from "@/components/Hoc/Protected";
 import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
+import { ReviewsList } from "@/components/Seekers/Employers/Details/Reviews";
 import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
 import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
 import { EventsList } from "@/components/Seekers/Events";
@@ -99,7 +100,13 @@ const CompanyDetails = ({
           </>
         )}
         {searchParamsReviews && (
-          <>{isLoading ? "Reviews are loading" : "Reviews"}</>
+          <>
+            {isLoading ? (
+              "Reviews are loading"
+            ) : (
+              <ReviewsList reviews={fetchedCompany?.employer.reviews} />
+            )}
+          </>
         )}
         {totalItems > 0 && (
           <Pagination
