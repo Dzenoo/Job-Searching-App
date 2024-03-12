@@ -4,8 +4,12 @@ import useSearchParams from "@/hooks/useSearchParams";
 import React from "react";
 
 const SearchEmployers: React.FC = () => {
-  const { performanceSearchParams, updateSearchParams, searchParams } =
-    useSearchParams();
+  const { updateSearchParams, searchParams, debounce } = useSearchParams();
+
+  const debounceSearchParams = React.useMemo(
+    () => debounce(updateSearchParams, 300),
+    [updateSearchParams]
+  );
 
   return (
     <div className="flex items-center justify-between gap-3">
@@ -18,7 +22,7 @@ const SearchEmployers: React.FC = () => {
             defaultValue={searchParams.get("query")?.toString()}
             placeholder="Search Employers..."
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              performanceSearchParams("query", e.target.value, "add")
+              debounceSearchParams("query", e.target.value)
             }
           />
         </div>
@@ -26,7 +30,7 @@ const SearchEmployers: React.FC = () => {
           <Select
             defaultValue={searchParams.get("sort")?.toString()}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              updateSearchParams("sort", e.target.value, "add")
+              updateSearchParams("sort", e.target.value)
             }
             options={[
               { label: "Sort", value: "" },

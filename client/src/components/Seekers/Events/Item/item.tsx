@@ -56,7 +56,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
                 variant="default"
                 onClick={() => {
                   onRegisterEvent();
-                  updateSearchParams("evt", event._id, "add");
+                  updateSearchParams("evt", event._id);
                 }}
               >
                 Register

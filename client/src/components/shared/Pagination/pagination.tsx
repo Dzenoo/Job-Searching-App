@@ -20,7 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      updateSearchParams("page", String(page), "add");
+      updateSearchParams("page", String(page));
     }
   };
 

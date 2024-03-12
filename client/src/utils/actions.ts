@@ -138,3 +138,6 @@ export const reviewEmployer = async (
     time: keyof typeof ReviewTime;
   }
 ) => await postApiHandler(`seeker/${employerId}/review`, formData, token);
+
+export const getSeekerProfile = async (token: string) =>
+  await getApiHandler(`seeker`, token);

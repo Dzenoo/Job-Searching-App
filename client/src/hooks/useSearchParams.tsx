@@ -11,14 +11,15 @@ type SearchParamsFilters = {
 };
 
 type UseSearchParams = {
-  performanceSearchParams: (...args: any[]) => void;
   searchParams: URLSearchParams;
-  filters: SearchParamsFilters;
-  updateSearchParams: (
+  checkboxSearchParams: (
     param: string,
     value: string,
     action: keyof typeof SearchParamsActions
   ) => void;
+  updateSearchParams: (param: string, value: string) => void;
+  filters: SearchParamsFilters;
+  debounce: (func: Function, delay: number) => (...args: any[]) => void;
 };
 
 const useSearchParams = (): UseSearchParams => {
@@ -38,7 +39,7 @@ const useSearchParams = (): UseSearchParams => {
     setFilters(paramsObj);
   }, [router]);
 
-  const updateSearchParams = React.useCallback(
+  const checkboxSearchParams = React.useCallback(
     (
       param: string,
       value: string,
@@ -58,15 +59,6 @@ const useSearchParams = (): UseSearchParams => {
       searchParams.delete(param);
       values.forEach((v) => searchParams.append(param, v));
 
-      if (
-        ["query", "page", "sort", "applying", "typeEmp", "evt"].includes(param)
-      ) {
-        searchParams.set(param, value);
-        if (value === "") {
-          searchParams.delete(param);
-        }
-      }
-
       const newPath = `${pathname}?${searchParams.toString()}`;
       router.push(newPath, { scroll: false });
 
@@ -74,6 +66,19 @@ const useSearchParams = (): UseSearchParams => {
     },
     []
   );
+
+  const updateSearchParams = (param: string, value: string) => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    searchParams.set(param, value);
+
+    if (value === "") {
+      searchParams.delete(param);
+    }
+
+    const newPath = `${pathname}?${searchParams.toString()}`;
+    router.push(newPath, { scroll: false });
+  };
 
   const debounce = (func: Function, delay: number) => {
     let timer: NodeJS.Timeout;
@@ -85,16 +90,12 @@ const useSearchParams = (): UseSearchParams => {
     };
   };
 
-  const debounceUpdateSearchParams = React.useMemo(
-    () => debounce(updateSearchParams, 300),
-    [updateSearchParams]
-  );
-
   return {
-    performanceSearchParams: debounceUpdateSearchParams,
     filters,
+    checkboxSearchParams,
     searchParams,
     updateSearchParams,
+    debounce,
   };
 };
 

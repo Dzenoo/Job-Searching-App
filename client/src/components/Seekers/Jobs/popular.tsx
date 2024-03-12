@@ -22,7 +22,7 @@ const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
             <button
               key={job._id}
               className="text-initial-blue"
-              onClick={() => updateSearchParams("query", job.title, "add")}
+              onClick={() => updateSearchParams("query", job.title)}
             >
               {job.title}
             </button>

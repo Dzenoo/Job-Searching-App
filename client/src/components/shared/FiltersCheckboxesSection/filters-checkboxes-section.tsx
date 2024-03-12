@@ -8,7 +8,7 @@ const FiltersCheckboxesSection: React.FC<FiltersCheckboxesSectionTypes> = ({
   checkboxes,
   overflow,
 }) => {
-  const { filters, updateSearchParams } = useSearchParams();
+  const { filters, checkboxSearchParams } = useSearchParams();
 
   return (
     <div className="flex flex-col gap-6">
@@ -26,7 +26,7 @@ const FiltersCheckboxesSection: React.FC<FiltersCheckboxesSectionTypes> = ({
                 filters[checkbox.type]?.includes(checkbox.value) ?? false
               }
               onChange={(e) =>
-                updateSearchParams(
+                checkboxSearchParams(
                   checkbox.type,
                   checkbox.value,
                   e.target.checked ? "add" : "remove"

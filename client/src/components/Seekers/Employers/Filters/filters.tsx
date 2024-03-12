@@ -30,7 +30,7 @@ const EmployerFilters: React.FC<EmployerTypeFilters> = ({ type }) => {
         <Button
           key={button.id}
           variant={type === button.filter ? "default" : "outlined"}
-          onClick={() => updateSearchParams("typeEmp", button.filter, "add")}
+          onClick={() => updateSearchParams("typeEmp", button.filter)}
         >
           {button.title}
         </Button>
