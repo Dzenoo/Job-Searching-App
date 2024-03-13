@@ -8,7 +8,11 @@ import { getSeekerProfile } from "@/utils/actions";
 import React from "react";
 import { useQuery } from "react-query";
 
-const SeekerProfilePage = () => {
+const SeekerProfilePage = ({
+  searchParams,
+}: {
+  searchParams: { typings: string };
+}) => {
   const { token } = useAuthentication().getCookieHandler();
   const { data, isLoading } = useQuery({
     queryFn: () => getSeekerProfile(token as string),
@@ -21,7 +25,14 @@ const SeekerProfilePage = () => {
       <div>
         <SeekerProfileNavigation />
       </div>
-      <SeekerProfileInformation />
+      {!searchParams.typings && (
+        <div>
+          <SeekerProfileInformation />
+        </div>
+      )}
+      {searchParams.typings === "alerts" && <div>Alerts</div>}
+      {searchParams.typings === "saved" && <div>Saved</div>}
+      {searchParams.typings === "applications" && <div>Applications</div>}
     </section>
   );
 };

@@ -6,5 +6,4 @@ const SeekerProfileInformation: React.FC<
 > = () => {
   return <div>SeekerProfileInformation</div>;
 };
-
 export { SeekerProfileInformation };
