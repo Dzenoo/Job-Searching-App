@@ -8,9 +8,9 @@ import {
 import React from "react";
 import { JobAlertProps } from "./types";
 import { useMutation } from "react-query";
-import { addJobAlert } from "@/utils/actions";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
+import { addJobAlert } from "@/utils/actions/jobs";
 
 const AddJobAlert: React.FC<JobAlertProps> = ({
   level,

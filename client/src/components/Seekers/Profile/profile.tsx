@@ -6,9 +6,7 @@ import { Edit, ImagePlusIcon, Trash } from "lucide-react";
 import { Button } from "@/components/Shared/Button";
 import useUploads from "@/hooks/useUploads";
 import { useMutation } from "react-query";
-import { editSeekerProfile } from "@/utils/actions";
 import { Controller, useForm } from "react-hook-form";
-import { EditableSeekerInformationsSchemas } from "@/utils/validation";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
@@ -17,6 +15,8 @@ import { queryClient } from "@/contexts/react-query-client";
 import { Input } from "@/components/Shared/Input";
 import { Textarea } from "@/components/Shared/Textarea";
 import { ClipLoader } from "react-spinners";
+import { editSeekerProfile } from "@/utils/actions/seekers";
+import { EditableSeekerInformationsSchemas } from "@/utils/zod/seekers";
 
 const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
   seeker,

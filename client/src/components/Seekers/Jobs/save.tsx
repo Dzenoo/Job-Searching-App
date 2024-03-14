@@ -3,9 +3,9 @@ import { Button } from "@/components/Shared/Button";
 import { Bookmark } from "lucide-react";
 import { SaveJobButtonProps } from "./types";
 import { useMutation } from "react-query";
-import { saveJob } from "@/utils/actions";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
+import { saveJob } from "@/utils/actions/jobs";
 
 const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
   const { token } = useAuthentication().getCookieHandler();

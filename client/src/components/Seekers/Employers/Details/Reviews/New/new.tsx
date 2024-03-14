@@ -8,15 +8,15 @@ import { ClipLoader } from "react-spinners";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "react-query";
-import { ReviewEmployersSchemas } from "@/utils/validation";
 import { toast } from "react-toastify";
-import { reviewEmployer } from "@/utils/actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { Select } from "@/components/Shared/Select";
 import { Textarea } from "@/components/Shared/Textarea";
 import { Tag } from "@/components/Shared/Tag";
 import { redirect } from "next/navigation";
 import { ReviewCompanyFormProps } from "./types";
+import { ReviewEmployersSchemas } from "@/utils/zod/reviews";
+import { reviewEmployer } from "@/utils/actions/reviews";
 
 const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   employerId,

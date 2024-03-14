@@ -1,5 +1,5 @@
 import { Button } from "@/components/Shared/Button";
-import { registerForEvent } from "@/utils/actions";
+import { registerForEvent } from "@/utils/actions/events";
 import React from "react";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";

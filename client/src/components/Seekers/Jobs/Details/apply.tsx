@@ -7,11 +7,11 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import zod from "zod";
 import { ClipLoader } from "react-spinners";
-import { ApplyToJobSchemas } from "@/utils/validation";
-import { addCoverLetter, applyToJob } from "@/utils/actions";
 import { Textarea } from "@/components/Shared/Textarea";
 import { queryClient } from "@/contexts/react-query-client";
 import useUploads from "@/hooks/useUploads";
+import { ApplyToJobSchemas } from "@/utils/zod/jobs";
+import { addCoverLetter, applyToJob } from "@/utils/actions/jobs";
 
 type ApplyToJobProps = {
   jobId: string;
