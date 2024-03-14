@@ -87,3 +87,13 @@ export const ReviewEmployersSchemas = zod.object({
     .min(1, "At least one technology is required")
     .nonempty("Technologies cannot be empty"),
 });
+
+export const EditSeekerProfileSchemas = zod.object({
+  first_name: zod.string().min(3).max(30),
+  last_name: zod.string().min(3).max(30),
+  github: zod.string().min(3).max(30),
+  linkedin: zod.string().min(3).max(300),
+  portfolio: zod.string().min(3).max(300),
+  image: zod.string().min(3).max(30),
+  skills: zod.array(zod.string()),
+});

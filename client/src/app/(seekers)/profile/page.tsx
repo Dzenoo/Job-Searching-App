@@ -27,7 +27,10 @@ const SeekerProfilePage = ({
       </div>
       {!searchParams.typings && (
         <div>
-          <SeekerProfileInformation />
+          <SeekerProfileInformation
+            seeker={fetchedSeekerProfile?.seeker}
+            token={token!}
+          />
         </div>
       )}
       {searchParams.typings === "alerts" && <div>Alerts</div>}

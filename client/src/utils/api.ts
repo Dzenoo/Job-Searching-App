@@ -30,10 +30,11 @@ export const postApiHandler = <T>(
 export const patchApiHandler = <T>(
   url: string,
   data: {},
-  token?: string
+  token?: string,
+  contentType: string = "application/json"
 ): Promise<T> => {
   const headers: AxiosHeadersConfig = {
-    "Content-Type": "application/json",
+    "Content-Type": contentType,
   };
 
   if (token) {
@@ -42,7 +43,7 @@ export const patchApiHandler = <T>(
 
   return new Promise((resolve, reject) => {
     axios
-      .patch(`${DEFAULT_API_URL}/${url}`, JSON.stringify(data), { headers })
+      .patch(`${DEFAULT_API_URL}/${url}`, data, { headers })
       .then((response) => resolve(response.data))
       .catch((error) => reject(error));
   });

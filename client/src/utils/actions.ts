@@ -141,3 +141,11 @@ export const reviewEmployer = async (
 
 export const getSeekerProfile = async (token: string) =>
   await getApiHandler(`seeker`, token);
+
+export const editSeekerProfile = async (formData: FormData, token: string) =>
+  await patchApiHandler(
+    `seeker/edit-seeker-profile`,
+    formData,
+    token,
+    "multipart/form-data"
+  );

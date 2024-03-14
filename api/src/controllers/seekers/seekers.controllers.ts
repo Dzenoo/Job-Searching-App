@@ -226,7 +226,11 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ seeker: editedProfile }, 201, response);
+    responseServerHandler(
+      { message: "Sucessfully edited profile" },
+      201,
+      response
+    );
   } catch (errors) {
     responseServerHandler(
       { message: "Cannot edit profile, please try again" },

@@ -1,17 +1,17 @@
 import { Button } from "@/components/Shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import zod from "zod";
 import { ClipLoader } from "react-spinners";
 import { ApplyToJobSchemas } from "@/utils/validation";
-import { useDropzone } from "react-dropzone";
 import { addCoverLetter, applyToJob } from "@/utils/actions";
 import { Textarea } from "@/components/Shared/Textarea";
 import { queryClient } from "@/contexts/react-query-client";
+import useUploads from "@/hooks/useUploads";
 
 type ApplyToJobProps = {
   jobId: string;
@@ -19,14 +19,7 @@ type ApplyToJobProps = {
 };
 
 const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const onDrop = React.useCallback((acceptedFiles: File[]) => {
-    setSelectedFile(acceptedFiles[0]);
-  }, []);
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
+  const { getInputProps, getRootProps, selectedFile } = useUploads({
     accept: {
       "application/pdf": [".pdf"],
     },
