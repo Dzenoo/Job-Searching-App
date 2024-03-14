@@ -15,7 +15,7 @@ import {
 import { NavbarActionsList } from "./Actions";
 import { Avatar } from "@/components/Shared/Avatar";
 import { useQuery } from "react-query";
-import { getSeekerProfile } from "@/utils/actions";
+import { getSeekerProfile } from "@/utils/actions/seekers";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
