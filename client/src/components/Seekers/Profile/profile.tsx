@@ -1,62 +1,26 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent } from "react";
 import { SeekerProfileInformationProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
-import Image from "next/image";
-import { Edit, ImagePlusIcon, Trash } from "lucide-react";
+import { ImagePlusIcon, Trash } from "lucide-react";
 import { Button } from "@/components/Shared/Button";
-import useUploads from "@/hooks/useUploads";
-import { useMutation } from "react-query";
-import { Controller, useForm } from "react-hook-form";
-import zod from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
+import { Form } from "@/components/Shared/Forms";
 import { toast } from "react-toastify";
-import { queryClient } from "@/contexts/react-query-client";
-import { Input } from "@/components/Shared/Input";
-import { Textarea } from "@/components/Shared/Textarea";
-import { ClipLoader } from "react-spinners";
-import { editSeekerProfile } from "@/utils/actions/seekers";
-import { EditableSeekerInformationsSchemas } from "@/utils/zod/seekers";
+import { Informations } from "./Informations";
+import useEditSeeker from "@/hooks/mutations/useEditSeeker";
+import useUploads from "@/hooks/useUploads";
+import Image from "next/image";
 
 const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
   seeker,
   token,
 }) => {
-  const [isEditMode, setIsEditMode] = useState(false);
-
   const { getInputProps, getRootProps, selectedFile, restart } = useUploads({
     accept: {
       "application/image": [".png", ".jpg", ".jpeg"],
     },
     multiple: false,
   });
-  const { mutateAsync: editSeekerProfileMutate } = useMutation({
-    mutationFn: (formData: FormData) => editSeekerProfile(formData, token),
-    onSuccess: (response: any) => {
-      restart();
-      toast.success(response.message);
-      queryClient.invalidateQueries(["profile"]);
-
-      setIsEditMode(false);
-    },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
-    },
-  });
-  const {
-    setValue,
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<zod.infer<typeof EditableSeekerInformationsSchemas>>({
-    resolver: zodResolver(EditableSeekerInformationsSchemas),
-  });
-
-  useEffect(() => {
-    setValue("first_name", seeker?.first_name || "");
-    setValue("last_name", seeker?.last_name || "");
-    setValue("biography", seeker?.biography || "");
-  }, [setValue, isEditMode]);
+  const { mutateAsync: editSeekerProfileMutate, isSuccess } = useEditSeeker();
 
   const changeSeekerImage = async (e: FormEvent) => {
     e.preventDefault();
@@ -71,37 +35,15 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
     formData.append("image", selectedFile!);
 
     await editSeekerProfileMutate(formData);
-  };
 
-  const changeSeekerInformation = async (
-    values: zod.infer<typeof EditableSeekerInformationsSchemas>
-  ) => {
-    const formData = new FormData();
-
-    formData.append("first_name", values.first_name);
-    formData.append("last_name", values.last_name);
-    formData.append("biography", values.biography);
-
-    await editSeekerProfileMutate(formData);
-  };
-
-  const ProfileInformationArrays = new Array(
-    {
-      id: "1",
-      title: "First Name",
-      data: seeker?.first_name,
-    },
-    {
-      id: "2",
-      title: "Last Name",
-      data: seeker?.last_name,
-    },
-    {
-      id: "3",
-      title: "Email",
-      data: seeker?.email,
+    if (isSuccess) {
+      restart();
     }
-  );
+  };
+
+  const profileImageUrl = selectedFile
+    ? URL.createObjectURL(selectedFile)
+    : `https://job-searching-application.s3.amazonaws.com/${seeker?.image}`;
 
   return (
     <Card>
@@ -109,11 +51,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
         <div className="flex items-center gap-7">
           <div>
             <Image
-              src={
-                selectedFile
-                  ? URL.createObjectURL(selectedFile)
-                  : `https://job-searching-application.s3.amazonaws.com/${seeker?.image}`
-              }
+              src={profileImageUrl}
               alt="seeker_profile_img"
               width={130}
               height={130}
@@ -165,129 +103,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-10">
-          <div className="flex justify-between items-center gap-3">
-            <div>
-              <h1 className="text-base-black">Profile Information</h1>
-            </div>
-            <div>
-              <Button
-                className="flex items-center gap-3"
-                variant="default"
-                onClick={() => setIsEditMode((prevEditMode) => !prevEditMode)}
-              >
-                <div>Edit Profile</div>
-                <div>
-                  <Edit color="#fff" />
-                </div>
-              </Button>
-            </div>
-          </div>
-          <div>
-            {!isEditMode ? (
-              <div className="flex flex-col gap-10">
-                <div className="flex items-center gap-[3rem]">
-                  {ProfileInformationArrays.map(({ id, data, title }) => (
-                    <div key={id} className="flex flex-col gap-[3px]">
-                      <div>
-                        <p className="text-initial-gray">{title}</p>
-                      </div>
-                      <div>
-                        <h1 className="font-bold">{data}</h1>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col gap-[3px]">
-                  <div>
-                    <h1 className="text-initial-black">Biography</h1>
-                  </div>
-                  <div>
-                    <p className="text-initial-gray">
-                      {seeker?.biography || "No Biography Defined"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <Form
-                onSubmit={handleSubmit(changeSeekerInformation)}
-                className="p-0"
-              >
-                <div className="flex items-center gap-3">
-                  <FormItem className="w-full">
-                    <Controller
-                      name="first_name"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="First Name"
-                          type="text"
-                          placeholder="First Name"
-                          value={field.value || ""}
-                        />
-                      )}
-                    />
-                    {errors.first_name?.message && (
-                      <FormInfo variant="danger">
-                        {errors.first_name.message}
-                      </FormInfo>
-                    )}
-                  </FormItem>
-                  <FormItem className="w-full">
-                    <Controller
-                      name="last_name"
-                      control={control}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          label="Last Name"
-                          type="text"
-                          value={field.value || ""}
-                        />
-                      )}
-                    />
-                    {errors.last_name?.message && (
-                      <FormInfo variant="danger">
-                        {errors.last_name.message}
-                      </FormInfo>
-                    )}
-                  </FormItem>
-                </div>
-                <FormItem className="w-full">
-                  <Controller
-                    name="biography"
-                    control={control}
-                    render={({ field }) => (
-                      <Textarea
-                        {...field}
-                        label="Biography"
-                        type="text"
-                        value={field.value || ""}
-                      />
-                    )}
-                  />
-                  {errors.biography?.message && (
-                    <FormInfo variant="danger">
-                      {errors.biography.message}
-                    </FormInfo>
-                  )}
-                </FormItem>
-                <div>
-                  <Button
-                    variant="default"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className=" px-10"
-                  >
-                    {isSubmitting ? <ClipLoader color="#fff" /> : "Submit"}
-                  </Button>
-                </div>
-              </Form>
-            )}
-          </div>
-        </div>
+        <Informations seeker={seeker} />
       </CardContent>
     </Card>
   );
