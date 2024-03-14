@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { SeekerRegistrationSchemas } from "@/utils/validation";
 import { Button } from "@/components/Shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +8,6 @@ import { SeekersSignupFormTypes } from "./types";
 import { TypeOfAccount } from "../ChooseTypeAccount/types";
 import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
-import { signupSeeker } from "@/utils/actions";
 import { toast } from "react-toastify";
 import {
   Card,
@@ -19,6 +17,8 @@ import {
 } from "@/components/Shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
+import { SeekerRegistrationSchemas } from "@/utils/zod/auth";
+import { signupSeeker } from "@/utils/actions/auth";
 
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   handleTypeSelection,

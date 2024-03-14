@@ -6,10 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { LoginFormTypes } from "./types";
 import { TypeOfAccount } from "../../Signup/ChooseTypeAccount/types";
-import { LoginSchemasForm } from "@/utils/validation";
 import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
-import { loginUserAccount } from "@/utils/actions";
 import { toast } from "react-toastify";
 import {
   Card,
@@ -20,6 +18,8 @@ import {
 import Link from "next/link";
 import zod from "zod";
 import useAuthentication from "@/hooks/useAuthentication";
+import { loginUserAccount } from "@/utils/actions/auth";
+import { LoginSchemasForm } from "@/utils/zod/auth";
 
 const LoginFormAccount: React.FC<LoginFormTypes> = ({
   handleTypeSelection,
