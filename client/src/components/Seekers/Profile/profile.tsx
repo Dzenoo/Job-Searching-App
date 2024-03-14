@@ -1,8 +1,8 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import { SeekerProfileInformationProps } from "./types";
-import { Card, CardHeader } from "@/components/Shared/Card";
+import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 import Image from "next/image";
-import { ImagePlusIcon, Trash } from "lucide-react";
+import { Edit, ImagePlusIcon, Trash } from "lucide-react";
 import { Button } from "@/components/Shared/Button";
 import useUploads from "@/hooks/useUploads";
 import { useMutation } from "react-query";
@@ -19,6 +19,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
   seeker,
   token,
 }) => {
+  const [isEditMode, setIsEditMode] = useState(false);
   const { getInputProps, getRootProps, selectedFile, restart } = useUploads({
     accept: {
       "application/image": [".png", ".jpg", ".jpeg"],
@@ -62,6 +63,24 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
 
     await editSeekerProfileMutate(formData);
   };
+
+  const ProfileInformationArrays = new Array(
+    {
+      id: "1",
+      title: "First Name",
+      data: seeker?.first_name,
+    },
+    {
+      id: "2",
+      title: "Last Name",
+      data: seeker?.last_name,
+    },
+    {
+      id: "3",
+      title: "Email",
+      data: seeker?.email,
+    }
+  );
 
   return (
     <Card>
@@ -124,6 +143,54 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
           </Button>
         </div>
       </CardHeader>
+      <CardContent>
+        <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-10">
+          <div className="flex justify-between items-center gap-3">
+            <div>
+              <h1 className="text-base-black">Profile Information</h1>
+            </div>
+            <div>
+              <Button
+                className="flex items-center gap-3"
+                variant="default"
+                onClick={() => setIsEditMode((prevEditMode) => !prevEditMode)}
+              >
+                <div>Edit Profile</div>
+                <div>
+                  <Edit color="#fff" />
+                </div>
+              </Button>
+            </div>
+          </div>
+          <div className="flex items-center gap-[3rem]">
+            {!isEditMode ? (
+              ProfileInformationArrays.map(({ id, data, title }) => (
+                <div key={id} className="flex flex-col gap-[3px]">
+                  <div>
+                    <p className="text-initial-gray">{title}</p>
+                  </div>
+                  <div>
+                    <h1 className="font-bold">{data}</h1>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>div</div>
+            )}
+          </div>
+          <div className="flex flex-col gap-[3px]">
+            <div>
+              <h1 className="text-initial-black">Biography</h1>
+            </div>
+            <div>
+              <p className="text-initial-gray">
+                {seeker?.biography ||
+                  "dimo na sve zanimljivijim projektima. Sada nas možete naći u Balkanskoj 44, gde smo u okviru šestospratne zgrade u industrial fazonu stvorili sve što nam je potrebno. Tri velike terase na krovu za uživanje na suncu, game corner-e sa različitim konzolama, stonim fudbalom i tenisom, kao i privatnu teretanu koju koristimo kada nam je potrebno da se razmrdamo od sedenja za kompom."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 };
