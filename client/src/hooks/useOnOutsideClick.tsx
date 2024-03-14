@@ -43,5 +43,4 @@ const useOnOutsideClick = (
     };
   }, [$ignoredElementRefs, isListening, onOutsideClick]);
 };
-
 export default useOnOutsideClick;
