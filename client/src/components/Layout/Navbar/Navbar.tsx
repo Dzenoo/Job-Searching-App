@@ -14,6 +14,8 @@ import {
 } from "@/constants/navbar";
 import { NavbarActionsList } from "./Actions";
 import { Avatar } from "@/components/Shared/Avatar";
+import { useQuery } from "react-query";
+import { getSeekerProfile } from "@/utils/actions";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -34,8 +36,16 @@ const AuthenticationDivLinks: React.FC = () => {
 
 const Navbar: React.FC = () => {
   const { deleteCookieHandler, getCookieHandler } = useAuthentication();
-  const { isAuthenticated, userType } = getCookieHandler();
+  const { isAuthenticated, userType, token } = getCookieHandler();
+  const { data } = useQuery({
+    queryFn: () => getSeekerProfile(token as string),
+    queryKey: ["profile"],
+  });
+
+  const fetchedSeeker: any = data;
+
   const pathname = usePathname();
+
   const isSeeker = userType === "seeker";
 
   return (
@@ -61,7 +71,10 @@ const Navbar: React.FC = () => {
             />
           </div>
           <div>
-            <Avatar />
+            <Avatar
+              image={fetchedSeeker?.seeker.image}
+              name={`${fetchedSeeker?.seeker.first_name} ${fetchedSeeker?.seeker.last_name}`}
+            />
           </div>
         </div>
       )}

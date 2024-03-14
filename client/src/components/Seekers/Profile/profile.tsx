@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { SeekerProfileInformationProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 import Image from "next/image";
@@ -7,19 +7,23 @@ import { Button } from "@/components/Shared/Button";
 import useUploads from "@/hooks/useUploads";
 import { useMutation } from "react-query";
 import { editSeekerProfile } from "@/utils/actions";
-import { useForm } from "react-hook-form";
-import { EditSeekerProfileSchemas } from "@/utils/validation";
+import { Controller, useForm } from "react-hook-form";
+import { EditableSeekerInformationsSchemas } from "@/utils/validation";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/Shared/Forms";
+import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { toast } from "react-toastify";
 import { queryClient } from "@/contexts/react-query-client";
+import { Input } from "@/components/Shared/Input";
+import { Textarea } from "@/components/Shared/Textarea";
+import { ClipLoader } from "react-spinners";
 
 const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
   seeker,
   token,
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
+
   const { getInputProps, getRootProps, selectedFile, restart } = useUploads({
     accept: {
       "application/image": [".png", ".jpg", ".jpeg"],
@@ -32,22 +36,27 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
       restart();
       toast.success(response.message);
       queryClient.invalidateQueries(["profile"]);
+
+      setIsEditMode(false);
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message);
     },
   });
-  const {} = useForm<zod.infer<typeof EditSeekerProfileSchemas>>({
-    resolver: zodResolver(EditSeekerProfileSchemas),
-    defaultValues: {
-      first_name: seeker?.first_name || "",
-      last_name: seeker?.last_name || "",
-      github: seeker?.github || "",
-      linkedin: seeker?.linkedin || "",
-      portfolio: seeker?.portfolio || "",
-      image: seeker?.image || "",
-    },
+  const {
+    setValue,
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<zod.infer<typeof EditableSeekerInformationsSchemas>>({
+    resolver: zodResolver(EditableSeekerInformationsSchemas),
   });
+
+  useEffect(() => {
+    setValue("first_name", seeker?.first_name || "");
+    setValue("last_name", seeker?.last_name || "");
+    setValue("biography", seeker?.biography || "");
+  }, [setValue, isEditMode]);
 
   const changeSeekerImage = async (e: FormEvent) => {
     e.preventDefault();
@@ -60,6 +69,18 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
     }
 
     formData.append("image", selectedFile!);
+
+    await editSeekerProfileMutate(formData);
+  };
+
+  const changeSeekerInformation = async (
+    values: zod.infer<typeof EditableSeekerInformationsSchemas>
+  ) => {
+    const formData = new FormData();
+
+    formData.append("first_name", values.first_name);
+    formData.append("last_name", values.last_name);
+    formData.append("biography", values.biography);
 
     await editSeekerProfileMutate(formData);
   };
@@ -96,7 +117,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
               alt="seeker_profile_img"
               width={130}
               height={130}
-              className="rounded-full w-36 h-36"
+              className="rounded-full w-36 h-36 object-cover"
             />
           </div>
           <div className="flex flex-col gap-3">
@@ -162,32 +183,109 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
               </Button>
             </div>
           </div>
-          <div className="flex items-center gap-[3rem]">
+          <div>
             {!isEditMode ? (
-              ProfileInformationArrays.map(({ id, data, title }) => (
-                <div key={id} className="flex flex-col gap-[3px]">
+              <div className="flex flex-col gap-10">
+                <div className="flex items-center gap-[3rem]">
+                  {ProfileInformationArrays.map(({ id, data, title }) => (
+                    <div key={id} className="flex flex-col gap-[3px]">
+                      <div>
+                        <p className="text-initial-gray">{title}</p>
+                      </div>
+                      <div>
+                        <h1 className="font-bold">{data}</h1>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col gap-[3px]">
                   <div>
-                    <p className="text-initial-gray">{title}</p>
+                    <h1 className="text-initial-black">Biography</h1>
                   </div>
                   <div>
-                    <h1 className="font-bold">{data}</h1>
+                    <p className="text-initial-gray">
+                      {seeker?.biography || "No Biography Defined"}
+                    </p>
                   </div>
                 </div>
-              ))
+              </div>
             ) : (
-              <div>div</div>
+              <Form
+                onSubmit={handleSubmit(changeSeekerInformation)}
+                className="p-0"
+              >
+                <div className="flex items-center gap-3">
+                  <FormItem className="w-full">
+                    <Controller
+                      name="first_name"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          label="First Name"
+                          type="text"
+                          placeholder="First Name"
+                          value={field.value || ""}
+                        />
+                      )}
+                    />
+                    {errors.first_name?.message && (
+                      <FormInfo variant="danger">
+                        {errors.first_name.message}
+                      </FormInfo>
+                    )}
+                  </FormItem>
+                  <FormItem className="w-full">
+                    <Controller
+                      name="last_name"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          label="Last Name"
+                          type="text"
+                          value={field.value || ""}
+                        />
+                      )}
+                    />
+                    {errors.last_name?.message && (
+                      <FormInfo variant="danger">
+                        {errors.last_name.message}
+                      </FormInfo>
+                    )}
+                  </FormItem>
+                </div>
+                <FormItem className="w-full">
+                  <Controller
+                    name="biography"
+                    control={control}
+                    render={({ field }) => (
+                      <Textarea
+                        {...field}
+                        label="Biography"
+                        type="text"
+                        value={field.value || ""}
+                      />
+                    )}
+                  />
+                  {errors.biography?.message && (
+                    <FormInfo variant="danger">
+                      {errors.biography.message}
+                    </FormInfo>
+                  )}
+                </FormItem>
+                <div>
+                  <Button
+                    variant="default"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className=" px-10"
+                  >
+                    {isSubmitting ? <ClipLoader color="#fff" /> : "Submit"}
+                  </Button>
+                </div>
+              </Form>
             )}
-          </div>
-          <div className="flex flex-col gap-[3px]">
-            <div>
-              <h1 className="text-initial-black">Biography</h1>
-            </div>
-            <div>
-              <p className="text-initial-gray">
-                {seeker?.biography ||
-                  "dimo na sve zanimljivijim projektima. Sada nas možete naći u Balkanskoj 44, gde smo u okviru šestospratne zgrade u industrial fazonu stvorili sve što nam je potrebno. Tri velike terase na krovu za uživanje na suncu, game corner-e sa različitim konzolama, stonim fudbalom i tenisom, kao i privatnu teretanu koju koristimo kada nam je potrebno da se razmrdamo od sedenja za kompom."}
-              </p>
-            </div>
           </div>
         </div>
       </CardContent>

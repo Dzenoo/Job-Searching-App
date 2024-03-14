@@ -1,3 +1,6 @@
-type AvatarProps = {};
+type AvatarProps = {
+  image: string;
+  name: string;
+};
 
 export { type AvatarProps };

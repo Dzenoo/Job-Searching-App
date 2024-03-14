@@ -190,6 +190,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       "portfolio",
       "skills",
       "image",
+      "biography",
     ];
 
     validate(allowedProperties, updateData, (error, message) => {
