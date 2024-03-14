@@ -65,7 +65,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
   );
 
   return (
-    <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-10">
+    <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-[13px]">
       <div className="flex justify-between items-center gap-3">
         <div>
           <h1 className="text-base-black">Profile Information</h1>
