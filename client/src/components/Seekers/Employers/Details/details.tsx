@@ -8,13 +8,13 @@ import {
   CardHeader,
 } from "@/components/Shared/Card";
 import Image from "next/image";
-import { renderIconText } from "@/utils/jsx";
 import { Building, Camera, FileText, Text } from "lucide-react";
 import { findIndustriesData } from "@/utils/helpers";
 import Link from "next/link";
 import { Button } from "@/components/Shared/Button";
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { LinkElement } from "@/components/Shared/Link";
+import { renderIconText } from "@/utils/jsx/render-icon-text";
 
 const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
   employer,

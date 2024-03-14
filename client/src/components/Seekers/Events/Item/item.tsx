@@ -9,7 +9,8 @@ import {
 import Image from "next/image";
 import { Button } from "@/components/Shared/Button";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
-import { renderIconText } from "@/utils/jsx";
+import { renderIconText } from "@/utils/jsx/render-icon-text";
+
 import useSearchParams from "@/hooks/useSearchParams";
 
 const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {

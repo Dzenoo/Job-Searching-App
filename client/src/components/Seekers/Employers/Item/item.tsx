@@ -5,7 +5,8 @@ import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { EmployersItemProps } from "./types";
 import { Card, CardContent, CardFooter } from "@/components/Shared/Card";
 import { Button } from "@/components/Shared/Button";
-import { renderIconText } from "@/utils/jsx";
+import { renderIconText } from "@/utils/jsx/render-icon-text";
+
 import { Camera, FileText, Text } from "lucide-react";
 
 const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {

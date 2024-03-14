@@ -9,9 +9,9 @@ import {
 import { GraduationCap, MapPin, Timer } from "lucide-react";
 import { JobItemProps } from "./types";
 import { checkExpired, formatDate, getTime } from "@/utils/date";
-import { renderIconText } from "@/utils/jsx";
 import Link from "next/link";
 import SaveJobButton from "../save";
+import { renderIconText } from "@/utils/jsx/render-icon-text";
 
 const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const isJobExpired = checkExpired(job.expiration_date);

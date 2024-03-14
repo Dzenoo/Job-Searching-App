@@ -6,7 +6,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/Shared/Card";
-import { renderIconText } from "@/utils/jsx";
+import { renderIconText } from "@/utils/jsx/render-icon-text";
+
 import { Briefcase, Calendar, Timer } from "lucide-react";
 import { getTime } from "@/utils/date";
 
