@@ -4,7 +4,7 @@ import Protected from "@/components/Hoc/Protected";
 import { SeekerProfileInformation } from "@/components/Seekers/Profile";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerProfile } from "@/utils/actions";
+import { getSeekerProfile } from "@/utils/actions/seekers";
 import React from "react";
 import { useQuery } from "react-query";
 

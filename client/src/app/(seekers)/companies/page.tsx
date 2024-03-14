@@ -5,9 +5,9 @@ import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { EmployersList } from "@/components/Seekers/Employers";
 import { useQuery } from "react-query";
-import { getEmployers } from "@/utils/actions";
 import { Pagination } from "@/components/Shared/Pagination";
 import { SearchEmployers } from "@/components/Seekers/Employers/Search";
+import { getEmployers } from "@/utils/actions/seekers";
 
 const Companies = ({
   searchParams,

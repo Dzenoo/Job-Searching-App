@@ -7,10 +7,10 @@ import { SearchJobs } from "@/components/Seekers/Jobs/Search";
 import { Pagination } from "@/components/Shared/Pagination";
 import { PopularJobsInfo } from "@/components/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
-import { getJobs } from "@/utils/actions";
 import Protected from "@/components/Hoc/Protected";
 import LoadingJobsSkeleton from "@/components/Seekers/Jobs/LoadingJobsSkeleton";
 import useAuthentication from "@/hooks/useAuthentication";
+import { getJobs } from "@/utils/actions/jobs";
 
 const Jobs = ({
   searchParams,

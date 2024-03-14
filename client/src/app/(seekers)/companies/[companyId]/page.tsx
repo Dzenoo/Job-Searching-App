@@ -14,7 +14,7 @@ import { Pagination } from "@/components/Shared/Pagination";
 import { EventsData } from "@/constants/events";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
-import { getEmployerById } from "@/utils/actions";
+import { getEmployerById } from "@/utils/actions/seekers";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
