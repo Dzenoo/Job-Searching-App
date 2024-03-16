@@ -2,9 +2,17 @@
 
 import React from "react";
 import { ChooseTypeAccount } from "@/components/Auth/Signup/ChooseTypeAccount";
-import Protected from "@/components/Hoc/Protected";
+import useAuthentication from "@/hooks/useAuthentication";
+import { useRouter } from "next/navigation";
 
 const SignupPage: React.FC = () => {
+  const { token } = useAuthentication().getCookieHandler();
+  const router = useRouter();
+
+  if (token) {
+    router.push("/");
+  }
+
   return (
     <section className="py-16 flex justify-center h-screen">
       <ChooseTypeAccount />
@@ -12,4 +20,4 @@ const SignupPage: React.FC = () => {
   );
 };
 
-export default Protected(SignupPage, []);
+export default SignupPage;

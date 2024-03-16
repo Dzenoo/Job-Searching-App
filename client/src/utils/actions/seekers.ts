@@ -1,4 +1,4 @@
-import { getApiHandler, patchApiHandler } from "../api";
+import { deleteApiHandler, getApiHandler, patchApiHandler } from "../api";
 
 export const getEmployers = async ({
   page = "1",
@@ -40,3 +40,6 @@ export const editSeekerProfile = async (formData: FormData, token: string) =>
     token,
     "multipart/form-data"
   );
+
+export const deleteSeekerProfile = async (token: string) =>
+  await deleteApiHandler(`seeker/delete-seeker-profile`, token);

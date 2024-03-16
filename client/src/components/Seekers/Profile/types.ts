@@ -3,4 +3,9 @@ type SeekerProfileInformationProps = {
   token: string;
 };
 
-export { type SeekerProfileInformationProps };
+type SeekerDeleteDialogProps = {
+  token: string;
+  seekerId: string;
+};
+
+export { type SeekerProfileInformationProps, type SeekerDeleteDialogProps };

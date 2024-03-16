@@ -2,9 +2,17 @@
 
 import React from "react";
 import { ChooseLoginType } from "@/components/Auth/Login/ChooseLoginType";
-import Protected from "@/components/Hoc/Protected";
+import { useRouter } from "next/navigation";
+import useAuthentication from "@/hooks/useAuthentication";
 
 const LoginPage: React.FC = () => {
+  const { token } = useAuthentication().getCookieHandler();
+  const router = useRouter();
+
+  if (token) {
+    router.push("/");
+  }
+
   return (
     <section className="py-16 flex justify-center h-screen">
       <ChooseLoginType />
@@ -12,4 +20,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default Protected(LoginPage, []);
+export default LoginPage;

@@ -1,4 +1,5 @@
 type Seeker = {
+  _id: string;
   biography: string;
   image: string;
   password: string;

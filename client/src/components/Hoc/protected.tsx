@@ -18,8 +18,6 @@ const Protected = (
         router.push("/login");
       } else if (!AuthRolesProtected.includes(userType!)) {
         router.push("/");
-      } else if ((pathname === "/login" || pathname === "/signup") && token) {
-        router.push("/");
       }
     }, [token, userType, pathname, router]);
 
