@@ -72,13 +72,13 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
         </div>
         <div>
           <Button
+            variant={isEditMode ? "outlined" : "default"}
             className="flex items-center gap-3"
-            variant="default"
             onClick={() => setIsEditMode((prevEditMode) => !prevEditMode)}
           >
             <div>Edit Profile</div>
             <div>
-              <Edit color="#fff" />
+              <Edit />
             </div>
           </Button>
         </div>
