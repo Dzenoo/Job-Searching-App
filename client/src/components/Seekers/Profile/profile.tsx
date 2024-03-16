@@ -9,6 +9,7 @@ import { Informations } from "./Informations";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import useUploads from "@/hooks/useUploads";
 import Image from "next/image";
+import { Socials } from "./Socials";
 
 const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
   seeker,
@@ -102,8 +103,9 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-6">
         <Informations seeker={seeker} />
+        <Socials seeker={seeker} />
       </CardContent>
     </Card>
   );

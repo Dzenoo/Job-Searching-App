@@ -42,7 +42,7 @@ const Dialog: React.FC<DialogProps> = ({
             onClick={(e) => e.stopPropagation()}
           >
             {showCloseButton && (
-              <CardHeader className="flex justify-end items-end">
+              <CardHeader className="absolute right-3 top-3">
                 <button onClick={closeDialog}>
                   <X />
                 </button>
