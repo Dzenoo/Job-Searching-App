@@ -20,7 +20,6 @@ import { deleteSeekerProfile } from "@/utils/actions/seekers";
 import useAuthentication from "@/hooks/useAuthentication";
 
 const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
-  seekerId,
   token,
 }) => {
   const { deleteCookieHandler } = useAuthentication();
@@ -94,13 +93,13 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
 
     await editSeekerProfileMutate(formData);
 
-    if (isSuccess) {
-      restart();
-    }
+    restart();
   };
 
   const profileImageUrl = selectedFile
     ? URL.createObjectURL(selectedFile)
+    : seeker?.image.includes("https:")
+    ? seeker?.image
     : `https://job-searching-application.s3.amazonaws.com/${seeker?.image}`;
 
   return (
@@ -109,9 +108,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
         showCloseButton
         onCloseDialog={() => closeDialog("delete")}
         isOpen={dialogs.delete.isOpen}
-        render={() => (
-          <DeleteSeekerProfileDialog token={token} seekerId={seeker._id} />
-        )}
+        render={() => <DeleteSeekerProfileDialog token={token} />}
       />
       <Card>
         <CardHeader className="flex justify-between gap-3 border-b border-gray-300 pb-7">
