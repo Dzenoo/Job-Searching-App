@@ -9,8 +9,8 @@ const Logo: React.FC = () => {
         alt="light-talentify-logo"
         width={300}
         height={300}
-        loading="lazy"
         style={{ objectFit: "cover", width: "auto", height: "auto" }}
+        loading="lazy"
       />
     </Link>
   );

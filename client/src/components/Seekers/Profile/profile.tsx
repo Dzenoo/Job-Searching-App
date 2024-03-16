@@ -25,16 +25,18 @@ const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
   const { deleteCookieHandler } = useAuthentication();
   const { mutateAsync: deleteSeekerProfileMutate } = useMutation({
     mutationFn: () => deleteSeekerProfile(token),
-    onSuccess: () => {
-      deleteCookieHandler;
-    },
+    onSuccess: () => {},
     onError: (error: any) => {
       toast.error(error?.response?.data?.message);
     },
   });
 
-  const onDeleteAccount = async () => {
+  const onDeleteAccount = async (e: FormEvent) => {
+    e.preventDefault();
+
     await deleteSeekerProfileMutate();
+
+    deleteCookieHandler();
   };
 
   return (

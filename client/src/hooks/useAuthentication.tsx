@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import React from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 type AuthData = {
   isAuthenticated: boolean;
@@ -10,13 +11,15 @@ type AuthData = {
 };
 
 const useAuthentication = () => {
+  const router = useRouter();
+
   const storeCookieHandler = React.useCallback((token: string) => {
     Cookies.set("token", token, { expires: 7 });
   }, []);
 
   const deleteCookieHandler = React.useCallback(() => {
     Cookies.remove("token");
-    window.location.href = "/login";
+    router.push("/login");
   }, []);
 
   const getCookieHandler = React.useCallback((): AuthData => {
