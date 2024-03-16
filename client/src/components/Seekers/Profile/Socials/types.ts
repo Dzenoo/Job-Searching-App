@@ -4,9 +4,9 @@ type SocialsProps = {
 
 type SocialsDialogProps = {
   seeker: {
+    portfolio: string;
     linkedin: string;
     github: string;
-    portfolio: string;
   };
 };
 

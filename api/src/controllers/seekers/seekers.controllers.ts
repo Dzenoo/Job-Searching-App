@@ -412,7 +412,11 @@ export const addNewEducation = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ seeker: seeker }, 201, response);
+    responseServerHandler(
+      { message: "Successfully added education" },
+      201,
+      response
+    );
   } catch (errors) {
     responseServerHandler(
       { message: "Error adding education, please try again" },

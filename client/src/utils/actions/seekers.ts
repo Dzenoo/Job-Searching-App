@@ -43,3 +43,6 @@ export const editSeekerProfile = async (formData: FormData, token: string) =>
 
 export const deleteSeekerProfile = async (token: string) =>
   await deleteApiHandler(`seeker/delete-seeker-profile`, token);
+
+export const addNewEducation = async (data: any, token: string) =>
+  await patchApiHandler(`seeker/add-new-education`, data, token);

@@ -18,7 +18,7 @@ type Seeker = {
   skills: string[];
   education: {
     institution: string;
-    graduationDate: Date | null;
+    graduationDate: string;
     fieldOfStudy: string;
     degree: string;
   }[];
