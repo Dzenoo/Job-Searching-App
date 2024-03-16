@@ -433,33 +433,37 @@ export const deleteEducation = asyncErrors(async (request, response) => {
     const { educationId } = request.params;
     const seeker = await Seeker.findById(seekerId);
 
-    for (const education of seeker.education) {
-      if (education._id.toString() === educationId) {
-        await Seeker.findByIdAndUpdate(
-          seekerId,
-          {
-            $pull: { education: { _id: educationId } },
-          },
-          {
-            new: true,
-          }
-        );
-      }
-
-      if (!seeker) {
-        return responseServerHandler(
-          { message: "Seeker not found or could not delete education" },
-          404,
-          response
-        );
-      }
-
-      responseServerHandler(
-        { message: "Education successfully deleted" },
-        201,
+    if (!seeker) {
+      return responseServerHandler(
+        { message: "Seeker not found or could not delete education" },
+        404,
         response
       );
     }
+
+    const updatedEducation = seeker.education.filter(
+      (education: any) => education._id.toString() !== educationId.toString()
+    );
+
+    const updatedSeeker = await Seeker.findByIdAndUpdate(
+      seekerId,
+      { education: updatedEducation },
+      { new: true }
+    );
+
+    if (!updatedSeeker) {
+      return responseServerHandler(
+        { message: "Error updating seeker's education" },
+        400,
+        response
+      );
+    }
+
+    responseServerHandler(
+      { message: "Education successfully deleted" },
+      201,
+      response
+    );
   } catch (errors) {
     responseServerHandler(
       { message: "Error deleting education, please try again" },

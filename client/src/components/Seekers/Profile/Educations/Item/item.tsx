@@ -4,13 +4,31 @@ import Image from "next/image";
 import { Calendar, Trash } from "lucide-react";
 import { renderIconText } from "@/utils/jsx/render-icon-text";
 import { formatDate } from "@/utils/date";
+import { useMutation } from "react-query";
+import { deleteEducation } from "@/utils/actions/seekers";
+import useAuthentication from "@/hooks/useAuthentication";
+import { toast } from "react-toastify";
+import { queryClient } from "@/contexts/react-query-client";
 
 const EducationItem: React.FC<EducationItemProps> = ({
+  _id,
   degree,
   fieldOfStudy,
   graduationDate,
   institution,
 }) => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { mutateAsync: deleteEducationMutate } = useMutation({
+    mutationFn: () => deleteEducation(_id, token!),
+    onSuccess: (response: any) => {
+      toast.success(response.message);
+      queryClient.invalidateQueries(["profile"]);
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
   const graduationDateFormatted = formatDate(graduationDate);
 
   return (
@@ -38,7 +56,7 @@ const EducationItem: React.FC<EducationItemProps> = ({
         </div>
         <div className="flex flex-col items-end">
           <div>
-            <button>
+            <button onClick={async () => await deleteEducationMutate()}>
               <Trash color="red" />
             </button>
           </div>

@@ -46,3 +46,6 @@ export const deleteSeekerProfile = async (token: string) =>
 
 export const addNewEducation = async (data: any, token: string) =>
   await patchApiHandler(`seeker/add-new-education`, data, token);
+
+export const deleteEducation = async (educationId: string, token: string) =>
+  await deleteApiHandler(`seeker/delete-education/${educationId}`, token);

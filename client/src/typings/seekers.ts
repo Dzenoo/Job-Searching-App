@@ -17,6 +17,7 @@ type Seeker = {
   applications: string[];
   skills: string[];
   education: {
+    _id: string;
     institution: string;
     graduationDate: string;
     fieldOfStudy: string;
