@@ -4,8 +4,13 @@ import { TagProps } from "./types";
 import useOnOutsideClick from "@/hooks/useOnOutsideClick";
 
 const Tag: React.FC<TagProps> = React.forwardRef(
-  ({ options, placeholder = "Select...", className, onSelect }, ref) => {
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  (
+    { options, placeholder = "Select...", className, onSelect, initials },
+    ref
+  ) => {
+    const [selectedItems, setSelectedItems] = useState<string[]>(
+      initials || []
+    );
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const $tagRef = useRef(null);

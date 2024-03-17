@@ -19,6 +19,7 @@ import { useMutation } from "react-query";
 import { deleteSeekerProfile } from "@/utils/actions/seekers";
 import useAuthentication from "@/hooks/useAuthentication";
 import { Educations } from "./Educations";
+import { Skills } from "./Skills";
 
 const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
   token,
@@ -177,6 +178,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
           <Informations seeker={seeker} />
           <Socials seeker={seeker} />
           <Educations seeker={seeker} />
+          <Skills skills={seeker?.skills} />
         </CardContent>
       </Card>
     </Fragment>

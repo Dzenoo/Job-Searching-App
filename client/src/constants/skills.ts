@@ -56,7 +56,7 @@ export const SkillsInformationsData = [
     data: [
       {
         id: 1,
-        title: "React",
+        title: "React.js",
         value: "react",
       },
       {

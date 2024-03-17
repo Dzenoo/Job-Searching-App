@@ -10,6 +10,7 @@ type TagProps = {
   placeholder?: string;
   className?: string;
   onSelect: (selectedItems: string[]) => void;
+  initials?: string[];
 } & HTMLProps<HTMLDivElement>;
 
 export { type TagProps };

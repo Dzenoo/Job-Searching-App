@@ -8,7 +8,8 @@ const useEditSeeker = () => {
   const { token } = useAuthentication().getCookieHandler();
 
   return useMutation({
-    mutationFn: (formData: FormData) => editSeekerProfile(formData, token!),
+    mutationFn: (formData: FormData | any) =>
+      editSeekerProfile(formData, token!),
     onSuccess: (response: any) => {
       toast.success(response.message);
       queryClient.invalidateQueries(["profile"]);

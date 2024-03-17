@@ -33,7 +33,7 @@ const Dialog: React.FC<DialogProps> = ({
       {isOpen && (
         <div
           ref={$overlayRef}
-          className={`bg-opacity-overlay content-[''] fixed top-0 left-0 right-0 bottom-0 z-30 flex justify-center items-center transition-all backdrop-blur-lg`}
+          className={`bg-opacity-overlay content-[''] fixed top-0 left-0 right-0 bottom-0 z-30 flex justify-center items-center transition-all animate_opacity`}
           onClick={closeDialog}
         >
           <Card

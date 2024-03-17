@@ -92,7 +92,7 @@ body {
   }
 
   .animate_opacity {
-    animation: opacity 0.7s;
+    animation: dialog 0.7s;
   }
 
   .tag {
@@ -100,11 +100,17 @@ body {
   }
 }
 
-@keyframes opacity {
+@keyframes dialog {
   0% {
     opacity: 0;
+    transform: scale(0.8);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05);
   }
   100% {
     opacity: 1;
+    transform: scale(1);
   }
 }

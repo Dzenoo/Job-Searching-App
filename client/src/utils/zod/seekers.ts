@@ -18,3 +18,7 @@ export const EditableEducationsSchemas = zod.object({
   degree: zod.string().min(3).max(30),
   graduationDate: zod.string().min(3).max(30),
 });
+
+export const SeekersSkillsSchemas = zod.object({
+  skills: zod.array(zod.string()),
+});

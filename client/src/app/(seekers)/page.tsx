@@ -8,9 +8,9 @@ import { Pagination } from "@/components/Shared/Pagination";
 import { PopularJobsInfo } from "@/components/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
 import Protected from "@/components/Hoc/Protected";
-import LoadingJobsSkeleton from "@/components/Seekers/Jobs/LoadingJobsSkeleton";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getJobs } from "@/utils/actions/jobs";
+import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
 
 const Jobs = ({
   searchParams,
