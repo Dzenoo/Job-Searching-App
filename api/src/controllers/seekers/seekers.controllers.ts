@@ -134,7 +134,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         path: "savedJobs",
         options: { skip, limit: Number(limit) },
         select:
-          "_id title location level expiration_date createdAt applications",
+          "_id title location level expiration_date createdAt applications overview",
         populate: {
           path: "company",
           select: "_id image name",

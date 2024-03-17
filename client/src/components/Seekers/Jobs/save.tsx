@@ -6,20 +6,30 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
 import { saveJob } from "@/utils/actions/jobs";
+import useGetSeeker from "@/hooks/useGetSeeker";
+import { Job } from "@/typings/jobs";
+import { queryClient } from "@/contexts/react-query-client";
 
 const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
+  const { data } = useGetSeeker();
   const { token } = useAuthentication().getCookieHandler();
   const { mutateAsync: saveJobMutate, isLoading } = useMutation({
     mutationFn: () => saveJob(jobId, token!),
     onSuccess: (response: any) => {
       toast.success(response.message);
+      queryClient.invalidateQueries(["profile"]);
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);
     },
   });
 
-  const isJobSaved = false;
+  const fetchedSeeker: any = data;
+  console.log(fetchedSeeker);
+
+  let isJobSaved = fetchedSeeker?.seeker?.savedJobs.find(
+    (job: Job) => job._id === jobId
+  );
 
   return (
     <div>

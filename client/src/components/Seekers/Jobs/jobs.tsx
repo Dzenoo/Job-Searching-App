@@ -13,7 +13,7 @@ const JobsList: React.FC<JobListProps> = ({ jobs }) => {
         </div>
       )}
       <ul className="flex flex-col gap-3">
-        {jobs.length > 0 &&
+        {jobs?.length > 0 &&
           jobs?.map((job) => <JobItem job={job} key={job._id} />)}
       </ul>
     </div>

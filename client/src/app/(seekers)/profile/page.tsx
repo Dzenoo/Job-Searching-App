@@ -1,12 +1,13 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
+import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
+import { JobsList } from "@/components/Seekers/Jobs";
 import { SeekerProfileInformation } from "@/components/Seekers/Profile";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerProfile } from "@/utils/actions/seekers";
+import useGetSeeker from "@/hooks/useGetSeeker";
 import React from "react";
-import { useQuery } from "react-query";
 
 const SeekerProfilePage = ({
   searchParams,
@@ -14,10 +15,7 @@ const SeekerProfilePage = ({
   searchParams: { typings: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading } = useQuery({
-    queryFn: () => getSeekerProfile(token as string),
-    queryKey: ["profile"],
-  });
+  const { data, isLoading } = useGetSeeker();
   const fetchedSeekerProfile: any = data;
 
   return (
@@ -33,8 +31,16 @@ const SeekerProfilePage = ({
           />
         </div>
       )}
+      {searchParams.typings === "saved" && (
+        <div>
+          {isLoading ? (
+            <LoadingJobsSkeleton />
+          ) : (
+            <JobsList jobs={fetchedSeekerProfile?.seeker?.savedJobs} />
+          )}
+        </div>
+      )}
       {searchParams.typings === "alerts" && <div>Alerts</div>}
-      {searchParams.typings === "saved" && <div>Saved</div>}
       {searchParams.typings === "applications" && <div>Applications</div>}
     </section>
   );
