@@ -84,7 +84,7 @@ const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills }) => {
             disabled={isSubmitting}
             className="w-full"
           >
-            {isSubmitting ? <ClipLoader color="#fff" /> : "Add"}
+            {isSubmitting ? <ClipLoader color="#fff" /> : "Update"}
           </Button>
         </div>
       </Form>
@@ -98,7 +98,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
       isOpen: false,
     },
   });
-  const categorizedSkills = getSkillsData(skills);
+  const categorizedSkills = getSkillsData(skills || []);
 
   return (
     <Fragment>
