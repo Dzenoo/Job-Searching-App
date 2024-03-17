@@ -1,7 +1,7 @@
 import { EmployerTypes } from "@/typings/employers";
 
 type EmployersListProps = {
-  employers: EmployerTypes[];
+  employers?: EmployerTypes[];
 };
 
 type FollowEmployerProps = {

@@ -37,7 +37,7 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   });
   const { mutateAsync: addNewEducationMutate } = useMutation({
     mutationFn: (formData: any) => addNewEducation(formData, token!),
-    onSuccess: (response: any) => {
+    onSuccess: (response) => {
       toast.success(response.message);
       queryClient.invalidateQueries(["profile"]);
       closeDialog("edu");

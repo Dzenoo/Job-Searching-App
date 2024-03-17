@@ -13,7 +13,7 @@ type RegisterEventsProps = {
 const RegisterEvents: React.FC<RegisterEventsProps> = ({ eventId, token }) => {
   const { mutateAsync: registerForEventMutate, isLoading } = useMutation({
     mutationFn: () => registerForEvent(eventId, token),
-    onSuccess: (response: any) => {
+    onSuccess: (response) => {
       toast.success(response.message);
     },
     onError: (error: any) => {

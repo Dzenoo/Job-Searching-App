@@ -1,5 +1,6 @@
 import { ReviewTime, ReviewType } from "@/typings/reviews";
 import { postApiHandler } from "../api";
+import { ResponseMessageTypes } from "@/typings/shared";
 
 export const reviewEmployer = async (
   employerId: string,
@@ -12,4 +13,5 @@ export const reviewEmployer = async (
     type: keyof typeof ReviewType;
     time: keyof typeof ReviewTime;
   }
-) => await postApiHandler(`seeker/${employerId}/review`, formData, token);
+): Promise<ResponseMessageTypes> =>
+  await postApiHandler(`seeker/${employerId}/review`, formData, token);

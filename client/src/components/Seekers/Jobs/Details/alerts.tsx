@@ -24,9 +24,9 @@ const AddJobAlert: React.FC<JobAlertProps> = ({
     title,
   };
   const { mutate: addJobAlertMutate, isLoading } = useMutation({
-    mutationFn: () => addJobAlert(token, jobAlertData),
+    mutationFn: () => addJobAlert(token!, jobAlertData),
     mutationKey: ["job"],
-    onSuccess: (response: any) => {
+    onSuccess: (response) => {
       toast.success(response.message);
     },
     onError: (error: any) => {

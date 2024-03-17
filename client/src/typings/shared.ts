@@ -38,10 +38,15 @@ type JobApplicationTypes = {
   job: JobTypes;
 };
 
+type ResponseMessageTypes = {
+  message: string;
+};
+
 export {
   type NotificationTypes,
   type SeekerDirectMessagesTypes,
   type MessageTypes,
   type JobApplicationTypes,
   type EmployerDirectMessagesTypes,
+  type ResponseMessageTypes,
 };

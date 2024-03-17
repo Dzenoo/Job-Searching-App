@@ -6,7 +6,7 @@ type EducationsProps = {
 };
 
 type EducationListProps = {
-  educations: EducationItemProps[];
+  educations?: EducationItemProps[];
 };
 
 type AddEducationsDialogProps = {

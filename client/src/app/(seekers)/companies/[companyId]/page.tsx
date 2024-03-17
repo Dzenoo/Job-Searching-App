@@ -26,7 +26,11 @@ const CompanyDetails = ({
   searchParams: { [key: string]: keyof typeof EmployerType };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading, refetch } = useQuery({
+  const {
+    data: fetchedCompany,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryFn: () =>
       getEmployerById(
         params.companyId,
@@ -45,8 +49,6 @@ const CompanyDetails = ({
   useEffect(() => {
     refetch();
   }, [searchParams]);
-
-  const fetchedCompany: any = data;
 
   const searchParamsJobs = searchParams?.typeEmp === "jobs";
   const searchParamsReviews = searchParams?.typeEmp === "reviews";

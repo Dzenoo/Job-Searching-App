@@ -41,7 +41,7 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
 
   const { mutateAsync: loginToAccount } = useMutation({
     mutationFn: loginUserAccount,
-    onSuccess: (data: any) => {
+    onSuccess: (data) => {
       reset();
       storeCookieHandler(data.token);
       window.location.href = "/";

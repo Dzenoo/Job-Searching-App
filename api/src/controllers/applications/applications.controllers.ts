@@ -55,7 +55,7 @@ export const applyToJob = asyncErrors(async (request, response) => {
     });
 
     responseServerHandler(
-      { job: "Successfully Applied Job", application },
+      { message: "Successfully Applied Job" },
       201,
       response
     );

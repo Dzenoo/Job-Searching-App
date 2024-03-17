@@ -18,7 +18,11 @@ const Jobs = ({
   searchParams: { [key: string]: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading, refetch } = useQuery({
+  const {
+    data: fetchedJobs,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryFn: () =>
       getJobs({
         token: token as string,
@@ -36,7 +40,6 @@ const Jobs = ({
   useEffect(() => {
     refetch();
   }, [searchParams]);
-  let fetchedJobs: any = data;
 
   return (
     <section className="flex gap-7 justify-between py-6">
@@ -54,7 +57,7 @@ const Jobs = ({
             <JobsList jobs={fetchedJobs?.jobs} />
           )}
         </div>
-        {fetchedJobs?.jobs.length > 0 && (
+        {fetchedJobs && fetchedJobs?.jobs.length > 0 && (
           <div className="py-6">
             <Pagination
               totalItems={fetchedJobs?.totalJobs}

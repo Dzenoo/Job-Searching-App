@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { EmployersItemProps } from "./types";
 import { Card, CardContent, CardFooter } from "@/components/Shared/Card";
 import { renderIconText } from "@/utils/jsx/render-icon-text";
@@ -9,10 +8,6 @@ import { Camera, FileText, Text } from "lucide-react";
 import { FollowEmployerButton } from "../follow";
 
 const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
-  const { mutateAsync: followEmployerMutate, isLoading } = useFollowEmployer(
-    employer?._id
-  );
-
   const FooterEmployerData = new Array(
     {
       id: "1",

@@ -1,5 +1,7 @@
 import { SeekerTypes } from "@/typings/seekers";
 import { deleteApiHandler, getApiHandler, patchApiHandler } from "../api";
+import { EmployerTypes } from "@/typings/employers";
+import { ResponseMessageTypes } from "@/typings/shared";
 
 export const getEmployers = async ({
   page = "1",
@@ -11,7 +13,7 @@ export const getEmployers = async ({
   page: string;
   srt: string;
   search: string;
-}) =>
+}): Promise<{ employers: EmployerTypes[]; totalEmployers: number }> =>
   await getApiHandler(
     `seeker/employers?page=${page}&srt=${srt}&search=${search}`,
     token as string
@@ -22,7 +24,12 @@ export const getEmployerById = async (
   token: string,
   type: string = "reviews",
   page: string = "1"
-) =>
+): Promise<{
+  employer: EmployerTypes;
+  totalJobs: number;
+  totalReviews: number;
+  totalEvents: number;
+}> =>
   await getApiHandler(
     `seeker/employers/${employerId}?page=${page}&type=${type}`,
     token
@@ -32,10 +39,16 @@ export const getSeekerProfile = async (
   token: string
 ): Promise<{ seeker: SeekerTypes }> => await getApiHandler(`seeker`, token);
 
-export const followEmployer = async (employerId: string, token: string) =>
+export const followEmployer = async (
+  employerId: string,
+  token: string
+): Promise<ResponseMessageTypes> =>
   await patchApiHandler(`seeker/${employerId}/follow`, {}, token);
 
-export const editSeekerProfile = async (formData: FormData, token: string) =>
+export const editSeekerProfile = async (
+  formData: FormData,
+  token: string
+): Promise<ResponseMessageTypes> =>
   await patchApiHandler(
     `seeker/edit-seeker-profile`,
     formData,
@@ -43,11 +56,19 @@ export const editSeekerProfile = async (formData: FormData, token: string) =>
     "multipart/form-data"
   );
 
-export const addNewEducation = async (data: any, token: string) =>
+export const addNewEducation = async (
+  data: any,
+  token: string
+): Promise<ResponseMessageTypes> =>
   await patchApiHandler(`seeker/add-new-education`, data, token);
 
-export const deleteSeekerProfile = async (token: string) =>
+export const deleteSeekerProfile = async (
+  token: string
+): Promise<ResponseMessageTypes> =>
   await deleteApiHandler(`seeker/delete-seeker-profile`, token);
 
-export const deleteEducation = async (educationId: string, token: string) =>
+export const deleteEducation = async (
+  educationId: string,
+  token: string
+): Promise<ResponseMessageTypes> =>
   await deleteApiHandler(`seeker/delete-education/${educationId}`, token);

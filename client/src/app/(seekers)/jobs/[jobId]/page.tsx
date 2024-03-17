@@ -23,11 +23,10 @@ const JobDetailsPage = ({
     },
   });
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading } = useQuery({
+  const { data: fetchedJobs, isLoading } = useQuery({
     queryFn: () => getJobById(jobId, token as string),
     queryKey: ["job"],
   });
-  let fetchedJobs: any = data;
 
   if (isLoading) {
     return <LoadingJobDetails />;

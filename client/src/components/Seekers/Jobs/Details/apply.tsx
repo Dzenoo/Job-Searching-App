@@ -54,7 +54,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
   const { mutateAsync: coverLetterJob, isLoading: coverLetterLoading } =
     useMutation({
       mutationFn: () => addCoverLetter(jobId, token),
-      onSuccess: (response: any) => {
+      onSuccess: (response) => {
         setValue("coverLetter", response.cover_letter);
       },
       onError: (error: any) => {

@@ -15,7 +15,11 @@ const Companies = ({
   searchParams: { [key: string]: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading, refetch } = useQuery({
+  const {
+    data: fetchedCompanies,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryFn: () =>
       getEmployers({
         token: token as string,
@@ -30,8 +34,6 @@ const Companies = ({
     refetch();
   }, [searchParams]);
 
-  let fetchedCompanies: any = data;
-
   return (
     <section className="flex flex-col gap-7 py-6">
       <div>
@@ -40,7 +42,7 @@ const Companies = ({
       <div>
         <EmployersList employers={fetchedCompanies?.employers} />
       </div>
-      {fetchedCompanies?.employers.length > 0 && (
+      {fetchedCompanies && fetchedCompanies?.employers.length > 0 && (
         <div className="py-6">
           <Pagination
             totalItems={fetchedCompanies?.totalEmployers}

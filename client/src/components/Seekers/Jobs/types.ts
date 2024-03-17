@@ -1,11 +1,11 @@
 import { JobTypes } from "@/typings/jobs";
 
 type JobListProps = {
-  jobs: JobTypes[];
+  jobs?: JobTypes[];
 };
 
 type PopularsJobsInfoProps = {
-  jobs: {
+  jobs?: {
     _id: string;
     title: string;
   }[];
