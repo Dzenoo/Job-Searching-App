@@ -15,8 +15,7 @@ const SeekerProfilePage = ({
   searchParams: { typings: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading } = useGetSeeker();
-  const fetchedSeekerProfile: any = data;
+  const { data: fetchedSeekerProfile, isLoading } = useGetSeeker();
 
   return (
     <section className="flex gap-7 justify-between flex-col mx-40 py-6">
@@ -36,7 +35,7 @@ const SeekerProfilePage = ({
           {isLoading ? (
             <LoadingJobsSkeleton />
           ) : (
-            <JobsList jobs={fetchedSeekerProfile?.seeker?.savedJobs} />
+            <JobsList jobs={fetchedSeekerProfile?.seeker.savedJobs || []} />
           )}
         </div>
       )}

@@ -37,12 +37,10 @@ const AuthenticationDivLinks: React.FC = () => {
 const Navbar: React.FC = () => {
   const { deleteCookieHandler, getCookieHandler } = useAuthentication();
   const { isAuthenticated, userType, token } = getCookieHandler();
-  const { data } = useQuery({
+  const { data: fetchedSeekerProfile } = useQuery({
     queryFn: () => getSeekerProfile(token as string),
     queryKey: ["profile"],
   });
-
-  const fetchedSeeker: any = data;
 
   const pathname = usePathname();
 
@@ -72,8 +70,10 @@ const Navbar: React.FC = () => {
           </div>
           <div>
             <Avatar
-              image={fetchedSeeker?.seeker.image}
-              name={`${fetchedSeeker?.seeker.first_name} ${fetchedSeeker?.seeker.last_name}`}
+              image={fetchedSeekerProfile!.seeker.image}
+              name={`${fetchedSeekerProfile!.seeker.first_name} ${
+                fetchedSeekerProfile!.seeker.last_name
+              }`}
             />
           </div>
         </div>

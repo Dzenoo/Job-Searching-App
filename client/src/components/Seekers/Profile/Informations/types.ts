@@ -1,5 +1,7 @@
+import { SeekerTypes } from "@/typings/seekers";
+
 type InformationsProps = {
-  seeker: Seeker;
+  seeker?: SeekerTypes;
 };
 
 export { type InformationsProps };

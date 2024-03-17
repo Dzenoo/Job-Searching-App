@@ -1,5 +1,7 @@
+import { SeekerTypes } from "@/typings/seekers";
+
 type SeekerProfileInformationProps = {
-  seeker: Seeker;
+  seeker?: SeekerTypes;
   token: string;
 };
 

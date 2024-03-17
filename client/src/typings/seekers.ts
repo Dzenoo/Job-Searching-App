@@ -1,4 +1,11 @@
-type Seeker = {
+import { JobTypes } from "./jobs";
+import {
+  JobApplicationTypes,
+  NotificationTypes,
+  SeekerDirectMessagesTypes,
+} from "./shared";
+
+type SeekerTypes = {
   _id: string;
   biography: string;
   image: string;
@@ -9,12 +16,8 @@ type Seeker = {
   portfolio: string;
   linkedin: string;
   github: string;
-  notifications: {
-    title: string;
-    message: string;
-    date: Date;
-  }[];
-  applications: string[];
+  notifications: NotificationTypes[];
+  applications: JobApplicationTypes[];
   skills: string[];
   education: {
     _id: string;
@@ -23,12 +26,9 @@ type Seeker = {
     fieldOfStudy: string;
     degree: string;
   }[];
-  savedJobs: string[];
+  savedJobs: JobTypes[];
   following: string[];
-  directMessages: {
-    employerId: string;
-    messages: string[];
-  }[];
+  directMessages: SeekerDirectMessagesTypes[];
   events: string[];
   alerts: {
     title: string;
@@ -38,3 +38,5 @@ type Seeker = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export { type SeekerTypes };

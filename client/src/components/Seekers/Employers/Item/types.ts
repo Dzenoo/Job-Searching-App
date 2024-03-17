@@ -1,7 +1,7 @@
-import { Employer } from "@/typings/employers";
+import { EmployerTypes } from "@/typings/employers";
 
 type EmployersItemProps = {
-  employer: Employer;
+  employer: EmployerTypes;
 };
 
 export { type EmployersItemProps };

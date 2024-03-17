@@ -1,10 +1,12 @@
+import { SeekerTypes } from "@/typings/seekers";
+
 type SocialsProps = {
-  seeker: Seeker;
+  seeker?: SeekerTypes;
 };
 
 type SocialsDialogProps = {
   closeDialog: (dialogId: string) => void;
-  seeker: {
+  seeker?: {
     portfolio: string;
     linkedin: string;
     github: string;

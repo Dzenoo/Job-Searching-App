@@ -20,7 +20,7 @@ enum EventCategory {
   Other = "Other",
 }
 
-type Event = {
+type EventTypes = {
   _id: string;
   title: string;
   date: string;
@@ -32,4 +32,4 @@ type Event = {
   seekers: string[];
 };
 
-export { type Event, EventLocation, EventCategory };
+export { type EventTypes, EventLocation, EventCategory };

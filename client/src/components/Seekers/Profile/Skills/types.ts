@@ -1,9 +1,9 @@
 type SkillsProps = {
-  skills: string[];
+  skills?: string[];
 };
 
 type AddSkillsProps = {
-  skills: string[];
+  skills?: string[];
 };
 
 export { type SkillsProps, type AddSkillsProps };

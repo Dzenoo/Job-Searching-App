@@ -1,7 +1,7 @@
-import { Review } from "@/typings/reviews";
+import { ReviewTypes } from "@/typings/reviews";
 
 type ReviewItemProps = {
-  review: Review;
+  review: ReviewTypes;
 };
 
 export { type ReviewItemProps };

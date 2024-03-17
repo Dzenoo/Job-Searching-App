@@ -1,7 +1,7 @@
-import { Event } from "@/typings/events";
+import { EventTypes } from "@/typings/events";
 
 type EventItemProps = {
-  event: Event;
+  event: EventTypes;
   onRegisterEvent: () => void;
 };
 

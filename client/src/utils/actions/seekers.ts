@@ -1,3 +1,4 @@
+import { SeekerTypes } from "@/typings/seekers";
 import { deleteApiHandler, getApiHandler, patchApiHandler } from "../api";
 
 export const getEmployers = async ({
@@ -27,11 +28,12 @@ export const getEmployerById = async (
     token
   );
 
+export const getSeekerProfile = async (
+  token: string
+): Promise<{ seeker: SeekerTypes }> => await getApiHandler(`seeker`, token);
+
 export const followEmployer = async (employerId: string, token: string) =>
   await patchApiHandler(`seeker/${employerId}/follow`, {}, token);
-
-export const getSeekerProfile = async (token: string) =>
-  await getApiHandler(`seeker`, token);
 
 export const editSeekerProfile = async (formData: FormData, token: string) =>
   await patchApiHandler(
@@ -41,11 +43,11 @@ export const editSeekerProfile = async (formData: FormData, token: string) =>
     "multipart/form-data"
   );
 
-export const deleteSeekerProfile = async (token: string) =>
-  await deleteApiHandler(`seeker/delete-seeker-profile`, token);
-
 export const addNewEducation = async (data: any, token: string) =>
   await patchApiHandler(`seeker/add-new-education`, data, token);
+
+export const deleteSeekerProfile = async (token: string) =>
+  await deleteApiHandler(`seeker/delete-seeker-profile`, token);
 
 export const deleteEducation = async (educationId: string, token: string) =>
   await deleteApiHandler(`seeker/delete-education/${educationId}`, token);

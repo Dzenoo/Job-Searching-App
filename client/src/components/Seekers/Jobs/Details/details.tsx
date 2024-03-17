@@ -21,9 +21,10 @@ import {
 import SaveJobButton from "../save";
 import Navigator from "@/components/Shared/Navigator";
 import useGetSeeker from "@/hooks/useGetSeeker";
+import { JobApplicationTypes } from "@/typings/shared";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
-  const { data } = useGetSeeker();
+  const { data: fetchedSeekerProfile } = useGetSeeker();
 
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.expiration_date);
@@ -87,10 +88,8 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
     }
   );
 
-  const fetchedSeeker: any = data;
-
-  const isAppliedJob = fetchedSeeker?.seeker.applications.find(
-    (application: any) => application.job._id === job._id
+  const isAppliedJob = fetchedSeekerProfile?.seeker.applications.find(
+    (application: JobApplicationTypes) => application.job._id === job._id
   );
 
   return (
@@ -128,7 +127,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
                 variant={isAppliedJob ? "outlined" : "default"}
                 className="px-6"
                 onClick={onApplyJob}
-                disabled={isAppliedJob}
+                disabled={isAppliedJob !== undefined}
               >
                 {isAppliedJob ? "Already Applied Job" : "Apply to Job"}
               </Button>

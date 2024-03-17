@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
 import { saveJob } from "@/utils/actions/jobs";
 import useGetSeeker from "@/hooks/useGetSeeker";
-import { Job } from "@/typings/jobs";
+import { JobTypes } from "@/typings/jobs";
 import { queryClient } from "@/contexts/react-query-client";
 
 const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
@@ -27,7 +27,7 @@ const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
   const fetchedSeeker: any = data;
 
   const isJobSaved = fetchedSeeker?.seeker?.savedJobs.find(
-    (job: Job) => job._id === jobId
+    (job: JobTypes) => job._id === jobId
   );
 
   return (

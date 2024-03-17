@@ -1,3 +1,9 @@
+import { EventTypes } from "./events";
+import { JobTypes } from "./jobs";
+import { ReviewTypes } from "./reviews";
+import { SeekerTypes } from "./seekers";
+import { EmployerDirectMessagesTypes, NotificationTypes } from "./shared";
+
 enum SizeOfEmployers {
   "Less-than-17" = "Less-than-17",
   "20-50" = "20-50",
@@ -7,7 +13,7 @@ enum SizeOfEmployers {
   "500-1000" = "500-1000",
 }
 
-type Employer = {
+type EmployerTypes = {
   _id: string;
   image: string;
   industry: string;
@@ -19,19 +25,12 @@ type Employer = {
   email: string;
   name: string;
   password: string;
-  notifications: {
-    title: string;
-    message: string;
-    date: Date;
-  }[];
-  jobs: string[];
-  followers: string[];
-  directMessages: {
-    seekerId: string;
-    messages: string[];
-  }[];
-  events: string[];
-  reviews: string[];
+  notifications: NotificationTypes[];
+  jobs: JobTypes[];
+  followers: SeekerTypes[];
+  directMessages: EmployerDirectMessagesTypes[];
+  events: EventTypes[];
+  reviews: ReviewTypes[];
 };
 
-export { type Employer, SizeOfEmployers };
+export { type EmployerTypes, SizeOfEmployers };

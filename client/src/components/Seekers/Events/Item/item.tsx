@@ -15,12 +15,12 @@ import useSearchParams from "@/hooks/useSearchParams";
 import useGetSeeker from "@/hooks/useGetSeeker";
 
 const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
-  const { data } = useGetSeeker();
+  const { data: fetchedSeekerProfile } = useGetSeeker();
   const { updateSearchParams } = useSearchParams();
 
-  const fetchedSeeker: any = data;
-
-  const isRegistered = fetchedSeeker?.seeker?.events.includes(event?._id);
+  const isRegistered = fetchedSeekerProfile?.seeker?.events.includes(
+    event?._id
+  );
 
   let FooterInfoData = new Array(
     {

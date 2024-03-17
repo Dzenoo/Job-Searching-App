@@ -1,7 +1,8 @@
+import { SeekerTypes } from "@/typings/seekers";
 import { EducationItemProps } from "./Item/types";
 
 type EducationsProps = {
-  seeker: Seeker;
+  seeker?: SeekerTypes;
 };
 
 type EducationListProps = {

@@ -1,15 +1,16 @@
-import { Employer } from "./employers";
+import { EmployerTypes } from "./employers";
+import { SeekerTypes } from "./seekers";
 
-type Review = {
+type ReviewTypes = {
   _id: string;
-  company: Employer;
+  company: EmployerTypes;
   job_position: string;
   type: keyof typeof ReviewType;
   time: keyof typeof ReviewTime;
   negativeReview: string;
   positiveReview: string;
   technologies: string[];
-  seeker: string;
+  seeker: SeekerTypes | string;
   createdAt: string;
 };
 
@@ -29,4 +30,4 @@ enum ReviewTime {
   "10 or greater",
 }
 
-export { type Review, ReviewType, ReviewTime };
+export { type ReviewTypes, ReviewType, ReviewTime };

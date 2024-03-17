@@ -7,14 +7,12 @@ import useGetSeeker from "@/hooks/useGetSeeker";
 const FollowEmployerButton: React.FC<FollowEmployerProps> = ({
   employerId,
 }) => {
-  const { data, refetch } = useGetSeeker();
+  const { data: fetchedSeekerProfile, refetch } = useGetSeeker();
   const { mutateAsync: followEmployerMutate, isLoading } =
     useFollowEmployer(employerId);
 
-  const fetchedSeeker: any = data;
-
   const isEmployerFollowed =
-    fetchedSeeker?.seeker?.following.includes(employerId);
+    fetchedSeekerProfile?.seeker?.following.includes(employerId);
 
   const handleFollowToggle = async () => {
     await followEmployerMutate();

@@ -1,6 +1,6 @@
-import { Employer } from "./employers";
+import { EmployerTypes } from "./employers";
 
-type Job = {
+type JobTypes = {
   title: string;
   position: string;
   location: string;
@@ -14,6 +14,7 @@ type Job = {
   overview: string;
   applications: string[];
   createdAt: string;
-  company: Employer;
+  company: EmployerTypes;
 };
-export { type Job };
+
+export { type JobTypes };
