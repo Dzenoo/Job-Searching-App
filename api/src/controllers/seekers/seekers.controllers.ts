@@ -154,7 +154,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         select: "_id status createdAt updatedAt",
       })
       .select(
-        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following"
+        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following events"
       )
       .exec();
 

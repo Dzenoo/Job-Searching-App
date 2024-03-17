@@ -12,9 +12,15 @@ import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { renderIconText } from "@/utils/jsx/render-icon-text";
 
 import useSearchParams from "@/hooks/useSearchParams";
+import useGetSeeker from "@/hooks/useGetSeeker";
 
 const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
+  const { data } = useGetSeeker();
   const { updateSearchParams } = useSearchParams();
+
+  const fetchedSeeker: any = data;
+
+  const isRegistered = fetchedSeeker?.seeker?.events.includes(event?._id);
 
   let FooterInfoData = new Array(
     {
@@ -54,13 +60,13 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
             </div>
             <div>
               <Button
-                variant="default"
+                variant={isRegistered ? "outlined" : "default"}
                 onClick={() => {
                   onRegisterEvent();
                   updateSearchParams("evt", event._id);
                 }}
               >
-                Register
+                {isRegistered ? "Unregister" : "Register"}
               </Button>
             </div>
           </div>

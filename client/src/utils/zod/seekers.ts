@@ -3,7 +3,7 @@ import zod from "zod";
 export const EditableSeekerInformationsSchemas = zod.object({
   first_name: zod.string().min(1).max(30),
   last_name: zod.string().min(1).max(30),
-  biography: zod.string().min(1).max(300),
+  biography: zod.string().min(300).max(3000),
 });
 
 export const EditableSeekerSocialsSchemas = zod.object({

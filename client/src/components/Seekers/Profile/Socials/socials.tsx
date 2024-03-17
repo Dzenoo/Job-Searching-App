@@ -14,7 +14,10 @@ import zod from "zod";
 import Link from "next/link";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 
-const EditSocialsDialog: React.FC<SocialsDialogProps> = ({ seeker }) => {
+const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
+  closeDialog,
+  seeker,
+}) => {
   const {
     setValue,
     handleSubmit,
@@ -42,6 +45,8 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({ seeker }) => {
     formData.append("linkedin", values.linkedin || "");
 
     await editSeekerProfileMutate(formData);
+
+    closeDialog("socials");
   };
 
   return (
@@ -154,7 +159,9 @@ const Socials: React.FC<SocialsProps> = ({ seeker }) => {
         showCloseButton
         onCloseDialog={() => closeDialog("socials")}
         isOpen={dialogs.socials.isOpen}
-        render={() => <EditSocialsDialog seeker={seeker} />}
+        render={() => (
+          <EditSocialsDialog seeker={seeker} closeDialog={closeDialog} />
+        )}
       />
       <div className="flex flex-col gap-10">
         <div className="flex justify-between items-center gap-3">

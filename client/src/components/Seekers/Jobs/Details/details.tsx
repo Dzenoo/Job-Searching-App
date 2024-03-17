@@ -20,8 +20,11 @@ import {
 } from "lucide-react";
 import SaveJobButton from "../save";
 import Navigator from "@/components/Shared/Navigator";
+import useGetSeeker from "@/hooks/useGetSeeker";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
+  const { data } = useGetSeeker();
+
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.expiration_date);
   const categorizedSkills = getSkillsData(job?.skills);
@@ -84,6 +87,12 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
     }
   );
 
+  const fetchedSeeker: any = data;
+
+  const isAppliedJob = fetchedSeeker?.seeker.applications.find(
+    (application: any) => application.job._id === job._id
+  );
+
   return (
     <div className="flex flex-col gap-3">
       <Navigator info="Jobs" href={"/"} title={job?.title} />
@@ -115,8 +124,13 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
           </div>
           <div className="flex gap-3">
             <div>
-              <Button className="px-6" variant="default" onClick={onApplyJob}>
-                Apply to Job
+              <Button
+                variant={isAppliedJob ? "outlined" : "default"}
+                className="px-6"
+                onClick={onApplyJob}
+                disabled={isAppliedJob}
+              >
+                {isAppliedJob ? "Already Applied Job" : "Apply to Job"}
               </Button>
             </div>
             <SaveJobButton jobId={job?._id} />

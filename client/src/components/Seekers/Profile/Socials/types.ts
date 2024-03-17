@@ -3,6 +3,7 @@ type SocialsProps = {
 };
 
 type SocialsDialogProps = {
+  closeDialog: (dialogId: string) => void;
   seeker: {
     portfolio: string;
     linkedin: string;
