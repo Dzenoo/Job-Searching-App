@@ -25,9 +25,8 @@ const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
   });
 
   const fetchedSeeker: any = data;
-  console.log(fetchedSeeker);
 
-  let isJobSaved = fetchedSeeker?.seeker?.savedJobs.find(
+  const isJobSaved = fetchedSeeker?.seeker?.savedJobs.find(
     (job: Job) => job._id === jobId
   );
 

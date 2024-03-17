@@ -15,6 +15,7 @@ import { Button } from "@/components/Shared/Button";
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { LinkElement } from "@/components/Shared/Link";
 import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { FollowEmployerButton } from "../follow";
 
 const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
   employer,
@@ -99,14 +100,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
                 </LinkElement>
               </div>
               <div>
-                <Button
-                  variant="default"
-                  className="px-10"
-                  onClick={async () => await followEmployerMutate()}
-                  disabled={isLoading}
-                >
-                  Follow
-                </Button>
+                <FollowEmployerButton employerId={employer?._id} />
               </div>
             </div>
           </CardFooter>

@@ -1,6 +1,7 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
+import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
 import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
 import { ReviewsList } from "@/components/Seekers/Employers/Details/Reviews";
 import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
@@ -8,7 +9,6 @@ import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
 import { EventsList } from "@/components/Seekers/Events";
 import RegisterEvents from "@/components/Seekers/Events/register";
 import { JobsList } from "@/components/Seekers/Jobs";
-import LoadingJobsSkeleton from "@/components/Seekers/Jobs/LoadingJobsSkeleton";
 import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
 import { EventsData } from "@/constants/events";

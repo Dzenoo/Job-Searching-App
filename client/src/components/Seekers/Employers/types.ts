@@ -4,4 +4,8 @@ type EmployersListProps = {
   employers: Employer[];
 };
 
-export { type EmployersListProps };
+type FollowEmployerProps = {
+  employerId: string;
+};
+
+export { type EmployersListProps, type FollowEmployerProps };
