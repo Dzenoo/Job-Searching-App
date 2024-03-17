@@ -105,30 +105,6 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
     ? seeker?.image
     : `https://job-searching-application.s3.amazonaws.com/${seeker?.image}`;
 
-  const educations = [
-    {
-      id: "1",
-      graduationDate: "2024-02-28T18:18:23.656+00:00",
-      institution: "University Of Novi Pazar",
-      fieldOfStudy: "Computer Science",
-      degree: "Bachelor",
-    },
-    {
-      id: "2",
-      graduationDate: "2024-02-28T18:18:23.656+00:00",
-      institution: "University Of Novi Pazar",
-      fieldOfStudy: "Computer Science",
-      degree: "Bachelor",
-    },
-    {
-      id: "3",
-      graduationDate: "2024-02-28T18:18:23.656+00:00",
-      institution: "University Of Novi Pazar",
-      fieldOfStudy: "Computer Science",
-      degree: "Bachelor",
-    },
-  ];
-
   return (
     <Fragment>
       <Dialog

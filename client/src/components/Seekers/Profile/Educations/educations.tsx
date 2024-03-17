@@ -14,8 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditableEducationsSchemas } from "@/utils/zod/seekers";
 import { useMutation } from "react-query";
 import { addNewEducation } from "@/utils/actions/seekers";
-import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
+import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";
 
 const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
