@@ -30,9 +30,9 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
   const { mutateAsync: editSeekerProfileMutate } = useEditSeeker();
 
   useEffect(() => {
-    setValue("portfolio", seeker.portfolio || "");
-    setValue("github", seeker.github || "");
-    setValue("linkedin", seeker.linkedin || "");
+    setValue("portfolio", seeker?.portfolio || "");
+    setValue("github", seeker?.github || "");
+    setValue("linkedin", seeker?.linkedin || "");
   }, [seeker, setValue]);
 
   const onSubmit = async (

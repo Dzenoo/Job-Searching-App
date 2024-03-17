@@ -4,6 +4,7 @@ import Protected from "@/components/Hoc/Protected";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
 import { JobsList } from "@/components/Seekers/Jobs";
 import { SeekerProfileInformation } from "@/components/Seekers/Profile";
+import { SeekerProfileAlerts } from "@/components/Seekers/Profile/Alerts";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetSeeker from "@/hooks/useGetSeeker";
@@ -39,7 +40,11 @@ const SeekerProfilePage = ({
           )}
         </div>
       )}
-      {searchParams.typings === "alerts" && <div>Alerts</div>}
+      {searchParams.typings === "alerts" && (
+        <div>
+          <SeekerProfileAlerts alerts={fetchedSeekerProfile?.seeker.alerts} />
+        </div>
+      )}
       {searchParams.typings === "applications" && <div>Applications</div>}
     </section>
   );

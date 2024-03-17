@@ -5,6 +5,12 @@ import {
   SeekerDirectMessagesTypes,
 } from "./shared";
 
+type JobAlertsTypes = {
+  title: string;
+  type: string;
+  level: string;
+};
+
 type SeekerTypes = {
   _id: string;
   biography: string;
@@ -30,13 +36,9 @@ type SeekerTypes = {
   following: string[];
   directMessages: SeekerDirectMessagesTypes[];
   events: string[];
-  alerts: {
-    title: string;
-    type: string;
-    level: string;
-  };
+  alerts: JobAlertsTypes;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export { type SeekerTypes };
+export { type SeekerTypes, type JobAlertsTypes };

@@ -70,10 +70,8 @@ const Navbar: React.FC = () => {
           </div>
           <div>
             <Avatar
-              image={fetchedSeekerProfile!.seeker.image}
-              name={`${fetchedSeekerProfile!.seeker.first_name} ${
-                fetchedSeekerProfile!.seeker.last_name
-              }`}
+              image={fetchedSeekerProfile?.seeker.image}
+              name={`${fetchedSeekerProfile?.seeker.first_name} ${fetchedSeekerProfile?.seeker.last_name}`}
             />
           </div>
         </div>
