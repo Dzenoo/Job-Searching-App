@@ -25,7 +25,7 @@ const JobDetailsPage = ({
   const { token } = useAuthentication().getCookieHandler();
   const { data: fetchedJobs, isLoading } = useQuery({
     queryFn: () => getJobById(jobId, token as string),
-    queryKey: ["job"],
+    queryKey: ["job", { jobId }],
   });
 
   if (isLoading) {
@@ -43,7 +43,7 @@ const JobDetailsPage = ({
       </div>
       <div className="basis-full grow">
         <JobDetailsInfo
-          job={fetchedJobs?.job}
+          job={fetchedJobs?.job!}
           onApplyJob={() => openDialog("applyToJob")}
         />
       </div>
@@ -53,7 +53,9 @@ const JobDetailsPage = ({
       <Dialog
         onCloseDialog={() => closeDialog("applyToJob")}
         isOpen={dialogs.applyToJob.isOpen}
-        render={() => <ApplyToJob jobId={jobId} token={token!} />}
+        render={() => (
+          <ApplyToJob jobId={jobId} token={token!} closeDialog={closeDialog} />
+        )}
       />
     </section>
   );

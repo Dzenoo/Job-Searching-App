@@ -1,7 +1,7 @@
 import { JobTypes } from "@/typings/jobs";
 
 type JobDetailsInfoProps = {
-  job?: JobTypes;
+  job: JobTypes;
   onApplyJob?: () => void;
 };
 

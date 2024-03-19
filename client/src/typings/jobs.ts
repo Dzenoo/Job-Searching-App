@@ -1,4 +1,5 @@
 import { EmployerTypes } from "./employers";
+import { ApplicationsTypes } from "./shared";
 
 type JobTypes = {
   title: string;
@@ -12,7 +13,7 @@ type JobTypes = {
   expiration_date: string;
   description: string;
   overview: string;
-  applications: string[];
+  applications: ApplicationsTypes[];
   createdAt: string;
   company: EmployerTypes;
 };

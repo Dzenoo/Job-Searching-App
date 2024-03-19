@@ -16,9 +16,14 @@ import { addCoverLetter, applyToJob } from "@/utils/actions/jobs";
 type ApplyToJobProps = {
   jobId: string;
   token: string;
+  closeDialog: (dialogId: string) => void;
 };
 
-const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
+const ApplyToJob: React.FC<ApplyToJobProps> = ({
+  closeDialog,
+  jobId,
+  token,
+}) => {
   const { getInputProps, getRootProps, selectedFile } = useUploads({
     accept: {
       "application/pdf": [".pdf"],
@@ -44,6 +49,8 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
     onSuccess: () => {
       reset();
       toast.success("Successfully Applied to Job");
+      queryClient.invalidateQueries(["job", { jobId }]);
+      queryClient.invalidateQueries(["profile"]);
       queryClient.invalidateQueries(["jobs"]);
     },
     onError: (error: any) => {
@@ -76,6 +83,8 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({ jobId, token }) => {
     }
 
     await applyToJobMutate(formData);
+
+    closeDialog("applyToJob");
   };
 
   return (

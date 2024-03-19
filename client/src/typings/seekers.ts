@@ -1,6 +1,6 @@
 import { JobTypes } from "./jobs";
 import {
-  JobApplicationTypes,
+  ApplicationsTypes,
   NotificationTypes,
   SeekerDirectMessagesTypes,
 } from "./shared";
@@ -23,7 +23,7 @@ type SeekerTypes = {
   linkedin: string;
   github: string;
   notifications: NotificationTypes[];
-  applications: JobApplicationTypes[];
+  applications: ApplicationsTypes[];
   skills: string[];
   education: {
     _id: string;

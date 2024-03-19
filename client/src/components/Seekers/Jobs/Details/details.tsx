@@ -21,7 +21,7 @@ import {
 import SaveJobButton from "../save";
 import Navigator from "@/components/Shared/Navigator";
 import useGetSeeker from "@/hooks/useGetSeeker";
-import { JobApplicationTypes } from "@/typings/shared";
+import { ApplicationsTypes } from "@/typings/shared";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();
@@ -89,7 +89,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   );
 
   const isAppliedJob = fetchedSeekerProfile?.seeker.applications.find(
-    (application: JobApplicationTypes) => application.job._id === job._id
+    (application: ApplicationsTypes) => application.job._id === job._id
   );
 
   return (
