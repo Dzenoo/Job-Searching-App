@@ -6,10 +6,9 @@ type JobDetailsInfoProps = {
 };
 
 type JobAlertProps = {
-  level?: string;
-  type?: string;
-  title?: string;
-  token?: string;
+  level: string;
+  type: string;
+  title: string;
 };
 
 export { type JobDetailsInfoProps, type JobAlertProps };

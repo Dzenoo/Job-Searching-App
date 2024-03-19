@@ -7,32 +7,16 @@ import {
 } from "@/components/Shared/Card";
 import React from "react";
 import { JobAlertProps } from "./types";
-import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
-import { addJobAlert } from "@/utils/actions/jobs";
+import useJobAlert from "@/hooks/mutations/useJobAlert";
 
-const AddJobAlert: React.FC<JobAlertProps> = ({
-  level,
-  type,
-  title,
-  token,
-}) => {
+const AddJobAlert: React.FC<JobAlertProps> = ({ level, type, title }) => {
   const jobAlertData = {
     level,
     type,
     title,
   };
-  const { mutate: addJobAlertMutate, isLoading } = useMutation({
-    mutationFn: () => addJobAlert(token!, jobAlertData),
-    mutationKey: ["job"],
-    onSuccess: (response) => {
-      toast.success(response.message);
-    },
-    onError: (error: any) => {
-      toast.error(error.response.data.message);
-    },
-  });
+  const { mutateAsync: addJobAlertMutate, isLoading } = useJobAlert();
 
   return (
     <Card>
@@ -49,7 +33,7 @@ const AddJobAlert: React.FC<JobAlertProps> = ({
         <Button
           variant="default"
           className="w-full"
-          onClick={() => addJobAlertMutate()}
+          onClick={() => addJobAlertMutate(jobAlertData)}
           disabled={isLoading}
         >
           {isLoading ? <ClipLoader color="#fff" /> : "Add Job Alert"}

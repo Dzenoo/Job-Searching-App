@@ -22,3 +22,9 @@ export const EditableEducationsSchemas = zod.object({
 export const SeekersSkillsSchemas = zod.object({
   skills: zod.array(zod.string()),
 });
+
+export const JobAlertsSchemas = zod.object({
+  title: zod.string().min(3).max(30),
+  type: zod.string().min(3).max(30),
+  level: zod.string().min(3).max(30),
+});

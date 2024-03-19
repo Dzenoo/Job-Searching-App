@@ -36,10 +36,9 @@ const JobDetailsPage = ({
     <section className="flex gap-7 py-6 justify-between">
       <div className="basis-[38em]">
         <AddJobAlert
-          level={fetchedJobs?.job.level}
-          type={fetchedJobs?.job.type}
-          title={fetchedJobs?.job.title}
-          token={token!}
+          level={fetchedJobs?.job.level || ""}
+          type={fetchedJobs?.job.type || ""}
+          title={fetchedJobs?.job.title || ""}
         />
       </div>
       <div className="basis-full grow">

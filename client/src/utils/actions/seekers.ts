@@ -62,6 +62,12 @@ export const addNewEducation = async (
 ): Promise<ResponseMessageTypes> =>
   await patchApiHandler(`seeker/add-new-education`, data, token);
 
+export const generateJobAlert = async (
+  formData: FormData,
+  token: string
+): Promise<ResponseMessageTypes> =>
+  await patchApiHandler(`seeker/jobs/alerts`, formData, token);
+
 export const deleteSeekerProfile = async (
   token: string
 ): Promise<ResponseMessageTypes> =>

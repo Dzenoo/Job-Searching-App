@@ -1,12 +1,145 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { NewAlertsFormProps, SeekerProfileAlertsProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 import { Button } from "@/components/Shared/Button";
 import useDialogs from "@/hooks/useDialogs";
 import { Dialog } from "@/components/Shared/Dialog";
+import zod from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { JobAlertsSchemas } from "@/utils/zod/seekers";
+import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
+import { Input } from "@/components/Shared/Input";
+import { ClipLoader } from "react-spinners";
+import useJobAlert from "@/hooks/mutations/useJobAlert";
 
-const NewAlertsForm: React.FC<NewAlertsFormProps> = () => {
-  return <div></div>;
+const NewAlertsForm: React.FC<NewAlertsFormProps> = ({
+  alerts,
+  closeDialog,
+}) => {
+  const {
+    setValue,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<zod.infer<typeof JobAlertsSchemas>>({
+    defaultValues: {
+      title: "",
+      level: "",
+      type: "",
+    },
+    resolver: zodResolver(JobAlertsSchemas),
+  });
+
+  const { mutateAsync: generateJobAlertMutate } = useJobAlert();
+
+  useEffect(() => {
+    setValue("title", alerts.title || "");
+    setValue("level", alerts.level || "");
+    setValue("type", alerts.type || "");
+  }, [alerts, setValue]);
+
+  const onSubmit = async (values: zod.infer<typeof JobAlertsSchemas>) => {
+    const formData = new FormData();
+
+    formData.append("title", values.title || "");
+    formData.append("type", values.type || "");
+    formData.append("level", values.level || "");
+
+    await generateJobAlertMutate(formData);
+
+    closeDialog("alerts");
+  };
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="max-w-lg">
+        <div className="flex items-center justify-center gap-3 flex-col text-center">
+          <div>
+            <h1 className="text-base-black">Add Job Alerts</h1>
+          </div>
+          <div>
+            <p className="text-initial-gray text-center">
+              Stay updated with personalized alerts tailored to your job
+              preferences. Receive notifications about new job postings
+            </p>
+          </div>
+        </div>
+      </div>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormItem>
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => (
+              <Input
+                placeholder="Title"
+                label="Title"
+                {...field}
+                value={field.value}
+              />
+            )}
+          />
+          {errors.title?.message && (
+            <FormInfo variant="danger">{errors.title.message}</FormInfo>
+          )}
+          <FormInfo variant="default">
+            Enter a title for your job alert.
+          </FormInfo>
+        </FormItem>
+        <FormItem>
+          <Controller
+            name="level"
+            control={control}
+            render={({ field }) => (
+              <Input
+                placeholder="Level"
+                label="Level"
+                {...field}
+                value={field.value}
+              />
+            )}
+          />
+          {errors.level?.message && (
+            <FormInfo variant="danger">{errors.level.message}</FormInfo>
+          )}
+          <FormInfo variant="default">
+            Select the desired job level for the alert.
+          </FormInfo>
+        </FormItem>
+        <FormItem>
+          <Controller
+            name="type"
+            control={control}
+            render={({ field }) => (
+              <Input
+                placeholder="Type"
+                label="Type"
+                {...field}
+                value={field.value}
+              />
+            )}
+          />
+          {errors.type?.message && (
+            <FormInfo variant="danger">{errors.type.message}</FormInfo>
+          )}
+          <FormInfo variant="default">
+            Select the preferred job type for the alert.
+          </FormInfo>
+        </FormItem>
+        <div className="pt-7">
+          <Button
+            variant="default"
+            type="submit"
+            disabled={isSubmitting || !isValid}
+            className="w-full"
+          >
+            {isSubmitting ? <ClipLoader color="#fff" /> : "Add"}
+          </Button>
+        </div>
+      </Form>
+    </div>
+  );
 };
 
 const SeekerProfileAlerts: React.FC<SeekerProfileAlertsProps> = ({
@@ -33,7 +166,9 @@ const SeekerProfileAlerts: React.FC<SeekerProfileAlertsProps> = ({
         showCloseButton
         onCloseDialog={() => closeDialog("alerts")}
         isOpen={dialogs.alerts.isOpen}
-        render={() => <NewAlertsForm closeDialog={closeDialog} />}
+        render={() => (
+          <NewAlertsForm alerts={alerts!} closeDialog={closeDialog} />
+        )}
       />
       <Card>
         <CardHeader>
