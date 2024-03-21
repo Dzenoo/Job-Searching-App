@@ -14,7 +14,7 @@ const EventsList: React.FC<EventsListProps> = ({ events, onRegisterEvent }) => {
           </div>
         )}
         <ul className="grid gap-3 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-          {events.length > 0 &&
+          {events?.length > 0 &&
             events?.map((event) => (
               <EventItem
                 event={event}

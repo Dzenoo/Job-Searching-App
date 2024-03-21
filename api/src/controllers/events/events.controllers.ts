@@ -275,7 +275,13 @@ export const getEvents = asyncErrors(async (request, response) => {
       .limit(Number(limit))
       .exec();
 
-    responseServerHandler({ events: events }, 200, response);
+    const totalEvents = await Event.countDocuments(conditions);
+
+    responseServerHandler(
+      { events: events, totalEvents: totalEvents },
+      200,
+      response
+    );
   } catch (error) {
     responseServerHandler(
       { message: "Cannot get events, please try again" },

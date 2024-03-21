@@ -1,3 +1,6 @@
+import { EmployerTypes } from "./employers";
+import { SeekerTypes } from "./seekers";
+
 enum EventLocation {
   Online = "Online",
   InPerson = "InPerson",
@@ -28,8 +31,8 @@ type EventTypes = {
   image: string;
   location: keyof typeof EventLocation | string;
   category: keyof typeof EventCategory | string;
-  company: string;
-  seekers: string[];
+  company: EmployerTypes;
+  seekers: SeekerTypes[];
 };
 
 export { type EventTypes, EventLocation, EventCategory };

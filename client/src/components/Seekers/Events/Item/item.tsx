@@ -10,9 +10,9 @@ import Image from "next/image";
 import { Button } from "@/components/Shared/Button";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { renderIconText } from "@/utils/jsx/render-icon-text";
-
 import useSearchParams from "@/hooks/useSearchParams";
 import useGetSeeker from "@/hooks/useGetSeeker";
+import { formatDate } from "@/utils/date";
 
 const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();
@@ -22,20 +22,22 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
     event?._id
   );
 
+  const formattedDate = formatDate(event?.date);
+
   let FooterInfoData = new Array(
     {
       id: "1",
-      data: event.location,
+      data: event?.location,
       icon: <MapPin color="gray" />,
     },
     {
       id: "2",
-      data: event.category,
+      data: event?.category,
       icon: <Briefcase color="gray" />,
     },
     {
       id: "3",
-      data: event.date,
+      data: formattedDate,
       icon: <Calendar color="gray" />,
     }
   );
@@ -45,25 +47,25 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
       <Card className="p-0">
         <CardHeader className="py-0">
           <Image
-            src="/images/eventimg.jpg"
-            alt="event_image_section"
+            src={`https://job-searching-application.s3.amazonaws.com/${event?.image}`}
+            alt={event?.title}
             width={400}
             height={400}
             loading="lazy"
-            className="w-full"
+            className="w-full h-60 object-contain"
           />
         </CardHeader>
         <CardContent className="p-3 flex flex-col gap-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <h1 className="text-base-black">Tech Talk Event</h1>
+              <h1 className="text-base-black">{event?.title}</h1>
             </div>
             <div>
               <Button
                 variant={isRegistered ? "outlined" : "default"}
                 onClick={() => {
                   onRegisterEvent();
-                  updateSearchParams("evt", event._id);
+                  updateSearchParams("evt", event?._id);
                 }}
               >
                 {isRegistered ? "Unregister" : "Register"}
@@ -71,14 +73,10 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
             </div>
           </div>
           <div>
-            <p className="text-initial-gray text-wrap">
-              Zaista je kul svaki dan kretati na posao, znajući da ćemo dan
-              provesti zajedno sa prijateljima stvarajući nešto što igraju
-              milioni gejmera širom
-            </p>
+            <p className="text-initial-gray text-wrap">{event?.description}</p>
           </div>
           <div>
-            <h3 className="text-initial-black">Centar Nit Company</h3>
+            <h3 className="text-initial-black">{event?.company.name}</h3>
           </div>
         </CardContent>
         <CardFooter className="border-t border-gray-300 px-3">
