@@ -1,7 +1,7 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
-import { EventsList } from "@/components/Seekers/Events";
+import LoadingEventsSkeleton from "@/components/Loaders/LoadingEvents";
 import { FilterEvents } from "@/components/Seekers/Events/Filters";
 import { SearchEvents } from "@/components/Seekers/Events/Search";
 import RegisterEvents from "@/components/Seekers/Events/register";
@@ -10,8 +10,16 @@ import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
 import { getEvents } from "@/utils/actions/events";
+import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
+
+const EventsList = dynamic(
+  () => import("@/components/Seekers/Events").then((mod) => mod.EventsList),
+  {
+    loading: () => <LoadingEventsSkeleton />,
+  }
+);
 
 const Events = ({
   searchParams,
@@ -24,11 +32,7 @@ const Events = ({
       isOpen: false,
     },
   });
-  const {
-    data: fetchedEvents,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: fetchedEvents, refetch } = useQuery({
     queryFn: () =>
       getEvents({
         token: token as string,

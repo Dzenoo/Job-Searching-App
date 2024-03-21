@@ -2,14 +2,21 @@
 
 import Protected from "@/components/Hoc/Protected";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
-import { JobsList } from "@/components/Seekers/Jobs";
 import { SeekerProfileInformation } from "@/components/Seekers/Profile";
 import { SeekerProfileAlerts } from "@/components/Seekers/Profile/Alerts";
 import { Applications } from "@/components/Seekers/Profile/Applications";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetSeeker from "@/hooks/useGetSeeker";
+import dynamic from "next/dynamic";
 import React from "react";
+
+const JobsList = dynamic(
+  () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
+  {
+    loading: () => <LoadingJobsSkeleton />,
+  }
+);
 
 const SeekerProfilePage = ({
   searchParams,
@@ -17,7 +24,7 @@ const SeekerProfilePage = ({
   searchParams: { typings: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedSeekerProfile, isLoading } = useGetSeeker();
+  const { data: fetchedSeekerProfile } = useGetSeeker();
 
   return (
     <section className="flex gap-7 justify-between flex-col mx-40 py-6">
@@ -34,11 +41,7 @@ const SeekerProfilePage = ({
       )}
       {searchParams.typings === "saved" && (
         <div>
-          {isLoading ? (
-            <LoadingJobsSkeleton />
-          ) : (
-            <JobsList jobs={fetchedSeekerProfile?.seeker.savedJobs || []} />
-          )}
+          <JobsList jobs={fetchedSeekerProfile?.seeker.savedJobs || []} />
         </div>
       )}
       {searchParams.typings === "alerts" && (

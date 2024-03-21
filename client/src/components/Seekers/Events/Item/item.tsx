@@ -76,7 +76,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
             <p className="text-initial-gray text-wrap">{event?.description}</p>
           </div>
           <div>
-            <h3 className="text-initial-black">{event?.company.name}</h3>
+            <h3 className="text-initial-black">{event.company?.name}</h3>
           </div>
         </CardContent>
         <CardFooter className="border-t border-gray-300 px-3">

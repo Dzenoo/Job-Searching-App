@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { JobsList } from "@/components/Seekers/Jobs";
 import { FilterJobs } from "@/components/Seekers/Jobs/Filters";
 import { SearchJobs } from "@/components/Seekers/Jobs/Search";
 import { Pagination } from "@/components/Shared/Pagination";
@@ -11,6 +10,14 @@ import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getJobs } from "@/utils/actions/jobs";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
+import dynamic from "next/dynamic";
+
+const JobsList = dynamic(
+  () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
+  {
+    loading: () => <LoadingJobsSkeleton />,
+  }
+);
 
 const Jobs = ({
   searchParams,
@@ -18,11 +25,7 @@ const Jobs = ({
   searchParams: { [key: string]: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const {
-    data: fetchedJobs,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: fetchedJobs, refetch } = useQuery({
     queryFn: () =>
       getJobs({
         token: token as string,
@@ -51,11 +54,7 @@ const Jobs = ({
           <SearchJobs />
         </div>
         <div>
-          {isLoading ? (
-            <LoadingJobsSkeleton />
-          ) : (
-            <JobsList jobs={fetchedJobs?.jobs} />
-          )}
+          <JobsList jobs={fetchedJobs?.jobs} />
         </div>
         {fetchedJobs && fetchedJobs?.jobs.length > 0 && (
           <div className="py-6">

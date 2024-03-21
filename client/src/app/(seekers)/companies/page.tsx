@@ -3,11 +3,20 @@
 import React, { useEffect } from "react";
 import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
-import { EmployersList } from "@/components/Seekers/Employers";
 import { useQuery } from "react-query";
 import { Pagination } from "@/components/Shared/Pagination";
 import { SearchEmployers } from "@/components/Seekers/Employers/Search";
 import { getEmployers } from "@/utils/actions/seekers";
+import LoadingCompaniesSkeleton from "@/components/Loaders/LoadingCompanies";
+import dynamic from "next/dynamic";
+
+const EmployersList = dynamic(
+  () =>
+    import("@/components/Seekers/Employers").then((mod) => mod.EmployersList),
+  {
+    loading: () => <LoadingCompaniesSkeleton />,
+  }
+);
 
 const Companies = ({
   searchParams,
@@ -15,11 +24,7 @@ const Companies = ({
   searchParams: { [key: string]: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const {
-    data: fetchedCompanies,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: fetchedCompanies, refetch } = useQuery({
     queryFn: () =>
       getEmployers({
         token: token as string,

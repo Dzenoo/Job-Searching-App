@@ -1,22 +1,43 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
+import LoadingEventsSkeleton from "@/components/Loaders/LoadingEvents";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
+import LoadingReviewsSkeleton from "@/components/Loaders/LoadingReviews";
 import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
-import { ReviewsList } from "@/components/Seekers/Employers/Details/Reviews";
 import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
 import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
-import { EventsList } from "@/components/Seekers/Events";
 import RegisterEvents from "@/components/Seekers/Events/register";
-import { JobsList } from "@/components/Seekers/Jobs";
 import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
-import { EventsData } from "@/constants/events";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
 import { getEmployerById } from "@/utils/actions/seekers";
+import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
+
+const EventsList = dynamic(
+  () => import("@/components/Seekers/Events").then((mod) => mod.EventsList),
+  {
+    loading: () => <LoadingEventsSkeleton />,
+  }
+);
+const ReviewsList = dynamic(
+  () =>
+    import("@/components/Seekers/Employers/Details/Reviews").then(
+      (mod) => mod.ReviewsList
+    ),
+  {
+    loading: () => <LoadingReviewsSkeleton />,
+  }
+);
+const JobsList = dynamic(
+  () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
+  {
+    loading: () => <LoadingJobsSkeleton />,
+  }
+);
 
 const CompanyDetails = ({
   params,
@@ -26,11 +47,7 @@ const CompanyDetails = ({
   searchParams: { [key: string]: keyof typeof EmployerType };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const {
-    data: fetchedCompany,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: fetchedCompany, refetch } = useQuery({
     queryFn: () =>
       getEmployerById(
         params.companyId,
@@ -72,43 +89,29 @@ const CompanyDetails = ({
         <EmployerFilters type={searchParams.typeEmp} />
       </div>
       <div className="flex flex-col gap-6 justify-center overflow-auto py-6">
-        {searchParamsJobs && (
-          <>
-            {isLoading ? (
-              <LoadingJobsSkeleton />
-            ) : (
-              <JobsList jobs={fetchedCompany?.employer?.jobs} />
-            )}
-          </>
-        )}
+        {searchParamsJobs && <JobsList jobs={fetchedCompany?.employer?.jobs} />}
         {searchParamsEvents && (
           <>
-            {isLoading ? (
-              "Events are loading"
-            ) : (
-              <EventsList
-                events={EventsData}
-                onRegisterEvent={() => openDialog("registerForEvent")}
-              />
-            )}
+            <EventsList
+              events={fetchedCompany?.employer.events || []}
+              onRegisterEvent={() => openDialog("registerForEvent")}
+            />
             <Dialog
               showCloseButton
               onCloseDialog={() => closeDialog("registerForEvent")}
               isOpen={dialogs.registerForEvent.isOpen}
               render={() => (
-                <RegisterEvents eventId={searchParams?.evt} token={token!} />
+                <RegisterEvents
+                  eventId={searchParams?.evt}
+                  token={token!}
+                  closeDialog={closeDialog}
+                />
               )}
             />
           </>
         )}
         {searchParamsReviews && (
-          <>
-            {isLoading ? (
-              "Reviews are loading"
-            ) : (
-              <ReviewsList reviews={fetchedCompany?.employer.reviews} />
-            )}
-          </>
+          <ReviewsList reviews={fetchedCompany?.employer.reviews} />
         )}
         {totalItems > 0 && (
           <Pagination

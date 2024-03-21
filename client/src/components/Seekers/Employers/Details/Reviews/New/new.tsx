@@ -45,7 +45,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
       redirect(`/companies/${employerId}?typeEmp=reviews`);
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     },
   });
 
