@@ -32,5 +32,4 @@ const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
     </div>
   );
 };
-
 export { PopularJobsInfo };

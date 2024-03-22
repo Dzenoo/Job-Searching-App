@@ -96,7 +96,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
     <div className="flex flex-col gap-3">
       <Navigator info="Jobs" href={"/"} title={job?.title} />
       <Card>
-        <CardHeader className="flex justify-between gap-3">
+        <CardHeader className="flex justify-between gap-6 max-md:flex-col">
           <div className="flex gap-3 items-center">
             <div>
               <Image
@@ -122,10 +122,10 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
             </div>
           </div>
           <div className="flex gap-3">
-            <div>
+            <div className="basis-full">
               <Button
+                className="w-full px-6"
                 variant={isAppliedJob ? "outlined" : "default"}
-                className="px-6"
                 onClick={onApplyJob}
                 disabled={isAppliedJob !== undefined}
               >
@@ -139,10 +139,10 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
           <div>
             <h1 className="text-base-black font-bold">{job?.title}</h1>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 max-sm:justify-between max-sm:flex-wrap">
             {JobInformationsData.map((data) => renderIconText(data))}
           </div>
-          <div className="px-10 border border-[--blue-base-color] rounded-xl flex items-center gap-6 justify-between py-4">
+          <div className="px-10 border border-[--blue-base-color] rounded-xl flex items-center gap-6 justify-between py-4 max-sm:flex-wrap">
             {JobDetailsData.map((data) => renderJobDetails(data))}
           </div>
           <div>
