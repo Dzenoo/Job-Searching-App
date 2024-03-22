@@ -25,7 +25,7 @@ const Applications: React.FC<ApplicationsProps> = ({ applications }) => {
             <p className="text-initial-gray">No Applications Founded</p>
           )}
         </div>
-        <div className="grid gap-3 grid-cols-3">
+        <div className="grid gap-3 grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1">
           {applications?.map((application) => (
             <ApplicationsItem
               key={application.status}

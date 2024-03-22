@@ -47,7 +47,7 @@ const SeekerProfilePage = ({
   const { data: fetchedSeekerProfile } = useGetSeeker();
 
   return (
-    <section className="flex gap-7 justify-between flex-col mx-40 py-6">
+    <section className="flex gap-7 justify-between flex-col mx-40 py-6 max-xl:mx-0">
       <div>
         <SeekerProfileNavigation />
       </div>

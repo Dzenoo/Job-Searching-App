@@ -172,7 +172,7 @@ const Educations: React.FC<EducationsProps> = ({ seeker }) => {
               variant="default"
               onClick={() => openDialog("edu")}
             >
-              <div>Add New Education</div>
+              <div className="max-lg:hidden">Add New Education</div>
               <div>
                 <Plus />
               </div>

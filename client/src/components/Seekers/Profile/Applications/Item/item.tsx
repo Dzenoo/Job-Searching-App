@@ -66,7 +66,7 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
   return (
     <Card className="dark:border-[#3b3b3b]">
       <CardHeader>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center max-sm:flex-wrap">
           <div>
             <Image
               src={

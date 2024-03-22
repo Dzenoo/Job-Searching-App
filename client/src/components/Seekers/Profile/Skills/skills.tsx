@@ -119,7 +119,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
               variant="default"
               onClick={() => openDialog("skills")}
             >
-              <div>Add Skills</div>
+              <div className="max-lg:hidden">Add Skills</div>
               <div>
                 <Plus />
               </div>

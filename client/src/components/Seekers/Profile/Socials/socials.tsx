@@ -174,14 +174,14 @@ const Socials: React.FC<SocialsProps> = ({ seeker }) => {
               variant="default"
               onClick={() => openDialog("socials")}
             >
-              <div>Edit Socials</div>
+              <div className="max-lg:hidden">Edit Socials</div>
               <div>
                 <Edit color="#fff" />
               </div>
             </Button>
           </div>
         </div>
-        <div className="grid gap-3 grid-cols-3">
+        <div className="grid gap-3 grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
           {SocialsArrays.map(({ id, title, data, icon }) => (
             <div
               key={id}

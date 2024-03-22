@@ -65,7 +65,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
   );
 
   return (
-    <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-[13px] dark:border-[#3b3b3b]">
+    <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-[16px] dark:border-[#3b3b3b] max-sm:p-4">
       <div className="flex justify-between items-center gap-3">
         <div>
           <h1 className="text-base-black">Profile Information</h1>
@@ -76,7 +76,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
             className="flex items-center gap-3"
             onClick={() => setIsEditMode((prevEditMode) => !prevEditMode)}
           >
-            <div>Edit Profile</div>
+            <div className="max-lg:hidden">Edit Profile</div>
             <div>
               <Edit />
             </div>
@@ -86,7 +86,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
       <div>
         {!isEditMode ? (
           <div className="flex flex-col gap-10">
-            <div className="flex items-center gap-[3rem]">
+            <div className="flex items-center gap-[3rem] flex-wrap max-md:gap-3">
               {ProfileInformationArrays.map(({ id, data, title }) => (
                 <div key={id} className="flex flex-col gap-[3px]">
                   <div>
@@ -114,7 +114,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
             onSubmit={handleSubmit(changeSeekerInformation)}
             className="p-0"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <FormItem className="w-full">
                 <Controller
                   name="first_name"
