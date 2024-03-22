@@ -12,7 +12,7 @@ const EmployersList: React.FC<EmployersListProps> = ({ employers }) => {
           </h1>
         </div>
       )}
-      <ul className="grid gap-3 grid-cols-3">
+      <ul className="grid gap-3 grid-cols-3 max-[1680px]:grid-cols-2 max-lg:grid-cols-1">
         {employers?.map((employer) => (
           <EmployerItem employer={employer} key={employer._id} />
         ))}

@@ -29,7 +29,7 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
   return (
     <Card>
       <CardContent>
-        <div className="flex gap-3">
+        <div className="flex gap-3 max-md:flex-col">
           <div>
             <Image
               src={employer?.image}
@@ -59,7 +59,7 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
         </div>
       </CardContent>
       <CardFooter className="border-t border-gray-100 pt-6">
-        <div className="gap-6 flex items-center justify-between">
+        <div className="gap-6 flex items-center justify-between flex-wrap">
           {FooterEmployerData.map((data) => renderIconText(data))}
         </div>
       </CardFooter>
