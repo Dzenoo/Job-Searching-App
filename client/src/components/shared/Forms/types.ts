@@ -4,7 +4,7 @@ type FormInfoProps = {
 } & Omit<React.HTMLAttributes<HTMLParagraphElement>, "children">;
 
 enum FormInfoVariants {
-  default = "text-gray-900",
+  default = "text-white dark:text-gray-900",
   danger = "text-red-400",
   warning = "text-yellow-400",
 }

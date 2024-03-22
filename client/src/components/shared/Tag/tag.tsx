@@ -50,7 +50,7 @@ const Tag: React.FC<TagProps> = React.forwardRef(
       <div className={twMerge("relative", className)} ref={$tagRef}>
         <div
           className={twMerge(
-            "border border-gray-300 rounded-lg p-3 flex items-center justify-between cursor-pointer transition-all duration-300",
+            "text-white border-[#1b1b1b] bg-[#0d0d0d] hover:border-gray-400 dark:hover:border-gray-400 dark:focus:border-gray-400 focus:border-gray-400 dark:bg-white dark:text-black dark:border-gray-300 rounded-lg p-3 flex items-center justify-between cursor-pointer transition-all duration-300 border",
             isOpen && "border-b-0 rounded-t-lg",
             !isOpen && "rounded-lg"
           )}
@@ -82,14 +82,14 @@ const Tag: React.FC<TagProps> = React.forwardRef(
           )}
         </div>
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 border border-gray-300 rounded-lg bg-white shadow-lg mt-1 z-10">
+          <div className="bg-[#0b0b0b] absolute border-[#1b1b1b] top-full left-0 right-0 border dark:border-gray-300 rounded-lg dark:bg-white shadow-lg mt-1 z-10">
             <div className="p-3">
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none"
+                className="bg-[#0b0b0b] border border-[#1b1b1b] dark:border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none dark:bg-white text-white dark:text-gray-800"
               />
             </div>
             <div className="p-3 flex justify-between items-center border-t border-gray-300">
@@ -105,14 +105,16 @@ const Tag: React.FC<TagProps> = React.forwardRef(
               {filteredOptions.map((option) => (
                 <div
                   key={option.value}
-                  className="px-3 py-2 flex items-center justify-between hover:bg-gray-100"
+                  className="px-3 py-2 flex items-center justify-between dark:hover:bg-gray-100 hover:bg-[#1b1b1b]"
                   onClick={() => handleToggleItem(option.value)}
                 >
-                  <span>{option.label}</span>
+                  <span className="text-white dark:text-black">
+                    {option.label}
+                  </span>
                   <input
                     type="checkbox"
                     checked={selectedItems.includes(option.value)}
-                    className="form-checkbox h-5 w-5 text-blue-500"
+                    className="form-checkbox h-5 w-5"
                     onChange={() => {}}
                   />
                 </div>

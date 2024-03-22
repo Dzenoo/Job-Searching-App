@@ -21,7 +21,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           {...props}
           className={twMerge(
             "p-3 rounded-lg border cursor-pointer overflow-auto min-w-40 focus:outline-none text-gray-900 font-light leading-6 transition-colors",
-            "hover:border-gray-400 focus:border-gray-400",
             className,
             SelectVariants[variant]
           )}

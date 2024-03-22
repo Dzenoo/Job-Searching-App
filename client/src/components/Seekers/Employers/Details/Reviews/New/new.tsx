@@ -214,7 +214,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
             <Button
               variant="default"
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isValid}
               className="px-10"
             >
               {isSubmitting ? <ClipLoader /> : "Review"}
