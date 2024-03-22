@@ -56,12 +56,13 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
           />
         </CardHeader>
         <CardContent className="p-3 flex flex-col gap-4">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between gap-3 max-lg:flex-wrap">
             <div>
               <h1 className="text-base-black">{event?.title}</h1>
             </div>
             <div>
               <Button
+                className="w-full"
                 variant={isRegistered ? "outlined" : "default"}
                 onClick={() => {
                   onRegisterEvent();
@@ -80,7 +81,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
           </div>
         </CardContent>
         <CardFooter className="border-t border-gray-300 px-3">
-          <div className="flex justify-between gap-3 items-center">
+          <div className="flex justify-between gap-3 items-center flex-wrap">
             {FooterInfoData.map((data) => renderIconText(data))}
           </div>
         </CardFooter>

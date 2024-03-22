@@ -49,7 +49,7 @@ const Events = ({
   }, [searchParams]);
 
   return (
-    <section className="flex gap-7 py-6">
+    <section className="flex gap-7 py-6 max-xl:flex-col">
       <div className="basis-full grow flex flex-col gap-6 overflow-auto">
         <div>
           <SearchEvents />
