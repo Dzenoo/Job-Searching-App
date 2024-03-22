@@ -82,14 +82,14 @@ const Tag: React.FC<TagProps> = React.forwardRef(
           )}
         </div>
         {isOpen && (
-          <div className="bg-[#0b0b0b] absolute border-[#1b1b1b] top-full left-0 right-0 border dark:border-gray-300 rounded-lg dark:bg-white shadow-lg mt-1 z-10">
+          <div className="dark:bg-[#0b0b0b] absolute dark:border-[#1b1b1b] top-full left-0 right-0 border border-gray-300 rounded-lg bg-white shadow-lg mt-1 z-10">
             <div className="p-3">
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-[#0b0b0b] border border-[#1b1b1b] dark:border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none dark:bg-white text-white dark:text-gray-800"
+                className="dark:bg-[#0b0b0b] border dark:border-[#1b1b1b] border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none bg-white dark:text-white text-gray-800"
               />
             </div>
             <div className="p-3 flex justify-between items-center border-t border-gray-300">
@@ -105,10 +105,10 @@ const Tag: React.FC<TagProps> = React.forwardRef(
               {filteredOptions.map((option) => (
                 <div
                   key={option.value}
-                  className="px-3 py-2 flex items-center justify-between dark:hover:bg-gray-100 hover:bg-[#1b1b1b]"
+                  className="px-3 py-2 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-[#1b1b1b]"
                   onClick={() => handleToggleItem(option.value)}
                 >
-                  <span className="text-white dark:text-black">
+                  <span className="dark:text-white text-black">
                     {option.label}
                   </span>
                   <input
