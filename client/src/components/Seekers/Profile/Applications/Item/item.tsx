@@ -64,7 +64,7 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
   const applicationsStatusInterview = application?.status === "Interview";
 
   return (
-    <Card>
+    <Card className="dark:border-[#3b3b3b]">
       <CardHeader>
         <div className="flex gap-3 items-center">
           <div>

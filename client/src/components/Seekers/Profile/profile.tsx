@@ -115,7 +115,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
         render={() => <DeleteSeekerProfileDialog token={token} />}
       />
       <Card>
-        <CardHeader className="flex justify-between gap-3 border-b border-gray-300 pb-7">
+        <CardHeader className="flex justify-between gap-3 border-b border-gray-300 pb-7 dark:border-[#0d0d0d]">
           <div className="flex items-center gap-7">
             <div>
               <Image

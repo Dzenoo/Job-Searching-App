@@ -32,7 +32,7 @@ const EducationItem: React.FC<EducationItemProps> = ({
   const graduationDateFormatted = formatDate(graduationDate);
 
   return (
-    <div className="rounded-xl bg-white p-6 flex gap-3 border border-gray-100">
+    <div className="dark:bg-[#1b1b1b] rounded-xl bg-white p-6 flex gap-3 border border-gray-100 dark:border-[#3b3b3b]">
       <div>
         <Image
           src="/images/education.png"

@@ -200,7 +200,7 @@ const SeekerProfileAlerts: React.FC<SeekerProfileAlertsProps> = ({
               </div>
             </div>
           ) : (
-            <div className="border border-gray-100 bg-white p-3 rounded-lg overflow-hidden flex justify-between gap-3">
+            <div className="border border-gray-100 bg-white p-3 rounded-lg overflow-hidden dark:bg-[#0d0d0d] flex justify-between gap-3 dark:border-[#3b3b3b]">
               {Array.from([
                 {
                   id: "1",

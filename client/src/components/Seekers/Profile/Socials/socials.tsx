@@ -185,7 +185,7 @@ const Socials: React.FC<SocialsProps> = ({ seeker }) => {
           {SocialsArrays.map(({ id, title, data, icon }) => (
             <div
               key={id}
-              className="flex flex-col gap-3 items-center justify-center px-16 py-7 border border-gray-300 rounded-lg transition-all hover:bg-gray-100 overflow-hidden"
+              className="flex flex-col gap-3 items-center justify-center px-16 py-7 border border-gray-300 rounded-lg transition-all hover:bg-gray-100 overflow-hidden dark:border-[#3b3b3b] dark:hover:bg-[#0d0d0d]"
             >
               <div>{icon}</div>
               <div>
