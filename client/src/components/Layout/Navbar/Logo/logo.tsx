@@ -10,8 +10,8 @@ const Logo: React.FC = () => {
       <Image
         src={
           theme === "dark"
-            ? "/images/logo/logo-light.png"
-            : "/images/logo/logo-dark.png"
+            ? "/images/logo/logo-dark.png"
+            : "/images/logo/logo-light.png"
         }
         alt="light-talentify-logo"
         width={170}

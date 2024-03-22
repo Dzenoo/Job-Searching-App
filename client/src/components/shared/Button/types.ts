@@ -3,7 +3,7 @@ enum ButtonVariants {
   warning = "bg-yellow-400 hover:bg-yellow-600 text-white",
   danger = "bg-[--red-base-color] hover:bg-red-800 text-white",
   success = "bg-[--green-base-color] hover:bg-green-800 text-white",
-  outlined = "bg-none border dark:border-gray-300 border-[#3b3b3b] text-black dark:hover:bg-[#ebebeb] hover:bg-[#0d0d0d]",
+  outlined = "bg-none border dark:border-gray-300 border-[#3b3b3b] dark:hover:bg-[#ebebeb] hover:bg-[#0d0d0d]",
   info = "bg-blue-700 hover:bg-blue-800 ",
 }
 

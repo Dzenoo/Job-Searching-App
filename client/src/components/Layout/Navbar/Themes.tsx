@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 
 const Themes: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
@@ -24,7 +24,7 @@ const Themes: React.FC = () => {
 
   return (
     <div className="flex gap-4">
-      {theme === "dark" ? (
+      {resolvedTheme === "dark" ? (
         <button onClick={lightTheme}>
           <Sun />
         </button>

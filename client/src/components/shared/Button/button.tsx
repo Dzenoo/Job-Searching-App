@@ -9,7 +9,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         ref={ref}
         className={twMerge(
-          "p-3 rounded-lg font-medium text-white leading-6 disabled:opacity-60 disabled:cursor-not-allowed transition-colors",
+          "p-3 rounded-lg font-medium dark:text-white leading-6 disabled:opacity-60 disabled:cursor-not-allowed transition-colors",
           className,
           ButtonVariants[variant]
         )}

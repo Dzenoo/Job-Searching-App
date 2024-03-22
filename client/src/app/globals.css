@@ -19,32 +19,32 @@
   --yellow-opacity-color: 255, 199, 3, 0.1;
 }
 body {
-  @apply bg-[#0d0d0d] dark:bg-white;
+  @apply bg-white dark:bg-[#0d0d0d];
 }
 
 @layer utilities {
   .text-base-black {
-    @apply text-2xl font-bold text-white dark:text-[--black-base-color];
+    @apply text-2xl font-bold text-[--black-base-color] dark:text-white;
   }
 
   .text-base-blue {
-    @apply text-2xl font-bold dark:text-[--blue-base-color] text-white;
+    @apply text-2xl font-bold text-[--blue-base-color] dark:text-white;
   }
 
   .text-base-gray {
-    @apply text-2xl font-bold dark:text-[--gray-base-color] text-white;
+    @apply text-2xl font-bold text-[--gray-base-color] dark:text-white;
   }
 
   .text-base-white {
-    @apply text-2xl font-bold dark:text-[--white-base-color] text-white;
+    @apply text-2xl font-bold text-[--white-base-color] dark:text-white;
   }
 
   .text-initial-black {
-    @apply text-base font-normal dark:text-[--black-base-color] text-white;
+    @apply text-base font-normal text-[--black-base-color] dark:text-white;
   }
 
   .text-initial-blue {
-    @apply text-base font-normal dark:text-[--blue-base-color] text-white;
+    @apply text-base font-normal text-[--blue-base-color] dark:text-white;
   }
 
   .text-initial-gray {
@@ -52,15 +52,15 @@ body {
   }
 
   .text-initial-white {
-    @apply text-base font-normal dark:text-[--white-base-color] text-white;
+    @apply text-base font-normal text-[--white-base-color] dark:text-white;
   }
 
   .text-low-black {
-    @apply text-sm font-light dark:text-[--black-base-color] text-white;
+    @apply text-sm font-light text-[--black-base-color] dark:text-white;
   }
 
   .text-low-blue {
-    @apply text-sm font-light dark:text-[--blue-base-color] text-white;
+    @apply text-sm font-light text-[--blue-base-color] dark:text-white;
   }
 
   .text-low-gray {
@@ -68,11 +68,11 @@ body {
   }
 
   .text-low-white {
-    @apply text-sm font-light dark:text-[--white-base-color] text-white;
+    @apply text-sm font-light text-[--white-base-color] dark:text-white;
   }
 
   .border-base-gray {
-    @apply border-[#404040] dark:border-[--gray-light-color];
+    @apply dark:border-[#404040] border-[--gray-light-color];
   }
 
   .border-base-blue {

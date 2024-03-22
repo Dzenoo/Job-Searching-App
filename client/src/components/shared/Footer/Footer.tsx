@@ -5,12 +5,12 @@ import { FooterLinks } from "@/constants/footer";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="py-10 px-16 shadow-lg border-t bg-white flex flex-col gap-6 max-lg:px-6">
-      <div className="flex justify-between gap-10 items-start border-b pb-6 border-gray-300 max-xl:flex-wrap">
+    <footer className="py-10 px-16 shadow-lg border-t bg-[#0d0d0d] flex flex-col gap-6 max-lg:px-6 border-[#1b1b1b]">
+      <div className="flex justify-between gap-10 items-start border-b pb-6 border-[#1b1b1b] max-xl:flex-wrap">
         <div className="flex flex-col gap-3 basis-[36em] max-xl:basis-full">
           <div>
             <Image
-              src="/images/logo/logo-light.png"
+              src="/images/logo/logo-dark.png"
               alt="light-talentify-logo"
               width={300}
               height={300}
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             />
           </div>
           <div>
-            <p className="text-initial-gray">
+            <p className="text-initial-white">
               Founded with a passion for connecting job seekers with their dream
               careers, our mission is to simplify the job search process and
               empower individuals to find fulfilling employment opportunities.
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
       </div>
       <div>
         <div>
-          <p className="text-initial-gray">
+          <p className="text-initial-white">
             &copy; 2024 Copyright, JobTalentify
           </p>
         </div>
@@ -59,13 +59,13 @@ function renderFooterLinks<T extends FooterLinkDivProps>({
   return (
     <div key={id} className="flex flex-col gap-3">
       <div>
-        <h1 className="text-initial-black">{title}</h1>
+        <h1 className="text-[--blue-base-color]">{title}</h1>
       </div>
       <div>
         <ul className="flex flex-col gap-4">
           {links.map((link) => (
             <li key={link.id}>
-              <Link href={link.href} className="text-initial-gray">
+              <Link href={link.href} className="text-initial-white">
                 {link.name}
               </Link>
             </li>
