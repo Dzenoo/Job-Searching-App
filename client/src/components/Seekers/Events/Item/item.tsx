@@ -80,7 +80,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
             <h3 className="text-initial-black">{event.company?.name}</h3>
           </div>
         </CardContent>
-        <CardFooter className="border-t border-gray-300 px-3">
+        <CardFooter className="border-t border-gray-300 px-3 dark:border-[#0d0d0d]">
           <div className="flex justify-between gap-3 items-center flex-wrap">
             {FooterInfoData.map((data) => renderIconText(data))}
           </div>

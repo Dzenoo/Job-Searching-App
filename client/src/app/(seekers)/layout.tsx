@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <QueryContextProvider>
-      <html lang="en">
+      <html suppressHydrationWarning={true} lang="en">
         <body className={inter.className}>
           <AppThemeProvider>
             <Navbar />

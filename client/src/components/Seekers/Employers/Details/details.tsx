@@ -61,7 +61,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
               </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
-              <div className="rounded-full bg-blue-100 p-3 w-fit">
+              <div className="rounded-full bg-blue-100 p-3 w-fit dark:bg-blue-300">
                 <p className="text-initial-blue">
                   {employer?.address || "Location"}
                 </p>

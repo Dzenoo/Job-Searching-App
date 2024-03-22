@@ -88,7 +88,7 @@ body {
   }
 
   .bg-opacity-overlay {
-    background-color: rgba(0, 0, 0, 0.16);
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
   .animate_opacity {

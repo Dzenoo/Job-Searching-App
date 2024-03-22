@@ -150,7 +150,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
               <h1 className="font-bold">Overview</h1>
             </div>
             <div className="py-3">
-              <p className="text-initial-gray">{job?.overview}</p>
+              <p>{job?.overview}</p>
             </div>
           </div>
           <div>
