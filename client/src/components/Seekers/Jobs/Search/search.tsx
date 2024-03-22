@@ -12,7 +12,7 @@ const SearchJobs: React.FC = () => {
   );
 
   return (
-    <div className="flex justify-between gap-3">
+    <div className="flex justify-between gap-3 max-sm:flex-wrap">
       <div className="basis-full">
         <Input
           defaultValue={searchParams.get("query")?.toString()}
@@ -22,7 +22,7 @@ const SearchJobs: React.FC = () => {
           }
         />
       </div>
-      <div>
+      <div className="max-sm:basis-full">
         <Select
           defaultValue={searchParams.get("sort")?.toString()}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>

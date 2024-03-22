@@ -39,8 +39,8 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   return (
     <li>
       <Card>
-        <CardHeader className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <CardHeader className="flex justify-between sm:items-center">
+          <div className="flex items-center gap-3 flex-wrap">
             <div>
               <Image
                 src={job.company?.image}
@@ -56,7 +56,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
                   <h1 className="text-base-black font-bold">{job.title}</h1>
                 </Link>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 max-sm:flex-wrap">
                 <div>
                   <p className="text-low-gray">{job.company?.name}</p>
                 </div>
@@ -77,8 +77,8 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
             </div>
           </CardContent>
         )}
-        <CardFooter className="border-t border-gray-100 pt-6 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-6">
+        <CardFooter className="border-t border-gray-100 pt-6 flex items-center justify-between gap-3 flex-wrap max-sm:pb-0">
+          <div className="flex items-center gap-6 justify-between flex-wrap">
             {FooterInfoData.map((data) => renderIconText(data))}
           </div>
           <div className="flex items-center gap-3">
@@ -92,7 +92,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
                 </div>
               </div>
             )}
-            <div>
+            <div className="max-sm:hidden">
               <p className="text-initial-gray truncate">{createdTime}</p>
             </div>
           </div>

@@ -45,7 +45,7 @@ const Jobs = ({
   }, [searchParams]);
 
   return (
-    <section className="flex gap-7 justify-between py-6">
+    <section className="flex gap-7 justify-between py-6 max-xl:flex-col">
       <div className="basis-1/2">
         <PopularJobsInfo jobs={fetchedJobs?.popularJobs} />
       </div>
