@@ -72,7 +72,6 @@ const CompanyDetails = ({
   const searchParamsEvents = searchParams?.typeEmp === "events";
 
   let totalItems = 0;
-
   if (searchParamsJobs && fetchedCompany?.totalJobs) {
     totalItems = fetchedCompany?.totalJobs;
   } else if (searchParamsReviews && fetchedCompany?.totalReviews) {

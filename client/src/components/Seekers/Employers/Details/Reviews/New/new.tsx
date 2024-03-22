@@ -60,7 +60,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   };
 
   return (
-    <Card>
+    <Card className="max-sm:p-3">
       <CardContent>
         <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div>
