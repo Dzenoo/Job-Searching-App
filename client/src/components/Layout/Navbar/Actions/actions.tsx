@@ -2,6 +2,7 @@ import React from "react";
 import { NavbarActionsListProps } from "./types";
 import Link from "next/link";
 import { LogOut } from "lucide-react";
+import Themes from "../Themes";
 
 const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
   data,
@@ -21,6 +22,9 @@ const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
           {icon}
         </Link>
       ))}
+      <div>
+        <Themes />
+      </div>
       <button onClick={logout}>
         <LogOut />
       </button>

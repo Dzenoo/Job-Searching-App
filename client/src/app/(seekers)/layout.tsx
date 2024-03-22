@@ -11,6 +11,7 @@ import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
 import MobileBar from "@/components/Layout/Navbar/Mobile/Mobile";
+import AppThemeProvider from "@/contexts/app-theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,11 +30,13 @@ export default function RootLayout({
     <QueryContextProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Navbar />
-          <main className="base-margin">{children}</main>
-          <Footer />
-          <ToastContainer />
-          <MobileBar />
+          <AppThemeProvider>
+            <Navbar />
+            <main className="base-margin">{children}</main>
+            <Footer />
+            <ToastContainer />
+            <MobileBar />
+          </AppThemeProvider>
         </body>
       </html>
     </QueryContextProvider>
