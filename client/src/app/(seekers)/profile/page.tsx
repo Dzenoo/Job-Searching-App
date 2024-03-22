@@ -1,10 +1,10 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
+import LoadingApplicationsSkeleton from "@/components/Loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
 import { SeekerProfileInformation } from "@/components/Seekers/Profile";
 import { SeekerProfileAlerts } from "@/components/Seekers/Profile/Alerts";
-import { Applications } from "@/components/Seekers/Profile/Applications";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetSeeker from "@/hooks/useGetSeeker";
@@ -15,6 +15,16 @@ const JobsList = dynamic(
   () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
   {
     loading: () => <LoadingJobsSkeleton />,
+  }
+);
+
+const Applications = dynamic(
+  () =>
+    import("@/components/Seekers/Profile/Applications").then(
+      (mod) => mod.Applications
+    ),
+  {
+    loading: () => <LoadingApplicationsSkeleton />,
   }
 );
 

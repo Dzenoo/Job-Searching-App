@@ -23,5 +23,4 @@ const LoadingEventsSkeleton: React.FC = () => {
     </div>
   );
 };
-
 export default LoadingEventsSkeleton;
