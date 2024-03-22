@@ -6,11 +6,11 @@ import { SearchJobs } from "@/components/Seekers/Jobs/Search";
 import { Pagination } from "@/components/Shared/Pagination";
 import { PopularJobsInfo } from "@/components/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
+import dynamic from "next/dynamic";
 import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getJobs } from "@/utils/actions/jobs";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
-import dynamic from "next/dynamic";
 
 const JobsList = dynamic(
   () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),

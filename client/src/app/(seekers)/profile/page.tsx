@@ -3,7 +3,7 @@
 import Protected from "@/components/Hoc/Protected";
 import LoadingApplicationsSkeleton from "@/components/Loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
-import { SeekerProfileInformation } from "@/components/Seekers/Profile";
+import LoadingSeekersInformationsSkeleton from "@/components/Loaders/LoadingSeekersInformations";
 import { SeekerProfileAlerts } from "@/components/Seekers/Profile/Alerts";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
@@ -25,6 +25,16 @@ const Applications = dynamic(
     ),
   {
     loading: () => <LoadingApplicationsSkeleton />,
+  }
+);
+
+const SeekerProfileInformation = dynamic(
+  () =>
+    import("@/components/Seekers/Profile").then(
+      (mod) => mod.SeekerProfileInformation
+    ),
+  {
+    loading: () => <LoadingSeekersInformationsSkeleton />,
   }
 );
 
