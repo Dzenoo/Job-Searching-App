@@ -35,7 +35,7 @@ const SeekerProfileNavigation: React.FC = () => {
       <div className="flex items-center gap-3">
         {SeekerNavList.map((item) => (
           <button
-            className="transition cursor-pointer hover:text-gray-600"
+            className="transition cursor-pointer hover:text-[--blue-base-color]"
             key={item.id}
             onClick={() =>
               item.id === "1"
