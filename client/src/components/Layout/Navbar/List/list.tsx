@@ -1,6 +1,7 @@
 import React from "react";
 import { NavbarLinksListProps } from "./types";
 import Link from "next/link";
+
 const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
   pathname,
   data,

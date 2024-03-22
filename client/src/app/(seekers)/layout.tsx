@@ -29,15 +29,15 @@ export default function RootLayout({
   return (
     <QueryContextProvider>
       <html lang="en">
-        <body className={inter.className}>
-          <AppThemeProvider>
+        <AppThemeProvider>
+          <body className={inter.className}>
             <Navbar />
             <main className="base-margin">{children}</main>
             <Footer />
             <ToastContainer />
             <MobileBar />
-          </AppThemeProvider>
-        </body>
+          </body>
+        </AppThemeProvider>
       </html>
     </QueryContextProvider>
   );
