@@ -9,7 +9,7 @@ const Avatar: React.FC<AvatarProps> = ({ image, name }) => {
 
   return (
     <div className="flex items-center gap-3">
-      <div>
+      <div className="max-sm:hidden">
         <h1 className="text-initial-black">{name}</h1>
       </div>
       <div className="relative w-[3rem] h-[3rem] rounded-full">

@@ -1,7 +1,6 @@
 import React from "react";
 import { NavbarLinksListProps } from "./types";
 import Link from "next/link";
-
 const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
   pathname,
   data,
@@ -17,7 +16,7 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
           }`}
         >
           <div>{icon}</div>
-          <div>
+          <div className="max-sm:hidden">
             <h1>{title}</h1>
           </div>
         </Link>

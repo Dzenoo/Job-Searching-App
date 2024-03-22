@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
         <Logo />
       </div>
       {isAuthenticated && (
-        <div>
+        <div className="max-xl:hidden">
           <NavbarLinksList
             pathname={pathname}
             data={isSeeker ? SeekersNavbarLinks : EmployersNavbarLinks}

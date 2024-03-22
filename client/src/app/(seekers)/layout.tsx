@@ -10,6 +10,7 @@ const Navbar = dynamic(() => import("@/components/Layout/Navbar/Navbar"), {
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
+import MobileBar from "@/components/Layout/Navbar/Mobile/Mobile";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
           <main className="base-margin">{children}</main>
           <Footer />
           <ToastContainer />
+          <MobileBar />
         </body>
       </html>
     </QueryContextProvider>
