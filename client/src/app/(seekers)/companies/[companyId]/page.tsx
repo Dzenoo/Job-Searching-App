@@ -81,9 +81,9 @@ const CompanyDetails = ({
     totalItems = fetchedCompany?.totalEvents;
   }
   return (
-    <section className="py-6 overflow-hidden mx-40">
+    <section className="py-6 overflow-hidden mx-40 max-xl:mx-0">
       <div>
-        <EmployerDetailsInfo employer={fetchedCompany?.employer} />
+        <EmployerDetailsInfo employer={fetchedCompany?.employer!} />
       </div>
       <div>
         <EmployerFilters type={searchParams.typeEmp} />

@@ -70,7 +70,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
         </div>
       </CardContent>
       <CardFooter className="border-t border-gray-100 pt-6 dark:border-[#0d0d0d]">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-3 max-sm:flex-wrap">
           {ReviewFooterData.map((footerData) => renderIconText(footerData))}
         </div>
       </CardFooter>
