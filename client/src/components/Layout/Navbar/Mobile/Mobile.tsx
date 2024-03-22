@@ -14,7 +14,7 @@ const MobileBar: React.FC = () => {
   if (!isAuthenticated) return null;
 
   return (
-    <div className="xl:hidden bg-white border-t border-gray-100 p-6 sticky bottom-0 max-xl:flex items-center justify-center">
+    <div className="bg-white xl:hidden  border-t border-gray-100 dark:bg-[#0d0d0d] p-6 sticky bottom-0 max-xl:flex dark:border-[#1b1b1b] items-center justify-center">
       <NavbarLinksList
         pathname={pathname}
         data={isSeeker ? SeekersNavbarLinks : EmployersNavbarLinks}
