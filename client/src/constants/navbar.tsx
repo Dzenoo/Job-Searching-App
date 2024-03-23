@@ -33,7 +33,7 @@ export const EmployersNavbarLinks = [
   {
     id: "3",
     title: "Find Seekers",
-    href: "/",
+    href: "/seekers",
     icon: <Building />,
   },
 ];

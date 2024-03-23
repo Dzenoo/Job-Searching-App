@@ -35,7 +35,6 @@ const useOnOutsideClick = (
       document.addEventListener("mouseup", handleMouseUp);
       document.addEventListener("keydown", handleKeyDown);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
       document.removeEventListener("mouseup", handleMouseUp);
