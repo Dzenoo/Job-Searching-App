@@ -16,8 +16,12 @@ const Protected = (
     useEffect(() => {
       if (!token) {
         router.push("/login");
-      } else if (!AuthRolesProtected.includes(userType!)) {
-        router.push("/");
+      } else if (!AuthRolesProtected.includes(userType || "")) {
+        if (userType === "employer") {
+          router.push("/seekers");
+        } else {
+          router.push("/");
+        }
       }
     }, [token, userType, pathname, router]);
 

@@ -58,16 +58,6 @@ export const SeekersNavbarActions = [
 
 export const EmployersNavbarActions = [
   {
-    id: "1",
-    href: "/messages",
-    icon: <MessageCircle />,
-  },
-  {
-    id: "2",
-    href: "/notifications",
-    icon: <Bell />,
-  },
-  {
     id: "3",
     href: "/dashboard",
     icon: <LayoutDashboard />,

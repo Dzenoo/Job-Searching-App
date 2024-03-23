@@ -16,6 +16,7 @@ import { NavbarActionsList } from "./Actions";
 import { Avatar } from "@/components/Shared/Avatar";
 import { useQuery } from "react-query";
 import { getSeekerProfile } from "@/utils/actions/seekers";
+import { getEmployerProfile } from "@/utils/actions/employers";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -37,14 +38,24 @@ const AuthenticationDivLinks: React.FC = () => {
 const Navbar: React.FC = () => {
   const { deleteCookieHandler, getCookieHandler } = useAuthentication();
   const { isAuthenticated, userType, token } = getCookieHandler();
-  const { data: fetchedSeekerProfile } = useQuery({
-    queryFn: () => getSeekerProfile(token as string),
-    queryKey: ["profile"],
+  const { data } = useQuery({
+    queryKey: ["profile", userType],
+    queryFn: async () => {
+      if (userType === "seeker") {
+        const response = await getSeekerProfile(token as string);
+        return response;
+      } else if (userType === "employer") {
+        const response = await getEmployerProfile(token as string);
+        return response;
+      }
+    },
   });
 
   const pathname = usePathname();
 
   const isSeeker = userType === "seeker";
+
+  const fetchedProfile: any = data;
 
   return (
     <header className="dark:bg-[#1b1b1b] base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray dark:border-[#1b1b1b] sticky top-0 bg-white z-30">
@@ -70,8 +81,16 @@ const Navbar: React.FC = () => {
           </div>
           <div>
             <Avatar
-              image={fetchedSeekerProfile?.seeker.image}
-              name={`${fetchedSeekerProfile?.seeker.first_name} ${fetchedSeekerProfile?.seeker.last_name}`}
+              image={
+                isSeeker
+                  ? fetchedProfile?.seeker.image
+                  : fetchedProfile?.employer.image
+              }
+              name={
+                isSeeker
+                  ? `${fetchedProfile?.seeker.first_name} ${fetchedProfile?.seeker.last_name}`
+                  : fetchedProfile?.employer.name
+              }
             />
           </div>
         </div>
