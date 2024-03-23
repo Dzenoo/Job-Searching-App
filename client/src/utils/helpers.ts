@@ -1,5 +1,5 @@
 import { industries } from "@/constants/industries";
-import { SkillsInformationsData } from "@/constants/skills";
+import { SkillsInformationsData } from "@/constants/filters/skills";
 
 export const getSkillsData = (skills: string[]) => {
   const categorizedSkills: { [key: string]: string[] } = {};

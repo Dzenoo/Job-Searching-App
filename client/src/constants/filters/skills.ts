@@ -46,7 +46,7 @@ export const SkillsInformationsData = [
       {
         id: 9,
         title: "Node.js",
-        value: "Node.js",
+        value: "nodejs",
       },
     ],
   },

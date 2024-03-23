@@ -50,7 +50,7 @@ const Tag: React.FC<TagProps> = React.forwardRef(
       <div className={twMerge("relative", className)} ref={$tagRef}>
         <div
           className={twMerge(
-            "dark:text-white dark:border-[#1b1b1b] dark:bg-[#0d0d0d] hover:border-gray-400 dark:hover:border-gray-400 dark:focus:border-gray-400 focus:border-gray-400 bg-white border-gray-300 rounded-lg p-3 flex items-center justify-between cursor-pointer transition-all duration-300 border",
+            "dark:text-white dark:border-[#1b1b1b] dark:bg-[#0d0d0d] hover:border-gray-400 dark:hover:border-gray-400 dark:focus:border-gray-400 focus:border-gray-400 bg-white border-gray-300 rounded-lg p-3 flex items-center justify-between cursor-pointer transition-all duration-300 border overflow-hidden max-w-lg",
             isOpen && "border-b-0 rounded-t-lg",
             !isOpen && "rounded-lg"
           )}

@@ -85,8 +85,8 @@ const SeekerSchema = new mongoose.Schema(
     skills: [
       {
         type: String,
-        minlength: [3, "Skills must be at least 3 characters long"],
-        maxlength: [16, "Skills must not exceed 16 characters"],
+        minlength: [1, "Skills must be at least 3 characters long"],
+        maxlength: [30, "Skills must not exceed 16 characters"],
         default: [],
       },
     ],
