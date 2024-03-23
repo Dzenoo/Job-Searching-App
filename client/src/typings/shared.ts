@@ -5,7 +5,7 @@ import { SeekerTypes } from "./seekers";
 type NotificationTypes = {
   title: string;
   message: string;
-  date: Date | string;
+  date: string;
 };
 
 type SeekerDirectMessagesTypes = {

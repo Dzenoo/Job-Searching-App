@@ -62,7 +62,7 @@ const Events = ({
         </div>
         <div>
           <Pagination
-            totalItems={fetchedEvents?.totalEvents}
+            totalItems={fetchedEvents?.totalEvents || 0}
             itemsPerPage={10}
             currentPage={Number(searchParams?.page) || 1}
             visiblePages={6}

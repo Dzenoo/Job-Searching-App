@@ -14,7 +14,8 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
           </div>
         )}
         <ul className="flex flex-col gap-3">
-          {reviews?.length > 0 &&
+          {reviews &&
+            reviews?.length > 0 &&
             reviews?.map((review) => (
               <ReviewItem review={review} key={review._id} />
             ))}

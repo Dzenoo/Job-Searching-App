@@ -10,8 +10,14 @@ const Navbar = dynamic(() => import("@/components/Layout/Navbar/Navbar"), {
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
-import MobileBar from "@/components/Layout/Navbar/Mobile/Mobile";
 import AppThemeProvider from "@/contexts/app-theme-provider";
+
+const MobileBar = dynamic(
+  () => import("@/components/Layout/Navbar/Mobile/Mobile"),
+  {
+    ssr: false,
+  }
+);
 
 const inter = Inter({ subsets: ["latin"] });
 
