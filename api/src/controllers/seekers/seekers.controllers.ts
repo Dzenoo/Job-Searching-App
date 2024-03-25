@@ -286,6 +286,11 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
         },
       }
     );
+
+    if (seeker.image.includes("seekers")) {
+      await deleteFromAws(seeker.image.split("/")[1], "seekers");
+    }
+
     await Seeker.findByIdAndDelete(seekerId);
 
     responseServerHandler(
