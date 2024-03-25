@@ -1,4 +1,13 @@
+import { ResponseMessageTypes } from "@/typings/shared";
 import axios from "axios";
+import { patchApiHandler } from "../api";
+
+export const readNotificationsData = async (
+  token: string,
+  notification: string
+): Promise<{
+  message: ResponseMessageTypes;
+}> => await patchApiHandler(`notifications/${notification}`, {}, token);
 
 export const fetchCountries = async (): Promise<any> => {
   try {

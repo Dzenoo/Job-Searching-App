@@ -1,3 +1,4 @@
+import * as notifications from "./controllers/notifications/notifications.controllers";
 import * as jobs from "./controllers/jobs/jobs.controllers";
 import * as employers from "./controllers/employers/employers.controllers";
 import * as seekers from "./controllers/seekers/seekers.controllers";
@@ -106,10 +107,16 @@ export function initializePrivateRoutes(app: Express): void {
     generateCoverLetter,
     getApplicationsForJob,
   } = applications;
+  const { readNotificationsData } = notifications;
 
   generateRoutes(
     app,
     [
+      {
+        method: EXPRESS_APP_METHODS.PATCH,
+        path: "/notifications/:notification",
+        handlers: [readNotificationsData],
+      },
       {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/type-message/:employerId/:seekerId",

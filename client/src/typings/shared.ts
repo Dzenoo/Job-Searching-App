@@ -3,6 +3,7 @@ import { JobTypes } from "./jobs";
 import { SeekerTypes } from "./seekers";
 
 type NotificationTypes = {
+  _id: string;
   title: string;
   message: string;
   date: string;

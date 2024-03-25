@@ -17,7 +17,7 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
       <div className="flex flex-col gap-3">
         {notifications?.map((notification) => (
           <NotificationsItem
-            key={notification?.title}
+            key={notification?._id}
             notification={notification}
           />
         ))}

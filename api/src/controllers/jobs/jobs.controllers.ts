@@ -4,6 +4,7 @@ import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
+import { io } from "../../server";
 import Notification from "../../models/shared/notifications.schemas";
 
 export const createJob = asyncErrors(
@@ -69,6 +70,8 @@ export const createJob = asyncErrors(
         seeker.notifications.push(createdNotifications._id);
         seeker.save();
       });
+
+      io.emit("notification", createdNotifications);
 
       responseServerHandler({ job: newJob._id }, 201, response);
     } catch (error) {

@@ -15,10 +15,9 @@ const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
       {Array.from(data).map(({ id, href, icon }) => {
         if (href === "/notifications") {
           return (
-            <div>
+            <div key={id}>
               <div className="relative">
                 <Link
-                  key={id}
                   href={href}
                   className={`flex items-center gap-3 transition-colors ${
                     pathname === href && "text-[#0066ff]"

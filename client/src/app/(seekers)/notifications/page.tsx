@@ -2,22 +2,46 @@
 
 import Protected from "@/components/Hoc/Protected";
 import { NotificationsList } from "@/components/Seekers/Notifications";
-import useGetSeeker from "@/hooks/useGetSeeker";
-import React from "react";
+import useAuthentication from "@/hooks/useAuthentication";
+import { getSeekerProfile } from "@/utils/actions/seekers";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 
 const NotificationsPage = () => {
-  const { data: fetchedSeeker } = useGetSeeker();
+  const [notifications, setNotifications] = useState<any>([]);
+  const { token } = useAuthentication().getCookieHandler();
+
+  useEffect(() => {
+    const socket = io("http://localhost:7000");
+
+    getSeekerProfile(token!).then((response) => {
+      setNotifications(response?.seeker.notifications);
+    });
+
+    socket.on("notification", (notification) => {
+      setNotifications((prevNotifications: any) => [
+        ...prevNotifications,
+        notification,
+      ]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <section className="py-16 mx-40 overflow-auto flex flex-col gap-10 max-xl:mx-0">
       <div>
         <h1 className="text-base-black">
-          Notifications ({fetchedSeeker?.seeker.notifications.length})
+          Notifications ({notifications.length})
         </h1>
       </div>
       <div>
         <NotificationsList
-          notifications={fetchedSeeker?.seeker.notifications || []}
+          notifications={notifications.sort(
+            (a: any, b: any) => b.createdAt - a.createdAt
+          )}
         />
       </div>
     </section>

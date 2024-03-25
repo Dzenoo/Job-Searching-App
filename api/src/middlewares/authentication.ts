@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 import { responseServerHandler } from "../utils/validation";
-import { NextFunction, Request, Response } from "express";
 
 export const authenticateUser = (
   request: Request,
@@ -15,45 +15,43 @@ export const authenticateUser = (
 
   jwt.verify(token, process.env.JWT_SECRET!, (err: any, decoded: any) => {
     if (err) {
+      let errorMessage = "Unauthorized - Invalid token";
+      if (err.name === "TokenExpiredError") {
+        errorMessage = "Unauthorized - Token expired";
+      } else if (err.name === "JsonWebTokenError") {
+        errorMessage = "Unauthorized - Invalid token";
+      }
+
+      return responseServerHandler(errorMessage, 401, response);
+    }
+
+    // @ts-ignore
+    request.user = decoded;
+
+    // @ts-ignore
+    if (!request.user) {
       return responseServerHandler(
-        "Unauthorized - Invalid token",
+        "Unauthorized - User not authenticated",
         401,
         response
       );
     }
 
-    const userType: string = decoded.userType;
-
-    if (userType === "seeker") {
-      // @ts-ignore
-      request.user = decoded;
-      if (request.path.startsWith("/seeker")) {
-        next();
-      } else {
-        return responseServerHandler(
-          "Unauthorized - Seekers cannot access employer routes",
-          403,
-          response
-        );
-      }
-    } else if (userType === "employer") {
-      // @ts-ignore
-      request.user = decoded;
-      if (request.path.includes("/employer")) {
-        next();
-      } else {
-        return responseServerHandler(
-          "Unauthorized - Employers cannot access seeker routes",
-          403,
-          response
-        );
-      }
-    } else {
+    const userType = decoded.userType;
+    if (userType === "seeker" && request.path.startsWith("/employer")) {
       return responseServerHandler(
-        "Unauthorized - Invalid user type",
+        "Unauthorized - Seekers cannot access employer routes",
+        403,
+        response
+      );
+    } else if (userType === "employer" && request.path.startsWith("/seeker")) {
+      return responseServerHandler(
+        "Unauthorized - Employers cannot access seeker routes",
         403,
         response
       );
     }
+
+    next();
   });
 };

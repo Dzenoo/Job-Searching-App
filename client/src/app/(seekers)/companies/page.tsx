@@ -34,7 +34,6 @@ const Companies = ({
       }),
     queryKey: ["companies"],
   });
-
   useEffect(() => {
     refetch();
   }, [searchParams]);

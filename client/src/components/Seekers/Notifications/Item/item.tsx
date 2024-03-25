@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NotificationsItemProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 import Image from "next/image";
 import { formatDate } from "@/utils/date";
 import { Calendar } from "lucide-react";
 import { LinkElement } from "@/components/Shared/Link";
+import { useMutation } from "react-query";
+import { readNotificationsData } from "@/utils/actions/shared";
+import { toast } from "react-toastify";
+import { queryClient } from "@/contexts/react-query-client";
+import useAuthentication from "@/hooks/useAuthentication";
 
 const NotificationsItem: React.FC<NotificationsItemProps> = ({
   notification,
 }) => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { mutateAsync: readNotificationsMutate } = useMutation({
+    mutationFn: () => readNotificationsData(token!, notification?._id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["profile"]);
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
   const formattedDate = formatDate(notification?.date);
 
   const isJobAlerts = notification.type === "jobs";
@@ -16,10 +32,10 @@ const NotificationsItem: React.FC<NotificationsItemProps> = ({
   const employerImageUrl = notification?.data.employerImage.includes("https:")
     ? notification?.data.employerImage
     : `https://job-searching-application.s3.amazonaws.com/${notification?.data?.image}`;
-  console.log(notification?.isRead);
 
   return (
     <Card
+      onClick={async () => await readNotificationsMutate()}
       className={`cursor-pointer ${
         !notification?.isRead ? "border-blue-600 dark:border-blue-600" : ""
       }`}
