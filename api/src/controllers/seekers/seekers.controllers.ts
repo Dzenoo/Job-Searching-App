@@ -1,6 +1,6 @@
 import { asyncErrors } from "../../errors";
 import { validate, responseServerHandler } from "../../utils/validation";
-import { initializeAws } from "../../utils/aws";
+import { deleteFromAws, initializeAws } from "../../utils/aws";
 import { uuidv7 } from "uuidv7";
 import Seeker from "../../models/seeker/seekers.schemas";
 import Employer from "../../models/employer/employers.schemas";
@@ -200,11 +200,11 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
     });
 
     if (request.file) {
-      // const currentSeeker = await Seeker.findById(seekerId);
+      const currentSeeker = await Seeker.findById(seekerId);
 
-      // Delete the existing image from AWS S3
-      // if (currentSeeker.image) {
-      // }
+      if (currentSeeker.image.includes("seekers")) {
+        await deleteFromAws(currentSeeker.image.split("/")[1], "seekers");
+      }
 
       const result = uuidv7();
       const imageKey = `seeker_${result}.png`;
