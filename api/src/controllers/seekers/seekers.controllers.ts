@@ -127,8 +127,8 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
 
     const seeker = await Seeker.findById(seekerId)
       .populate({
-        path: "directMessages.messages",
-        select: "content sender createdAt",
+        path: "notifications",
+        options: { skip, limit: Number(limit) },
       })
       .populate({
         path: "savedJobs",
@@ -152,6 +152,10 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
           },
         },
         select: "_id status createdAt updatedAt",
+      })
+      .populate({
+        path: "directMessages.messages",
+        select: "content sender createdAt",
       })
       .select(
         "_id first_name last_name email biography image education skills alerts github linkedin portfolio following events notifications"

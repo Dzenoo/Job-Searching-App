@@ -6,6 +6,15 @@ type NotificationTypes = {
   title: string;
   message: string;
   date: string;
+  data: any;
+  isRead: boolean;
+  type:
+    | "jobs"
+    | "applications"
+    | "messages"
+    | "reviews"
+    | "events"
+    | "followers";
 };
 
 type SeekerDirectMessagesTypes = {

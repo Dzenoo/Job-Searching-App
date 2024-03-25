@@ -61,18 +61,8 @@ const SeekerSchema = new mongoose.Schema(
     },
     notifications: [
       {
-        title: {
-          type: String,
-          required: true,
-        },
-        message: {
-          type: String,
-          required: true,
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-        },
+        type: mongoose.Types.ObjectId,
+        ref: "Notification",
       },
     ],
     applications: [

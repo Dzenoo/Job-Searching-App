@@ -4,6 +4,7 @@ import Job from "../../models/shared/jobs.schemas";
 import Employer from "../../models/employer/employers.schemas";
 import Application from "../../models/shared/applications.schemas";
 import Seeker from "../../models/seeker/seekers.schemas";
+import Notification from "../../models/shared/notifications.schemas";
 
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
@@ -11,6 +12,7 @@ export const createJob = asyncErrors(
       // @ts-ignore
       const { employerId } = request.user;
       const jobData = request.body;
+      const employer = await Employer.findById(employerId);
 
       const allowedProperties = [
         "title",
@@ -52,12 +54,19 @@ export const createJob = asyncErrors(
         "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
       }).exec();
 
-      matchedSeekers.forEach((seeker) => {
-        seeker.notifications.push({
-          title: "New Matching Job",
-          message: `A new job has been posted matching your alert criteria. ${newJob.title} at ${newJob.location}, ${newJob._id}`,
-        });
+      const createdNotifications = await Notification.create({
+        data: {
+          employerImage: employer.image,
+          jobLocation: newJob.location,
+          idOfJob: newJob._id,
+        },
+        title: "New Matching Job",
+        message: `A new job has been posted matching your alert criteria.`,
+        type: "jobs",
+      });
 
+      matchedSeekers.forEach((seeker) => {
+        seeker.notifications.push(createdNotifications._id);
         seeker.save();
       });
 

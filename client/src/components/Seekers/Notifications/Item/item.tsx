@@ -10,15 +10,24 @@ const NotificationsItem: React.FC<NotificationsItemProps> = ({
   notification,
 }) => {
   const formattedDate = formatDate(notification?.date);
-  const notificationMessage = notification?.message.split(",")[0];
-  const nId = notification?.message.split(",")[1].trim();
+
+  const isJobAlerts = notification.type === "jobs";
+
+  const employerImageUrl = notification?.data.employerImage.includes("https:")
+    ? notification?.data.employerImage
+    : `https://job-searching-application.s3.amazonaws.com/${notification?.data?.image}`;
+  console.log(notification?.isRead);
 
   return (
-    <Card>
+    <Card
+      className={`cursor-pointer ${
+        !notification?.isRead ? "border-blue-600 dark:border-blue-600" : ""
+      }`}
+    >
       <div className="flex gap-3 items-center max-sm:flex-wrap">
         <CardHeader>
           <Image
-            src="/images/company.png"
+            src={employerImageUrl}
             alt="notifications"
             width={100}
             height={100}
@@ -30,23 +39,25 @@ const NotificationsItem: React.FC<NotificationsItemProps> = ({
               <h1 className="font-bold">{notification?.title}</h1>
             </div>
             <div>
-              <p className="text-initial-gray">{notificationMessage}</p>
+              <p className="text-initial-gray">
+                {notification?.message} {notification?.data.jobLocation}
+              </p>
             </div>
             <div className="flex items-center gap-3">
               <div>
                 <Calendar />
               </div>
               <div>
-                <h1 className="text-initial-white">{formattedDate}</h1>
+                <h1 className="dark:text-white">{formattedDate}</h1>
               </div>
             </div>
           </div>
-          {nId && (
+          {isJobAlerts && (
             <div>
               <LinkElement
                 className="w-full"
                 variant="default"
-                href={`/jobs/${nId}`}
+                href={`/jobs/${notification?.data.idOfJob}`}
               >
                 View
               </LinkElement>
