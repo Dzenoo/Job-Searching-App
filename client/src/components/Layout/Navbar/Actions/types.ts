@@ -6,6 +6,7 @@ type NavbarActionsListProps = {
   }[];
   logout: () => void;
   pathname: string;
+  notifications: number;
 };
 
 export { type NavbarActionsListProps };

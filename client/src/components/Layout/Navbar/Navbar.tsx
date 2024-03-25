@@ -17,6 +17,7 @@ import { Avatar } from "@/components/Shared/Avatar";
 import { useQuery } from "react-query";
 import { getSeekerProfile } from "@/utils/actions/seekers";
 import { getEmployerProfile } from "@/utils/actions/employers";
+import { NotificationTypes } from "@/typings/shared";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -74,6 +75,13 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-6">
           <div>
             <NavbarActionsList
+              notifications={
+                isSeeker
+                  ? fetchedProfile?.seeker.notifications.filter(
+                      (not: NotificationTypes) => !not.isRead
+                    ).length
+                  : 0
+              }
               pathname={pathname}
               logout={deleteCookieHandler}
               data={isSeeker ? SeekersNavbarActions : EmployersNavbarActions}
