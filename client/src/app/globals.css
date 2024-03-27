@@ -22,6 +22,14 @@ body {
   @apply bg-white dark:bg-[#0d0d0d];
 }
 
+::-webkit-scrollbar {
+  @apply w-3;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#1b1b1b];
+}
+
 @layer utilities {
   .text-base-black {
     @apply text-2xl font-bold text-[--black-base-color] dark:text-white;
