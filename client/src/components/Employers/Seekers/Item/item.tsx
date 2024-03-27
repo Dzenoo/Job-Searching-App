@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import { Github, Linkedin, LucideImage } from "lucide-react";
 import Link from "next/link";
+import { getImageUrl } from "@/utils/helpers";
 
 const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   const SocialsArrays = new Array(
@@ -29,9 +30,7 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
     }
   );
 
-  const profileImageUrl = seeker?.image.includes("https:")
-    ? seeker?.image
-    : `https://job-searching-application.s3.amazonaws.com/${seeker?.image}`;
+  const profileImageUrl = getImageUrl(seeker?.image);
 
   return (
     <Card className="overflow-hidden">

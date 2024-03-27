@@ -22,3 +22,9 @@ export const getEmployerProfile = async (
   token: string
 ): Promise<{ employer: EmployerTypes }> =>
   await getApiHandler(`employer`, token);
+
+export const getSeekerById = async (
+  seekerId: string,
+  token: string
+): Promise<{ seeker: SeekerTypes }> =>
+  await getApiHandler(`employer/seekers/${seekerId}`, token);

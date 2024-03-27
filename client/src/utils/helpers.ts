@@ -29,3 +29,9 @@ export const findIndustriesData = (industry: string) => {
 
   return foundedIndustry;
 };
+
+export const getImageUrl = (image: string) => {
+  return image?.includes("https:")
+    ? image
+    : `https://job-searching-application.s3.amazonaws.com/${image}`;
+};

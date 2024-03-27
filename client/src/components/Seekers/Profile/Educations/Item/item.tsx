@@ -17,7 +17,7 @@ const EducationItem: React.FC<EducationItemProps> = ({
   graduationDate,
   institution,
 }) => {
-  const { token } = useAuthentication().getCookieHandler();
+  const { userType, token } = useAuthentication().getCookieHandler();
   const { mutateAsync: deleteEducationMutate } = useMutation({
     mutationFn: () => deleteEducation(_id, token!),
     onSuccess: (response) => {
@@ -55,11 +55,13 @@ const EducationItem: React.FC<EducationItemProps> = ({
           </div>
         </div>
         <div className="flex items-end lg:flex-col max-lg:justify-between max-lg:items-center">
-          <div>
-            <button onClick={async () => await deleteEducationMutate()}>
-              <Trash color="red" />
-            </button>
-          </div>
+          {userType === "seeker" && (
+            <div>
+              <button onClick={async () => await deleteEducationMutate()}>
+                <Trash color="red" />
+              </button>
+            </div>
+          )}
           <div>
             {renderIconText({
               id: "1",

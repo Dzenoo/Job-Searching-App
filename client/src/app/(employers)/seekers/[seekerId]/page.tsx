@@ -1,0 +1,32 @@
+"use client";
+
+import { SeekerDetailsInfo } from "@/components/Employers/Seekers/Details";
+import Protected from "@/components/Hoc/Protected";
+import useAuthentication from "@/hooks/useAuthentication";
+import { getSeekerById } from "@/utils/actions/employers";
+import React from "react";
+import { useQuery } from "react-query";
+
+const SeekerDetailsPage = ({
+  params: { seekerId },
+}: {
+  params: { seekerId: string };
+}) => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { data: fetchedSeeker, isLoading } = useQuery({
+    queryFn: () => getSeekerById(seekerId, token as string),
+    queryKey: ["seeker", { seekerId }],
+  });
+
+  return (
+    <section className="py-16 flex gap-[10px] max-xl:flex-col">
+      <div className="basis-60"></div>
+      <div className="basis-full grow flex flex-col gap-6">
+        <SeekerDetailsInfo seeker={fetchedSeeker?.seeker!} />
+      </div>
+      <div className="basis-[27em]">Filters</div>
+    </section>
+  );
+};
+
+export default Protected(SeekerDetailsPage, ["employer"]);
