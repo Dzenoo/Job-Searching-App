@@ -32,7 +32,7 @@ const SeekersPage = ({
   }, [searchParams]);
 
   return (
-    <section className="flex gap-3 overflow-auto max-xl:flex-col py-16">
+    <section className="flex overflow-auto gap-[10px] max-xl:flex-col py-16">
       <div className="basis-1/2"></div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>

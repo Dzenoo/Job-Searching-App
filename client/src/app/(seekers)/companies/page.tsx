@@ -39,7 +39,7 @@ const Companies = ({
   }, [searchParams]);
 
   return (
-    <section className="flex flex-col gap-7 py-6">
+    <section className="flex flex-col gap-[10px] py-6">
       <div>
         <SearchEmployers />
       </div>

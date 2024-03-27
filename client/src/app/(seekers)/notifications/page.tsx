@@ -31,7 +31,7 @@ const NotificationsPage = () => {
   }, []);
 
   return (
-    <section className="py-16 mx-40 overflow-auto flex flex-col gap-10 max-xl:mx-0">
+    <section className="py-16 mx-40 overflow-auto flex flex-col gap-[10px] max-xl:mx-0">
       <div>
         <h1 className="text-base-black">
           Notifications ({notifications.length})
