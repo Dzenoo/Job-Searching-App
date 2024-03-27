@@ -16,7 +16,7 @@ import { renderIconText } from "@/utils/jsx/render-icon-text";
 const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const isJobExpired = checkExpired(job.expiration_date);
   const expirationDate = formatDate(job.expiration_date);
-  const createdTime = getTime(job.expiration_date);
+  const createdTime = getTime(job.createdAt);
 
   let FooterInfoData = new Array(
     {
