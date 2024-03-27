@@ -4,6 +4,7 @@ import { SeekersList } from "@/components/Employers/Seekers";
 import { FilterSeekers } from "@/components/Employers/Seekers/Filters";
 import { SearchSeekers } from "@/components/Employers/Seekers/Search";
 import Protected from "@/components/Hoc/Protected";
+import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekers } from "@/utils/actions/employers";
 import React, { useEffect } from "react";
@@ -40,6 +41,16 @@ const SeekersPage = ({
         <div>
           <SeekersList seekers={fetchedSeekers?.seekers || []} />
         </div>
+        {fetchedSeekers && fetchedSeekers?.seekers.length > 0 && (
+          <div className="py-6">
+            <Pagination
+              totalItems={fetchedSeekers?.totalSeekers}
+              itemsPerPage={10}
+              currentPage={Number(searchParams?.page) || 1}
+              visiblePages={6}
+            />
+          </div>
+        )}
       </div>
       <div className="basis-1/2">
         <FilterSeekers />
