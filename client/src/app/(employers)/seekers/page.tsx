@@ -1,6 +1,7 @@
 "use client";
 
 import { SeekersList } from "@/components/Employers/Seekers";
+import { SearchSeekers } from "@/components/Employers/Seekers/Search";
 import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekers } from "@/utils/actions/employers";
@@ -29,9 +30,12 @@ const SeekersPage = ({
   }, [searchParams]);
 
   return (
-    <section className="flex gap-3 overflow-auto max-xl:flex-col">
+    <section className="flex gap-3 overflow-auto max-xl:flex-col py-16">
       <div className="basis-1/2">div</div>
-      <div className="basis-full grow">
+      <div className="basis-full grow flex flex-col gap-6">
+        <div>
+          <SearchSeekers />
+        </div>
         <div>
           <SeekersList seekers={fetchedSeekers?.seekers || []} />
         </div>
