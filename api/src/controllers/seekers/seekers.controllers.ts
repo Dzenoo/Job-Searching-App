@@ -327,11 +327,18 @@ export const getSeekers = asyncErrors(async (request, response) => {
       ];
     }
 
-    if (skills && typeof skills === "string") {
-      conditions.skills = { $in: skills.split(",") };
-    } else {
-      conditions.skills = [];
+    if (skills) {
+      // Check if skills is a string and convert it to an array
+      const fitleredSkills =
+        typeof skills === "string" ? skills.split(",") : skills;
+      conditions.skills = { $in: fitleredSkills };
     }
+
+    // if (skills) {
+    //   conditions.skills = Array.isArray(skills)
+    //     ? { $in: skills }
+    //     : skills.toString().split(",");
+    // }
 
     const seekers = await Seeker.find(conditions)
       .skip((Number(page) - 1) * Number(limit))
@@ -341,6 +348,8 @@ export const getSeekers = asyncErrors(async (request, response) => {
       )
       .exec();
 
+    const totalSeekers = await Seeker.countDocuments(conditions);
+
     if (!seekers) {
       return responseServerHandler(
         { message: "Cannot Find Seekers" },
@@ -349,7 +358,11 @@ export const getSeekers = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ seekers: seekers }, 200, response);
+    responseServerHandler(
+      { seekers: seekers, totalSeekers: totalSeekers },
+      200,
+      response
+    );
   } catch (errors) {
     responseServerHandler(
       { message: "Cannot get seekers, please try again" },

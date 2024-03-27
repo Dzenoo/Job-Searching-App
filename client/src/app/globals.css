@@ -96,7 +96,7 @@ body {
   }
 
   .tag {
-    @apply border border-gray-300 rounded-lg px-3 py-1 overflow-auto dark:border-gray-600 dark:hover:bg-[#0d0d0d] transition-all;
+    @apply border border-gray-300 rounded-lg px-3 py-1 dark:border-gray-600 dark:hover:bg-[#0d0d0d] transition-all;
   }
 }
 
