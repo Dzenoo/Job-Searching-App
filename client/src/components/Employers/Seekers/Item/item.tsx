@@ -54,6 +54,9 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
         <div>
           <p className="text-initial-gray">{seeker?.email}</p>
         </div>
+        <div>
+          <p>{seeker?.overview}</p>
+        </div>
         <div className="flex items-center gap-10 pt-3">
           {SocialsArrays.map((socials) => (
             <Link href={socials.href} key={socials.id} target="_blank">

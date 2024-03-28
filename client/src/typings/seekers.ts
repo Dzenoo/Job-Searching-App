@@ -24,6 +24,7 @@ type SeekerTypes = {
   github: string;
   notifications: NotificationTypes[];
   applications: ApplicationsTypes[];
+  overview: string;
   skills: string[];
   education: {
     _id: string;

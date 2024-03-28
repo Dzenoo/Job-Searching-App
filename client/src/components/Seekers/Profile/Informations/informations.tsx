@@ -28,6 +28,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
     if (isEditMode && seeker) {
       setValue("first_name", seeker.first_name || "");
       setValue("last_name", seeker.last_name || "");
+      setValue("overview", seeker.overview || "");
       setValue("biography", seeker.biography || "");
     }
   }, [isEditMode, seeker, setValue]);
@@ -39,6 +40,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
 
     formData.append("first_name", values.first_name);
     formData.append("last_name", values.last_name);
+    formData.append("overview", values.overview);
     formData.append("biography", values.biography);
 
     await editSeekerProfileMutate(formData);
@@ -98,6 +100,16 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
                 </div>
               ))}
             </div>
+            <div>
+              <div>
+                <h1>Overview</h1>
+              </div>
+              <div>
+                <p className="text-initial-gray">
+                  {seeker?.overview || "No Overview Defined"}
+                </p>
+              </div>
+            </div>
             <div className="flex flex-col gap-[3px]">
               <div>
                 <h1 className="text-initial-black">Biography</h1>
@@ -149,6 +161,23 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
                 )}
               </FormItem>
             </div>
+            <FormItem className="w-full">
+              <Controller
+                name="overview"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label="Overview"
+                    type="text"
+                    placeholder="Senior Software Engineer..."
+                  />
+                )}
+              />
+              {errors.overview?.message && (
+                <FormInfo variant="danger">{errors.overview.message}</FormInfo>
+              )}
+            </FormItem>
             <FormItem className="w-full">
               <Controller
                 name="biography"

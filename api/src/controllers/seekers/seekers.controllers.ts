@@ -158,7 +158,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         select: "content sender createdAt",
       })
       .select(
-        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following events notifications"
+        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following events notifications overview"
       )
       .exec();
 
@@ -195,6 +195,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       "skills",
       "image",
       "biography",
+      "overview",
     ];
 
     validate(allowedProperties, updateData, (error, message) => {
@@ -323,7 +324,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
       conditions.$or = [
         { first_name: { $regex: new RegExp(String(search), "i") } },
         { email: { $regex: new RegExp(String(search), "i") } },
-        { github: { $regex: new RegExp(String(search), "i") } },
+        { overview: { $regex: new RegExp(String(search), "i") } },
       ];
     }
 
@@ -344,7 +345,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit))
       .select(
-        "_id first_name last_name email skills github linkedin portfolio image"
+        "_id first_name last_name email skills github linkedin portfolio image overview"
       )
       .exec();
 

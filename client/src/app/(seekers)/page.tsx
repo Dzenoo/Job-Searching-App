@@ -18,7 +18,6 @@ const JobsList = dynamic(
     loading: () => <LoadingJobsSkeleton />,
   }
 );
-
 const Jobs = ({
   searchParams,
 }: {
