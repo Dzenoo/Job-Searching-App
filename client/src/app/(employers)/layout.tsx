@@ -31,7 +31,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <AppThemeProvider>
             <Navbar />
-            <main className="base-margin">{children}</main>
+            <main>{children}</main>
             <Footer />
             <ToastContainer />
           </AppThemeProvider>
