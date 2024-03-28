@@ -56,6 +56,9 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
               <div>
                 <p className="text-initial-gray">{seeker?.email}</p>
               </div>
+              <div>
+                <p className="text-initial-black">{seeker?.overview}</p>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-10">
@@ -113,6 +116,11 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
                       </div>
                     </div>
                   )
+              )}
+            </div>
+            <div className="text-center">
+              {seeker?.skills.length === 0 && (
+                <p className="text-initial-gray">No Skills Founded</p>
               )}
             </div>
           </div>

@@ -25,5 +25,4 @@ const SearchSeekers: React.FC<SearchSeekersProps> = () => {
     </div>
   );
 };
-
 export { SearchSeekers };

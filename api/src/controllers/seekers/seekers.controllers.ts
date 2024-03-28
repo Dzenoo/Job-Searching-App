@@ -376,7 +376,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
 export const getSeekerById = asyncErrors(async (request, response) => {
   try {
     const seeker = await Seeker.findById(request.params.seekerId).select(
-      "_id first_name last_name email biography education skills github linkedin portfolio image"
+      "_id first_name last_name email biography education skills github linkedin portfolio image overview"
     );
 
     if (!seeker) {
