@@ -14,8 +14,8 @@ import {
   Calendar,
   CalendarCheck,
   GraduationCap,
-  LayoutTemplate,
   MapPin,
+  LayoutTemplate,
 } from "lucide-react";
 import Link from "next/link";
 import { formatDate } from "@/utils/date";
