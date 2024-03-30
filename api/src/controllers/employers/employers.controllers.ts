@@ -7,6 +7,8 @@ import Job from "../../models/shared/jobs.schemas";
 import Event from "../../models/employer/events.schemas";
 import { uuidv7 } from "uuidv7";
 import { initializeAws } from "../../utils/aws";
+import Application from "../../models/shared/applications.schemas";
+import Notification from "../../models/shared/notifications.schemas";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -147,6 +149,12 @@ export const followEmployer = asyncErrors(async (request, response) => {
       );
     }
 
+    const newNotification = await Notification.create({
+      title: "New Followers Notification",
+      message: `${seeker.first_name} is now following you`,
+      type: "followers",
+    });
+
     const isFollowing = employer.followers.includes(seekerId);
 
     if (isFollowing) {
@@ -165,10 +173,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
       await Employer.findByIdAndUpdate(employerId, {
         $push: {
           followers: seekerId,
-          notifications: {
-            title: "New Followers Notification",
-            message: `${seeker.first_name} is now following you`,
-          },
+          notifications: newNotification._id,
         },
       });
       await Seeker.findByIdAndUpdate(seekerId, {
@@ -181,6 +186,8 @@ export const followEmployer = asyncErrors(async (request, response) => {
       );
     }
   } catch (error) {
+    console.log(error);
+
     responseServerHandler(
       {
         message: "Cannot follow or unfollow employer profile, please try again",
@@ -283,42 +290,9 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       );
     }
 
-    const totalJobsData = await Job.countDocuments({ company: employerId });
-    const totalEventsData = await Event.countDocuments({ company: employerId });
-    const totalReviewsData = await Review.countDocuments({
-      company: employerId,
-    });
-    const totalApplicationsData = await Job.aggregate([
-      {
-        $match: { company: employerId },
-      },
-      {
-        $lookup: {
-          from: "applications",
-          localField: "applications",
-          foreignField: "_id",
-          as: "applications",
-        },
-      },
-      {
-        $project: {
-          totalApplications: { $size: "$applications" },
-        },
-      },
-    ]);
-
-    const totalApplicationsCount = totalApplicationsData.reduce(
-      (total, job) => total + job.totalApplications,
-      0
-    );
-
     responseServerHandler(
       {
         employer: employer,
-        totalJobsData: totalJobsData,
-        totalEventsData: totalEventsData,
-        totalReviewsData: totalReviewsData,
-        totalApplications: totalApplicationsCount,
       },
       201,
       response
@@ -566,3 +540,124 @@ export const getEmployers = asyncErrors(async (request, response) => {
     responseServerHandler({ message: "Cannot get employers" }, 400, response);
   }
 });
+
+export const getEmployerAnalytics = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+
+    const jobs = await Job.find({ company: employerId }).select("_id").exec();
+    const jobIds = jobs.map((job) => job._id);
+
+    const [
+      totalJobsData,
+      totalEventsData,
+      totalReviewsData,
+      totalApplicationsData,
+      jobsPerMonth,
+      totalFollowersOverTime,
+      jobTypes,
+    ] = await Promise.all([
+      Job.countDocuments({ company: employerId }),
+      Event.countDocuments({ company: employerId }),
+      Review.countDocuments({ company: employerId }),
+      Application.countDocuments({
+        job: { $in: jobIds },
+      }),
+      getJobsPerMonth(employerId),
+      getTotalFollowersOverTime(employerId),
+      getJobTypes(employerId),
+    ]);
+
+    responseServerHandler(
+      {
+        totalJobsData,
+        totalEventsData,
+        totalReviewsData,
+        totalApplications: totalApplicationsData,
+        jobsPerMonth,
+        totalFollowersOverTime,
+        jobTypes,
+      },
+      201,
+      response
+    );
+  } catch (error) {
+    responseServerHandler(
+      { message: "Cannot get analytics, please try again" },
+      400,
+      response
+    );
+  }
+});
+
+async function getJobsPerMonth(employerId: string) {
+  const currentMonth = new Date().getMonth() + 1;
+  const months = Array.from({ length: 6 }, (_, i) =>
+    currentMonth - i <= 0 ? currentMonth - i + 12 : currentMonth - i
+  );
+
+  const jobsData = await Promise.all(
+    months.map(async (month) => {
+      const startOfMonth = new Date(new Date().getFullYear(), month - 1, 1);
+      const endOfMonth = new Date(
+        new Date().getFullYear(),
+        month,
+        0,
+        23,
+        59,
+        59
+      );
+
+      const filteredJobs = await Job.find({
+        company: employerId,
+        createdAt: { $gte: startOfMonth, $lte: endOfMonth },
+      }).exec();
+
+      return { _id: month, count: filteredJobs.length };
+    })
+  );
+
+  return jobsData.map((item) => item.count);
+}
+
+async function getTotalFollowersOverTime(employerId: string) {
+  const employer = await Employer.findById(employerId).exec();
+  const followersPerMonth = await Promise.all(
+    employer.followers.map(async (followerId: string) => {
+      const follower = await Seeker.findById(followerId);
+      const month = new Date(follower.createdAt).getMonth() + 1;
+      return month;
+    })
+  );
+
+  const totalFollowersOverTime = Array.from(
+    { length: 6 },
+    (_, i) => followersPerMonth.filter((month) => month === i + 1).length
+  );
+
+  return totalFollowersOverTime;
+}
+
+async function getJobTypes(employerId: string) {
+  const jobIds = (await Job.find({ company: employerId }, "_id").exec()).map(
+    (job) => job._id
+  );
+
+  const jobTypesData = await Job.aggregate([
+    {
+      $match: { _id: { $in: jobIds } },
+    },
+    {
+      $group: {
+        _id: "$type",
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  return jobTypesData.map((item) => ({
+    label: item._id,
+    value: item.count,
+  }));
+}

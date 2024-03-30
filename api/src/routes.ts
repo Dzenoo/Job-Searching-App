@@ -100,6 +100,7 @@ export function initializePrivateRoutes(app: Express): void {
     deleteEmployerProfile,
     getEmployerById,
     getEmployers,
+    getEmployerAnalytics,
   } = employers;
   const {
     applyToJob,
@@ -286,6 +287,11 @@ export function initializePrivateRoutes(app: Express): void {
         method: EXPRESS_APP_METHODS.PATCH,
         path: "/employer/:applicationId/status",
         handlers: [updateApplicationStatus],
+      },
+      {
+        method: EXPRESS_APP_METHODS.GET,
+        path: "/employer/analytics",
+        handlers: [getEmployerAnalytics],
       },
     ],
     true

@@ -1,12 +1,24 @@
 "use client";
 
+import Followers from "@/components/Employers/Dashboard/Overview/Charts/Followers";
+import JobsPerMonth from "@/components/Employers/Dashboard/Overview/Charts/JobsPerMonth";
+import Types from "@/components/Employers/Dashboard/Overview/Charts/Types";
 import { Statistics } from "@/components/Employers/Dashboard/Overview/Statistics";
 import Protected from "@/components/Hoc/Protected";
+import useAuthentication from "@/hooks/useAuthentication";
 import useGetEmployer from "@/hooks/useGetEmployer";
+import { getEmployerAnalytics } from "@/utils/actions/employers";
 import React from "react";
+import { useQuery } from "react-query";
 
 const Dashboard = () => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { data: analytics } = useQuery({
+    queryFn: () => getEmployerAnalytics(token as string),
+    queryKey: ["analytics"],
+  });
   const { data: fetchedEmployer } = useGetEmployer();
+  console.log(analytics?.jobsPerMonth);
 
   return (
     <section className="flex flex-col gap-3">
@@ -22,11 +34,22 @@ const Dashboard = () => {
       </div>
       <div>
         <Statistics
-          totalJobs={fetchedEmployer?.totalJobsData || 0}
-          totalEvents={fetchedEmployer?.totalEventsData || 0}
-          totalReviews={fetchedEmployer?.totalReviewsData || 0}
-          totalApplications={fetchedEmployer?.totalApplications || 0}
+          totalJobs={analytics?.totalJobsData || 0}
+          totalEvents={analytics?.totalEventsData || 0}
+          totalReviews={analytics?.totalReviewsData || 0}
+          totalApplications={analytics?.totalApplications || 0}
         />
+      </div>
+      <div className="grid gap-3 grid-cols-3">
+        <div>
+          <JobsPerMonth data={analytics?.jobsPerMonth} />
+        </div>
+        <div>
+          <Followers data={analytics?.totalFollowersOverTime} />
+        </div>
+        <div>
+          <Types data={analytics?.jobTypes} />
+        </div>
       </div>
     </section>
   );
