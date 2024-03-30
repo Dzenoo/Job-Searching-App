@@ -283,7 +283,46 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ employer: employer }, 201, response);
+    const totalJobsData = await Job.countDocuments({ company: employerId });
+    const totalEventsData = await Event.countDocuments({ company: employerId });
+    const totalReviewsData = await Review.countDocuments({
+      company: employerId,
+    });
+    const totalApplicationsData = await Job.aggregate([
+      {
+        $match: { company: employerId },
+      },
+      {
+        $lookup: {
+          from: "applications",
+          localField: "applications",
+          foreignField: "_id",
+          as: "applications",
+        },
+      },
+      {
+        $project: {
+          totalApplications: { $size: "$applications" },
+        },
+      },
+    ]);
+
+    const totalApplicationsCount = totalApplicationsData.reduce(
+      (total, job) => total + job.totalApplications,
+      0
+    );
+
+    responseServerHandler(
+      {
+        employer: employer,
+        totalJobsData: totalJobsData,
+        totalEventsData: totalEventsData,
+        totalReviewsData: totalReviewsData,
+        totalApplications: totalApplicationsCount,
+      },
+      201,
+      response
+    );
   } catch (error) {
     responseServerHandler(
       { message: "Cannot get profile, please try again" },

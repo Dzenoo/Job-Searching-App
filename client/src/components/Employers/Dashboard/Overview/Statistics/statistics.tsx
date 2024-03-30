@@ -8,30 +8,35 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 
-const Statistics: React.FC<StatisticsProps> = () => {
+const Statistics: React.FC<StatisticsProps> = ({
+  totalApplications,
+  totalEvents,
+  totalReviews,
+  totalJobs,
+}) => {
   const StatisticsData = new Array(
     {
       id: "1",
       title: "Total Jobs",
-      data: 36,
+      data: totalJobs,
       icon: <Briefcase color="#0066FF" />,
     },
     {
       id: "2",
       title: "Total Reviews",
-      data: 30,
+      data: totalReviews,
       icon: <MessageSquareDot color="#00C7E2" />,
     },
     {
       id: "3",
       title: "Total Events",
-      data: 13,
+      data: totalEvents,
       icon: <FileText color="#9225FF" />,
     },
     {
       id: "4",
       title: "Total Applications",
-      data: 163,
+      data: totalApplications,
       icon: <CalendarSearch color="#007D05" />,
     }
   );
