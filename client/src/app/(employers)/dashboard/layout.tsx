@@ -7,7 +7,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div>
         <EmployersDashboardNavbar />
       </div>
-      <div className="p-3">{children}</div>
+      <div className="p-6">{children}</div>
     </div>
   );
 };
