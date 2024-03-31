@@ -9,6 +9,7 @@ import { uuidv7 } from "uuidv7";
 import { initializeAws } from "../../utils/aws";
 import Application from "../../models/shared/applications.schemas";
 import Notification from "../../models/shared/notifications.schemas";
+import mongoose from "mongoose";
 
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
@@ -546,108 +547,85 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
     // @ts-ignore
     const { employerId } = request.user;
 
-    const jobs = await Job.find({ company: employerId }).select("_id").exec();
-    const jobIds = jobs.map((job) => job._id);
+    const totalJobs = await Job.countDocuments({ company: employerId });
+    const totalEvents = await Event.countDocuments({ company: employerId });
+    const totalReviews = await Review.countDocuments({ company: employerId });
+    const totalApplications = await Application.countDocuments({
+      job: { $in: await Job.find({ company: employerId }).distinct("_id") },
+    });
 
-    const [
-      totalJobsData,
-      totalEventsData,
-      totalReviewsData,
-      totalApplicationsData,
+    const jobsPerMonth = await getJobsPerMonth(employerId);
+    const followersOverTime = await getFollowersOverTime(employerId);
+    const jobTypes = await getJobTypes(employerId);
+
+    response.status(200).json({
+      totalJobs,
+      totalEvents,
+      totalReviews,
+      totalApplications,
       jobsPerMonth,
-      totalFollowersOverTime,
+      followersOverTime,
       jobTypes,
-    ] = await Promise.all([
-      Job.countDocuments({ company: employerId }),
-      Event.countDocuments({ company: employerId }),
-      Review.countDocuments({ company: employerId }),
-      Application.countDocuments({
-        job: { $in: jobIds },
-      }),
-      getJobsPerMonth(employerId),
-      getTotalFollowersOverTime(employerId),
-      getJobTypes(employerId),
-    ]);
-
-    responseServerHandler(
-      {
-        totalJobsData,
-        totalEventsData,
-        totalReviewsData,
-        totalApplications: totalApplicationsData,
-        jobsPerMonth,
-        totalFollowersOverTime,
-        jobTypes,
-      },
-      201,
-      response
-    );
+    });
   } catch (error) {
-    responseServerHandler(
-      { message: "Cannot get analytics, please try again" },
-      400,
-      response
-    );
+    console.error("Error getting employer analytics:", error);
+    response.status(500).json({ message: "Internal server error" });
   }
 });
 
-async function getJobsPerMonth(employerId: string) {
-  const currentMonth = new Date().getMonth() + 1;
-  const months = Array.from({ length: 6 }, (_, i) =>
-    currentMonth - i <= 0 ? currentMonth - i + 12 : currentMonth - i
-  );
+const getJobsPerMonth = async (employerId: string) => {
+  const objectIdEmployerId = new mongoose.Types.ObjectId(employerId);
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
+  sixMonthsAgo.setDate(1);
+  sixMonthsAgo.setHours(0, 0, 0, 0);
 
-  const jobsData = await Promise.all(
-    months.map(async (month) => {
-      const startOfMonth = new Date(new Date().getFullYear(), month - 1, 1);
-      const endOfMonth = new Date(
-        new Date().getFullYear(),
-        month,
-        0,
-        23,
-        59,
-        59
-      );
-
-      const filteredJobs = await Job.find({
-        company: employerId,
-        createdAt: { $gte: startOfMonth, $lte: endOfMonth },
-      }).exec();
-
-      return { _id: month, count: filteredJobs.length };
-    })
-  );
-
-  return jobsData.map((item) => item.count);
-}
-
-async function getTotalFollowersOverTime(employerId: string) {
-  const employer = await Employer.findById(employerId).exec();
-  const followersPerMonth = await Promise.all(
-    employer.followers.map(async (followerId: string) => {
-      const follower = await Seeker.findById(followerId);
-      const month = new Date(follower.createdAt).getMonth() + 1;
-      return month;
-    })
-  );
-
-  const totalFollowersOverTime = Array.from(
-    { length: 6 },
-    (_, i) => followersPerMonth.filter((month) => month === i + 1).length
-  );
-
-  return totalFollowersOverTime;
-}
-
-async function getJobTypes(employerId: string) {
-  const jobIds = (await Job.find({ company: employerId }, "_id").exec()).map(
-    (job) => job._id
-  );
-
-  const jobTypesData = await Job.aggregate([
+  const jobs = await Job.aggregate([
     {
-      $match: { _id: { $in: jobIds } },
+      $match: {
+        company: objectIdEmployerId,
+        createdAt: { $gte: sixMonthsAgo },
+      },
     },
+    {
+      $group: {
+        _id: { $month: "$createdAt" },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+
+  const jobsPerMonth = Array.from({ length: 6 }, (_, index) => {
+    const month = ((sixMonthsAgo.getMonth() + index) % 12) + 1;
+    const job = jobs.find((job) => job._id === month);
+    return job ? job.count : 0;
+  });
+
+  return jobsPerMonth;
+};
+
+const getFollowersOverTime = async (employerId: string) => {
+  const objectIdEmployerId = new mongoose.Types.ObjectId(employerId);
+  const employer =
+    await Employer.findById(objectIdEmployerId).populate("followers");
+  const followers = employer.followers;
+
+  const followersOverTime = Array.from({ length: 6 }, (_, index) => {
+    const month = new Date().getMonth() - index + 1;
+    return followers.filter((follower: any) => {
+      return new Date(follower.createdAt).getMonth() + 1 === month;
+    }).length;
+  }).reverse();
+
+  return followersOverTime;
+};
+
+const getJobTypes = async (employerId: string) => {
+  const objectIdEmployerId = new mongoose.Types.ObjectId(employerId);
+
+  const jobTypes = await Job.aggregate([
+    { $match: { company: objectIdEmployerId } },
     {
       $group: {
         _id: "$type",
@@ -656,8 +634,8 @@ async function getJobTypes(employerId: string) {
     },
   ]);
 
-  return jobTypesData.map((item) => ({
-    label: item._id,
-    value: item.count,
+  return jobTypes.map((jobType) => ({
+    label: jobType._id,
+    value: jobType.count,
   }));
-}
+};

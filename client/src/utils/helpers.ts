@@ -35,3 +35,25 @@ export const getImageUrl = (image: string) => {
     ? image
     : `https://job-searching-application.s3.amazonaws.com/${image}`;
 };
+
+export const getMonthsLabels = () => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const currentMonth = new Date().getMonth();
+  return Array.from(
+    { length: 6 },
+    (_, i) => monthNames[(currentMonth - 5 + i + 12) % 12]
+  );
+};

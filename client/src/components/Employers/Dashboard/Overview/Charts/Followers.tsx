@@ -8,9 +8,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/Shared/Card";
+import { getMonthsLabels } from "@/utils/helpers";
 Chart.register(...registerables);
 
 const Followers: React.FC<{ data: any }> = ({ data }) => {
+  const labels = getMonthsLabels();
+
   return (
     <Card>
       <CardHeader>
@@ -20,7 +23,7 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
         <CardContent>
           <Line
             data={{
-              labels: ["January", "February", "March", "April", "May", "June"],
+              labels: labels,
               datasets: [
                 {
                   label: "Followers",
@@ -38,6 +41,10 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
                   title: {
                     display: true,
                     text: "Number of Followers",
+                  },
+                  ticks: {
+                    stepSize: 1,
+                    precision: 0,
                   },
                 },
                 x: {

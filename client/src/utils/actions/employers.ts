@@ -33,11 +33,11 @@ export const getSeekerById = async (
 export const getEmployerAnalytics = async (
   token: string
 ): Promise<{
-  totalJobsData: number;
-  totalEventsData: number;
-  totalReviewsData: number;
+  totalJobs: number;
+  totalEvents: number;
+  totalReviews: number;
   totalApplications: number;
   jobsPerMonth: number;
-  totalFollowersOverTime: number;
+  followersOverTime: number;
   jobTypes: any;
 }> => await getApiHandler(`employer/analytics`, token);

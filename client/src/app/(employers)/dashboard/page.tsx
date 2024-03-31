@@ -18,7 +18,6 @@ const Dashboard = () => {
     queryKey: ["analytics"],
   });
   const { data: fetchedEmployer } = useGetEmployer();
-  console.log(analytics?.jobsPerMonth);
 
   return (
     <section className="flex flex-col gap-3">
@@ -34,9 +33,9 @@ const Dashboard = () => {
       </div>
       <div>
         <Statistics
-          totalJobs={analytics?.totalJobsData || 0}
-          totalEvents={analytics?.totalEventsData || 0}
-          totalReviews={analytics?.totalReviewsData || 0}
+          totalJobs={analytics?.totalJobs || 0}
+          totalEvents={analytics?.totalEvents || 0}
+          totalReviews={analytics?.totalReviews || 0}
           totalApplications={analytics?.totalApplications || 0}
         />
       </div>
@@ -45,7 +44,7 @@ const Dashboard = () => {
           <JobsPerMonth data={analytics?.jobsPerMonth} />
         </div>
         <div>
-          <Followers data={analytics?.totalFollowersOverTime} />
+          <Followers data={analytics?.followersOverTime} />
         </div>
         <div>
           <Types data={analytics?.jobTypes} />

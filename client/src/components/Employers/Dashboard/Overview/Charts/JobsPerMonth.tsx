@@ -8,9 +8,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/Shared/Card";
+import { getMonthsLabels } from "@/utils/helpers";
 Chart.register(...registerables);
 
 const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
+  const labels = getMonthsLabels();
+
   return (
     <Card>
       <CardHeader>
@@ -22,7 +25,7 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
         <CardContent>
           <Bar
             data={{
-              labels: ["January", "February", "March", "April", "May", "June"],
+              labels: labels,
               datasets: [
                 {
                   label: "Jobs",
