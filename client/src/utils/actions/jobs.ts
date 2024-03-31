@@ -1,5 +1,10 @@
 import { ResponseMessageTypes } from "@/typings/shared";
-import { getApiHandler, patchApiHandler, postApiHandler } from "../api";
+import {
+  deleteApiHandler,
+  getApiHandler,
+  patchApiHandler,
+  postApiHandler,
+} from "../api";
 import { JobTypes } from "@/typings/jobs";
 
 export const getJobs = async ({
@@ -61,3 +66,9 @@ export const addJobAlert = async (
   data: any
 ): Promise<ResponseMessageTypes> =>
   await patchApiHandler(`seeker/jobs/alerts`, data, token);
+
+export const deleteJob = async (
+  token: string,
+  jobId: string
+): Promise<ResponseMessageTypes> =>
+  await deleteApiHandler(`employer/jobs/${jobId}/delete`, token);
