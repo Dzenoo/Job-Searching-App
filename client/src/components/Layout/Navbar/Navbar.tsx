@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
         const response = await getSeekerProfile(token as string);
         return response;
       } else if (userType === "employer") {
-        const response = await getEmployerProfile(token as string);
+        const response = await getEmployerProfile({ token: token as string });
         return response;
       }
     },

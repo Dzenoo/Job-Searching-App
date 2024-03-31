@@ -18,11 +18,25 @@ export const getSeekers = async ({
     token as string
   );
 
-export const getEmployerProfile = async (
-  token: string
-): Promise<{
+export const getEmployerProfile = async ({
+  token,
+  page,
+  srt,
+  search,
+  type,
+}: {
+  token: string;
+  page?: string;
+  srt?: string;
+  search?: string;
+  type?: string;
+}): Promise<{
   employer: EmployerTypes;
-}> => await getApiHandler(`employer`, token);
+}> =>
+  await getApiHandler(
+    `employer?type=${type || ""}&page=${page}&srt=${srt}&search=${search}`,
+    token
+  );
 
 export const getSeekerById = async (
   seekerId: string,
