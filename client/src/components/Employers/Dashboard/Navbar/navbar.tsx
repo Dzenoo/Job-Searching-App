@@ -58,7 +58,7 @@ const EmployersDashboardNavbar: React.FC<
   );
 
   return (
-    <header className="bg-white sticky top-0 bottom-0 left-0 p-3 border-r border-gray-300 dark:dark:bg-[#1b1b1b] h-screen dark:border-r dark:border-[#1b1b1b]">
+    <header className="bg-white sticky top-0 bottom-0 left-0 p-3 border-r border-gray-300 dark:dark:bg-[#1b1b1b] h-[83vh] dark:border-r dark:border-[#1b1b1b]">
       <div className="flex flex-col gap-3">
         {NavbarActionsLinks.map(({ id, icon, href }) => (
           <Link
