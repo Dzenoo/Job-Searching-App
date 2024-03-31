@@ -12,11 +12,11 @@ Chart.register(...registerables);
 
 const Types: React.FC<{ data: any }> = ({ data }) => {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <h1 className="dark:text-white font-bold">Distribution of Job Types</h1>
       </CardHeader>
-      {data && (
+      {data?.length !== 0 && (
         <CardContent>
           <Pie
             height={300}
@@ -48,7 +48,7 @@ const Types: React.FC<{ data: any }> = ({ data }) => {
           />
         </CardContent>
       )}
-      {!data && (
+      {data?.length === 0 && (
         <CardFooter>
           <p>No Data Available</p>
         </CardFooter>

@@ -50,6 +50,7 @@ const Dashboard = () => {
           <Types data={analytics?.jobTypes} />
         </div>
       </div>
+      <div></div>
     </section>
   );
 };
