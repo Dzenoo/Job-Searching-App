@@ -9,7 +9,7 @@ import {
   getEmployerAnalytics,
   getEmployerProfile,
 } from "@/utils/actions/employers";
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 
 const DashboardJobsPage = ({
@@ -22,7 +22,7 @@ const DashboardJobsPage = ({
     queryFn: () => getEmployerAnalytics(token as string),
     queryKey: ["analytics"],
   });
-  const { data: fetchedEmployer, refetch } = useQuery({
+  const { data: fetchedEmployer } = useQuery({
     queryFn: () =>
       getEmployerProfile({
         token: token as string,
@@ -31,12 +31,8 @@ const DashboardJobsPage = ({
         search: searchParams.query || "",
         type: "jobs",
       }),
-    queryKey: ["jobs"],
+    queryKey: ["jobs", searchParams],
   });
-
-  useEffect(() => {
-    refetch();
-  }, [searchParams]);
 
   return (
     <section className="flex flex-col gap-6">
@@ -52,11 +48,9 @@ const DashboardJobsPage = ({
             </p>
           </div>
         </div>
-        {fetchedEmployer?.employer.jobs.length !== 0 && (
-          <div>
-            <SearchJobs />
-          </div>
-        )}
+        <div>
+          <SearchJobs />
+        </div>
       </div>
       <div>
         <DashboardEmployerJobs
