@@ -38,7 +38,7 @@ const SearchJobs: React.FC<SearchJobsProps> = () => {
         />
       </div>
       <div className="basis-full">
-        <LinkElement variant="default" href="/dashboard/jobs/add">
+        <LinkElement variant="default" href="/dashboard/jobs/new">
           Add New Job
         </LinkElement>
       </div>
