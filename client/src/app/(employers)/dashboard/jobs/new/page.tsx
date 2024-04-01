@@ -74,7 +74,7 @@ const NewJobPage = () => {
             description={stepDetails[currentJobForm].description}
           />
         </div>
-        <div className="basis-1/2 flex flex-col gap-3">
+        <div className="basis-1/2 flex flex-col gap-3 justify-between">
           <div>{renderCurrentStep()}</div>
           <div className="flex gap-3 items-center">
             <div>
