@@ -18,6 +18,11 @@ const NewJobPage = () => {
   const { handleSubmit, control, formState } = useForm<
     zod.infer<typeof NewJobSchemas>
   >({
+    defaultValues: {
+      title: "",
+      overview: "",
+      location: "",
+    },
     resolver: zodResolver(NewJobSchemas),
   });
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
@@ -51,6 +56,10 @@ const NewJobPage = () => {
     }
   }
 
+  function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
+    console.log(values);
+  }
+
   const stepDetails = [
     {
       title: "Lets start by creating a good basics details for job",
@@ -74,10 +83,6 @@ const NewJobPage = () => {
     },
   ];
 
-  function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
-    console.log(values);
-  }
-
   return (
     <section>
       <div className="flex px-36 gap-3 py-16">
@@ -95,26 +100,28 @@ const NewJobPage = () => {
             </Form>
           </div>
           <div className="flex gap-3 items-center">
-            <div>
-              <Button
-                disabled={currentJobForm === 0}
-                onClick={hadleFormPrev}
-                className="w-28"
-                variant="outlined"
-              >
-                Previous
-              </Button>
-            </div>
-            <div>
-              <Button
-                disabled={stepDetails.length - 1 === currentJobForm}
-                onClick={hadleFormNext}
-                className="w-28"
-                variant="default"
-              >
-                Next
-              </Button>
-            </div>
+            {currentJobForm != 0 && (
+              <div>
+                <Button
+                  onClick={hadleFormPrev}
+                  className="w-28"
+                  variant="outlined"
+                >
+                  Previous
+                </Button>
+              </div>
+            )}
+            {stepDetails.length - 1 != currentJobForm && (
+              <div>
+                <Button
+                  onClick={hadleFormNext}
+                  className="w-28"
+                  variant="default"
+                >
+                  Next
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
