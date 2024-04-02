@@ -51,7 +51,7 @@ const NewJobPage = () => {
         return <Overview formState={formState} control={control} />;
       }
       case 2: {
-        return <Skills />;
+        return <Skills formState={formState} control={control} />;
       }
       case 3: {
         return <Scope />;

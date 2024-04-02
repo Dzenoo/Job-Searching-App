@@ -5,7 +5,14 @@ import useOnOutsideClick from "@/hooks/useOnOutsideClick";
 
 const Tag: React.FC<TagProps> = React.forwardRef(
   (
-    { options, placeholder = "Select...", className, onSelect, initials },
+    {
+      options,
+      placeholder = "Select...",
+      className,
+      height,
+      onSelect,
+      initials,
+    },
     ref
   ) => {
     const [selectedItems, setSelectedItems] = useState<string[]>(
@@ -101,7 +108,7 @@ const Tag: React.FC<TagProps> = React.forwardRef(
                 Clear Selection
               </button>
             </div>
-            <div className="max-h-16 overflow-y-auto">
+            <div className={`${height ? height : "max-h-16"} overflow-y-auto`}>
               {filteredOptions.map((option) => (
                 <div
                   key={option.value}

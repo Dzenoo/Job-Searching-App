@@ -6,6 +6,7 @@ type Option = {
 };
 
 type TagProps = {
+  height?: string;
   options: Option[];
   placeholder?: string;
   className?: string;
