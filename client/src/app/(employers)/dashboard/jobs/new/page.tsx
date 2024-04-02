@@ -22,6 +22,13 @@ const NewJobPage = () => {
       title: "",
       overview: "",
       location: "",
+      description: "",
+      expiration_date: "",
+      salary: 0,
+      skills: [],
+      position: "Hybrid",
+      level: "Junior",
+      type: "Freelance",
     },
     resolver: zodResolver(NewJobSchemas),
   });
@@ -41,7 +48,7 @@ const NewJobPage = () => {
         return <Details formState={formState} control={control} />;
       }
       case 1: {
-        return <Overview />;
+        return <Overview formState={formState} control={control} />;
       }
       case 2: {
         return <Skills />;
