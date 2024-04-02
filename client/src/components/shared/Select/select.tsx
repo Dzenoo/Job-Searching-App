@@ -35,5 +35,4 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     );
   }
 );
-
 export { Select };

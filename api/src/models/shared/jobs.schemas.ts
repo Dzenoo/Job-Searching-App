@@ -44,7 +44,7 @@ const JobSchema = new mongoose.Schema(
       {
         type: String,
         required: [true, "Skills is required"],
-        minlength: [3, "Skills must be at least 3 characters long"],
+        minlength: [1, "Skills must be at least 1 characters long"],
         maxlength: [16, "Skills must not exceed 16 characters"],
         trim: true,
       },

@@ -7,9 +7,19 @@ import { Skills } from "@/components/Employers/Dashboard/Jobs/New/Skills";
 import { AddJobText } from "@/components/Employers/Dashboard/Jobs/New/Text";
 import Protected from "@/components/Hoc/Protected";
 import { Button } from "@/components/Shared/Button";
+import { Form } from "@/components/Shared/Forms";
+import { NewJobSchemas } from "@/utils/zod/jobs";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import zod from "zod";
 
 const NewJobPage = () => {
+  const { handleSubmit, control, formState } = useForm<
+    zod.infer<typeof NewJobSchemas>
+  >({
+    resolver: zodResolver(NewJobSchemas),
+  });
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
 
   function hadleFormNext(): void {
@@ -23,7 +33,7 @@ const NewJobPage = () => {
   function renderCurrentStep() {
     switch (currentJobForm) {
       case 0: {
-        return <Details />;
+        return <Details formState={formState} control={control} />;
       }
       case 1: {
         return <Overview />;
@@ -36,7 +46,7 @@ const NewJobPage = () => {
       }
 
       default: {
-        return <Details />;
+        return <Details formState={formState} control={control} />;
       }
     }
   }
@@ -64,6 +74,10 @@ const NewJobPage = () => {
     },
   ];
 
+  function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
+    console.log(values);
+  }
+
   return (
     <section>
       <div className="flex px-36 gap-3 py-16">
@@ -74,8 +88,12 @@ const NewJobPage = () => {
             description={stepDetails[currentJobForm].description}
           />
         </div>
-        <div className="basis-1/2 flex flex-col gap-3 justify-between">
-          <div>{renderCurrentStep()}</div>
+        <div className="basis-1/2 flex flex-col gap-10 justify-between">
+          <div>
+            <Form onSubmit={handleSubmit(addNewJob)} className="p-0">
+              {renderCurrentStep()}
+            </Form>
+          </div>
           <div className="flex gap-3 items-center">
             <div>
               <Button
