@@ -8,7 +8,9 @@ const Skills: React.FC<SkillsProps> = ({ formState, control }) => {
   return (
     <div className="flex flex-col gap-3">
       <FormItem>
-        <p className="dark:text-white text-gray-900 font-medium">Skills</p>
+        <p className="dark:text-white text-gray-900 font-medium">
+          Search or add up to 10 skills
+        </p>
         <Controller
           name="skills"
           control={control}
@@ -20,7 +22,6 @@ const Skills: React.FC<SkillsProps> = ({ formState, control }) => {
                 { label: "Express.js", value: "Express.js" },
                 { label: "MongoDB", value: "MongoDB" },
               ]}
-              label="Search or add up to 10 skills"
               onSelect={() => {}}
               {...field}
               height="h-[10rem]"
