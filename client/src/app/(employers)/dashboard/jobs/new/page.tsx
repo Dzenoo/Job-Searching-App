@@ -24,8 +24,8 @@ const NewJobPage = () => {
       location: "",
       description: "",
       expiration_date: "",
-      salary: 0,
-      skills: [],
+      salary: "",
+      // skills: [],
       position: "Hybrid",
       level: "Junior",
       type: "Freelance",
@@ -50,11 +50,11 @@ const NewJobPage = () => {
       case 1: {
         return <Overview formState={formState} control={control} />;
       }
-      case 2: {
-        return <Skills formState={formState} control={control} />;
-      }
+      // case 2: {
+      //   return <Skills formState={formState} control={control} />;
+      // }
       case 3: {
-        return <Scope />;
+        return <Scope formState={formState} control={control} />;
       }
 
       default: {
@@ -64,7 +64,7 @@ const NewJobPage = () => {
   }
 
   function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
-    console.log(values);
+    alert("JAVASCRIPT");
   }
 
   const stepDetails = [
@@ -84,7 +84,7 @@ const NewJobPage = () => {
         "Clearly defined skills help applicants gauge their qualifications and suitability for the role.",
     },
     {
-      title: "Provide a detailed description of the job",
+      title: "Describe the scope of the job",
       description:
         " A clear scope helps candidates understand the role's impact and envision their future within the organization",
     },
@@ -104,6 +104,13 @@ const NewJobPage = () => {
           <div>
             <Form onSubmit={handleSubmit(addNewJob)} className="p-0">
               {renderCurrentStep()}
+              {stepDetails.length - 1 === currentJobForm && (
+                <div>
+                  <Button type="submit" variant="default">
+                    Submit
+                  </Button>
+                </div>
+              )}
             </Form>
           </div>
           <div className="flex gap-3 items-center">
