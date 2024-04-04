@@ -320,6 +320,8 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
+    console.log(error);
+
     responseServerHandler(
       { message: "Cannot get profile, please try again" },
       400,

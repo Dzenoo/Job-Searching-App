@@ -123,7 +123,11 @@ const NewJobPage = () => {
               {renderCurrentStep()}
               {stepDetails.length - 1 === currentJobForm && (
                 <div className="flex gap-3 justify-end">
-                  <Button type="submit" variant="default">
+                  <Button
+                    type="submit"
+                    variant="default"
+                    disabled={!formState.isValid}
+                  >
                     {isLoading ? <ClipLoader /> : "Submit"}
                   </Button>
                 </div>
