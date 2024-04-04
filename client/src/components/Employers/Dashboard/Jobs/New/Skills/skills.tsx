@@ -4,7 +4,12 @@ import { Controller } from "react-hook-form";
 import { SkillsProps } from "./types";
 import { Tag } from "@/components/Shared/Tag";
 
-const Skills: React.FC<SkillsProps> = ({ formState, control }) => {
+const Skills: React.FC<SkillsProps> = ({
+  formState,
+  control,
+  initialSkills,
+  onSelectSkills,
+}) => {
   return (
     <div className="flex flex-col gap-3">
       <FormItem>
@@ -22,8 +27,9 @@ const Skills: React.FC<SkillsProps> = ({ formState, control }) => {
                 { label: "Express.js", value: "Express.js" },
                 { label: "MongoDB", value: "MongoDB" },
               ]}
-              onSelect={() => {}}
+              onSelect={onSelectSkills}
               {...field}
+              initials={initialSkills}
               height="h-[10rem]"
             />
           )}

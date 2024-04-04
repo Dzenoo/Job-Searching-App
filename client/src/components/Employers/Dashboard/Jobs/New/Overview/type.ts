@@ -4,7 +4,7 @@ type OverviewProps = {
   formState: FormState<{
     description: string;
     expiration_date: string;
-    salary: string;
+    salary: number;
   }>;
   control: Control<any>;
 };

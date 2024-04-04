@@ -22,16 +22,18 @@ export const NewJobSchemas = zod.object({
     .max(300, "Overview must not exceed 300 characters")
     .trim(),
   type: zod.enum(["Internship", "Full-Time", "Part-Time", "Freelance"]),
-  // skills: zod.array(
-  //   zod
-  //     .string()
-  //     .min(1, "Skills must be at least 1 character long")
-  //     .max(16, "Skills must not exceed 16 characters")
-  //     .trim()
-  // ),
+  skills: zod.array(
+    zod
+      .string()
+      .min(1, "Skills must be at least 1 character long")
+      .max(16, "Skills must not exceed 16 characters")
+      .trim()
+  ),
   level: zod.enum(["Junior", "Medior", "Senior", "Lead"]),
-  company: zod.string().uuid("Employer Id must be a valid UUID"),
-  salary: zod.string(),
+  salary: zod
+    .number()
+    .min(30000, "Salary must be at least $30,000")
+    .nonnegative(),
   expiration_date: zod
     .string()
     .refine(
@@ -42,5 +44,4 @@ export const NewJobSchemas = zod.object({
     .string()
     .min(30, "Description must be at least 30 characters long")
     .max(600, "Description must not exceed 600 characters"),
-  applications: zod.array(zod.string().uuid()).default([]),
 });

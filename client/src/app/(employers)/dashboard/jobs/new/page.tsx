@@ -10,12 +10,12 @@ import { Button } from "@/components/Shared/Button";
 import { Form } from "@/components/Shared/Forms";
 import { NewJobSchemas } from "@/utils/zod/jobs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
 
 const NewJobPage = () => {
-  const { handleSubmit, control, formState } = useForm<
+  const { handleSubmit, control, formState, setValue, getValues } = useForm<
     zod.infer<typeof NewJobSchemas>
   >({
     defaultValues: {
@@ -24,8 +24,8 @@ const NewJobPage = () => {
       location: "",
       description: "",
       expiration_date: "",
-      salary: "",
-      // skills: [],
+      salary: 0,
+      skills: [],
       position: "Hybrid",
       level: "Junior",
       type: "Freelance",
@@ -33,6 +33,10 @@ const NewJobPage = () => {
     resolver: zodResolver(NewJobSchemas),
   });
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
+
+  useEffect(() => {
+    console.log(formState.errors);
+  }, [formState.errors]);
 
   function hadleFormNext(): void {
     setCurrentJobForm(currentJobForm === 3 ? 3 : currentJobForm + 1);
@@ -42,29 +46,28 @@ const NewJobPage = () => {
     setCurrentJobForm(currentJobForm === 0 ? 0 : currentJobForm - 1);
   }
 
-  function renderCurrentStep() {
-    switch (currentJobForm) {
-      case 0: {
-        return <Details formState={formState} control={control} />;
-      }
-      case 1: {
-        return <Overview formState={formState} control={control} />;
-      }
-      // case 2: {
-      //   return <Skills formState={formState} control={control} />;
-      // }
-      case 3: {
-        return <Scope formState={formState} control={control} />;
-      }
+  const onSelectSkills = (skills: any) => {
+    setValue("skills", skills);
+  };
 
-      default: {
-        return <Details formState={formState} control={control} />;
-      }
-    }
+  function renderCurrentStep() {
+    const components = [
+      <Details formState={formState} control={control} />,
+      <Overview formState={formState} control={control} />,
+      <Skills
+        formState={formState}
+        control={control}
+        initialSkills={getValues("skills")}
+        onSelectSkills={onSelectSkills}
+      />,
+      <Scope formState={formState} control={control} />,
+    ];
+
+    return components[currentJobForm];
   }
 
   function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
-    alert("JAVASCRIPT");
+    console.log(values);
   }
 
   const stepDetails = [

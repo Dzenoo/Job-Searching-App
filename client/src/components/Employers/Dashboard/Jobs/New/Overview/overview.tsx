@@ -53,10 +53,14 @@ const Overview: React.FC<OverviewProps> = ({ formState, control }) => {
         <Controller
           name="salary"
           control={control}
-          render={({ field }) => (
+          render={({ field: { onChange, value, ...field } }) => (
             <Input
               type="number"
               {...field}
+              value={value}
+              onChange={(e) =>
+                onChange(e.target.value === "" ? "" : Number(e.target.value))
+              }
               label="What salary is for this job?"
             />
           )}
