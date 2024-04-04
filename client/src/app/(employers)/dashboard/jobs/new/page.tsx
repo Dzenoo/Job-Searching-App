@@ -34,10 +34,6 @@ const NewJobPage = () => {
   });
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
 
-  useEffect(() => {
-    console.log(formState.errors);
-  }, [formState.errors]);
-
   function hadleFormNext(): void {
     setCurrentJobForm(currentJobForm === 3 ? 3 : currentJobForm + 1);
   }
@@ -108,7 +104,7 @@ const NewJobPage = () => {
             <Form onSubmit={handleSubmit(addNewJob)} className="p-0">
               {renderCurrentStep()}
               {stepDetails.length - 1 === currentJobForm && (
-                <div>
+                <div className="flex gap-3 justify-end">
                   <Button type="submit" variant="default">
                     Submit
                   </Button>
