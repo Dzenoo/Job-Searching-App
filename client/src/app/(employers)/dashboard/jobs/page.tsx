@@ -5,10 +5,7 @@ import { SearchJobs } from "@/components/Employers/Dashboard/Jobs/Search";
 import Protected from "@/components/Hoc/Protected";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
-import {
-  getEmployerAnalytics,
-  getEmployerProfile,
-} from "@/utils/actions/employers";
+import { getEmployerProfile } from "@/utils/actions/employers";
 import React from "react";
 import { useQuery } from "react-query";
 
@@ -18,10 +15,6 @@ const DashboardJobsPage = ({
   searchParams: { [key: string]: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data: analytics } = useQuery({
-    queryFn: () => getEmployerAnalytics(token as string),
-    queryKey: ["analytics"],
-  });
   const { data: fetchedEmployer } = useQuery({
     queryFn: () =>
       getEmployerProfile({
@@ -60,7 +53,7 @@ const DashboardJobsPage = ({
       </div>
       <div>
         <Pagination
-          totalItems={analytics?.totalJobs || 0}
+          totalItems={fetchedEmployer?.counts.totalJobs || 0}
           itemsPerPage={10}
           currentPage={Number(searchParams?.page) || 1}
           visiblePages={6}

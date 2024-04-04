@@ -31,6 +31,7 @@ export const getEmployerProfile = async ({
   search?: string;
   type?: string;
 }): Promise<{
+  counts: { totalJobs: number; totalReviews: number; totalEvents: number };
   employer: EmployerTypes;
 }> =>
   await getApiHandler(

@@ -291,9 +291,30 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       );
     }
 
+    const counts: any = {};
+    if (type === "jobs" || !type) {
+      counts.totalJobs = await Job.countDocuments({
+        company: employerId,
+        ...searchQuery,
+      });
+    }
+    if (type === "reviews" || !type) {
+      counts.totalReviews = await Review.countDocuments({
+        company: employerId,
+        ...searchQuery,
+      });
+    }
+    if (type === "events" || !type) {
+      counts.totalEvents = await Event.countDocuments({
+        company: employerId,
+        ...searchQuery,
+      });
+    }
+
     responseServerHandler(
       {
         employer: employer,
+        counts: counts,
       },
       201,
       response

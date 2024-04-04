@@ -37,6 +37,12 @@ export const getJobById = async (
 ): Promise<{ job: JobTypes; jobs: JobTypes[] }> =>
   await getApiHandler(`seeker/jobs/${jobId}`, token);
 
+export const createNewJob = async (
+  token: string,
+  formData: any
+): Promise<ResponseMessageTypes> =>
+  await postApiHandler(`employer/jobs/create-new-job`, formData, token);
+
 export const applyToJob = async (
   jobId: string,
   token: string,

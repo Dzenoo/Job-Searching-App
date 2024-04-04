@@ -8,13 +8,20 @@ import { AddJobText } from "@/components/Employers/Dashboard/Jobs/New/Text";
 import Protected from "@/components/Hoc/Protected";
 import { Button } from "@/components/Shared/Button";
 import { Form } from "@/components/Shared/Forms";
+import { queryClient } from "@/contexts/react-query-client";
+import useAuthentication from "@/hooks/useAuthentication";
+import { createNewJob } from "@/utils/actions/jobs";
 import { NewJobSchemas } from "@/utils/zod/jobs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 import zod from "zod";
 
 const NewJobPage = () => {
+  const { token } = useAuthentication().getCookieHandler();
   const { handleSubmit, control, formState, setValue, getValues } = useForm<
     zod.infer<typeof NewJobSchemas>
   >({
@@ -32,6 +39,17 @@ const NewJobPage = () => {
     },
     resolver: zodResolver(NewJobSchemas),
   });
+  const { mutateAsync: addNewJobMutate, isLoading } = useMutation({
+    mutationFn: (formData: any) => createNewJob(token!, formData),
+    onSuccess: (response) => {
+      queryClient.invalidateQueries(["jobs"]);
+      toast.success(response.message);
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
+
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
 
   function hadleFormNext(): void {
@@ -62,8 +80,8 @@ const NewJobPage = () => {
     return components[currentJobForm];
   }
 
-  function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
-    console.log(values);
+  async function addNewJob(values: zod.infer<typeof NewJobSchemas>) {
+    await addNewJobMutate(values);
   }
 
   const stepDetails = [
@@ -106,7 +124,7 @@ const NewJobPage = () => {
               {stepDetails.length - 1 === currentJobForm && (
                 <div className="flex gap-3 justify-end">
                   <Button type="submit" variant="default">
-                    Submit
+                    {isLoading ? <ClipLoader /> : "Submit"}
                   </Button>
                 </div>
               )}
