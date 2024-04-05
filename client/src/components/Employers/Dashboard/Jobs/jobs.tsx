@@ -70,7 +70,7 @@ const JobTableOptions: React.FC<{
 }> = ({ jobIds, onDeleteButton }) => {
   return (
     <div className="flex items-center justify-between gap-3">
-      <Link href="/view">
+      <Link href={`/dashboard/jobs/${jobIds}`}>
         <Eye />
       </Link>
       <Link href="/edit">

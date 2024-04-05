@@ -1,4 +1,4 @@
-import { ResponseMessageTypes } from "@/typings/shared";
+import { ApplicationsTypes, ResponseMessageTypes } from "@/typings/shared";
 import {
   deleteApiHandler,
   getApiHandler,
@@ -78,3 +78,24 @@ export const deleteJob = async (
   jobId: string
 ): Promise<ResponseMessageTypes> =>
   await deleteApiHandler(`employer/jobs/${jobId}/delete`, token);
+
+export const getApplications = async ({
+  token,
+  jobId,
+  type,
+  page,
+}: {
+  token: string;
+  jobId: string;
+  type: string;
+  page: string;
+}): Promise<{
+  applications: ApplicationsTypes[];
+  totalApplications: number;
+  totalPendingStatus: number;
+  totalInterviewStatus: number;
+}> =>
+  await getApiHandler(
+    `employer/applications/${jobId}?page=${page}&type=${type}`,
+    token
+  );

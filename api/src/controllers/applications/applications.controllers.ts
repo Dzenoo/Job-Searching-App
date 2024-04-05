@@ -156,6 +156,10 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
 
     const applications = await Application.find(conditions)
       .populate({
+        path: "job",
+        select: "_id title type",
+      })
+      .populate({
         path: "seeker",
         select:
           "first_name last_name _id email email linkedin github portfolio image",
@@ -172,7 +176,28 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
       );
     }
 
-    responseServerHandler({ applications: applications }, 201, response);
+    const totalApplications = await Application.countDocuments({
+      job: request.params.jobId,
+    });
+    const totalPendingStatus = await Application.countDocuments({
+      job: request.params.jobId,
+      status: "Pending",
+    });
+    const totalInterviewStatus = await Application.countDocuments({
+      job: request.params.jobId,
+      status: "Interview",
+    });
+
+    responseServerHandler(
+      {
+        applications: applications,
+        totalApplications: totalApplications,
+        totalPendingStatus: totalPendingStatus,
+        totalInterviewStatus: totalInterviewStatus,
+      },
+      201,
+      response
+    );
   } catch (error) {
     responseServerHandler(
       { message: "Cannot get applications, please try again" },
