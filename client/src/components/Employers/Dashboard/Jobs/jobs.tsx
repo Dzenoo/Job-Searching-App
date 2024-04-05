@@ -14,6 +14,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
 import { queryClient } from "@/contexts/react-query-client";
 import { ClipLoader } from "react-spinners";
+import { findLocationData } from "@/utils/helpers";
 
 const DeleteJobDialog: React.FC<{
   onCloseDialog: (dialogIds: string) => void;
@@ -127,7 +128,7 @@ const DashboardEmployerJobs: React.FC<DashboardEmployerJobsProps> = ({
     Type: job.type,
     Level: job.level,
     Position: job.position,
-    Location: job.location,
+    Location: findLocationData(job.location),
     Salary: `${job.salary}$`,
     "Expiration Date": formatDate(job.expiration_date),
     Applications: job.applications?.length ?? 0,

@@ -1,5 +1,6 @@
 import { industries } from "@/constants/industries";
 import { SkillsInformationsData } from "@/constants/filters/skills";
+import { Locations } from "@/constants/locations";
 
 export const getSkillsData = (skills: string[]) => {
   const categorizedSkills: { [key: string]: string[] } = {};
@@ -56,4 +57,12 @@ export const getMonthsLabels = () => {
     { length: 6 },
     (_, i) => monthNames[(currentMonth - 5 + i + 12) % 12]
   );
+};
+
+export const findLocationData = (selectedValue: string) => {
+  const selectedOption = Locations.find(
+    (option) => option.value === selectedValue
+  );
+
+  return selectedOption ? selectedOption.label : "Location not found";
 };
