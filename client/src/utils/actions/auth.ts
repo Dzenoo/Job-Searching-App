@@ -32,7 +32,7 @@ export const loginUserAccount = async ({
     password: string;
   };
 }): Promise<
-  { seeker: SeekerTypes; token: any } | { employer: EmployerTypes; token: any }
+  { seeker: SeekerTypes; token: any } & { employer: EmployerTypes; token: any }
 > =>
   await postApiHandler(
     type === "employer" ? "employer-login" : "seeker-login",

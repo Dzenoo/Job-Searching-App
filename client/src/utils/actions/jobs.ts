@@ -90,6 +90,7 @@ export const getApplications = async ({
   type: string;
   page: string;
 }): Promise<{
+  job: JobTypes;
   applications: ApplicationsTypes[];
   totalApplications: number;
   totalPendingStatus: number;
@@ -99,3 +100,10 @@ export const getApplications = async ({
     `employer/applications/${jobId}?page=${page}&type=${type}`,
     token
   );
+
+export const updateApplicationStatus = async (
+  applicationId: string,
+  token: string,
+  status: string
+) =>
+  await patchApiHandler(`employer/${applicationId}/status`, { status }, token);

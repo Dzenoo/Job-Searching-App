@@ -152,8 +152,7 @@ const DashboardEmployerJobs: React.FC<DashboardEmployerJobsProps> = ({
         specialStyles={{
           Salary: "bg-green-100 dark:text-green-600 text-green-600 p-3",
           "Expiration Date": "bg-red-100 dark:text-red-600 text-red-600 p-3",
-          Applications:
-            "bg-blue-100 dark:text-[--blue-base-color] text-blue-600 p-3",
+          Applications: "bg-blue-100 dark:text-blue-600 text-blue-600 p-3",
         }}
       />
     </>

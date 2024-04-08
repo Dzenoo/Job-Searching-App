@@ -44,7 +44,12 @@ const LoginFormAccount: React.FC<LoginFormTypes> = ({
     onSuccess: (data) => {
       reset();
       storeCookieHandler(data.token);
-      window.location.href = "/";
+
+      if (data.employer) {
+        window.location.href = "/seekers";
+      } else {
+        window.location.href = "/";
+      }
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);

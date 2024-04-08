@@ -34,6 +34,7 @@ type MessageTypes = {
 };
 
 type ApplicationsTypes = {
+  _id: string;
   status: keyof typeof ApplicationStatus;
   cover_letter: string;
   resume: string;

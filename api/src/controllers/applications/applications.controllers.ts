@@ -148,6 +148,8 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
   try {
     const { page = 1, limit = 10, type } = request.query;
 
+    const job = await Job.findById(request.params.jobId);
+
     const conditions: any = { job: request.params.jobId };
 
     if (type) {
@@ -190,6 +192,7 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
 
     responseServerHandler(
       {
+        job: job,
         applications: applications,
         totalApplications: totalApplications,
         totalPendingStatus: totalPendingStatus,

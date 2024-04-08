@@ -15,7 +15,7 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
   const labels = getMonthsLabels();
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <h1 className="dark:text-white font-bold">Total Followers Over Time</h1>
       </CardHeader>

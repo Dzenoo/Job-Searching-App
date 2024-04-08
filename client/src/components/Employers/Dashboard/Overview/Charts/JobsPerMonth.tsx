@@ -15,7 +15,7 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
   const labels = getMonthsLabels();
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <h1 className="dark:text-white font-bold">
           Number of Jobs Posted Per Month

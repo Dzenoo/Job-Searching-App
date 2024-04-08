@@ -32,9 +32,7 @@ const JobApplicationsPage = ({
     <section className="flex flex-col gap-3">
       <div>
         <div>
-          <h1 className="text-base-black">
-            {data?.applications[0]?.job?.title}
-          </h1>
+          <h1 className="text-base-black">{data?.job.title}</h1>
         </div>
         <div>
           <p className="text-initial-gray">

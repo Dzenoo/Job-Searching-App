@@ -3,7 +3,7 @@ import { TableProps } from "./types";
 
 const Table: React.FC<TableProps> = ({ columns, data, specialStyles }) => {
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-300 border dark:border-[#393939] dark:divide-[#1b1b1b]">
         <thead className="rounded-lg bg-gray-50 dark:bg-[#1b1b1b]">
           <tr>
@@ -18,7 +18,7 @@ const Table: React.FC<TableProps> = ({ columns, data, specialStyles }) => {
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-300 rounded-lg dark:bg-[#0d0d0d] dark:divide-[#1b1b1b]">
+        <tbody className="bg-white divide-y divide-gray-300 rounded-lg dark:bg-[#0d0d0d] dark:divide-[#1b1b1b] relative">
           {data.map((row, rowIndex) => (
             <tr
               key={rowIndex}
