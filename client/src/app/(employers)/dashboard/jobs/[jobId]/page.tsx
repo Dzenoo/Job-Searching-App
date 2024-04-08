@@ -54,14 +54,16 @@ const JobApplicationsPage = ({
           itemsPerPage={10}
         />
       </div>
-      <div>
-        <Pagination
-          totalItems={data?.totalApplications || 0}
-          itemsPerPage={10}
-          currentPage={Number(searchParams?.page) || 1}
-          visiblePages={6}
-        />
-      </div>
+      {data?.applications.length !== 0 && (
+        <div>
+          <Pagination
+            totalItems={data?.totalApplications || 0}
+            itemsPerPage={10}
+            currentPage={Number(searchParams?.page) || 1}
+            visiblePages={6}
+          />
+        </div>
+      )}
     </section>
   );
 };

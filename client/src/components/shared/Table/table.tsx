@@ -4,7 +4,7 @@ import { TableProps } from "./types";
 const Table: React.FC<TableProps> = ({ columns, data, specialStyles }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-300 border dark:border-[#393939] dark:divide-[#1b1b1b]">
+      <table className="min-w-full divide-y divide-gray-300 border dark:border-[#393939] dark:divide-[#1b1b1b] table-fixed">
         <thead className="rounded-lg bg-gray-50 dark:bg-[#1b1b1b]">
           <tr>
             {columns.map((column, index) => (
@@ -29,6 +29,7 @@ const Table: React.FC<TableProps> = ({ columns, data, specialStyles }) => {
             >
               {columns.map((column, colIndex) => (
                 <td
+                  scope="row"
                   key={colIndex}
                   className={`px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 ${
                     specialStyles?.[column] || ""
