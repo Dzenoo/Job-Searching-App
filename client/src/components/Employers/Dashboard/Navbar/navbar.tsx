@@ -5,7 +5,6 @@ import { EmployersDashboardNavbarProps } from "./types";
 import {
   Bell,
   Briefcase,
-  CalendarSearch,
   LayoutDashboard,
   LayoutTemplate,
   MessageCircle,
@@ -37,21 +36,16 @@ const EmployersDashboardNavbar: React.FC<
     },
     {
       id: "4",
-      icon: <CalendarSearch />,
-      href: "/dashboard/applications",
-    },
-    {
-      id: "5",
       icon: <LayoutTemplate />,
       href: "/dashboard/reviews",
     },
     {
-      id: "6",
+      id: "5",
       icon: <Bell />,
       href: "/dashboard/notifications",
     },
     {
-      id: "7",
+      id: "6",
       icon: <MessageCircle />,
       href: "/dashboard/messages",
     }
