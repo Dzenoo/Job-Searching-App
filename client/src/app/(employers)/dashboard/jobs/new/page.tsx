@@ -13,7 +13,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { createNewJob } from "@/utils/actions/jobs";
 import { NewJobSchemas } from "@/utils/zod/jobs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";

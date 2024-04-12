@@ -73,7 +73,7 @@ const JobTableOptions: React.FC<{
       <Link href={`/dashboard/jobs/${jobIds}`}>
         <Eye />
       </Link>
-      <Link href="/edit">
+      <Link href={`/dashboard/jobs/${jobIds}/edit`}>
         <Edit />
       </Link>
       <button onClick={() => onDeleteButton(jobIds)}>
