@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import Review from "./reviews.schemas";
-import Event from "./events.schemas";
+import Review from "./reviews.schema";
+import Event from "./events.schema";
 import { signToken } from "../../utils/jwt";
 import { comparePassword, hashPassword } from "../../utils/bcrypt";
 

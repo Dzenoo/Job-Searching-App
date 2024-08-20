@@ -1,20 +1,23 @@
-import { asyncErrors } from "../../errors";
-import { responseServerHandler, validate } from "../../utils/validation";
-import Employer from "../../models/employer/employers.schemas";
-import Seeker from "../../models/seeker/seekers.schemas";
-import Review from "../../models/employer/reviews.schemas";
-import Job from "../../models/shared/jobs.schemas";
-import Event from "../../models/employer/events.schemas";
+import { sendResponse, validate } from "../utils/validation";
 import { uuidv7 } from "uuidv7";
-import { initializeAws } from "../../utils/aws";
-import Application from "../../models/shared/applications.schemas";
-import Notification from "../../models/shared/notifications.schemas";
+import { asyncErrors } from "../errors/asyncErrors";
+import { uploadFileToS3 } from "../utils/aws";
+import Employer from "../models/employer/employers.schema";
+import Event from "../models/employer/events.schema";
+import Review from "../models/employer/reviews.schema";
+import Seeker from "../models/seeker/seekers.schema";
+import Job from "../models/shared/jobs.schema";
+import Notification from "../models/shared/notifications.schema";
+import Application from "../models/shared/applications.schema";
 import mongoose from "mongoose";
 
+// Sign up a new employer
 export const signupEmployer = asyncErrors(
   async (request, response): Promise<void> => {
     try {
       const employerData = request.body;
+
+      // Define the allowed properties for validation
       const allowedProperties = [
         "password",
         "email",
@@ -25,12 +28,14 @@ export const signupEmployer = asyncErrors(
         "industry",
       ];
 
+      // Validate the incoming request data
       validate(allowedProperties, employerData, (error, message) => {
         if (error) {
-          return responseServerHandler({ message: message }, 403, response);
+          return sendResponse({ message: message }, 403, response);
         }
       });
 
+      // Check if an employer with the same email or name already exists
       const existingEmployerEmail = await Employer.findOne({
         email: request.body.email,
       });
@@ -39,17 +44,18 @@ export const signupEmployer = asyncErrors(
       });
 
       if (existingEmployerEmail || existingEmployerName) {
-        return responseServerHandler(
+        return sendResponse(
           { message: "This account already exists, please try again" },
           400,
           response
         );
       }
 
+      // Create a new employer
       const newEmployer = await Employer.create(request.body);
 
       if (!newEmployer) {
-        return responseServerHandler(
+        return sendResponse(
           {
             message: "Cannot register account, please try again",
           },
@@ -58,11 +64,13 @@ export const signupEmployer = asyncErrors(
         );
       }
 
+      // Save the new employer
       await newEmployer.save();
 
-      responseServerHandler({ employer: newEmployer._id }, 201, response);
+      // Send response with the new employer ID
+      sendResponse({ employer: newEmployer._id }, 201, response);
     } catch (error) {
-      responseServerHandler(
+      sendResponse(
         { message: "Cannot register profile, please try again" },
         400,
         response
@@ -71,18 +79,23 @@ export const signupEmployer = asyncErrors(
   }
 );
 
+// Employer login functionality
 export const loginEmployer = asyncErrors(
   async (request, response): Promise<void> => {
     try {
       const employerData = request.body;
+
+      // Define the allowed properties for validation
       const allowedProperties = ["email", "password"];
 
+      // Validate the incoming request data
       validate(allowedProperties, employerData, (error, message) => {
         if (error) {
-          return responseServerHandler({ message: message }, 403, response);
+          return sendResponse({ message: message }, 403, response);
         }
       });
 
+      // Find the employer by credentials
       // @ts-ignore
       const existingEmployer = await Employer.findByCredentials(
         request.body.email,
@@ -90,7 +103,7 @@ export const loginEmployer = asyncErrors(
       );
 
       if (!existingEmployer) {
-        return responseServerHandler(
+        return sendResponse(
           {
             message: "Invalid credentials for account, please try again",
           },
@@ -99,10 +112,11 @@ export const loginEmployer = asyncErrors(
         );
       }
 
+      // Generate an authentication token for the employer
       const employerToken = await existingEmployer.generateAuthToken();
 
       if (!employerToken) {
-        return responseServerHandler(
+        return sendResponse(
           {
             message: "Cannot login account, please try again",
           },
@@ -111,9 +125,11 @@ export const loginEmployer = asyncErrors(
         );
       }
 
+      // Set the token as a cookie in the response
       response.cookie("token", employerToken, { httpOnly: true });
 
-      responseServerHandler(
+      // Send response with employer ID and token
+      sendResponse(
         {
           employer: existingEmployer._id,
           token: employerToken,
@@ -122,7 +138,7 @@ export const loginEmployer = asyncErrors(
         response
       );
     } catch (error) {
-      responseServerHandler(
+      sendResponse(
         { message: "Cannot login now, please try again" },
         400,
         response
@@ -131,46 +147,52 @@ export const loginEmployer = asyncErrors(
   }
 );
 
+// Follow or unfollow an employer
 export const followEmployer = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { seekerId } = request.user;
-    const employerId = request.params.employerId;
+    const { seekerId } = request.user; // Get the seeker ID from the request user object
+    const employerId = request.params.employerId; // Get the employer ID from the request parameters
 
+    // Fetch employer and seeker details in parallel
     const [employer, seeker] = await Promise.all([
       Employer.findById(employerId),
       Seeker.findById(seekerId),
     ]);
 
     if (!employer || !seeker) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Employer or Seeker cannot be found" },
         404,
         response
       );
     }
 
+    // Create a new notification for the employer
     const newNotification = await Notification.create({
       title: "New Followers Notification",
       message: `${seeker.first_name} is now following you`,
       type: "followers",
     });
 
+    // Check if the seeker is already following the employer
     const isFollowing = employer.followers.includes(seekerId);
 
     if (isFollowing) {
+      // Unfollow the employer if already followed
       await Employer.findByIdAndUpdate(employerId, {
         $pull: { followers: seekerId },
       });
       await Seeker.findByIdAndUpdate(seekerId, {
         $pull: { following: employerId },
       });
-      responseServerHandler(
+      sendResponse(
         { message: "Employer successfully unfollowed" },
         201,
         response
       );
     } else {
+      // Follow the employer if not already following
       await Employer.findByIdAndUpdate(employerId, {
         $push: {
           followers: seekerId,
@@ -180,7 +202,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
       await Seeker.findByIdAndUpdate(seekerId, {
         $push: { following: employerId },
       });
-      responseServerHandler(
+      sendResponse(
         { message: "Employer successfully followed" },
         201,
         response
@@ -189,7 +211,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
   } catch (error) {
     console.log(error);
 
-    responseServerHandler(
+    sendResponse(
       {
         message: "Cannot follow or unfollow employer profile, please try again",
       },
@@ -199,11 +221,12 @@ export const followEmployer = asyncErrors(async (request, response) => {
   }
 });
 
+// Get the employer's profile with optional filtering
 export const getEmployerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const { page = 1, limit = 10, type, search, srt } = request.query;
+    const { employerId } = request.user; // Get the employer ID from the request user object
+    const { page = 1, limit = 10, type, search, srt } = request.query; // Get query parameters for pagination and filtering
     const skip = (Number(page) - 1) * Number(limit);
     const sort = String(srt);
 
@@ -251,6 +274,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
         break;
     }
 
+    // Construct search query if a search term is provided
     let searchQuery = {};
     if (search) {
       const searchFields: string[] = [];
@@ -274,6 +298,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       searchQuery = { $or: searchConditions };
     }
 
+    // Fetch the employer's profile with the appropriate population based on type
     const employer = type
       ? await Employer.findById(employerId)
           .populate({
@@ -284,13 +309,10 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       : await Employer.findById(employerId).exec();
 
     if (!employer) {
-      return responseServerHandler(
-        { message: "Cannot Find Employer" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot Find Employer" }, 404, response);
     }
 
+    // Count the total number of jobs, reviews, and events based on type and search query
     const counts: any = {};
     if (type === "jobs" || !type) {
       counts.totalJobs = await Job.countDocuments({
@@ -311,7 +333,8 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       });
     }
 
-    responseServerHandler(
+    // Send the response with employer details and counts
+    sendResponse(
       {
         employer: employer,
         counts: counts,
@@ -322,7 +345,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
   } catch (error) {
     console.log(error);
 
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get profile, please try again" },
       400,
       response
@@ -330,12 +353,14 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
   }
 });
 
+// Edit the employer's profile
 export const editEmployerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const updateData = { ...request.body, image: request.file };
+    const { employerId } = request.user; // Get the employer ID from the request user object
+    const updateData = { ...request.body, image: request.file }; // Get the request body and file for image upload
 
+    // Define the allowed properties for validation
     const allowedProperties = [
       "industry",
       "company_description",
@@ -347,27 +372,24 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
       "image",
     ];
 
+    // Validate the incoming update data
     validate(allowedProperties, updateData, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
     if (request.file) {
-      // const currentSeeker = await Seeker.findById(seekerId);
-
-      // Delete the existing image from AWS S3
-      // if (currentSeeker.image) {
-      // }
-
+      // If there's an image file, upload it to S3 and update the image key
       const result = uuidv7();
       const imageKey = `employer_${result}.png`;
-      const uploads = await initializeAws(request.file, imageKey, "employers");
+      const uploads = await uploadFileToS3(request.file, imageKey, "employers");
       await uploads.done();
 
       updateData.image = `employers/${imageKey}`;
     }
 
+    // Update the employer's profile with the new data
     const editedProfile = await Employer.findByIdAndUpdate(
       employerId,
       updateData,
@@ -378,16 +400,17 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     );
 
     if (!editedProfile) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Profile not found or could not be updated" },
         404,
         response
       );
     }
 
-    responseServerHandler({ employer: editedProfile }, 201, response);
+    // Send the response with the updated employer profile
+    sendResponse({ employer: editedProfile }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot edit profile, please try again" },
       400,
       response
@@ -395,27 +418,26 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
   }
 });
 
+// Delete an employer's profile and associated data
 export const deleteEmployerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const employer = await Employer.findById(employerId);
+    const { employerId } = request.user; // Get the employer ID from the request user object
+    const employer = await Employer.findById(employerId); // Find the employer by ID
     const jobIds = (employer.jobs || []).map(
       (job: typeof Job | any) => job._id
     );
 
     if (!employer) {
-      return responseServerHandler(
-        { message: "Employer not found" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Employer not found" }, 404, response);
     }
 
+    // Delete associated jobs, reviews, and events
     await Job.deleteMany({ company: employerId });
     await Review.deleteMany({ company: employerId });
     await Event.deleteMany({ company: employerId });
 
+    // Update seekers to remove references to the deleted employer and jobs
     await Seeker.updateMany(
       {
         $or: [{ following: employerId }, { savedJobs: { $in: jobIds } }],
@@ -428,15 +450,17 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
       }
     );
 
+    // Delete the employer profile
     await Employer.findByIdAndDelete(employerId);
 
-    responseServerHandler(
+    // Send response confirming deletion
+    sendResponse(
       { message: "Employer profile and associated data deleted successfully" },
       200,
       response
     );
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot delete profile, please try again" },
       400,
       response
@@ -444,14 +468,16 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
   }
 });
 
+// Get employer details by ID with pagination and filtering
 export const getEmployerById = asyncErrors(async (request, response) => {
   try {
-    const { employerId } = request.params;
-    const { page = 1, limit = 10, type = "jobs" } = request.query;
+    const { employerId } = request.params; // Get the employer ID from request parameters
+    const { page = 1, limit = 10, type = "jobs" } = request.query; // Get query parameters for pagination and filtering
 
     const skip = (Number(page) - 1) * Number(limit);
     let populateQuery: any;
 
+    // Define the population query based on the type
     switch (type) {
       case "jobs":
         populateQuery = {
@@ -481,6 +507,7 @@ export const getEmployerById = asyncErrors(async (request, response) => {
         populateQuery = {};
     }
 
+    // Fetch the employer details with the appropriate population based on type
     const employer = await Employer.findById(employerId)
       .populate(populateQuery)
       .select(
@@ -489,18 +516,16 @@ export const getEmployerById = asyncErrors(async (request, response) => {
       .exec();
 
     if (!employer) {
-      return responseServerHandler(
-        { message: "Cannot Find Employer" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot Find Employer" }, 404, response);
     }
 
+    // Count the total number of jobs, reviews, and events for the employer
     const totalJobs = await Job.countDocuments({ company: employerId });
     const totalReviews = await Review.countDocuments({ company: employerId });
     const totalEvents = await Event.countDocuments({ company: employerId });
 
-    responseServerHandler(
+    // Send response with employer details and counts
+    sendResponse(
       {
         employer: employer,
         totalJobs: totalJobs,
@@ -511,16 +536,18 @@ export const getEmployerById = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
-    responseServerHandler({ message: "Cannot get employer" }, 400, response);
+    sendResponse({ message: "Cannot get employer" }, 400, response);
   }
 });
 
+// Get a list of employers with pagination, search, and sorting
 export const getEmployers = asyncErrors(async (request, response) => {
   try {
-    const { page = 1, limit = 10, search, srt } = request.query;
+    const { page = 1, limit = 10, search, srt } = request.query; // Get query parameters for pagination, search, and sorting
 
     const conditions: any = {};
 
+    // Define search conditions if a search term is provided
     if (search) {
       conditions.$or = [
         { name: { $regex: new RegExp(String(search), "i") } },
@@ -531,12 +558,14 @@ export const getEmployers = asyncErrors(async (request, response) => {
 
     const sortOptions: any = {};
 
+    // Define sorting options based on the sort parameter
     if (srt) {
       if (srt === "followers" || srt === "events" || srt === "reviews") {
         sortOptions[srt] = -1;
       }
     }
 
+    // Fetch the list of employers with the defined conditions and sorting
     const employers = await Employer.find(conditions)
       .sort(sortOptions)
       .skip((Number(page) - 1) * Number(limit))
@@ -546,30 +575,30 @@ export const getEmployers = asyncErrors(async (request, response) => {
       )
       .exec();
 
-    const totalEmployers = await Employer.countDocuments(conditions);
+    const totalEmployers = await Employer.countDocuments(conditions); // Count the total number of employers
+
     if (!employers) {
-      return responseServerHandler(
-        { message: "Cannot Find Employers" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot Find Employers" }, 404, response);
     }
 
-    responseServerHandler(
+    // Send response with the list of employers and the total count
+    sendResponse(
       { employers: employers, totalEmployers: totalEmployers },
       201,
       response
     );
   } catch (error) {
-    responseServerHandler({ message: "Cannot get employers" }, 400, response);
+    sendResponse({ message: "Cannot get employers" }, 400, response);
   }
 });
 
+// Get employer analytics data
 export const getEmployerAnalytics = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
+    const { employerId } = request.user; // Get the employer ID from the request user object
 
+    // Count the total number of jobs, events, reviews, and applications for the employer
     const totalJobs = await Job.countDocuments({ company: employerId });
     const totalEvents = await Event.countDocuments({ company: employerId });
     const totalReviews = await Review.countDocuments({ company: employerId });
@@ -577,10 +606,12 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
       job: { $in: await Job.find({ company: employerId }).distinct("_id") },
     });
 
+    // Get the jobs per month, followers over time, and job types for the employer
     const jobsPerMonth = await getJobsPerMonth(employerId);
     const followersOverTime = await getFollowersOverTime(employerId);
     const jobTypes = await getJobTypes(employerId);
 
+    // Send response with the analytics data
     response.status(200).json({
       totalJobs,
       totalEvents,
@@ -596,6 +627,7 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
   }
 });
 
+// Helper function to get the number of jobs posted per month for the last 6 months
 const getJobsPerMonth = async (employerId: string) => {
   const objectIdEmployerId = new mongoose.Types.ObjectId(employerId);
   const sixMonthsAgo = new Date();
@@ -619,6 +651,7 @@ const getJobsPerMonth = async (employerId: string) => {
     { $sort: { _id: 1 } },
   ]);
 
+  // Create an array representing the last 6 months with job counts
   const jobsPerMonth = Array.from({ length: 6 }, (_, index) => {
     const month = ((sixMonthsAgo.getMonth() + index) % 12) + 1;
     const job = jobs.find((job) => job._id === month);
@@ -628,12 +661,14 @@ const getJobsPerMonth = async (employerId: string) => {
   return jobsPerMonth;
 };
 
+// Helper function to get the number of followers gained over the last 6 months
 const getFollowersOverTime = async (employerId: string) => {
   const objectIdEmployerId = new mongoose.Types.ObjectId(employerId);
   const employer =
     await Employer.findById(objectIdEmployerId).populate("followers");
   const followers = employer.followers;
 
+  // Create an array representing the last 6 months with follower counts
   const followersOverTime = Array.from({ length: 6 }, (_, index) => {
     const month = new Date().getMonth() - index + 1;
     return followers.filter((follower: any) => {
@@ -644,6 +679,7 @@ const getFollowersOverTime = async (employerId: string) => {
   return followersOverTime;
 };
 
+// Helper function to get the job types and their counts for the employer
 const getJobTypes = async (employerId: string) => {
   const objectIdEmployerId = new mongoose.Types.ObjectId(employerId);
 

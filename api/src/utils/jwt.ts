@@ -1,5 +1,5 @@
 import jwt, { SignOptions } from "jsonwebtoken";
-import { AuthTokenError } from "../errors";
+import { AuthTokenError } from "../errors/errors";
 
 const signToken = <T extends object, Q extends SignOptions>(
   payload: T,

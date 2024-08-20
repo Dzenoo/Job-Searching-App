@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from "express";
-import { NodeError } from "../errors";
+import { NodeError } from "../errors/errors";
 
 export const handleError: ErrorRequestHandler = (error, _req, res) => {
   console.error(error);

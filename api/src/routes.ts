@@ -1,15 +1,18 @@
-import * as notifications from "./controllers/notifications/notifications.controllers";
-import * as jobs from "./controllers/jobs/jobs.controllers";
-import * as employers from "./controllers/employers/employers.controllers";
-import * as seekers from "./controllers/seekers/seekers.controllers";
-import * as applications from "./controllers/applications/applications.controllers";
-import * as events from "./controllers/events/events.controllers";
-import * as reviews from "./controllers/reviews/reviews.controllers";
-import * as messages from "./controllers/messages/messages.controllers";
-import upload from "./middlewares/uploads";
 import { Express, RequestHandler } from "express";
-import { authenticateUser } from "./middlewares/authentication";
+import upload from "./middlewares/upload.middleware";
+import { authenticateUser } from "./middlewares/auth.middleware";
 
+// Import controllers
+import * as notifications from "./controllers/notifications.controllers";
+import * as jobs from "./controllers/jobs.controllers";
+import * as employers from "./controllers/employers.controllers";
+import * as seekers from "./controllers/seekers.controllers";
+import * as applications from "./controllers/applications.controllers";
+import * as events from "./controllers/events.controllers";
+import * as reviews from "./controllers/reviews.controllers";
+import * as messages from "./controllers/messages.controllers";
+
+// Enum for HTTP methods
 enum EXPRESS_APP_METHODS {
   POST = "post",
   GET = "get",
@@ -22,6 +25,7 @@ enum EXPRESS_APP_METHODS {
   CHECKOUT = "checkout",
 }
 
+// Generic function to generate routes
 function generateRoutes<
   T extends Express,
   Q extends {
@@ -29,7 +33,7 @@ function generateRoutes<
     path: string;
     handlers: RequestHandler[];
   }[],
->(app: T, routeConfigs: Q, authenticate?: boolean) {
+>(app: T, routeConfigs: Q, authenticate: boolean = false) {
   for (const { method, path, handlers } of routeConfigs) {
     const routeHandlers = authenticate
       ? [authenticateUser, ...handlers]
@@ -38,262 +42,217 @@ function generateRoutes<
   }
 }
 
+// Public routes configuration
 export function initializePublicRoutes(app: Express): void {
-  const { loginSeeker, signupSeeker } = seekers;
-  const { loginEmployer, signupEmployer } = employers;
+  const publicRoutes = [
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/seeker-signup",
+      handlers: [seekers.signupSeeker],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/seeker-login",
+      handlers: [seekers.loginSeeker],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/employer-signup",
+      handlers: [employers.signupEmployer],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/employer-login",
+      handlers: [employers.loginEmployer],
+    },
+  ];
 
-  generateRoutes(
-    app,
-    [
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/seeker-signup",
-        handlers: [signupSeeker],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/seeker-login",
-        handlers: [loginSeeker],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/employer-signup",
-        handlers: [signupEmployer],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/employer-login",
-        handlers: [loginEmployer],
-      },
-    ],
-    false
-  );
+  generateRoutes(app, publicRoutes, false);
 }
 
+// Private routes configuration
 export function initializePrivateRoutes(app: Express): void {
-  const { addReview, editReview, deleteReview } = reviews;
-  const { createNewEvent, editEvent, deleteEvent, registerEvent, getEvents } =
-    events;
-  const { createDirectMessages, typeMessage } = messages;
-  const {
-    deleteJob,
-    createJob,
-    editJob,
-    saveJob,
-    generateJobAlert,
-    getJobById,
-    getJobs,
-  } = jobs;
-  const {
-    getSeekerProfile,
-    editSeekerProfile,
-    deleteSeekerProfile,
-    getSeekers,
-    addNewEducation,
-    getSeekerById,
-    deleteEducation,
-  } = seekers;
-  const {
-    getEmployerProfile,
-    followEmployer,
-    editEmployerProfile,
-    deleteEmployerProfile,
-    getEmployerById,
-    getEmployers,
-    getEmployerAnalytics,
-  } = employers;
-  const {
-    applyToJob,
-    updateApplicationStatus,
-    generateCoverLetter,
-    getApplicationsForJob,
-  } = applications;
-  const { readNotificationsData } = notifications;
+  const privateRoutes = [
+    // Notifications
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/notifications/:notification",
+      handlers: [notifications.readNotificationsData],
+    },
+    // Messages
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/type-message/:employerId/:seekerId",
+      handlers: [messages.createMessage],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/employer/:seekerId/direct-messages",
+      handlers: [messages.createDirectMessages],
+    },
+    // Seeker routes
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/seeker",
+      handlers: [seekers.getSeekerProfile],
+    },
+    {
+      method: EXPRESS_APP_METHODS.DELETE,
+      path: "/seeker/delete-seeker-profile",
+      handlers: [seekers.deleteSeekerProfile],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/edit-seeker-profile",
+      handlers: [upload.single("image"), seekers.editSeekerProfile],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/add-new-education",
+      handlers: [seekers.createEducation],
+    },
+    {
+      method: EXPRESS_APP_METHODS.DELETE,
+      path: "/seeker/delete-education/:educationId",
+      handlers: [seekers.deleteEducation],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/seeker/:jobId/generate-cover-letter",
+      handlers: [applications.generateCoverLetter],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/seeker/jobs/:jobId/apply",
+      handlers: [upload.single("resume"), applications.applyToJob],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/jobs/:jobId/save",
+      handlers: [jobs.saveJob],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/:employerId/follow",
+      handlers: [employers.followEmployer],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/seeker/:employerId/review",
+      handlers: [reviews.createReview],
+    },
+    {
+      method: EXPRESS_APP_METHODS.DELETE,
+      path: "/seeker/:employerId/review",
+      handlers: [reviews.deleteReview],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/:employerId/review",
+      handlers: [reviews.editReview],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/seeker/employers",
+      handlers: [employers.getEmployers],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/seeker/employers/:employerId",
+      handlers: [employers.getEmployerById],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/seeker/jobs",
+      handlers: [jobs.getJobs],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/seeker/jobs/:jobId",
+      handlers: [jobs.getJobById],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/seeker/events",
+      handlers: [events.getEvents],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/events/:eventId/register",
+      handlers: [events.registerEvent],
+    },
+    // Employer routes
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/employer",
+      handlers: [employers.getEmployerProfile],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/employer/edit-employer-profile",
+      handlers: [upload.single("image"), employers.editEmployerProfile],
+    },
+    {
+      method: EXPRESS_APP_METHODS.DELETE,
+      path: "/employer/delete-employer-profile",
+      handlers: [employers.deleteEmployerProfile],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/employer/jobs/create-new-job",
+      handlers: [jobs.createJob],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/employer/jobs/:jobId/edit",
+      handlers: [jobs.editJob],
+    },
+    {
+      method: EXPRESS_APP_METHODS.DELETE,
+      path: "/employer/jobs/:jobId/delete",
+      handlers: [jobs.deleteJob],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/applications/:jobId",
+      handlers: [applications.getApplicationsForJob],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/seekers",
+      handlers: [seekers.getSeekers],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/seekers/:seekerId",
+      handlers: [seekers.getSeekerById],
+    },
+    {
+      method: EXPRESS_APP_METHODS.POST,
+      path: "/employer/events/new",
+      handlers: [upload.single("image"), events.createEvent],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/employer/events/:eventId/edit",
+      handlers: [events.editEvent],
+    },
+    {
+      method: EXPRESS_APP_METHODS.DELETE,
+      path: "/employer/events/:eventId/delete",
+      handlers: [events.deleteEvent],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
+      path: "/employer/:applicationId/status",
+      handlers: [applications.updateApplicationStatus],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/analytics",
+      handlers: [employers.getEmployerAnalytics],
+    },
+  ];
 
-  generateRoutes(
-    app,
-    [
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/notifications/:notification",
-        handlers: [readNotificationsData],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/type-message/:employerId/:seekerId",
-        handlers: [typeMessage],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/seeker",
-        handlers: [getSeekerProfile],
-      },
-      {
-        method: EXPRESS_APP_METHODS.DELETE,
-        path: "/seeker/delete-seeker-profile",
-        handlers: [deleteSeekerProfile],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/edit-seeker-profile",
-        handlers: [upload.single("image"), editSeekerProfile],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/add-new-education",
-        handlers: [addNewEducation],
-      },
-      {
-        method: EXPRESS_APP_METHODS.DELETE,
-        path: "/seeker/delete-education/:educationId",
-        handlers: [deleteEducation],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/jobs/alerts",
-        handlers: [generateJobAlert],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/seeker/:jobId/generate-cover-letter",
-        handlers: [generateCoverLetter],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/seeker/jobs/:jobId/apply",
-        handlers: [upload.single("resume"), applyToJob],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/jobs/:jobId/save",
-        handlers: [saveJob],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/:employerId/follow",
-        handlers: [followEmployer],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/seeker/:employerId/review",
-        handlers: [addReview],
-      },
-      {
-        method: EXPRESS_APP_METHODS.DELETE,
-        path: "/seeker/:employerId/review",
-        handlers: [deleteReview],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/seeker/employers",
-        handlers: [getEmployers],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/seeker/employers/:employerId",
-        handlers: [getEmployerById],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/seeker/jobs",
-        handlers: [getJobs],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/seeker/jobs/:jobId",
-        handlers: [getJobById],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/:employerId/review",
-        handlers: [editReview],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/seeker/events",
-        handlers: [getEvents],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/seeker/events/:eventId/register",
-        handlers: [registerEvent],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employer",
-        handlers: [getEmployerProfile],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/employer/edit-employer-profile",
-        handlers: [upload.single("image"), editEmployerProfile],
-      },
-      {
-        method: EXPRESS_APP_METHODS.DELETE,
-        path: "/employer/delete-employer-profile",
-        handlers: [deleteEmployerProfile],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/employer/jobs/create-new-job",
-        handlers: [createJob],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/employer/jobs/:jobId/edit",
-        handlers: [editJob],
-      },
-      {
-        method: EXPRESS_APP_METHODS.DELETE,
-        path: "/employer/jobs/:jobId/delete",
-        handlers: [deleteJob],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employer/applications/:jobId",
-        handlers: [getApplicationsForJob],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employer/seekers",
-        handlers: [getSeekers],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employer/seekers/:seekerId",
-        handlers: [getSeekerById],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/employer/events/new",
-        handlers: [upload.single("image"), createNewEvent],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/employer/events/:eventId/edit",
-        handlers: [editEvent],
-      },
-      {
-        method: EXPRESS_APP_METHODS.DELETE,
-        path: "/employer/events/:eventId/delete",
-        handlers: [deleteEvent],
-      },
-      {
-        method: EXPRESS_APP_METHODS.POST,
-        path: "/employer/:seekerId/direct-messages",
-        handlers: [createDirectMessages],
-      },
-      {
-        method: EXPRESS_APP_METHODS.PATCH,
-        path: "/employer/:applicationId/status",
-        handlers: [updateApplicationStatus],
-      },
-      {
-        method: EXPRESS_APP_METHODS.GET,
-        path: "/employer/analytics",
-        handlers: [getEmployerAnalytics],
-      },
-    ],
-    true
-  );
+  generateRoutes(app, privateRoutes, true);
 }

@@ -1,14 +1,15 @@
-import { asyncErrors } from "../../errors";
-import { validate, responseServerHandler } from "../../utils/validation";
-import { deleteFromAws, initializeAws } from "../../utils/aws";
 import { uuidv7 } from "uuidv7";
-import Seeker from "../../models/seeker/seekers.schemas";
-import Employer from "../../models/employer/employers.schemas";
-import Application from "../../models/shared/applications.schemas";
-import Job from "../../models/shared/jobs.schemas";
-import Review from "../../models/employer/reviews.schemas";
-import Event from "../../models/employer/events.schemas";
+import { asyncErrors } from "../errors/asyncErrors";
+import Seeker from "../models/seeker/seekers.schema";
+import Job from "../models/shared/jobs.schema";
+import { deleteFileFromS3, uploadFileToS3 } from "../utils/aws";
+import { sendResponse, validate } from "../utils/validation";
+import Application from "../models/shared/applications.schema";
+import Review from "../models/employer/reviews.schema";
+import Event from "../models/employer/events.schema";
+import Employer from "../models/employer/employers.schema";
 
+// Controller function to sign up a new seeker
 export const signupSeeker = asyncErrors(
   async (request, response): Promise<void> => {
     try {
@@ -20,31 +21,32 @@ export const signupSeeker = asyncErrors(
       ];
       const seekerData = request.body;
 
+      // Validate the input data
       validate(allowedProperties, seekerData, (error, message) => {
         if (error) {
-          return responseServerHandler({ message: message }, 403, response);
+          return sendResponse({ message: message }, 403, response);
         }
       });
 
+      // Check if a seeker with the provided email already exists
       const existingSeeker = await Seeker.findOne({
         email: request.body.email,
       });
 
       if (existingSeeker) {
-        return responseServerHandler(
+        return sendResponse(
           { message: "This email already exists, please try again" },
           400,
           response
         );
       }
 
+      // Create a new seeker
       const newSeeker = await Seeker.create(request.body);
 
       if (!newSeeker) {
-        return responseServerHandler(
-          {
-            message: "Cannot register account, please try again",
-          },
+        return sendResponse(
+          { message: "Cannot register account, please try again" },
           500,
           response
         );
@@ -52,26 +54,28 @@ export const signupSeeker = asyncErrors(
 
       await newSeeker.save();
 
-      responseServerHandler(
+      sendResponse(
         { seeker: newSeeker._id, seekerToken: newSeeker.generateAuthToken },
         201,
         response
       );
     } catch (errors) {
-      responseServerHandler({ message: "Error for signup" }, 400, response);
+      sendResponse({ message: "Error during signup" }, 400, response);
     }
   }
 );
 
+// Controller function for seeker login
 export const loginSeeker = asyncErrors(
   async (request, response): Promise<void> => {
     try {
       const allowedProperties = ["email", "password"];
       const seekerData = request.body;
 
+      // Validate the input data
       validate(allowedProperties, seekerData, (error, message) => {
         if (error) {
-          return responseServerHandler({ message: message }, 403, response);
+          return sendResponse({ message: message }, 403, response);
         }
       });
 
@@ -82,10 +86,8 @@ export const loginSeeker = asyncErrors(
       );
 
       if (!existingSeeker) {
-        return responseServerHandler(
-          {
-            message: "Invalid credentials for account, please try again",
-          },
+        return sendResponse(
+          { message: "Invalid credentials for account, please try again" },
           500,
           response
         );
@@ -94,37 +96,33 @@ export const loginSeeker = asyncErrors(
       const seekerToken = await existingSeeker.generateAuthToken();
 
       if (!seekerToken) {
-        return responseServerHandler(
-          {
-            message: "Cannot login account, please try again",
-          },
+        return sendResponse(
+          { message: "Cannot login account, please try again" },
           500,
           response
         );
       }
 
-      responseServerHandler(
-        {
-          seeker: existingSeeker._id,
-          token: seekerToken,
-        },
+      sendResponse(
+        { seeker: existingSeeker._id, token: seekerToken },
         200,
         response
       );
     } catch (errors) {
-      responseServerHandler({ message: "Error for login" }, 400, response);
+      sendResponse({ message: "Error during login" }, 400, response);
     }
   }
 );
 
+// Controller function to get the profile of the logged-in seeker
 export const getSeekerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
     const { seekerId } = request.user;
-
     const { page = 1, limit = 10 } = request.query;
     const skip = (Number(page) - 1) * Number(limit);
 
+    // Find the seeker's profile and populate related fields
     const seeker = await Seeker.findById(seekerId)
       .populate({
         path: "notifications",
@@ -163,16 +161,12 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
       .exec();
 
     if (!seeker) {
-      return responseServerHandler(
-        { message: "Cannot Find Seeker" },
-        201,
-        response
-      );
+      return sendResponse({ message: "Cannot Find Seeker" }, 201, response);
     }
 
-    responseServerHandler({ seeker: seeker }, 201, response);
+    sendResponse({ seeker: seeker }, 201, response);
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get profile, please try again" },
       400,
       response
@@ -180,6 +174,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to edit the profile of the logged-in seeker
 export const editSeekerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
@@ -198,22 +193,24 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       "overview",
     ];
 
+    // Validate the input data
     validate(allowedProperties, updateData, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
     if (request.file) {
       const currentSeeker = await Seeker.findById(seekerId);
 
+      // If the seeker already has an image, delete it from AWS
       if (currentSeeker.image.includes("seekers")) {
-        await deleteFromAws(currentSeeker.image.split("/")[1], "seekers");
+        await deleteFileFromS3(currentSeeker.image.split("/")[1], "seekers");
       }
 
       const result = uuidv7();
       const imageKey = `seeker_${result}.png`;
-      const uploads = await initializeAws(request.file, imageKey, "seekers");
+      const uploads = await uploadFileToS3(request.file, imageKey, "seekers");
       await uploads.done();
 
       updateData.image = `seekers/${imageKey}`;
@@ -225,20 +222,16 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
     });
 
     if (!editedProfile) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Profile not found or could not be updated" },
         404,
         response
       );
     }
 
-    responseServerHandler(
-      { message: "Sucessfully edited profile" },
-      201,
-      response
-    );
+    sendResponse({ message: "Successfully edited profile" }, 201, response);
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot edit profile, please try again" },
       400,
       response
@@ -246,6 +239,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to delete the profile of the logged-in seeker
 export const deleteSeekerProfile = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
@@ -253,7 +247,7 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
     const seeker = await Seeker.findById(seekerId);
 
     if (!seeker) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Seeker not found or could not be deleted" },
         404,
         response
@@ -263,6 +257,7 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
     const applications = await Application.find({ seeker: seekerId });
     const reviews = await Review.find({ seeker: seekerId });
 
+    // Delete related data for the seeker
     await Application.deleteMany({ seeker: seekerId });
     await Review.deleteMany({ seeker: seekerId });
     await Event.updateMany(
@@ -293,12 +288,12 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
     );
 
     if (seeker.image.includes("seekers")) {
-      await deleteFromAws(seeker.image.split("/")[1], "seekers");
+      await deleteFileFromS3(seeker.image.split("/")[1], "seekers");
     }
 
     await Seeker.findByIdAndDelete(seekerId);
 
-    responseServerHandler(
+    sendResponse(
       {
         message: "Seeker profile and associated data deleted successfully",
       },
@@ -306,7 +301,7 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
       response
     );
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot delete profile, please try again" },
       400,
       response
@@ -314,12 +309,14 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to get a list of seekers with filtering and pagination
 export const getSeekers = asyncErrors(async (request, response) => {
   try {
     const { page = 1, limit = 10, search, skills } = request.query;
 
     const conditions: any = {};
 
+    // Add search conditions if search terms are provided
     if (search) {
       conditions.$or = [
         { first_name: { $regex: new RegExp(String(search), "i") } },
@@ -328,18 +325,12 @@ export const getSeekers = asyncErrors(async (request, response) => {
       ];
     }
 
+    // Filter seekers by skills if provided
     if (skills) {
-      // Check if skills is a string and convert it to an array
-      const fitleredSkills =
+      const filteredSkills =
         typeof skills === "string" ? skills.split(",") : skills;
-      conditions.skills = { $in: fitleredSkills };
+      conditions.skills = { $in: filteredSkills };
     }
-
-    // if (skills) {
-    //   conditions.skills = Array.isArray(skills)
-    //     ? { $in: skills }
-    //     : skills.toString().split(",");
-    // }
 
     const seekers = await Seeker.find(conditions)
       .skip((Number(page) - 1) * Number(limit))
@@ -352,20 +343,16 @@ export const getSeekers = asyncErrors(async (request, response) => {
     const totalSeekers = await Seeker.countDocuments(conditions);
 
     if (!seekers) {
-      return responseServerHandler(
-        { message: "Cannot Find Seekers" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot Find Seekers" }, 404, response);
     }
 
-    responseServerHandler(
+    sendResponse(
       { seekers: seekers, totalSeekers: totalSeekers },
       200,
       response
     );
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get seekers, please try again" },
       400,
       response
@@ -373,6 +360,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to get a seeker profile by ID
 export const getSeekerById = asyncErrors(async (request, response) => {
   try {
     const seeker = await Seeker.findById(request.params.seekerId).select(
@@ -380,16 +368,12 @@ export const getSeekerById = asyncErrors(async (request, response) => {
     );
 
     if (!seeker) {
-      return responseServerHandler(
-        { message: "Seeker not found" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Seeker not found" }, 404, response);
     }
 
-    responseServerHandler({ seeker: seeker }, 201, response);
+    sendResponse({ seeker: seeker }, 201, response);
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get seeker, please try again" },
       400,
       response
@@ -397,7 +381,8 @@ export const getSeekerById = asyncErrors(async (request, response) => {
   }
 });
 
-export const addNewEducation = asyncErrors(async (request, response) => {
+// Controller function to add education to the seeker's profile
+export const createEducation = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
     const { seekerId } = request.user;
@@ -410,12 +395,14 @@ export const addNewEducation = asyncErrors(async (request, response) => {
       "degree",
     ];
 
+    // Validate the input data
     validate(allowedProperties, newEducation, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
+    // Add the new education entry to the seeker's profile
     const seeker = await Seeker.findByIdAndUpdate(
       seekerId,
       {
@@ -428,20 +415,16 @@ export const addNewEducation = asyncErrors(async (request, response) => {
     );
 
     if (!seeker) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Seeker not found or could not add education" },
         404,
         response
       );
     }
 
-    responseServerHandler(
-      { message: "Successfully added education" },
-      201,
-      response
-    );
+    sendResponse({ message: "Successfully added education" }, 201, response);
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Error adding education, please try again" },
       400,
       response
@@ -449,6 +432,7 @@ export const addNewEducation = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to delete an education entry from the seeker's profile
 export const deleteEducation = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
@@ -457,17 +441,19 @@ export const deleteEducation = asyncErrors(async (request, response) => {
     const seeker = await Seeker.findById(seekerId);
 
     if (!seeker) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Seeker not found or could not delete education" },
         404,
         response
       );
     }
 
+    // Filter out the education entry to be deleted
     const updatedEducation = seeker.education.filter(
       (education: any) => education._id.toString() !== educationId.toString()
     );
 
+    // Update the seeker's profile with the filtered education list
     const updatedSeeker = await Seeker.findByIdAndUpdate(
       seekerId,
       { education: updatedEducation },
@@ -475,20 +461,16 @@ export const deleteEducation = asyncErrors(async (request, response) => {
     );
 
     if (!updatedSeeker) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Error updating seeker's education" },
         400,
         response
       );
     }
 
-    responseServerHandler(
-      { message: "Education successfully deleted" },
-      201,
-      response
-    );
+    sendResponse({ message: "Education successfully deleted" }, 201, response);
   } catch (errors) {
-    responseServerHandler(
+    sendResponse(
       { message: "Error deleting education, please try again" },
       400,
       response

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { responseServerHandler } from "../utils/validation";
+import { sendResponse } from "../utils/validation";
 
 export const authenticateUser = (
   request: Request,
@@ -10,7 +10,7 @@ export const authenticateUser = (
   const token = request.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return responseServerHandler("Unauthorized - Missing token", 401, response);
+    return sendResponse("Unauthorized - Missing token", 401, response);
   }
 
   jwt.verify(token, process.env.JWT_SECRET!, (err: any, decoded: any) => {
@@ -22,7 +22,7 @@ export const authenticateUser = (
         errorMessage = "Unauthorized - Invalid token";
       }
 
-      return responseServerHandler(errorMessage, 401, response);
+      return sendResponse(errorMessage, 401, response);
     }
 
     // @ts-ignore
@@ -30,7 +30,7 @@ export const authenticateUser = (
 
     // @ts-ignore
     if (!request.user) {
-      return responseServerHandler(
+      return sendResponse(
         "Unauthorized - User not authenticated",
         401,
         response
@@ -39,13 +39,13 @@ export const authenticateUser = (
 
     const userType = decoded.userType;
     if (userType === "seeker" && request.path.startsWith("/employer")) {
-      return responseServerHandler(
+      return sendResponse(
         "Unauthorized - Seekers cannot access employer routes",
         403,
         response
       );
     } else if (userType === "employer" && request.path.startsWith("/seeker")) {
-      return responseServerHandler(
+      return sendResponse(
         "Unauthorized - Employers cannot access seeker routes",
         403,
         response

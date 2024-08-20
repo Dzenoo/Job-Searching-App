@@ -1,20 +1,22 @@
-import { asyncErrors } from "../../errors";
-import { responseServerHandler, validate } from "../../utils/validation";
-import Job from "../../models/shared/jobs.schemas";
-import Employer from "../../models/employer/employers.schemas";
-import Application from "../../models/shared/applications.schemas";
-import Seeker from "../../models/seeker/seekers.schemas";
-import { io } from "../../server";
-import Notification from "../../models/shared/notifications.schemas";
+import { asyncErrors } from "../errors/asyncErrors";
+import Employer from "../models/employer/employers.schema";
+import Seeker from "../models/seeker/seekers.schema";
+import Application from "../models/shared/applications.schema";
+import Job from "../models/shared/jobs.schema";
+import Notification from "../models/shared/notifications.schema";
+import { io } from "../server";
+import { sendResponse, validate } from "../utils/validation";
 
+// Controller function to create a new job posting
 export const createJob = asyncErrors(
   async (request, response): Promise<void> => {
     try {
       // @ts-ignore
-      const { employerId } = request.user;
-      const jobData = request.body;
-      const employer = await Employer.findById(employerId);
+      const { employerId } = request.user; // Get employer ID from the authenticated user
+      const jobData = request.body; // Get job data from the request body
+      const employer = await Employer.findById(employerId); // Find the employer by ID
 
+      // Define allowed properties for validation
       const allowedProperties = [
         "title",
         "location",
@@ -28,16 +30,18 @@ export const createJob = asyncErrors(
         "overview",
       ];
 
+      // Validate the incoming job data
       validate(allowedProperties, jobData, (error, message) => {
         if (error) {
-          return responseServerHandler({ message: message }, 403, response);
+          return sendResponse({ message: message }, 403, response);
         }
       });
 
+      // Create the new job in the database
       const newJob = await Job.create({ ...jobData, company: employerId });
 
       if (!newJob) {
-        responseServerHandler(
+        sendResponse(
           { message: "Cannot create job, please try again" },
           403,
           response
@@ -45,16 +49,19 @@ export const createJob = asyncErrors(
         return;
       }
 
+      // Add the new job to the employer's list of jobs
       await Employer.findByIdAndUpdate(employerId, {
         $push: { jobs: newJob._id },
       });
 
+      // Find seekers whose alerts match the new job's criteria
       const matchedSeekers = await Seeker.find({
         "alerts.type": newJob.type,
         "alerts.level": { $in: newJob.level },
         "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
       }).exec();
 
+      // Create a notification for matched seekers
       const createdNotifications = await Notification.create({
         data: {
           employerImage: employer.image,
@@ -66,16 +73,19 @@ export const createJob = asyncErrors(
         type: "jobs",
       });
 
+      // Push the notification to all matched seekers
       matchedSeekers.forEach((seeker) => {
         seeker.notifications.push(createdNotifications._id);
         seeker.save();
       });
 
+      // Emit the notification via socket to all connected clients
       io.emit("notification", createdNotifications);
 
-      responseServerHandler({ job: newJob._id }, 201, response);
+      // Send the response with the created job ID
+      sendResponse({ job: newJob._id }, 201, response);
     } catch (error) {
-      responseServerHandler(
+      sendResponse(
         { message: "Cannot create job, please try again" },
         400,
         response
@@ -84,18 +94,20 @@ export const createJob = asyncErrors(
   }
 );
 
+// Controller function to edit an existing job posting
 export const editJob = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const updateData = request.body;
-    const jobId = request.params.jobId;
-    const job = await Job.findById(jobId);
+    const { employerId } = request.user; // Get employer ID from the authenticated user
+    const updateData = request.body; // Get updated job data from the request body
+    const jobId = request.params.jobId; // Get job ID from the request parameters
+    const job = await Job.findById(jobId); // Find the job by ID
 
     if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
+      return sendResponse({ message: "Job not found" }, 404, response);
     }
 
+    // Define allowed properties for validation
     const allowedProperties = [
       "type",
       "description",
@@ -107,36 +119,40 @@ export const editJob = asyncErrors(async (request, response) => {
       "title",
     ];
 
+    // Validate the incoming update data
     validate(allowedProperties, updateData, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
+    // Check if the employer is the owner of the job
     if (employerId.toString() !== job.company.toString()) {
-      return responseServerHandler(
-        { message: "Unauthorized, employer is not owner of the job" },
+      return sendResponse(
+        { message: "Unauthorized, employer is not the owner of the job" },
         403,
         response
       );
     }
 
+    // Update the job in the database
     const editedJob = await Job.findByIdAndUpdate(jobId, updateData, {
       new: true,
       runValidators: true,
     });
 
     if (!editedJob) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Job not found or could not be updated" },
         404,
         response
       );
     }
 
-    responseServerHandler({ job: editedJob }, 201, response);
+    // Send the response with the updated job details
+    sendResponse({ job: editedJob }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot edit job, please try again" },
       400,
       response
@@ -144,32 +160,38 @@ export const editJob = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to delete a job posting
 export const deleteJob = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const jobId = request.params.jobId;
+    const { employerId } = request.user; // Get employer ID from the authenticated user
+    const jobId = request.params.jobId; // Get job ID from the request parameters
 
-    const job = await Job.findById(jobId);
+    const job = await Job.findById(jobId); // Find the job by ID
 
     if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
+      return sendResponse({ message: "Job not found" }, 404, response);
     }
 
+    // Check if the employer is the owner of the job
     if (employerId.toString() !== job.company.toString()) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Unauthorized, employer is not the owner of the job" },
         403,
         response
       );
     }
 
+    // Find all applications related to the job
     const applications = await Application.find({ job: jobId });
 
+    // Delete the job from the database
     await Job.findByIdAndDelete(jobId);
 
+    // Delete all related applications
     await Application.deleteMany({ job: jobId });
 
+    // Update seekers to remove references to the deleted job and applications
     await Seeker.updateMany(
       {
         $or: [
@@ -185,17 +207,15 @@ export const deleteJob = asyncErrors(async (request, response) => {
       }
     );
 
+    // Remove the job from the employer's list of jobs
     await Employer.findByIdAndUpdate(employerId, {
       $pull: { jobs: jobId },
     });
 
-    responseServerHandler(
-      { message: "Job Deleted Successfully" },
-      200,
-      response
-    );
+    // Send the response confirming deletion
+    sendResponse({ message: "Job Deleted Successfully" }, 200, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot delete job, please try again" },
       400,
       response
@@ -203,40 +223,36 @@ export const deleteJob = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to save or unsave a job for a seeker
 export const saveJob = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { seekerId } = request.user;
-    const jobId = request.params.jobId;
+    const { seekerId } = request.user; // Get seeker ID from the authenticated user
+    const jobId = request.params.jobId; // Get job ID from the request parameters
 
-    const job = await Job.findById(jobId);
-    const seeker = await Seeker.findById(seekerId);
+    const job = await Job.findById(jobId); // Find the job by ID
+    const seeker = await Seeker.findById(seekerId); // Find the seeker by ID
 
     if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
+      return sendResponse({ message: "Job not found" }, 404, response);
     }
 
+    // Check if the job is already saved by the seeker
     if (seeker.savedJobs.includes(jobId)) {
+      // Unsave the job if it is already saved
       await Seeker.findByIdAndUpdate(seekerId, {
         $pull: { savedJobs: jobId },
       });
-      responseServerHandler(
-        { message: "Job successfully unsaved" },
-        201,
-        response
-      );
+      sendResponse({ message: "Job successfully unsaved" }, 201, response);
     } else {
+      // Save the job if it is not already saved
       await Seeker.findByIdAndUpdate(seekerId, {
         $push: { savedJobs: jobId },
       });
-      responseServerHandler(
-        { message: "Job successfully saved" },
-        201,
-        response
-      );
+      sendResponse({ message: "Job successfully saved" }, 201, response);
     }
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot save job, please try again" },
       400,
       response
@@ -244,30 +260,30 @@ export const saveJob = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to generate a job alert for a seeker
 export const generateJobAlert = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { seekerId } = request.user;
-    const allowedProperties = ["level", "type", "title"];
-    const newAlert = request.body;
+    const { seekerId } = request.user; // Get seeker ID from the authenticated user
+    const allowedProperties = ["level", "type", "title"]; // Define allowed properties for validation
+    const newAlert = request.body; // Get new alert data from the request body
 
+    // Validate the incoming alert data
     validate(allowedProperties, newAlert, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
+    // Update the seeker with the new alert
     await Seeker.findByIdAndUpdate(seekerId, {
       alerts: { ...newAlert },
     });
 
-    responseServerHandler(
-      { message: "Job alert successfully created" },
-      201,
-      response
-    );
+    // Send the response confirming the creation of the job alert
+    sendResponse({ message: "Job alert successfully created" }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot generate job alert, please try again" },
       400,
       response
@@ -275,6 +291,7 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to get a list of jobs with filtering, sorting, and pagination
 export const getJobs = asyncErrors(async (request, response) => {
   try {
     const {
@@ -286,14 +303,16 @@ export const getJobs = asyncErrors(async (request, response) => {
       salaryRange,
       position,
       srt,
-    } = request.query;
+    } = request.query; // Get query parameters for pagination, filtering, and sorting
 
     const conditions: any = {};
 
+    // Get popular jobs based on application count
     const popularJobs = await Job.find({
       $expr: { $gt: [{ $size: "$applications" }, 30] },
     }).select("title");
 
+    // Add search conditions if search terms are provided
     if (search) {
       conditions.$or = [
         { title: { $regex: new RegExp(String(search), "i") } },
@@ -302,18 +321,21 @@ export const getJobs = asyncErrors(async (request, response) => {
       ];
     }
 
+    // Filter by job type if provided
     if (type) {
       conditions.type = Array.isArray(type)
         ? { $in: type }
         : type.toString().split(",");
     }
 
+    // Filter by seniority level if provided
     if (seniority) {
       conditions.level = Array.isArray(seniority)
         ? { $in: seniority }
         : seniority.toString().split(",");
     }
 
+    // Filter by salary range if provided
     if (salaryRange) {
       const salaryRanges = Array.isArray(salaryRange)
         ? salaryRange
@@ -329,14 +351,17 @@ export const getJobs = asyncErrors(async (request, response) => {
       conditions.$or = salaryConditions;
     }
 
+    // Filter by position if provided
     if (position) {
       conditions.position = Array.isArray(position)
         ? { $in: position }
         : position.toString().split(",");
     }
 
+    // Define sorting options based on the sorting parameter
     const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
 
+    // Fetch the list of jobs with the defined conditions and sorting
     const jobs = await Job.find(conditions)
       .sort(sortOptions)
       .skip((Number(page) - 1) * Number(limit))
@@ -346,9 +371,12 @@ export const getJobs = asyncErrors(async (request, response) => {
         "_id title overview company applications location expiration_date level createdAt"
       )
       .exec();
+
+    // Count the total number of jobs matching the conditions
     const totalJobs = await Job.countDocuments(conditions);
 
-    responseServerHandler(
+    // Send the response with the list of jobs, total count, and popular jobs
+    sendResponse(
       { jobs: jobs, totalJobs: totalJobs, popularJobs: popularJobs },
       200,
       response
@@ -356,7 +384,7 @@ export const getJobs = asyncErrors(async (request, response) => {
   } catch (error) {
     console.log(error);
 
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get jobs, please try again" },
       400,
       response
@@ -364,6 +392,7 @@ export const getJobs = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to get job details by ID and similar jobs
 export const getJobById = asyncErrors(async (request, response) => {
   try {
     const job = await Job.findById(request.params.jobId)
@@ -377,9 +406,10 @@ export const getJobById = asyncErrors(async (request, response) => {
       );
 
     if (!job) {
-      return responseServerHandler({ message: "Job not found" }, 404, response);
+      return sendResponse({ message: "Job not found" }, 404, response);
     }
 
+    // Find similar jobs by title
     const jobs = await Job.find({
       title: job.title,
     })
@@ -394,13 +424,15 @@ export const getJobById = asyncErrors(async (request, response) => {
       })
       .exec();
 
+    // Filter out the current job from the list of similar jobs
     const filteredJobsData = jobs.filter(
       (job) => job._id.toString() !== request.params.jobId
     );
 
-    responseServerHandler({ job: job, jobs: filteredJobsData }, 201, response);
+    // Send the response with the job details and similar jobs
+    sendResponse({ job: job, jobs: filteredJobsData }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get job, please try again" },
       400,
       response

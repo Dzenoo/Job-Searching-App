@@ -1,28 +1,33 @@
-import { asyncErrors } from "../../errors";
-import { initializeAws } from "../../utils/aws";
-import { responseServerHandler, validate } from "../../utils/validation";
-import Employer from "../../models/employer/employers.schemas";
-import Event from "../../models/employer/events.schemas";
-import Seeker from "../../models/seeker/seekers.schemas";
+import { asyncErrors } from "../errors/asyncErrors";
+import Employer from "../models/employer/employers.schema";
+import Event from "../models/employer/events.schema";
+import Seeker from "../models/seeker/seekers.schema";
+import { uploadFileToS3 } from "../utils/aws";
+import { sendResponse, validate } from "../utils/validation";
 
-export const createNewEvent = asyncErrors(async (request, response) => {
+// Controller function to create a new event
+export const createEvent = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
+    const { employerId } = request.user; // Get the employer ID from the authenticated user
+
+    // Check if an event with the same title already exists
     const existingEvent = await Event.findOne({
       title: request.body.title,
     });
-    const image = request.file;
-    const eventsData = request.body;
 
     if (existingEvent) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Event with this title already exists" },
         400,
         response
       );
     }
 
+    const image = request.file; // Get the uploaded image from the request
+    const eventsData = request.body; // Get the event data from the request body
+
+    // Define allowed properties for validation
     const allowedProperties = [
       "title",
       "date",
@@ -32,29 +37,34 @@ export const createNewEvent = asyncErrors(async (request, response) => {
       "category",
     ];
 
+    // Validate the incoming event data
     validate(allowedProperties, eventsData, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
+    // Generate a unique image key and upload the image to S3
     const imageKey = `employer_${employerId}.png`;
-    const uploads = await initializeAws(image, imageKey, "events");
+    const uploads = await uploadFileToS3(image!, imageKey, "events");
     await uploads.done();
 
+    // Create the new event in the database
     const newEvent = await Event.create({
       ...request.body,
       company: employerId,
       image: `events/${imageKey}`,
     });
 
+    // Add the event to the employer's list of events
     await Employer.findByIdAndUpdate(employerId, {
       $push: { events: newEvent._id },
     });
 
-    responseServerHandler({ event: newEvent }, 201, response);
+    // Send the response with the created event
+    sendResponse({ event: newEvent }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot create event, please try again" },
       400,
       response
@@ -62,29 +72,28 @@ export const createNewEvent = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to edit an existing event
 export const editEvent = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const updateData = request.body;
-    const existingEvent = await Event.findById(request.params.eventId);
+    const { employerId } = request.user; // Get the employer ID from the authenticated user
+    const updateData = request.body; // Get the updated event data from the request body
+    const existingEvent = await Event.findById(request.params.eventId); // Find the event by ID
 
     if (!existingEvent) {
-      return responseServerHandler(
-        { message: "Cannot find event" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot find event" }, 404, response);
     }
 
+    // Check if the employer owns the event
     if (existingEvent.company.toString() !== employerId) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Unauthorized. You are not the owner of this event." },
         403,
         response
       );
     }
 
+    // Define allowed properties for validation
     const allowedProperties = [
       "title",
       "date",
@@ -93,12 +102,14 @@ export const editEvent = asyncErrors(async (request, response) => {
       "category",
     ];
 
+    // Validate the incoming update data
     validate(allowedProperties, updateData, (error, message) => {
       if (error) {
-        return responseServerHandler({ message: message }, 403, response);
+        return sendResponse({ message: message }, 403, response);
       }
     });
 
+    // Update the event in the database
     const editedEvent = await Event.findByIdAndUpdate(
       existingEvent._id,
       updateData,
@@ -109,16 +120,17 @@ export const editEvent = asyncErrors(async (request, response) => {
     );
 
     if (!editedEvent) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Event not found or could not be updated" },
         404,
         response
       );
     }
 
-    responseServerHandler({ event: editedEvent }, 201, response);
+    // Send the response with the updated event
+    sendResponse({ event: editedEvent }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot edit event, please try again" },
       400,
       response
@@ -126,32 +138,32 @@ export const editEvent = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to delete an event
 export const deleteEvent = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user;
-    const existingEvent = await Event.findById(request.params.eventId);
+    const { employerId } = request.user; // Get the employer ID from the authenticated user
+    const existingEvent = await Event.findById(request.params.eventId); // Find the event by ID
 
     if (!existingEvent) {
-      return responseServerHandler(
-        { message: "Cannot find event" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot find event" }, 404, response);
     }
 
+    // Check if the employer owns the event
     if (existingEvent.company.toString() !== employerId) {
-      return responseServerHandler(
+      return sendResponse(
         { message: "Unauthorized. You are not the owner of this event." },
         403,
         response
       );
     }
 
+    // Remove the event from the employer's list of events
     await Employer.findByIdAndUpdate(employerId, {
       $pull: { events: existingEvent._id },
     });
 
+    // Remove the event from all seekers' lists of registered events
     await Seeker.updateMany(
       { events: existingEvent._id },
       {
@@ -159,15 +171,13 @@ export const deleteEvent = asyncErrors(async (request, response) => {
       }
     );
 
+    // Delete the event from the database
     await Event.findByIdAndDelete(existingEvent._id);
 
-    responseServerHandler(
-      { message: "Event successfully deleted" },
-      201,
-      response
-    );
+    // Send the response confirming deletion
+    sendResponse({ message: "Event successfully deleted" }, 201, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot delete event, please try again" },
       400,
       response
@@ -175,24 +185,23 @@ export const deleteEvent = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function for seekers to register or unregister for an event
 export const registerEvent = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { seekerId } = request.user;
-    const eventId = request.params.eventId;
-    const event = await Event.findById(eventId);
+    const { seekerId } = request.user; // Get the seeker ID from the authenticated user
+    const eventId = request.params.eventId; // Get the event ID from the request parameters
+    const event = await Event.findById(eventId); // Find the event by ID
 
     if (!event) {
-      return responseServerHandler(
-        { message: "Cannot Find Event" },
-        404,
-        response
-      );
+      return sendResponse({ message: "Cannot Find Event" }, 404, response);
     }
 
+    // Check if the seeker is already registered for the event
     const isRegistered = event.seekers.includes(seekerId);
 
     if (isRegistered) {
+      // Unregister the seeker from the event
       await Event.findByIdAndUpdate(eventId, {
         $pull: { seekers: seekerId },
       });
@@ -201,12 +210,13 @@ export const registerEvent = asyncErrors(async (request, response) => {
         $pull: { events: eventId },
       });
 
-      responseServerHandler(
+      sendResponse(
         { message: "Event successfully unregistered" },
         201,
         response
       );
     } else {
+      // Register the seeker for the event
       await Event.findByIdAndUpdate(eventId, {
         $push: { seekers: seekerId },
       });
@@ -215,14 +225,10 @@ export const registerEvent = asyncErrors(async (request, response) => {
         $push: { events: eventId },
       });
 
-      responseServerHandler(
-        { message: "Event successfully registered" },
-        201,
-        response
-      );
+      sendResponse({ message: "Event successfully registered" }, 201, response);
     }
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Error registering events, please try again" },
       400,
       response
@@ -230,6 +236,7 @@ export const registerEvent = asyncErrors(async (request, response) => {
   }
 });
 
+// Controller function to get a list of events with filtering, sorting, and pagination
 export const getEvents = asyncErrors(async (request, response) => {
   try {
     const {
@@ -239,10 +246,11 @@ export const getEvents = asyncErrors(async (request, response) => {
       category,
       location,
       srt,
-    } = request.query;
+    } = request.query; // Get query parameters for pagination, filtering, and sorting
 
     const conditions: any = {};
 
+    // Add search conditions if search terms are provided
     if (search) {
       conditions.$or = [
         { title: { $regex: new RegExp(String(search), "i") } },
@@ -251,20 +259,24 @@ export const getEvents = asyncErrors(async (request, response) => {
       ];
     }
 
+    // Filter by category if provided
     if (category) {
       conditions.category = Array.isArray(category)
         ? { $in: category }
         : category.toString().split(",");
     }
 
+    // Filter by location if provided
     if (location) {
       conditions.location = Array.isArray(location)
         ? { $in: location }
         : location.toString().split(",");
     }
 
+    // Define sorting options based on the sorting parameter
     const sortOptions: any = { createdAt: srt === "desc" ? -1 : 1 };
 
+    // Fetch the list of events with the defined conditions and sorting
     const events = await Event.find(conditions)
       .sort(sortOptions)
       .populate({
@@ -275,15 +287,13 @@ export const getEvents = asyncErrors(async (request, response) => {
       .limit(Number(limit))
       .exec();
 
+    // Count the total number of events matching the conditions
     const totalEvents = await Event.countDocuments(conditions);
 
-    responseServerHandler(
-      { events: events, totalEvents: totalEvents },
-      200,
-      response
-    );
+    // Send the response with the list of events and the total count
+    sendResponse({ events: events, totalEvents: totalEvents }, 200, response);
   } catch (error) {
-    responseServerHandler(
+    sendResponse(
       { message: "Cannot get events, please try again" },
       400,
       response

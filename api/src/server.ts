@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 import { connectToDatabase } from "./database/mongoose";
 import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
-import { handleError } from "./middlewares/errors";
+import { handleError } from "./middlewares/error.middleware";
 import { Server } from "socket.io";
 import { OpenAI } from "openai";
 
