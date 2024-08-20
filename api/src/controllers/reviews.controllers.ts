@@ -15,7 +15,14 @@ export const createReview = asyncErrors(async (request, response) => {
 
     // Check if the employer exists
     if (!employer) {
-      return sendResponse({ message: "Cannot Find Employer" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The specified employer could not be found. Please check the employer ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Check if the seeker has already reviewed this employer
@@ -26,7 +33,7 @@ export const createReview = asyncErrors(async (request, response) => {
 
     if (existingReview) {
       return sendResponse(
-        { message: "Already reviewed this employer" },
+        { message: "You have already submitted a review for this employer." },
         400,
         response
       );
@@ -92,7 +99,14 @@ export const editReview = asyncErrors(async (request, response) => {
 
     // Check if the review exists
     if (!existingReview) {
-      return sendResponse({ message: "Cannot find review" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "he review you are trying to edit could not be found. Please check the review ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Define allowed properties for validation
@@ -113,7 +127,10 @@ export const editReview = asyncErrors(async (request, response) => {
     // Check if the authenticated seeker is the owner of the review
     if (existingReview.seeker.toString() !== seekerId) {
       return sendResponse(
-        { message: "Unauthorized. You are not the owner of this review." },
+        {
+          message:
+            "You are not authorized to edit this review. Please ensure you are the review owner.",
+        },
         403,
         response
       );
@@ -161,7 +178,14 @@ export const deleteReview = asyncErrors(async (request, response) => {
 
     // Check if the employer exists
     if (!employer) {
-      return sendResponse({ message: "Cannot Find Employer" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The specified employer could not be found. Please check the employer ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Find the review by seekerId
@@ -171,7 +195,14 @@ export const deleteReview = asyncErrors(async (request, response) => {
 
     // Check if the review exists
     if (!existingReview) {
-      return sendResponse({ message: "Cannot find review" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The review you are trying to delete could not be found. Please check the details and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Remove the review from the employer's list of reviews

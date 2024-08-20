@@ -45,7 +45,10 @@ export const signupEmployer = asyncErrors(
 
       if (existingEmployerEmail || existingEmployerName) {
         return sendResponse(
-          { message: "This account already exists, please try again" },
+          {
+            message:
+              "An account with this email or company name already exists. Please try logging in or using a different email/name.",
+          },
           400,
           response
         );
@@ -57,7 +60,8 @@ export const signupEmployer = asyncErrors(
       if (!newEmployer) {
         return sendResponse(
           {
-            message: "Cannot register account, please try again",
+            message:
+              "We couldn't create your account at this moment. Please try again later.",
           },
           500,
           response
@@ -105,7 +109,8 @@ export const loginEmployer = asyncErrors(
       if (!existingEmployer) {
         return sendResponse(
           {
-            message: "Invalid credentials for account, please try again",
+            message:
+              "The email or password you entered is incorrect. Please try again.",
           },
           500,
           response
@@ -118,7 +123,8 @@ export const loginEmployer = asyncErrors(
       if (!employerToken) {
         return sendResponse(
           {
-            message: "Cannot login account, please try again",
+            message:
+              "We encountered an issue during login. Please try again later.",
           },
           500,
           response
@@ -126,7 +132,12 @@ export const loginEmployer = asyncErrors(
       }
 
       // Set the token as a cookie in the response
-      response.cookie("token", employerToken, { httpOnly: true });
+      const expiration_date = new Date(Date.now() + 3600000);
+
+      response.cookie("token", employerToken, {
+        httpOnly: true,
+        expires: expiration_date,
+      });
 
       // Send response with employer ID and token
       sendResponse(
@@ -162,7 +173,10 @@ export const followEmployer = asyncErrors(async (request, response) => {
 
     if (!employer || !seeker) {
       return sendResponse(
-        { message: "Employer or Seeker cannot be found" },
+        {
+          message:
+            "We couldn't find the employer or your profile. Please try again later.",
+        },
         404,
         response
       );
@@ -346,7 +360,10 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
     console.log(error);
 
     sendResponse(
-      { message: "Cannot get profile, please try again" },
+      {
+        message:
+          "We couldn't find the employer's profile. Please check the ID and try again.",
+      },
       400,
       response
     );
@@ -401,7 +418,10 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
 
     if (!editedProfile) {
       return sendResponse(
-        { message: "Profile not found or could not be updated" },
+        {
+          message:
+            "We couldn't find the profile or update it. Please check the details and try again.",
+        },
         404,
         response
       );
@@ -411,7 +431,10 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     sendResponse({ employer: editedProfile }, 201, response);
   } catch (error) {
     sendResponse(
-      { message: "Cannot edit profile, please try again" },
+      {
+        message:
+          "We encountered an issue updating your profile. Please try again later.",
+      },
       400,
       response
     );
@@ -429,7 +452,14 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
     );
 
     if (!employer) {
-      return sendResponse({ message: "Employer not found" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "We couldn't find the employer's profile. Please check the ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Delete associated jobs, reviews, and events
@@ -455,7 +485,10 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
 
     // Send response confirming deletion
     sendResponse(
-      { message: "Employer profile and associated data deleted successfully" },
+      {
+        message:
+          "Your profile and all associated data have been successfully deleted.",
+      },
       200,
       response
     );
@@ -516,7 +549,14 @@ export const getEmployerById = asyncErrors(async (request, response) => {
       .exec();
 
     if (!employer) {
-      return sendResponse({ message: "Cannot Find Employer" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "We couldn't find the employer with the specified ID. Please try again later.",
+        },
+        404,
+        response
+      );
     }
 
     // Count the total number of jobs, reviews, and events for the employer
@@ -578,7 +618,14 @@ export const getEmployers = asyncErrors(async (request, response) => {
     const totalEmployers = await Employer.countDocuments(conditions); // Count the total number of employers
 
     if (!employers) {
-      return sendResponse({ message: "Cannot Find Employers" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "We couldn't find any employers matching your criteria. Please try again later.",
+        },
+        404,
+        response
+      );
     }
 
     // Send response with the list of employers and the total count
@@ -588,7 +635,14 @@ export const getEmployers = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
-    sendResponse({ message: "Cannot get employers" }, 400, response);
+    sendResponse(
+      {
+        message:
+          "We encountered an issue retrieving the list of employers. Please try again later.",
+      },
+      400,
+      response
+    );
   }
 });
 
@@ -622,7 +676,6 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
       jobTypes,
     });
   } catch (error) {
-    console.error("Error getting employer analytics:", error);
     response.status(500).json({ message: "Internal server error" });
   }
 });

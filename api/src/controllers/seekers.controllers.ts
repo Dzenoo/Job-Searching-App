@@ -35,7 +35,10 @@ export const signupSeeker = asyncErrors(
 
       if (existingSeeker) {
         return sendResponse(
-          { message: "This email already exists, please try again" },
+          {
+            message:
+              "An account with this email already exists. Please try logging in or use a different email address.",
+          },
           400,
           response
         );
@@ -87,7 +90,10 @@ export const loginSeeker = asyncErrors(
 
       if (!existingSeeker) {
         return sendResponse(
-          { message: "Invalid credentials for account, please try again" },
+          {
+            message:
+              "The email or password you entered is incorrect. Please try again.",
+          },
           500,
           response
         );
@@ -97,11 +103,22 @@ export const loginSeeker = asyncErrors(
 
       if (!seekerToken) {
         return sendResponse(
-          { message: "Cannot login account, please try again" },
+          {
+            message:
+              "We encountered an issue while logging in. Please try again later.",
+          },
           500,
           response
         );
       }
+
+      // Set the token as a cookie in the response
+      const expiration_date = new Date(Date.now() + 3600000);
+
+      response.cookie("token", seekerToken, {
+        httpOnly: true,
+        expires: expiration_date,
+      });
 
       sendResponse(
         { seeker: existingSeeker._id, token: seekerToken },
@@ -161,7 +178,14 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
       .exec();
 
     if (!seeker) {
-      return sendResponse({ message: "Cannot Find Seeker" }, 201, response);
+      return sendResponse(
+        {
+          message:
+            "We could not find your profile. Please check your details and try again.",
+        },
+        201,
+        response
+      );
     }
 
     sendResponse({ seeker: seeker }, 201, response);
@@ -223,7 +247,10 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
 
     if (!editedProfile) {
       return sendResponse(
-        { message: "Profile not found or could not be updated" },
+        {
+          message:
+            "We could not find your profile or update it. Please try again later.",
+        },
         404,
         response
       );
@@ -248,7 +275,10 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
 
     if (!seeker) {
       return sendResponse(
-        { message: "Seeker not found or could not be deleted" },
+        {
+          message:
+            "We could not find your profile or delete it. Please try again later.",
+        },
         404,
         response
       );
@@ -295,7 +325,8 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
 
     sendResponse(
       {
-        message: "Seeker profile and associated data deleted successfully",
+        message:
+          "Your profile and all associated data have been successfully deleted.",
       },
       200,
       response
@@ -343,7 +374,14 @@ export const getSeekers = asyncErrors(async (request, response) => {
     const totalSeekers = await Seeker.countDocuments(conditions);
 
     if (!seekers) {
-      return sendResponse({ message: "Cannot Find Seekers" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "We could not find any seekers matching your criteria. Please try again later.",
+        },
+        404,
+        response
+      );
     }
 
     sendResponse(
@@ -368,7 +406,14 @@ export const getSeekerById = asyncErrors(async (request, response) => {
     );
 
     if (!seeker) {
-      return sendResponse({ message: "Seeker not found" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The seeker you are looking for could not be found. Please check the ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     sendResponse({ seeker: seeker }, 201, response);
@@ -422,7 +467,14 @@ export const createEducation = asyncErrors(async (request, response) => {
       );
     }
 
-    sendResponse({ message: "Successfully added education" }, 201, response);
+    sendResponse(
+      {
+        message:
+          "Your education entry has been successfully added to your profile.",
+      },
+      201,
+      response
+    );
   } catch (errors) {
     sendResponse(
       { message: "Error adding education, please try again" },
@@ -442,7 +494,10 @@ export const deleteEducation = asyncErrors(async (request, response) => {
 
     if (!seeker) {
       return sendResponse(
-        { message: "Seeker not found or could not delete education" },
+        {
+          message:
+            "We could not find your profile or delete the education entry. Please try again later.",
+        },
         404,
         response
       );

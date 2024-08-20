@@ -20,7 +20,10 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
     // Check if the employer or seeker does not exist
     if (!existingEmployer || !existingSeeker) {
       return sendResponse(
-        { message: "Employer or Seeker not found" },
+        {
+          message:
+            "The specified employer or seeker could not be found. Please check the IDs and try again",
+        },
         404,
         response
       );
@@ -33,7 +36,10 @@ export const createDirectMessages = asyncErrors(async (request, response) => {
 
     if (existingDirectMessages) {
       return sendResponse(
-        { message: "Direct messages already exist" },
+        {
+          message:
+            "A direct messaging channel between this employer and seeker already exists.",
+        },
         400,
         response
       );
@@ -102,7 +108,10 @@ export const createMessage = asyncErrors(async (request, response) => {
     // Check if the employer or seeker does not exist
     if (!existingEmployer || !existingSeeker) {
       return sendResponse(
-        { message: "Employer or Seeker not found" },
+        {
+          message:
+            "The specified employer or seeker could not be found. Please check the IDs and try again.",
+        },
         404,
         response
       );
@@ -115,7 +124,10 @@ export const createMessage = asyncErrors(async (request, response) => {
 
     if (!existingDirectMessages) {
       return sendResponse(
-        { message: "Direct messages do not exist" },
+        {
+          message:
+            "No direct messaging channel exists between this employer and seeker. Please create one first.",
+        },
         404,
         response
       );

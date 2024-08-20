@@ -17,7 +17,10 @@ export const readNotificationsData = asyncErrors(async (request, response) => {
     // Check if the notification was not found
     if (!notification) {
       return sendResponse(
-        { message: "Cannot find notification" },
+        {
+          message:
+            "The specified notification could not be found. Please check the notification ID and try again.",
+        },
         400,
         response
       );
@@ -26,7 +29,7 @@ export const readNotificationsData = asyncErrors(async (request, response) => {
     // Send a success response
     sendResponse(
       {
-        message: "Successfully marked notification as read",
+        message: "The notification has been successfully marked as read.",
       },
       201,
       response

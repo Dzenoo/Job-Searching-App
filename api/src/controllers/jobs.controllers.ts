@@ -42,7 +42,10 @@ export const createJob = asyncErrors(
 
       if (!newJob) {
         sendResponse(
-          { message: "Cannot create job, please try again" },
+          {
+            message:
+              "We encountered an issue while creating the job posting. Please try again later.",
+          },
           403,
           response
         );
@@ -104,7 +107,14 @@ export const editJob = asyncErrors(async (request, response) => {
     const job = await Job.findById(jobId); // Find the job by ID
 
     if (!job) {
-      return sendResponse({ message: "Job not found" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The job posting you are trying to edit could not be found. Please check the job ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Define allowed properties for validation
@@ -129,7 +139,10 @@ export const editJob = asyncErrors(async (request, response) => {
     // Check if the employer is the owner of the job
     if (employerId.toString() !== job.company.toString()) {
       return sendResponse(
-        { message: "Unauthorized, employer is not the owner of the job" },
+        {
+          message:
+            "You are not authorized to edit this job posting. Please ensure you are the job owner.",
+        },
         403,
         response
       );
@@ -170,13 +183,23 @@ export const deleteJob = asyncErrors(async (request, response) => {
     const job = await Job.findById(jobId); // Find the job by ID
 
     if (!job) {
-      return sendResponse({ message: "Job not found" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The job posting you are trying to delete could not be found. Please check the job ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Check if the employer is the owner of the job
     if (employerId.toString() !== job.company.toString()) {
       return sendResponse(
-        { message: "Unauthorized, employer is not the owner of the job" },
+        {
+          message:
+            "You are not authorized to delete this job posting. Please ensure you are the job owner.",
+        },
         403,
         response
       );
@@ -234,7 +257,14 @@ export const saveJob = asyncErrors(async (request, response) => {
     const seeker = await Seeker.findById(seekerId); // Find the seeker by ID
 
     if (!job) {
-      return sendResponse({ message: "Job not found" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The job posting you are trying to save/unsave could not be found. Please check the job ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Check if the job is already saved by the seeker
@@ -243,17 +273,31 @@ export const saveJob = asyncErrors(async (request, response) => {
       await Seeker.findByIdAndUpdate(seekerId, {
         $pull: { savedJobs: jobId },
       });
-      sendResponse({ message: "Job successfully unsaved" }, 201, response);
+      sendResponse(
+        {
+          message:
+            "The job has been successfully removed from your saved list.",
+        },
+        201,
+        response
+      );
     } else {
       // Save the job if it is not already saved
       await Seeker.findByIdAndUpdate(seekerId, {
         $push: { savedJobs: jobId },
       });
-      sendResponse({ message: "Job successfully saved" }, 201, response);
+      sendResponse(
+        { message: "The job has been successfully added to your saved list." },
+        201,
+        response
+      );
     }
   } catch (error) {
     sendResponse(
-      { message: "Cannot save job, please try again" },
+      {
+        message:
+          "We encountered an issue while saving/unsaving the job. Please try again later.",
+      },
       400,
       response
     );
@@ -281,7 +325,11 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
     });
 
     // Send the response confirming the creation of the job alert
-    sendResponse({ message: "Job alert successfully created" }, 201, response);
+    sendResponse(
+      { message: "Your job alert has been successfully created." },
+      201,
+      response
+    );
   } catch (error) {
     sendResponse(
       { message: "Cannot generate job alert, please try again" },

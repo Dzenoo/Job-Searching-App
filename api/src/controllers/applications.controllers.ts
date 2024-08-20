@@ -17,7 +17,11 @@ export const applyToJob = asyncErrors(async (request, response) => {
 
     // Validate file upload
     if (!resumeFile) {
-      return sendResponse({ message: "Resume is not valid" }, 403, response);
+      return sendResponse(
+        { message: "Invalid resume file. Please upload a valid PDF document." },
+        403,
+        response
+      );
     }
 
     // Check if the seeker has already applied for this job
@@ -28,14 +32,17 @@ export const applyToJob = asyncErrors(async (request, response) => {
 
     if (existingApplication) {
       return sendResponse(
-        { message: "You already applied to this job" },
+        {
+          message:
+            "You have already submitted an application for this position. Please check your application status.",
+        },
         403,
         response
       );
     }
 
     // Upload the resume to S3
-    const resumeKey = `user_${seekerId}.pdf`;
+    const resumeKey = `resume_${seekerId}.pdf`;
     const uploads = await uploadFileToS3(resumeFile, resumeKey, "documents");
     await uploads.done();
 
@@ -58,11 +65,17 @@ export const applyToJob = asyncErrors(async (request, response) => {
     });
 
     // Send success response
-    sendResponse({ message: "Successfully Applied to Job" }, 201, response);
+    sendResponse(
+      {
+        message: "Your application has been successfully submitted! Good luck!",
+      },
+      201,
+      response
+    );
   } catch (error) {
     // Send error response
     sendResponse(
-      { message: "Cannot apply to job, please try again" },
+      { message: "Application submission failed. Please try again later." },
       400,
       response
     );
@@ -104,7 +117,10 @@ export const generateCoverLetter = asyncErrors(async (request, response) => {
   } catch (error) {
     // Send error response
     sendResponse(
-      { message: "Cannot generate cover letter, please try again" },
+      {
+        message:
+          "Failed to generate cover letter. Please try again later or contact support.",
+      },
       400,
       response
     );
@@ -121,7 +137,10 @@ export const updateApplicationStatus = asyncErrors(
       // Validate status input
       if (!status) {
         return sendResponse(
-          { message: "Please enter a valid status" },
+          {
+            message:
+              "Invalid status provided. Please select a valid application status.",
+          },
           500,
           response
         );
@@ -131,7 +150,10 @@ export const updateApplicationStatus = asyncErrors(
       const existingApplication = await Application.findById(applicationId);
       if (!existingApplication) {
         return sendResponse(
-          { message: "Application not found" },
+          {
+            message:
+              "The specified application does not exist. Please check the application ID and try again.",
+          },
           404,
           response
         );
@@ -149,7 +171,10 @@ export const updateApplicationStatus = asyncErrors(
     } catch (error) {
       // Send error response
       sendResponse(
-        { message: "Cannot update application, please try again" },
+        {
+          message:
+            "Failed to update the application status. Please try again later.",
+        },
         400,
         response
       );
@@ -189,7 +214,14 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
 
     // Check if any applications were found
     if (!applications.length) {
-      return sendResponse({ message: "No applications found" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "No applications found for this job. Please check back later.",
+        },
+        404,
+        response
+      );
     }
 
     // Calculate application statistics
@@ -218,7 +250,10 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
   } catch (error) {
     // Send error response
     sendResponse(
-      { message: "Cannot retrieve applications, please try again" },
+      {
+        message:
+          "Unable to retrieve applications at this time. Please try again later.",
+      },
       400,
       response
     );

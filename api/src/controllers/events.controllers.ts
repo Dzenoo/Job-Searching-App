@@ -18,7 +18,10 @@ export const createEvent = asyncErrors(async (request, response) => {
 
     if (existingEvent) {
       return sendResponse(
-        { message: "Event with this title already exists" },
+        {
+          message:
+            "An event with this title already exists. Please choose a different title.",
+        },
         400,
         response
       );
@@ -81,13 +84,23 @@ export const editEvent = asyncErrors(async (request, response) => {
     const existingEvent = await Event.findById(request.params.eventId); // Find the event by ID
 
     if (!existingEvent) {
-      return sendResponse({ message: "Cannot find event" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The event you are trying to edit could not be found. Please check the event ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Check if the employer owns the event
     if (existingEvent.company.toString() !== employerId) {
       return sendResponse(
-        { message: "Unauthorized. You are not the owner of this event." },
+        {
+          message:
+            "You are not authorized to edit this event. Please ensure you are the event owner.",
+        },
         403,
         response
       );
@@ -146,7 +159,14 @@ export const deleteEvent = asyncErrors(async (request, response) => {
     const existingEvent = await Event.findById(request.params.eventId); // Find the event by ID
 
     if (!existingEvent) {
-      return sendResponse({ message: "Cannot find event" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The event you are trying to delete could not be found. Please check the event ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Check if the employer owns the event
@@ -194,7 +214,14 @@ export const registerEvent = asyncErrors(async (request, response) => {
     const event = await Event.findById(eventId); // Find the event by ID
 
     if (!event) {
-      return sendResponse({ message: "Cannot Find Event" }, 404, response);
+      return sendResponse(
+        {
+          message:
+            "The event you are trying to register for could not be found. Please check the event ID and try again.",
+        },
+        404,
+        response
+      );
     }
 
     // Check if the seeker is already registered for the event
@@ -211,7 +238,7 @@ export const registerEvent = asyncErrors(async (request, response) => {
       });
 
       sendResponse(
-        { message: "Event successfully unregistered" },
+        { message: "You have successfully unregistered from the event." },
         201,
         response
       );
@@ -225,11 +252,18 @@ export const registerEvent = asyncErrors(async (request, response) => {
         $push: { events: eventId },
       });
 
-      sendResponse({ message: "Event successfully registered" }, 201, response);
+      sendResponse(
+        { message: "You have successfully registered for the event." },
+        201,
+        response
+      );
     }
   } catch (error) {
     sendResponse(
-      { message: "Error registering events, please try again" },
+      {
+        message:
+          "We encountered an issue while registering for the event. Please try again later.",
+      },
       400,
       response
     );
@@ -294,7 +328,10 @@ export const getEvents = asyncErrors(async (request, response) => {
     sendResponse({ events: events, totalEvents: totalEvents }, 200, response);
   } catch (error) {
     sendResponse(
-      { message: "Cannot get events, please try again" },
+      {
+        message:
+          "We couldn't retrieve the events at this time. Please try again later.",
+      },
       400,
       response
     );
