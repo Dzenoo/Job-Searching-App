@@ -82,7 +82,7 @@ export function initializePrivateRoutes(app: Express): void {
     // Messages
     {
       method: EXPRESS_APP_METHODS.PATCH,
-      path: "/type-message/:employerId/:seekerId",
+      path: "/create-message/:employerId/:seekerId",
       handlers: [messages.createMessage],
     },
     {
