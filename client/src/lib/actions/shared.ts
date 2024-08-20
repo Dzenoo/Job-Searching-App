@@ -1,4 +1,4 @@
-import { ResponseMessageTypes } from "@/typings/shared";
+import { ResponseMessageTypes } from "@/types/shared";
 import axios from "axios";
 import { patchApiHandler } from "../api";
 

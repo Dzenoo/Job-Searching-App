@@ -10,9 +10,9 @@ import { ClipLoader } from "react-spinners";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import zod from "zod";
-import { SeekersSkillsSchemas } from "@/utils/zod/seekers";
+import { SeekersSkillsSchemas } from "@/lib/zod/seekers";
 import { Tag } from "@/components/Shared/Tag";
-import { getSkillsData } from "@/utils/helpers";
+import { getSkillsData } from "@/lib/helpers";
 
 const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills }) => {
   const {

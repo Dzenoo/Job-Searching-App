@@ -1,4 +1,4 @@
-import { ApplicationsTypes } from "@/typings/shared";
+import { ApplicationsTypes } from "@/types/shared";
 
 type ApplicationItemProps = {
   application: ApplicationsTypes;

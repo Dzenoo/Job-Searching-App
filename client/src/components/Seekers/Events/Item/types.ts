@@ -1,4 +1,4 @@
-import { EventTypes } from "@/typings/events";
+import { EventTypes } from "@/types/events";
 
 type EventItemProps = {
   event: EventTypes;

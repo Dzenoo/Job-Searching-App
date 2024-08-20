@@ -3,7 +3,7 @@
 import { SeekerDetailsInfo } from "@/components/Employers/Seekers/Details";
 import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerById } from "@/utils/actions/employers";
+import { getSeekerById } from "@/lib/actions/employers";
 import React from "react";
 import { useQuery } from "react-query";
 

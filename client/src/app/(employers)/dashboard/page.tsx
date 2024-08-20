@@ -7,7 +7,7 @@ import { Statistics } from "@/components/Employers/Dashboard/Overview/Statistics
 import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetEmployer from "@/hooks/useGetEmployer";
-import { getEmployerAnalytics } from "@/utils/actions/employers";
+import { getEmployerAnalytics } from "@/lib/actions/employers";
 import React from "react";
 import { useQuery } from "react-query";
 

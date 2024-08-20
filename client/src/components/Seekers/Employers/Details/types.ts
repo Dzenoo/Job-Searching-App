@@ -1,4 +1,4 @@
-import { EmployerTypes } from "@/typings/employers";
+import { EmployerTypes } from "@/types/employers";
 
 type EmployerDetailsInfoProps = {
   employer: EmployerTypes;

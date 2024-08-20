@@ -1,4 +1,4 @@
-import { SeekerTypes } from "@/typings/seekers";
+import { SeekerTypes } from "@/types/seekers";
 import { EducationItemProps } from "./Item/types";
 
 type EducationsProps = {

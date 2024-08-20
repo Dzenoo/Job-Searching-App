@@ -18,8 +18,8 @@ import {
 import Link from "next/link";
 import zod from "zod";
 import useAuthentication from "@/hooks/useAuthentication";
-import { loginUserAccount } from "@/utils/actions/auth";
-import { LoginSchemasForm } from "@/utils/zod/auth";
+import { loginUserAccount } from "@/lib/actions/auth";
+import { LoginSchemasForm } from "@/lib/zod/auth";
 
 const LoginFormAccount: React.FC<LoginFormTypes> = ({
   handleTypeSelection,

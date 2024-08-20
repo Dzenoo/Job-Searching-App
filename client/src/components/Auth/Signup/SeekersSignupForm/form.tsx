@@ -17,8 +17,8 @@ import {
 } from "@/components/Shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
-import { SeekerRegistrationSchemas } from "@/utils/zod/auth";
-import { signupSeeker } from "@/utils/actions/auth";
+import { SeekerRegistrationSchemas } from "@/lib/zod/auth";
+import { signupSeeker } from "@/lib/actions/auth";
 
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   handleTypeSelection,

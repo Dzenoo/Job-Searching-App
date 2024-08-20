@@ -1,4 +1,4 @@
-import { JobTypes } from "@/typings/jobs";
+import { JobTypes } from "@/types/jobs";
 
 type JobItemProps = {
   job: JobTypes;

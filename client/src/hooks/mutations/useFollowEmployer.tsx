@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import useAuthentication from "../useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";
-import { followEmployer } from "@/utils/actions/seekers";
+import { followEmployer } from "@/lib/actions/seekers";
 
 const useFollowEmployer = (employerId: string) => {
   const { token } = useAuthentication().getCookieHandler();

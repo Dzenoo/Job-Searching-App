@@ -1,4 +1,4 @@
-import { NotificationTypes } from "@/typings/shared";
+import { NotificationTypes } from "@/types/shared";
 
 type NotificationsItemProps = {
   notification: NotificationTypes;

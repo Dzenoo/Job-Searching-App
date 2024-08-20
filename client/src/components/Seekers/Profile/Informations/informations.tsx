@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
-import { EditableSeekerInformationsSchemas } from "@/utils/zod/seekers";
+import { EditableSeekerInformationsSchemas } from "@/lib/zod/seekers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Edit } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";

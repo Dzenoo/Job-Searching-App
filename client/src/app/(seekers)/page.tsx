@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import dynamic from "next/dynamic";
 import Protected from "@/components/Hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getJobs } from "@/utils/actions/jobs";
+import { getJobs } from "@/lib/actions/jobs";
 import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
 
 const JobsList = dynamic(

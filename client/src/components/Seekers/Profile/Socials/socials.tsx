@@ -6,7 +6,7 @@ import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Dialog } from "@/components/Shared/Dialog";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EditableSeekerSocialsSchemas } from "@/utils/zod/seekers";
+import { EditableSeekerSocialsSchemas } from "@/lib/zod/seekers";
 import { Edit, Github, Image, Linkedin } from "lucide-react";
 import { ClipLoader } from "react-spinners";
 import useDialogs from "@/hooks/useDialogs";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { EmployersItemProps } from "./types";
 import { Card, CardContent, CardFooter } from "@/components/Shared/Card";
-import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { renderIconText } from "@/lib/jsx/render-icon-text";
 import { Camera, FileText, Text } from "lucide-react";
 import { FollowEmployerButton } from "../follow";
 

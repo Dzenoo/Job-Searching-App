@@ -6,7 +6,7 @@ import { SearchSeekers } from "@/components/Employers/Seekers/Search";
 import Protected from "@/components/Hoc/Protected";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekers } from "@/utils/actions/employers";
+import { getSeekers } from "@/lib/actions/employers";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 

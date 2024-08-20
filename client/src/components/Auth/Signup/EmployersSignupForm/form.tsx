@@ -20,8 +20,8 @@ import {
 } from "@/components/Shared/Card/card";
 import zod from "zod";
 import Link from "next/link";
-import { EmployersRegistrationSchemas } from "@/utils/zod/auth";
-import { signupEmployer } from "@/utils/actions/auth";
+import { EmployersRegistrationSchemas } from "@/lib/zod/auth";
+import { signupEmployer } from "@/lib/actions/auth";
 
 const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
   handleTypeSelection,

@@ -1,6 +1,6 @@
-import { ResponseMessageTypes } from "@/typings/shared";
+import { ResponseMessageTypes } from "@/types/shared";
 import { getApiHandler, patchApiHandler } from "../api";
-import { EventTypes } from "@/typings/events";
+import { EventTypes } from "@/types/events";
 
 export const registerForEvent = async (
   eventId: string,

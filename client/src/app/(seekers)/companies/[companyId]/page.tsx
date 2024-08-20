@@ -12,7 +12,7 @@ import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
-import { getEmployerById } from "@/utils/actions/seekers";
+import { getEmployerById } from "@/lib/actions/seekers";
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";

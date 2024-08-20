@@ -5,7 +5,7 @@ import { FilterApplications } from "@/components/Employers/Dashboard/Jobs/Applic
 import Protected from "@/components/Hoc/Protected";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getApplications } from "@/utils/actions/jobs";
+import { getApplications } from "@/lib/actions/jobs";
 import React from "react";
 import { useQuery } from "react-query";
 

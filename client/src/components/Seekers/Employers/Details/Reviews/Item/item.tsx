@@ -6,10 +6,10 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/Shared/Card";
-import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { renderIconText } from "@/lib/jsx/render-icon-text";
 
 import { Briefcase, Calendar, Timer } from "lucide-react";
-import { getTime } from "@/utils/date";
+import { getTime } from "@/lib/date";
 
 const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
   const createdTime = getTime(review?.createdAt);

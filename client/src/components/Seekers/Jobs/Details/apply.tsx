@@ -10,8 +10,8 @@ import { ClipLoader } from "react-spinners";
 import { Textarea } from "@/components/Shared/Textarea";
 import { queryClient } from "@/contexts/react-query-client";
 import useUploads from "@/hooks/useUploads";
-import { ApplyToJobSchemas } from "@/utils/zod/jobs";
-import { addCoverLetter, applyToJob } from "@/utils/actions/jobs";
+import { ApplyToJobSchemas } from "@/lib/zod/jobs";
+import { addCoverLetter, applyToJob } from "@/lib/actions/jobs";
 
 type ApplyToJobProps = {
   jobId: string;

@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { JobDetailsInfoProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
-import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { renderIconText } from "@/lib/jsx/render-icon-text";
 
 import { Button } from "@/components/Shared/Button";
-import { formatDate, getTime } from "@/utils/date";
-import { getSkillsData } from "@/utils/helpers";
+import { formatDate, getTime } from "@/lib/date";
+import { getSkillsData } from "@/lib/helpers";
 import {
   Bookmark,
   Building,
@@ -21,7 +21,7 @@ import {
 import SaveJobButton from "../save";
 import Navigator from "@/components/Shared/Navigator";
 import useGetSeeker from "@/hooks/useGetSeeker";
-import { ApplicationsTypes } from "@/typings/shared";
+import { ApplicationsTypes } from "@/types/shared";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();

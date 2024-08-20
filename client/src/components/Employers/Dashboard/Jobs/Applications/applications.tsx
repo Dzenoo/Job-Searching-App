@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { ApplicationsProps } from "./types";
 import { Table } from "@/components/Shared/Table";
-import { formatDate } from "@/utils/date";
-import { getImageUrl } from "@/utils/helpers";
+import { formatDate } from "@/lib/date";
+import { getImageUrl } from "@/lib/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, ImageIcon, Linkedin } from "lucide-react";
-import { SeekerTypes } from "@/typings/seekers";
+import { SeekerTypes } from "@/types/seekers";
 import { useMutation } from "react-query";
-import { updateApplicationStatus } from "@/utils/actions/jobs";
+import { updateApplicationStatus } from "@/lib/actions/jobs";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";
 import { toast } from "react-toastify";

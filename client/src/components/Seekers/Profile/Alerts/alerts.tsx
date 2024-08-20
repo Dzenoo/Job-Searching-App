@@ -7,7 +7,7 @@ import { Dialog } from "@/components/Shared/Dialog";
 import zod from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JobAlertsSchemas } from "@/utils/zod/seekers";
+import { JobAlertsSchemas } from "@/lib/zod/seekers";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Input } from "@/components/Shared/Input";
 import { ClipLoader } from "react-spinners";

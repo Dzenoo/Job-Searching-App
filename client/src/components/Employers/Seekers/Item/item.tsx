@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import { Github, Linkedin, LucideImage } from "lucide-react";
 import Link from "next/link";
-import { getImageUrl } from "@/utils/helpers";
+import { getImageUrl } from "@/lib/helpers";
 
 const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   const SocialsArrays = new Array(

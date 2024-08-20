@@ -1,4 +1,4 @@
-import { JobAlertsTypes, SeekerTypes } from "@/typings/seekers";
+import { JobAlertsTypes, SeekerTypes } from "@/types/seekers";
 
 type SeekerProfileAlertsProps = {
   alerts?: JobAlertsTypes;

@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import { DashboardEmployerJobsProps } from "./types";
 import { Table } from "@/components/Shared/Table";
-import { formatDate } from "@/utils/date";
+import { formatDate } from "@/lib/date";
 import { Edit, Eye, Trash } from "lucide-react";
 import Link from "next/link";
 import { Dialog } from "@/components/Shared/Dialog";
@@ -9,12 +9,12 @@ import useDialogs from "@/hooks/useDialogs";
 import { Form } from "@/components/Shared/Forms";
 import { Button } from "@/components/Shared/Button";
 import { useMutation } from "react-query";
-import { deleteJob } from "@/utils/actions/jobs";
+import { deleteJob } from "@/lib/actions/jobs";
 import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
 import { queryClient } from "@/contexts/react-query-client";
 import { ClipLoader } from "react-spinners";
-import { findLocationData } from "@/utils/helpers";
+import { findLocationData } from "@/lib/helpers";
 
 const DeleteJobDialog: React.FC<{
   onCloseDialog: (dialogIds: string) => void;

@@ -3,7 +3,7 @@
 import Protected from "@/components/Hoc/Protected";
 import { NotificationsList } from "@/components/Seekers/Notifications";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerProfile } from "@/utils/actions/seekers";
+import { getSeekerProfile } from "@/lib/actions/seekers";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 

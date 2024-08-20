@@ -5,9 +5,9 @@ import { SaveJobButtonProps } from "./types";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
-import { saveJob } from "@/utils/actions/jobs";
+import { saveJob } from "@/lib/actions/jobs";
 import useGetSeeker from "@/hooks/useGetSeeker";
-import { JobTypes } from "@/typings/jobs";
+import { JobTypes } from "@/types/jobs";
 import { queryClient } from "@/contexts/react-query-client";
 
 const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {

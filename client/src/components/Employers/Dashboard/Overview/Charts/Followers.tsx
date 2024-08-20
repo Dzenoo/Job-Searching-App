@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/Shared/Card";
-import { getMonthsLabels } from "@/utils/helpers";
+import { getMonthsLabels } from "@/lib/helpers";
 Chart.register(...registerables);
 
 const Followers: React.FC<{ data: any }> = ({ data }) => {

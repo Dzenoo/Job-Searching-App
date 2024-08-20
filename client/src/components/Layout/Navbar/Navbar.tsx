@@ -15,9 +15,9 @@ import {
 import { NavbarActionsList } from "./Actions";
 import { Avatar } from "@/components/Shared/Avatar";
 import { useQuery } from "react-query";
-import { getSeekerProfile } from "@/utils/actions/seekers";
-import { getEmployerProfile } from "@/utils/actions/employers";
-import { NotificationTypes } from "@/typings/shared";
+import { getSeekerProfile } from "@/lib/actions/seekers";
+import { getEmployerProfile } from "@/lib/actions/employers";
+import { NotificationTypes } from "@/types/shared";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (

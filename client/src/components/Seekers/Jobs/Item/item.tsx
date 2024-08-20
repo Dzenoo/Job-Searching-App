@@ -8,10 +8,10 @@ import {
 } from "@/components/Shared/Card/card";
 import { GraduationCap, MapPin, Timer } from "lucide-react";
 import { JobItemProps } from "./types";
-import { checkExpired, formatDate, getTime } from "@/utils/date";
+import { checkExpired, formatDate, getTime } from "@/lib/date";
 import Link from "next/link";
 import SaveJobButton from "../save";
-import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { renderIconText } from "@/lib/jsx/render-icon-text";
 
 const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   const isJobExpired = checkExpired(job.expiration_date);

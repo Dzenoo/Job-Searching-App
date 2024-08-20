@@ -1,4 +1,4 @@
-import { SeekerTypes } from "@/typings/seekers";
+import { SeekerTypes } from "@/types/seekers";
 
 type SeekersListProps = {
   seekers: SeekerTypes[];

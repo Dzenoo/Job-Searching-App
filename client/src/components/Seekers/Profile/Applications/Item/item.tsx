@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@/components/Shared/Card";
 import Image from "next/image";
-import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { renderIconText } from "@/lib/jsx/render-icon-text";
 import {
   Briefcase,
   Building,
@@ -18,7 +18,7 @@ import {
   LayoutTemplate,
 } from "lucide-react";
 import Link from "next/link";
-import { formatDate } from "@/utils/date";
+import { formatDate } from "@/lib/date";
 
 const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
   const appliedDate = formatDate(application?.createdAt || "");

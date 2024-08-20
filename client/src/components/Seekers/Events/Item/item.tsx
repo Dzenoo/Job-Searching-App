@@ -9,10 +9,10 @@ import {
 import Image from "next/image";
 import { Button } from "@/components/Shared/Button";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
-import { renderIconText } from "@/utils/jsx/render-icon-text";
+import { renderIconText } from "@/lib/jsx/render-icon-text";
 import useSearchParams from "@/hooks/useSearchParams";
 import useGetSeeker from "@/hooks/useGetSeeker";
-import { formatDate } from "@/utils/date";
+import { formatDate } from "@/lib/date";
 
 const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();

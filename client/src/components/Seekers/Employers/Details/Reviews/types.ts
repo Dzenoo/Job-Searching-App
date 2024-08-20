@@ -1,4 +1,4 @@
-import { ReviewTypes } from "@/typings/reviews";
+import { ReviewTypes } from "@/types/reviews";
 
 type ReviewsListProps = {
   reviews?: ReviewTypes[];

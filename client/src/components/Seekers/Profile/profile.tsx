@@ -16,7 +16,7 @@ import { Socials } from "./Socials";
 import { Dialog } from "@/components/Shared/Dialog";
 import useDialogs from "@/hooks/useDialogs";
 import { useMutation } from "react-query";
-import { deleteSeekerProfile } from "@/utils/actions/seekers";
+import { deleteSeekerProfile } from "@/lib/actions/seekers";
 import useAuthentication from "@/hooks/useAuthentication";
 import { Educations } from "./Educations";
 import { Skills } from "./Skills";

@@ -1,7 +1,7 @@
-import { SeekerTypes } from "@/typings/seekers";
+import { SeekerTypes } from "@/types/seekers";
 import { deleteApiHandler, getApiHandler, patchApiHandler } from "../api";
-import { EmployerTypes } from "@/typings/employers";
-import { ResponseMessageTypes } from "@/typings/shared";
+import { EmployerTypes } from "@/types/employers";
+import { ResponseMessageTypes } from "@/types/shared";
 
 export const getEmployers = async ({
   page = "1",

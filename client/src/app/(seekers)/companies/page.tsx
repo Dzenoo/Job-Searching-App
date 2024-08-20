@@ -6,7 +6,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { useQuery } from "react-query";
 import { Pagination } from "@/components/Shared/Pagination";
 import { SearchEmployers } from "@/components/Seekers/Employers/Search";
-import { getEmployers } from "@/utils/actions/seekers";
+import { getEmployers } from "@/lib/actions/seekers";
 import LoadingCompaniesSkeleton from "@/components/Loaders/LoadingCompanies";
 import dynamic from "next/dynamic";
 

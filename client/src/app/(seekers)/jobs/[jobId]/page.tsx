@@ -9,7 +9,7 @@ import { JobsList } from "@/components/Seekers/Jobs";
 import { JobDetailsInfo } from "@/components/Seekers/Jobs/Details";
 import { useQuery } from "react-query";
 import { Dialog } from "@/components/Shared/Dialog";
-import { getJobById } from "@/utils/actions/jobs";
+import { getJobById } from "@/lib/actions/jobs";
 import LoadingJobDetails from "@/components/Loaders/LoadingJobDetails";
 
 const JobDetailsPage = ({

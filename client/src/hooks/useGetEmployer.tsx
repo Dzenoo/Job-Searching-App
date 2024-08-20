@@ -1,6 +1,6 @@
 import useAuthentication from "./useAuthentication";
 import { useQuery } from "react-query";
-import { getEmployerProfile } from "@/utils/actions/employers";
+import { getEmployerProfile } from "@/lib/actions/employers";
 
 const useGetEmployer = (type?: string) => {
   const { token } = useAuthentication().getCookieHandler();

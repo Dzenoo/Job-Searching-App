@@ -15,8 +15,8 @@ import { Textarea } from "@/components/Shared/Textarea";
 import { Tag } from "@/components/Shared/Tag";
 import { redirect } from "next/navigation";
 import { ReviewCompanyFormProps } from "./types";
-import { ReviewEmployersSchemas } from "@/utils/zod/reviews";
-import { reviewEmployer } from "@/utils/actions/reviews";
+import { ReviewEmployersSchemas } from "@/lib/zod/reviews";
+import { reviewEmployer } from "@/lib/actions/reviews";
 
 const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   employerId,
