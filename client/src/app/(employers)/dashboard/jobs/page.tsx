@@ -17,6 +17,7 @@ import {
   PaginationEllipsis,
 } from "@/components/ui/pagination";
 import useSearchParams from "@/hooks/useSearchParams";
+import usePagination from "@/hooks/usePagination";
 
 const DashboardJobsPage = ({
   searchParams,
@@ -37,15 +38,18 @@ const DashboardJobsPage = ({
   });
   const { updateSearchParams } = useSearchParams();
 
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    updateSearchParams("page", page.toString());
-  };
-
   const totalJobs = fetchedEmployer?.counts.totalJobs || 0;
-  const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(totalJobs / itemsPerPage);
+
+  const { currentPage, totalPages, handlePageChange } = usePagination({
+    totalItems: totalJobs,
+    itemsPerPage,
+    initialPage: Number(searchParams.page) || 1,
+  });
+
+  React.useEffect(() => {
+    updateSearchParams("page", currentPage.toString());
+  }, [currentPage, updateSearchParams]);
 
   return (
     <section className="flex flex-col gap-6">
