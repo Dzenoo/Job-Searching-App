@@ -37,7 +37,7 @@ const SearchJobs: React.FC = () => {
             <SelectValue placeholder="Sort By Date" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Sort By Date</SelectItem>
+            <SelectItem value="all">Sort By Date</SelectItem>
             <SelectItem value="asc">Descending</SelectItem>
             <SelectItem value="desc">Newest</SelectItem>
           </SelectContent>

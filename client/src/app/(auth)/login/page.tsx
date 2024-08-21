@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <section className="py-16 flex justify-center h-screen">
+    <section className="py-16 flex justify-center">
       <ChooseLogin />
     </section>
   );

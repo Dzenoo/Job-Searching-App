@@ -1,5 +1,4 @@
 "use client";
-
 import { TypeOfAccount } from "@/types";
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";

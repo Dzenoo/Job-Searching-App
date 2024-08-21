@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { QueryContextProvider } from "@/context/react-query-client";
-import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 
 const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
@@ -10,6 +9,7 @@ const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
 
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +30,7 @@ export default function AuthLayout({
         <body className={inter.className}>
           <Navbar />
           <main>{children}</main>
-          <ToastContainer />
+          <Toaster />
         </body>
       </html>
     </QueryContextProvider>

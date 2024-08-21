@@ -107,7 +107,6 @@ export const FooterLinks = [
 // Dropdown Options
 // ===============================
 export const companySizes = [
-  { value: "", label: "Select the size" },
   { value: "less-than-17", label: "Less than 17" },
   { value: "20-50", label: "20-50" },
   { value: "50-100", label: "50-100" },
@@ -117,7 +116,6 @@ export const companySizes = [
 ];
 
 export const industries = [
-  { value: "", label: "Select the industry" },
   { value: "technology", label: "Technology" },
   { value: "healthcare", label: "Healthcare" },
   { value: "finance", label: "Finance" },
@@ -136,7 +134,6 @@ export const industries = [
 ];
 
 export const locations = [
-  { label: "Select Location", value: "" },
   { label: "Australia", value: "aus" },
   { label: "England", value: "eng" },
   { label: "Turkiye", value: "tur" },

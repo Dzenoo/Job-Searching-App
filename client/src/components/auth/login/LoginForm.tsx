@@ -3,12 +3,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import Link from "next/link";
 import zod from "zod";
 import useAuthentication from "@/hooks/useAuthentication";
 import { loginUserAccount } from "@/lib/actions/auth.actions";
-import { LoginSchemasForm } from "@/lib/zod/auth";
+import { LoginSchema } from "@/lib/zod/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,17 +16,17 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { TypeOfAccount } from "@/types";
+import { useToast } from "@/components/ui/use-toast";
 
 type LoginFormTypes = {
   handleTypeSelection: (type: TypeOfAccount) => void;
@@ -35,9 +34,11 @@ type LoginFormTypes = {
 };
 
 const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
+  const router = useRouter();
+  const { toast } = useToast();
   const { storeCookieHandler } = useAuthentication();
-  const form = useForm<zod.infer<typeof LoginSchemasForm>>({
-    resolver: zodResolver(LoginSchemasForm),
+  const form = useForm<zod.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -51,29 +52,32 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
       storeCookieHandler(data.token);
 
       if (data.employer) {
-        redirect("/seekers");
+        router.push("/seekers");
       } else {
-        redirect("/");
+        router.push("/");
       }
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
+      toast({
+        title: "Error",
+        description: error?.response?.data.message,
+      });
     },
   });
 
-  const onSubmit = async (loginData: zod.infer<typeof LoginSchemasForm>) => {
+  const onSubmit = async (loginData: zod.infer<typeof LoginSchema>) => {
     await loginToAccount({ type, loginData });
   };
 
   return (
-    <Card className="flex flex-col gap-7 py-6 lg:w-[430px]">
+    <Card className="flex flex-col lg:w-[430px]">
       <CardHeader>
         <div className="flex items-center justify-center gap-3 flex-col">
           <div>
             <p className="text-low-gray">
               Login to{" "}
               <button
-                className={`text-[--blue-base-color] ${
+                className={`text-blue-700 ${
                   type === TypeOfAccount.Seeker && "font-bold"
                 }`}
                 onClick={() => handleTypeSelection(TypeOfAccount.Seeker)}
@@ -82,7 +86,7 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
               </button>{" "}
               or{" "}
               <button
-                className={`text-[--blue-base-color] ${
+                className={`text-blue-700 ${
                   type === TypeOfAccount.Employer && "font-bold"
                 }`}
                 onClick={() => handleTypeSelection(TypeOfAccount.Employer)}
@@ -93,13 +97,13 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
             </p>
           </div>
           <div>
-            <h1 className="text-base-black">Login to JobTalentify</h1>
+            <h1 className="text-2xl font-bold">Login to JobTalentify</h1>
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
               control={form.control}
               name="email"
@@ -107,9 +111,8 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" {...field} />
+                    <Input type="email" placeholder="Email" {...field} />
                   </FormControl>
-                  <FormDescription>This is your public email</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -121,14 +124,17 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="**********"
+                      {...field}
+                    />
                   </FormControl>
-                  <FormDescription>This is your password</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="pt-7">
+            <div>
               <Button
                 variant="default"
                 type="submit"
@@ -141,8 +147,8 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
           </form>
         </Form>
       </CardContent>
-      <CardFooter>
-        <p className="text-initial-gray relative text-center">
+      <CardFooter className="justify-center">
+        <p className="text-gray-500">
           Dont have account?{" "}
           <Link href="/signup" className="text-blue-600 underline">
             Signup

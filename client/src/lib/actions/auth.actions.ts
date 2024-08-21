@@ -1,7 +1,5 @@
-import { TypeOfAccount } from "@/components/auth/signup/ChooseTypeAccount/types";
+import { EmployerTypes, SeekerTypes, TypeOfAccount } from "@/types";
 import { postApiHandler } from "../api";
-import { SeekerTypes } from "@/types/seekers";
-import { EmployerTypes } from "@/types/employers";
 
 export const signupSeeker = async (data: {
   first_name: string;

@@ -2,20 +2,16 @@
 
 import Protected from "@/components/hoc/Protected";
 import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
-import { FilterEvents } from "@/components/seekers/events/Filters";
-import { SearchEvents } from "@/components/seekers/events/Search";
-import RegisterEvents from "@/components/seekers/events/register";
-import { Dialog } from "@/components/Shared/Dialog";
-import { Pagination } from "@/components/Shared/Pagination";
+import FilterEvents from "@/components/seekers/events/filters/FilterEvents";
+import SearchEvents from "@/components/seekers/events/search/SearchEvents";
 import useAuthentication from "@/hooks/useAuthentication";
-import useDialogs from "@/hooks/useDialogs";
 import { getEvents } from "@/lib/actions/events.actions";
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 const EventsList = dynamic(
-  () => import("@/components/seekers/events").then((mod) => mod.EventsList),
+  () => import("@/components/seekers/events/EventsList"),
   {
     loading: () => <LoadingEventsSkeleton />,
   }
@@ -27,11 +23,6 @@ const Events = ({
   searchParams: { [key: string]: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { openDialog, closeDialog, dialogs } = useDialogs({
-    registerForEvent: {
-      isOpen: false,
-    },
-  });
   const { data: fetchedEvents, refetch } = useQuery({
     queryFn: () =>
       getEvents({
@@ -57,22 +48,22 @@ const Events = ({
         <div>
           <EventsList
             events={fetchedEvents?.events || []}
-            onRegisterEvent={() => openDialog("registerForEvent")}
+            onRegisterEvent={() => {}}
           />
         </div>
-        <div>
+        {/* <div>
           <Pagination
             totalItems={fetchedEvents?.totalEvents || 0}
             itemsPerPage={10}
             currentPage={Number(searchParams?.page) || 1}
             visiblePages={6}
           />
-        </div>
+        </div> */}
       </div>
       <div className="basis-[36em]">
         <FilterEvents />
       </div>
-      <Dialog
+      {/* <Dialog
         onCloseDialog={() => closeDialog("registerForEvent")}
         isOpen={dialogs.registerForEvent.isOpen}
         render={() => (
@@ -82,7 +73,7 @@ const Events = ({
             closeDialog={closeDialog}
           />
         )}
-      />
+      /> */}
     </section>
   );
 };

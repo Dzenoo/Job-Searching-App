@@ -4,35 +4,26 @@ import Protected from "@/components/hoc/Protected";
 import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
-import { SeekerProfileAlerts } from "@/components/seekers/profile/Alerts";
-import { SeekerProfileNavigation } from "@/components/seekers/profile/Navigation";
+import SeekerProfileAlerts from "@/components/seekers/profile/alerts/NewAlertsForm";
+import SeekerProfileNavigation from "@/components/seekers/profile/navigation/SeekerProfileNavigation";
+import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 import useAuthentication from "@/hooks/useAuthentication";
-import useGetSeeker from "@/hooks/useGetSeeker";
 import dynamic from "next/dynamic";
 import React from "react";
 
-const JobsList = dynamic(
-  () => import("@/components/seekers/jobs").then((mod) => mod.JobsList),
-  {
-    loading: () => <LoadingJobsSkeleton />,
-  }
-);
+const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
+  loading: () => <LoadingJobsSkeleton />,
+});
 
 const Applications = dynamic(
-  () =>
-    import("@/components/seekers/profile/Applications").then(
-      (mod) => mod.Applications
-    ),
+  () => import("@/components/seekers/profile/applications/Applications"),
   {
     loading: () => <LoadingApplicationsSkeleton />,
   }
 );
 
 const SeekerProfileInformation = dynamic(
-  () =>
-    import("@/components/seekers/profile").then(
-      (mod) => mod.SeekerProfileInformation
-    ),
+  () => import("@/components/seekers/profile/SeekerProfileInformation"),
   {
     loading: () => <LoadingSeekersInformationsSkeleton />,
   }

@@ -17,8 +17,8 @@ import Link from "next/link";
 import NavbarActionsList from "./NavbarActionsList";
 import { NotificationTypes } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Logo from "./logo";
 import NavbarLinksList from "./NavbarLinksList";
+import Logo from "./Logo";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
   const fetchedProfile: any = data;
 
   return (
-    <header className="dark:bg-[#1b1b1b] base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray dark:border-[#1b1b1b] sticky top-0 bg-white z-30">
+    <header className="p-2 dark:bg-[#1b1b1b] base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray dark:border-[#1b1b1b] sticky top-0 bg-white z-30">
       <div>
         <Logo />
       </div>

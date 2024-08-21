@@ -22,14 +22,14 @@ const SeekerSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [3, "Password must be at least 3 characters long"],
+      minlength: [5, "Password must be at least 5 characters long"],
     },
     email: {
       type: String,
       required: [true, "Email is required"],
       trim: true,
-      minlength: [3, "Email must be at least 3 characters long"],
-      maxlength: [30, "Email must be at most 30 characters long"],
+      minlength: [5, "Email must be at least 5 characters long"],
+      maxlength: [255, "Email must be at most 255 characters long"],
       unique: true,
       lowercase: true,
       validate: {
@@ -42,14 +42,14 @@ const SeekerSchema = new mongoose.Schema(
     first_name: {
       type: String,
       required: [true, "First Name is required"],
-      minlength: [3, "First Name must be at least 3 characters long"],
-      maxlength: [30, "First Name must be at most 30 characters long"],
+      minlength: [5, "First Name must be at least 5 characters long"],
+      maxlength: [50, "First Name must be at most 50 characters long"],
     },
     last_name: {
       type: String,
       required: [true, "Last Name is required"],
-      minlength: [3, "Last Name must be at least 3 characters long"],
-      maxlength: [30, "Last Name must be at most 30 characters long"],
+      minlength: [5, "Last Name must be at least 5 characters long"],
+      maxlength: [50, "Last Name must be at most 50 characters long"],
     },
     portfolio: {
       type: String,
@@ -79,8 +79,8 @@ const SeekerSchema = new mongoose.Schema(
     skills: [
       {
         type: String,
-        minlength: [1, "Skills must be at least 3 characters long"],
-        maxlength: [30, "Skills must not exceed 16 characters"],
+        minlength: [3, "Skills must be at least 3 characters long"],
+        maxlength: [16, "Skills must not exceed 16 characters"],
         default: [],
       },
     ],

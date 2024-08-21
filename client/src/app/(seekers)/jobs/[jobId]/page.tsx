@@ -1,27 +1,19 @@
 "use client";
 
 import Protected from "@/components/hoc/Protected";
-import AddJobAlert from "@/components/seekers/jobs/Details/alerts";
 import useAuthentication from "@/hooks/useAuthentication";
-import useDialogs from "@/hooks/useDialogs";
-import ApplyToJob from "@/components/seekers/jobs/Details/apply";
-import { JobsList } from "@/components/seekers/jobs";
-import { JobDetailsInfo } from "@/components/seekers/jobs/Details";
 import { useQuery } from "react-query";
-import { Dialog } from "@/components/Shared/Dialog";
 import { getJobById } from "@/lib/actions/jobs.actions";
 import LoadingJobDetails from "@/components/loaders/LoadingJobDetails";
+import AddJobAlert from "@/components/seekers/jobs/Details/AddJobAlert";
+import JobDetailsInfo from "@/components/seekers/jobs/Details/JobDetailsInfo";
+import JobsList from "@/components/seekers/jobs/JobsList";
 
 const JobDetailsPage = ({
   params: { jobId },
 }: {
   params: { jobId: string };
 }) => {
-  const { openDialog, closeDialog, dialogs } = useDialogs({
-    applyToJob: {
-      isOpen: false,
-    },
-  });
   const { token } = useAuthentication().getCookieHandler();
   const { data: fetchedJobs, isLoading } = useQuery({
     queryFn: () => getJobById(jobId, token as string),
@@ -42,21 +34,18 @@ const JobDetailsPage = ({
         />
       </div>
       <div className="basis-full grow">
-        <JobDetailsInfo
-          job={fetchedJobs?.job!}
-          onApplyJob={() => openDialog("applyToJob")}
-        />
+        <JobDetailsInfo job={fetchedJobs?.job!} onApplyJob={() => {}} />
       </div>
       <div className="basis-1/2">
         <JobsList jobs={fetchedJobs?.jobs} />
       </div>
-      <Dialog
+      {/* <Dialog
         onCloseDialog={() => closeDialog("applyToJob")}
         isOpen={dialogs.applyToJob.isOpen}
         render={() => (
           <ApplyToJob jobId={jobId} token={token!} closeDialog={closeDialog} />
         )}
-      />
+      /> */}
     </section>
   );
 };

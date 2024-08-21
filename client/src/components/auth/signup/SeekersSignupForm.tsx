@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ClipLoader } from "react-spinners";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import zod from "zod";
 import Link from "next/link";
 import { SeekerRegistrationSchemas } from "@/lib/zod/auth";
@@ -26,7 +25,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 type SeekersSignupFormTypes = {
   handleTypeSelection: (type: TypeOfAccount) => void;
@@ -35,6 +35,8 @@ type SeekersSignupFormTypes = {
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   handleTypeSelection,
 }) => {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<zod.infer<typeof SeekerRegistrationSchemas>>({
     resolver: zodResolver(SeekerRegistrationSchemas),
     defaultValues: {
@@ -49,10 +51,13 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
     mutationFn: signupSeeker,
     onSuccess: () => {
       form.reset();
-      redirect("/login");
+      router.push("/login");
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
+      toast({
+        title: "Error",
+        description: error?.response?.data.message,
+      });
     },
   });
 
@@ -63,7 +68,7 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
   };
 
   return (
-    <Card className="flex flex-col gap-7 py-6">
+    <Card className="flex flex-col gap-2">
       <CardHeader>
         <div className="flex items-center justify-center gap-3 flex-col">
           <div>
@@ -78,24 +83,24 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
             </p>
           </div>
           <div>
-            <h1 className="text-base-black">Sign up to find job you want</h1>
+            <h1 className="text-2xl font-bold">Sign up to find job you want</h1>
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <div className="flex items-center gap-3 max-[600px]:flex-wrap">
               <FormField
                 control={form.control}
                 name="first_name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>First Name</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="First Name" />
                     </FormControl>
-                    <FormDescription>This is your first name</FormDescription>
+                    <FormDescription>Enter your given name.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -104,12 +109,14 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
                 control={form.control}
                 name="last_name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>Last Name</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="Last Name" />
                     </FormControl>
-                    <FormDescription>This is your last name</FormDescription>
+                    <FormDescription>
+                      Enter your family or surname.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -122,9 +129,11 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Email" />
+                    <Input type="email" {...field} placeholder="Email" />
                   </FormControl>
-                  <FormDescription>This is your email</FormDescription>
+                  <FormDescription>
+                    Enter a valid email address where employers can reach you.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -136,14 +145,17 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Password" />
+                    <Input {...field} type="password" placeholder="Password" />
                   </FormControl>
-                  <FormDescription>This is your password</FormDescription>
+                  <FormDescription>
+                    Create a secure password with at least 5 characters,
+                    including symbols and numbers.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="pt-7">
+            <div>
               <Button
                 variant="default"
                 type="submit"
@@ -160,9 +172,9 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
           </form>
         </Form>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="justify-center">
         <p className="text-initial-gray relative text-center">
-          Already have account?{" "}
+          Already have an account?{" "}
           <Link href="/login" className="text-blue-600 underline">
             Login
           </Link>

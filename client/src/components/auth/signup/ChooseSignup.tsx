@@ -34,7 +34,7 @@ const ChooseSignup: React.FC = () => {
       {!isSelectedAccount && (
         <div className="flex flex-col justify-center items-center gap-16">
           <div>
-            <h1 className="text-base-black">Join as a Employer or Seeker</h1>
+            <h1 className="text-2xl font-bold">Join as a Employer or Seeker</h1>
           </div>
           <div className="flex justify-between gap-3">
             {Array.from([
@@ -82,7 +82,9 @@ function renderTab<T extends TabChooseAccount>({
 }: T): React.JSX.Element {
   return (
     <div
-      className={`${selected && "bg-blue-100"} flex flex-col gap-7 w-full`}
+      className={`${
+        selected && "bg-blue-100"
+      } border rounded-lg p-5 border-gray-100 cursor-pointer flex flex-col gap-7 w-full transition hover:bg-gray-50`}
       onClick={handler}
       key={text}
     >

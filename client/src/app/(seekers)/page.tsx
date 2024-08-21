@@ -1,23 +1,19 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { FilterJobs } from "@/components/seekers/jobs/Filters";
-import { SearchJobs } from "@/components/seekers/jobs/Search";
-import { Pagination } from "@/components/Shared/Pagination";
-import { PopularJobsInfo } from "@/components/seekers/jobs/popular";
 import { useQuery } from "react-query";
 import dynamic from "next/dynamic";
 import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getJobs } from "@/lib/actions/jobs.actions";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
+import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
+import SearchJobs from "@/components/seekers/jobs/Search/SearchJobs";
+import FilterJobs from "@/components/seekers/jobs/Filters/FilterJobs";
 
-const JobsList = dynamic(
-  () => import("@/components/seekers/jobs").then((mod) => mod.JobsList),
-  {
-    loading: () => <LoadingJobsSkeleton />,
-  }
-);
+const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
+  loading: () => <LoadingJobsSkeleton />,
+});
 const Jobs = ({
   searchParams,
 }: {
@@ -55,7 +51,7 @@ const Jobs = ({
         <div>
           <JobsList jobs={fetchedJobs?.jobs} />
         </div>
-        {fetchedJobs && fetchedJobs?.jobs.length > 0 && (
+        {/* {fetchedJobs && fetchedJobs?.jobs.length > 0 && (
           <div className="py-6">
             <Pagination
               totalItems={fetchedJobs?.totalJobs}
@@ -64,7 +60,7 @@ const Jobs = ({
               visiblePages={6}
             />
           </div>
-        )}
+        )} */}
       </div>
       <div className="basis-1/2">
         <FilterJobs />

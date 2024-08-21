@@ -18,7 +18,7 @@ const FilterJobs: React.FC = () => {
       </div>
       <Card>
         <CardContent>
-          <div className="flex flex-col gap-10">
+          {/* <div className="flex flex-col gap-10">
             {JobsFiltersData.map((filters) => (
               <FiltersCheckboxesSection
                 key={filters.id}
@@ -26,7 +26,7 @@ const FilterJobs: React.FC = () => {
                 checkboxes={filters.checkboxes}
               />
             ))}
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>
