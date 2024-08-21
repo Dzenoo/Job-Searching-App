@@ -5,14 +5,14 @@ import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { useQuery } from "react-query";
 import { Pagination } from "@/components/Shared/Pagination";
-import { SearchEmployers } from "@/components/Seekers/Employers/Search";
+import { SearchEmployers } from "@/components/seekers/employers/Search";
 import { getEmployers } from "@/lib/actions/seekers.actions";
 import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
 import dynamic from "next/dynamic";
 
 const EmployersList = dynamic(
   () =>
-    import("@/components/Seekers/Employers").then((mod) => mod.EmployersList),
+    import("@/components/seekers/employers").then((mod) => mod.EmployersList),
   {
     loading: () => <LoadingCompaniesSkeleton />,
   }

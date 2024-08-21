@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Linkedin, LucideImage } from "lucide-react";
-import { EducationList } from "@/components/Seekers/Profile/Educations/list";
+import { EducationList } from "@/components/seekers/profile/educations/list";
 import { Button } from "@/components/ui/button";
 import { SeekerTypes } from "@/types";
 import { getImageUrl, getSkillsData } from "@/lib/utils";

@@ -1,7 +1,7 @@
 "use client";
 
 import Protected from "@/components/hoc/Protected";
-import { NotificationsList } from "@/components/Seekers/Notifications";
+import { NotificationsList } from "@/components/seekers/Notifications";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import React, { useEffect, useState } from "react";

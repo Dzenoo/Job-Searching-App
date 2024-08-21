@@ -1,1 +1,0 @@
-export { NotificationsItem } from "./item";

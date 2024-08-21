@@ -1,1 +1,0 @@
-export { EducationItem } from "./item";

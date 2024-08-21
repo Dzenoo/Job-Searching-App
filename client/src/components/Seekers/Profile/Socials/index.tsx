@@ -1,1 +1,0 @@
-export { Socials } from "./socials";

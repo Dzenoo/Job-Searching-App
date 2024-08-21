@@ -1,1 +1,0 @@
-export { SearchEvents } from "./search";

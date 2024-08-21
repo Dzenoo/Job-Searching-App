@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { FilterJobs } from "@/components/Seekers/Jobs/Filters";
-import { SearchJobs } from "@/components/Seekers/Jobs/Search";
+import { FilterJobs } from "@/components/seekers/jobs/Filters";
+import { SearchJobs } from "@/components/seekers/jobs/Search";
 import { Pagination } from "@/components/Shared/Pagination";
-import { PopularJobsInfo } from "@/components/Seekers/Jobs/popular";
+import { PopularJobsInfo } from "@/components/seekers/jobs/popular";
 import { useQuery } from "react-query";
 import dynamic from "next/dynamic";
 import Protected from "@/components/hoc/Protected";
@@ -13,7 +13,7 @@ import { getJobs } from "@/lib/actions/jobs.actions";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 
 const JobsList = dynamic(
-  () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
+  () => import("@/components/seekers/jobs").then((mod) => mod.JobsList),
   {
     loading: () => <LoadingJobsSkeleton />,
   }

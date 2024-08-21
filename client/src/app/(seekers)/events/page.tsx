@@ -2,9 +2,9 @@
 
 import Protected from "@/components/hoc/Protected";
 import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
-import { FilterEvents } from "@/components/Seekers/Events/Filters";
-import { SearchEvents } from "@/components/Seekers/Events/Search";
-import RegisterEvents from "@/components/Seekers/Events/register";
+import { FilterEvents } from "@/components/seekers/events/Filters";
+import { SearchEvents } from "@/components/seekers/events/Search";
+import RegisterEvents from "@/components/seekers/events/register";
 import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
@@ -15,7 +15,7 @@ import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 const EventsList = dynamic(
-  () => import("@/components/Seekers/Events").then((mod) => mod.EventsList),
+  () => import("@/components/seekers/events").then((mod) => mod.EventsList),
   {
     loading: () => <LoadingEventsSkeleton />,
   }

@@ -4,15 +4,15 @@ import Protected from "@/components/hoc/Protected";
 import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
-import { SeekerProfileAlerts } from "@/components/Seekers/Profile/Alerts";
-import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
+import { SeekerProfileAlerts } from "@/components/seekers/profile/Alerts";
+import { SeekerProfileNavigation } from "@/components/seekers/profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import dynamic from "next/dynamic";
 import React from "react";
 
 const JobsList = dynamic(
-  () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
+  () => import("@/components/seekers/jobs").then((mod) => mod.JobsList),
   {
     loading: () => <LoadingJobsSkeleton />,
   }
@@ -20,7 +20,7 @@ const JobsList = dynamic(
 
 const Applications = dynamic(
   () =>
-    import("@/components/Seekers/Profile/Applications").then(
+    import("@/components/seekers/profile/Applications").then(
       (mod) => mod.Applications
     ),
   {
@@ -30,7 +30,7 @@ const Applications = dynamic(
 
 const SeekerProfileInformation = dynamic(
   () =>
-    import("@/components/Seekers/Profile").then(
+    import("@/components/seekers/profile").then(
       (mod) => mod.SeekerProfileInformation
     ),
   {

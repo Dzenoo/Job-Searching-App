@@ -1,1 +1,0 @@
-export { ApplicationsItem } from "./item";

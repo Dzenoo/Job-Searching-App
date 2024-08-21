@@ -1,1 +1,0 @@
-export { EventItem } from "./item";

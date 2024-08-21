@@ -1,12 +1,12 @@
 "use client";
 
 import Protected from "@/components/hoc/Protected";
-import AddJobAlert from "@/components/Seekers/Jobs/Details/alerts";
+import AddJobAlert from "@/components/seekers/jobs/Details/alerts";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
-import ApplyToJob from "@/components/Seekers/Jobs/Details/apply";
-import { JobsList } from "@/components/Seekers/Jobs";
-import { JobDetailsInfo } from "@/components/Seekers/Jobs/Details";
+import ApplyToJob from "@/components/seekers/jobs/Details/apply";
+import { JobsList } from "@/components/seekers/jobs";
+import { JobDetailsInfo } from "@/components/seekers/jobs/Details";
 import { useQuery } from "react-query";
 import { Dialog } from "@/components/Shared/Dialog";
 import { getJobById } from "@/lib/actions/jobs.actions";

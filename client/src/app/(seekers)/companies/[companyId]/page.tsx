@@ -4,10 +4,10 @@ import Protected from "@/components/hoc/Protected";
 import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
-import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
-import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
-import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
-import RegisterEvents from "@/components/Seekers/Events/register";
+import { EmployerDetailsInfo } from "@/components/seekers/employers/details";
+import { EmployerFilters } from "@/components/seekers/employers/Filters";
+import { EmployerType } from "@/components/seekers/employers/Filters/types";
+import RegisterEvents from "@/components/seekers/events/register";
 import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
@@ -18,14 +18,14 @@ import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 const EventsList = dynamic(
-  () => import("@/components/Seekers/Events").then((mod) => mod.EventsList),
+  () => import("@/components/seekers/events").then((mod) => mod.EventsList),
   {
     loading: () => <LoadingEventsSkeleton />,
   }
 );
 const ReviewsList = dynamic(
   () =>
-    import("@/components/Seekers/Employers/Details/Reviews").then(
+    import("@/components/seekers/employers/details/reviews").then(
       (mod) => mod.ReviewsList
     ),
   {
@@ -33,7 +33,7 @@ const ReviewsList = dynamic(
   }
 );
 const JobsList = dynamic(
-  () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),
+  () => import("@/components/seekers/jobs").then((mod) => mod.JobsList),
   {
     loading: () => <LoadingJobsSkeleton />,
   }

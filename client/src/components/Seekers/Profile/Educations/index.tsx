@@ -1,1 +1,0 @@
-export { Educations } from "./educations";

@@ -3,35 +3,42 @@ import { ClipLoader } from "react-spinners";
 import { EditableSeekerInformationsSchemas } from "@/lib/zod/seekers";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Edit } from "lucide-react";
-import { Controller, useForm } from "react-hook-form";
-import { InformationsProps } from "./types";
-import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
+import { useForm } from "react-hook-form";
 import zod from "zod";
-import { Input } from "@/components/Shared/Input";
-import { Textarea } from "@/components/Shared/Textarea";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import { Button } from "@/components/ui/button";
+import { SeekerTypes } from "@/types";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+type InformationsProps = {
+  seeker?: SeekerTypes;
+};
 
 const Informations: React.FC<InformationsProps> = ({ seeker }) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const {
-    setValue,
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<zod.infer<typeof EditableSeekerInformationsSchemas>>({
+  const form = useForm<zod.infer<typeof EditableSeekerInformationsSchemas>>({
     resolver: zodResolver(EditableSeekerInformationsSchemas),
   });
   const { mutateAsync: editSeekerProfileMutate } = useEditSeeker();
 
   useEffect(() => {
     if (isEditMode && seeker) {
-      setValue("first_name", seeker.first_name || "");
-      setValue("last_name", seeker.last_name || "");
-      setValue("overview", seeker.overview || "");
-      setValue("biography", seeker.biography || "");
+      form.setValue("first_name", seeker.first_name || "");
+      form.setValue("last_name", seeker.last_name || "");
+      form.setValue("overview", seeker.overview || "");
+      form.setValue("biography", seeker.biography || "");
     }
-  }, [isEditMode, seeker, setValue]);
+  }, [isEditMode, seeker, form.setValue]);
 
   const changeSeekerInformation = async (
     values: zod.infer<typeof EditableSeekerInformationsSchemas>
@@ -122,84 +129,88 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
             </div>
           </div>
         ) : (
-          <Form
-            onSubmit={handleSubmit(changeSeekerInformation)}
-            className="p-0"
-          >
-            <div className="flex items-center gap-3 flex-wrap">
-              <FormItem className="w-full">
-                <Controller
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(changeSeekerInformation)}
+              className="p-0"
+            >
+              <div className="flex items-center gap-3 flex-wrap">
+                <FormField
+                  control={form.control}
                   name="first_name"
-                  control={control}
                   render={({ field }) => (
-                    <Input
-                      {...field}
-                      label="First Name"
-                      type="text"
-                      placeholder="First Name"
-                    />
+                    <FormItem>
+                      <FormLabel>First Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="First Name" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public email
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
                   )}
                 />
-                {errors.first_name?.message && (
-                  <FormInfo variant="danger">
-                    {errors.first_name.message}
-                  </FormInfo>
-                )}
-              </FormItem>
-              <FormItem className="w-full">
-                <Controller
+                <FormField
+                  control={form.control}
                   name="last_name"
-                  control={control}
                   render={({ field }) => (
-                    <Input {...field} label="Last Name" type="text" />
+                    <FormItem>
+                      <FormLabel>Last Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Last Name" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public email
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
                   )}
                 />
-                {errors.last_name?.message && (
-                  <FormInfo variant="danger">
-                    {errors.last_name.message}
-                  </FormInfo>
-                )}
-              </FormItem>
-            </div>
-            <FormItem className="w-full">
-              <Controller
+              </div>
+              <FormField
+                control={form.control}
                 name="overview"
-                control={control}
                 render={({ field }) => (
-                  <Input
-                    {...field}
-                    label="Overview"
-                    type="text"
-                    placeholder="Senior Software Engineer..."
-                  />
+                  <FormItem>
+                    <FormLabel>Overview</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Overview" {...field} />
+                    </FormControl>
+                    <FormDescription>This is your public email</FormDescription>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.overview?.message && (
-                <FormInfo variant="danger">{errors.overview.message}</FormInfo>
-              )}
-            </FormItem>
-            <FormItem className="w-full">
-              <Controller
+              <FormField
+                control={form.control}
                 name="biography"
-                control={control}
                 render={({ field }) => (
-                  <Textarea {...field} label="Biography" type="text" />
+                  <FormItem>
+                    <FormLabel>Biography</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Biography" {...field} />
+                    </FormControl>
+                    <FormDescription>This is your public email</FormDescription>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.biography?.message && (
-                <FormInfo variant="danger">{errors.biography.message}</FormInfo>
-              )}
-            </FormItem>
-            <div>
-              <Button
-                variant="default"
-                type="submit"
-                disabled={isSubmitting}
-                className="px-10"
-              >
-                {isSubmitting ? <ClipLoader color="#fff" /> : "Submit"}
-              </Button>
-            </div>
+              <div>
+                <Button
+                  variant="default"
+                  type="submit"
+                  disabled={form.formState.isSubmitting}
+                  className="px-10"
+                >
+                  {form.formState.isSubmitting ? (
+                    <ClipLoader color="#fff" />
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </div>
+            </form>
           </Form>
         )}
       </div>
@@ -207,4 +218,4 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
   );
 };
 
-export { Informations };
+export default Informations;

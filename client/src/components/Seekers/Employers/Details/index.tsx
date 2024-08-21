@@ -1,1 +1,0 @@
-export { EmployerDetailsInfo } from "./details";

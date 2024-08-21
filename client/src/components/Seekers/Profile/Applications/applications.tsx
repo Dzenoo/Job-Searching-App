@@ -1,7 +1,11 @@
 import React from "react";
-import { ApplicationsProps } from "./types";
-import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
-import { ApplicationsItem } from "./Item";
+import { ApplicationsTypes } from "@/types";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import ApplicationsItem from "./ApplicationsItem";
+
+type ApplicationsProps = {
+  applications: ApplicationsTypes[];
+};
 
 const Applications: React.FC<ApplicationsProps> = ({ applications }) => {
   return (
@@ -38,4 +42,4 @@ const Applications: React.FC<ApplicationsProps> = ({ applications }) => {
   );
 };
 
-export { Applications };
+export default Applications;

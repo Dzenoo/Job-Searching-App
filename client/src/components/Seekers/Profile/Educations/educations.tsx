@@ -1,13 +1,7 @@
-import React, { Fragment } from "react";
-import { AddEducationsDialogProps, EducationsProps } from "./types";
+import React, { Fragment, useState } from "react";
 import { Plus } from "lucide-react";
-import { EducationList } from "./list";
-import { Dialog } from "@/components/Shared/Dialog";
-import useDialogs from "@/hooks/useDialogs";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import zod from "zod";
-import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
-import { Input } from "@/components/Shared/Input";
 import { ClipLoader } from "react-spinners";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditableEducationsSchemas } from "@/lib/zod/seekers";
@@ -17,16 +11,35 @@ import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/context/react-query-client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import EducationList from "./EducationList";
+import { SeekerTypes } from "@/types";
+
+type AddEducationsDialogProps = {
+  closeDialog: () => void;
+};
 
 const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   closeDialog,
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const {
-    handleSubmit,
-    control,
-    formState: { errors, isSubmitting, isValid },
-  } = useForm<zod.infer<typeof EditableEducationsSchemas>>({
+  const form = useForm<zod.infer<typeof EditableEducationsSchemas>>({
     resolver: zodResolver(EditableEducationsSchemas),
     defaultValues: {
       graduationDate: "",
@@ -35,15 +48,16 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
       fieldOfStudy: "",
     },
   });
+
   const { mutateAsync: addNewEducationMutate } = useMutation({
     mutationFn: (formData: any) => addNewEducation(formData, token!),
     onSuccess: (response) => {
       toast.success(response.message);
       queryClient.invalidateQueries(["profile"]);
-      closeDialog("edu");
+      closeDialog();
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "An error occurred");
     },
   });
 
@@ -54,113 +68,127 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="max-w-lg">
-        <div className="flex items-center justify-center gap-3 flex-col">
-          <div>
-            <h1 className="text-base-black">Add Education</h1>
-          </div>
-          <div>
-            <p className="text-initial-gray text-center">
-              Add education too for a more complete profile. Employers can learn
-              more about you and view if you're a good fit.
-            </p>
-          </div>
+    <DialogContent className="sm:max-w-lg p-6">
+      <DialogHeader>
+        <DialogTitle>Add Education</DialogTitle>
+        <div className="text-center mb-4">
+          <p className="text-initial-gray">
+            Add education to complete your profile. Employers can learn more
+            about you and view if you're a good fit.
+          </p>
         </div>
-      </div>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormItem>
-          <Controller
-            name="institution"
-            control={control}
-            render={({ field }) => (
-              <Input placeholder="Institution" label="Institution" {...field} />
-            )}
-          />
-          {errors.institution?.message && (
-            <FormInfo variant="danger">{errors.institution.message}</FormInfo>
-          )}
-          <FormInfo variant="default">
-            Please enter a valid institution where you studied
-          </FormInfo>
-        </FormItem>
-        <FormItem>
-          <Controller
-            name="graduationDate"
-            control={control}
-            render={({ field }) => (
-              <Input
-                placeholder="Pick the date"
-                label="Graduation Date"
-                {...field}
-                type="date"
+      </DialogHeader>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Card>
+            <CardContent>
+              <FormField
+                control={form.control}
+                name="institution"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Institution</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Institution" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Please enter the institution where you studied
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            )}
-          />
-          {errors.graduationDate?.message && (
-            <FormInfo variant="danger">
-              {errors.graduationDate.message}
-            </FormInfo>
-          )}
-        </FormItem>
-        <FormItem>
-          <Controller
-            name="fieldOfStudy"
-            control={control}
-            render={({ field }) => (
-              <Input
-                placeholder="Software..."
-                label="Field Of Study"
-                {...field}
+              <FormField
+                control={form.control}
+                name="graduationDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Graduation Date</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Pick the date"
+                        type="date"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Select your graduation date
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            )}
-          />
-          {errors.fieldOfStudy?.message && (
-            <FormInfo variant="danger">{errors.fieldOfStudy.message}</FormInfo>
-          )}
-        </FormItem>
-        <FormItem>
-          <Controller
-            name="degree"
-            control={control}
-            render={({ field }) => (
-              <Input placeholder="Degree" label="Degree" {...field} />
-            )}
-          />
-          {errors.degree?.message && (
-            <FormInfo variant="danger">{errors.degree.message}</FormInfo>
-          )}
-        </FormItem>
-        <div className="pt-7">
-          <Button
-            variant="default"
-            type="submit"
-            disabled={isSubmitting || !isValid}
-            className="w-full"
-          >
-            {isSubmitting ? <ClipLoader color="#fff" /> : "Add"}
-          </Button>
-        </div>
+              <FormField
+                control={form.control}
+                name="fieldOfStudy"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Field of Study</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Field of Study" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Specify your field of study
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="degree"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Degree</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Degree" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Specify the degree you obtained
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            <CardFooter>
+              <Button
+                variant="default"
+                type="submit"
+                disabled={
+                  form.formState.isSubmitting || !form.formState.isValid
+                }
+                className="w-full"
+              >
+                {form.formState.isSubmitting ? (
+                  <ClipLoader color="#fff" />
+                ) : (
+                  "Add"
+                )}
+              </Button>
+            </CardFooter>
+          </Card>
+        </form>
       </Form>
-    </div>
+    </DialogContent>
   );
 };
 
+type EducationsProps = {
+  seeker?: SeekerTypes;
+};
+
 const Educations: React.FC<EducationsProps> = ({ seeker }) => {
-  const { dialogs, openDialog, closeDialog } = useDialogs({
-    edu: {
-      isOpen: false,
-    },
-  });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const openDialog = () => setIsDialogOpen(true);
+  const closeDialog = () => setIsDialogOpen(false);
 
   return (
     <Fragment>
-      <Dialog
-        showCloseButton
-        onCloseDialog={() => closeDialog("edu")}
-        isOpen={dialogs.edu.isOpen}
-        render={() => <AddEducationsDialog closeDialog={closeDialog} />}
-      />
+      <Dialog open={isDialogOpen}>
+        <AddEducationsDialog closeDialog={closeDialog} />
+      </Dialog>
       <div className="flex flex-col gap-10">
         <div className="flex justify-between items-center gap-3">
           <div>
@@ -170,12 +198,10 @@ const Educations: React.FC<EducationsProps> = ({ seeker }) => {
             <Button
               className="flex items-center gap-3"
               variant="default"
-              onClick={() => openDialog("edu")}
+              onClick={openDialog}
             >
-              <div className="max-lg:hidden">Add New Education</div>
-              <div>
-                <Plus />
-              </div>
+              <Plus />
+              <span className="hidden max-lg:inline">Add New Education</span>
             </Button>
           </div>
         </div>
@@ -187,4 +213,4 @@ const Educations: React.FC<EducationsProps> = ({ seeker }) => {
   );
 };
 
-export { Educations };
+export default Educations;
