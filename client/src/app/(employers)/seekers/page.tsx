@@ -1,8 +1,8 @@
 "use client";
 
-import { SeekersList } from "@/components/Employers/Seekers";
-import { FilterSeekers } from "@/components/Employers/Seekers/Filters";
-import { SearchSeekers } from "@/components/Employers/Seekers/Search";
+import { SeekersList } from "@/components/employers/seekers";
+import { FilterSeekers } from "@/components/employers/seekers/Filters";
+import { SearchSeekers } from "@/components/employers/seekers/Search";
 import Protected from "@/components/hoc/Protected";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";

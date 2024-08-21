@@ -1,18 +1,24 @@
 import React, { useRef, useState } from "react";
-import { ApplicationsProps } from "./types";
-import { Table } from "@/components/Shared/Table";
-import { formatDate } from "@/lib/date";
-import { getImageUrl } from "@/lib/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, ImageIcon, Linkedin } from "lucide-react";
-import { SeekerTypes } from "@/types/seekers";
 import { useMutation } from "react-query";
 import { updateApplicationStatus } from "@/lib/actions/jobs.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";
 import { toast } from "react-toastify";
-import useOnOutsideClick from "@/hooks/useOnOutsideClick";
+import { ApplicationsTypes, SeekerTypes } from "@/types";
+import { formatDate, getImageUrl } from "@/lib/utils";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const NameWithImage = ({ seeker }: { seeker: SeekerTypes }) => (
   <div className="flex items-center gap-3">
@@ -43,8 +49,6 @@ const StatusBadge = ({
   toggleStatus: () => void;
 }) => {
   const statusBarRef = useRef(null);
-
-  useOnOutsideClick([statusBarRef], isOpen, toggleStatus);
 
   const { token } = useAuthentication().getCookieHandler();
 
@@ -143,6 +147,12 @@ const SocialLinks = ({ seeker }: { seeker: SeekerTypes }) => (
   </div>
 );
 
+type ApplicationsProps = {
+  applications: ApplicationsTypes[];
+  currentPage: number;
+  itemsPerPage: number;
+};
+
 const Applications: React.FC<ApplicationsProps> = ({
   applications,
   currentPage,
@@ -151,7 +161,7 @@ const Applications: React.FC<ApplicationsProps> = ({
   if (applications?.length === 0)
     return (
       <div className="flex items-center justify-center h-screen">
-        No Applications Founded
+        No Applications Found
       </div>
     );
 
@@ -165,49 +175,73 @@ const Applications: React.FC<ApplicationsProps> = ({
     }
   };
 
-  const columns = [
-    "Index",
-    "Name",
-    "Email",
-    "Resume",
-    "Cover Letter",
-    "Applied",
-    "Status",
-    "Socials",
-  ];
-
-  const transformedApplications = applications.map((app, index) => ({
-    Index: (currentPage - 1) * itemsPerPage + index + 1,
-    Name: <NameWithImage seeker={app.seeker} />,
-    Email: app.seeker.email,
-    Resume: app.resume ? (
-      <Link
-        className="text-initial-blue"
-        href={`https://job-searching-application.s3.amazonaws.com/${app.resume}`}
-      >
-        View Seeker Resume
-      </Link>
-    ) : (
-      "Resume Is Undefined"
-    ),
-    "Cover Letter": app.cover_letter ? (
-      <button className="text-initial-blue">Read</button>
-    ) : (
-      "Cover Letter Unassigned"
-    ),
-    Applied: formatDate(app.createdAt),
-    Status: (
-      <StatusBadge
-        applicationId={app._id}
-        status={app.status}
-        isOpen={openedStatusId === app._id}
-        toggleStatus={() => toggleStatus(app._id)}
-      />
-    ),
-    Socials: <SocialLinks seeker={app.seeker} />,
-  }));
-
-  return <Table columns={columns} data={transformedApplications} />;
+  return (
+    <Table>
+      <TableCaption>A list of applications</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Index</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Resume</TableHead>
+          <TableHead>Cover Letter</TableHead>
+          <TableHead>Applied</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Socials</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {applications.map((app, index) => (
+          <TableRow key={app._id}>
+            <TableCell>
+              {(currentPage - 1) * itemsPerPage + index + 1}
+            </TableCell>
+            <TableCell>
+              <NameWithImage seeker={app.seeker} />
+            </TableCell>
+            <TableCell>{app.seeker.email}</TableCell>
+            <TableCell>
+              {app.resume ? (
+                <Link
+                  className="text-initial-blue"
+                  href={`https://job-searching-application.s3.amazonaws.com/${app.resume}`}
+                >
+                  View Seeker Resume
+                </Link>
+              ) : (
+                "Resume Is Undefined"
+              )}
+            </TableCell>
+            <TableCell>
+              {app.cover_letter ? (
+                <button className="text-initial-blue">Read</button>
+              ) : (
+                "Cover Letter Unassigned"
+              )}
+            </TableCell>
+            <TableCell>{formatDate(app.createdAt)}</TableCell>
+            <TableCell>
+              <StatusBadge
+                applicationId={app._id}
+                status={app.status}
+                isOpen={openedStatusId === app._id}
+                toggleStatus={() => toggleStatus(app._id)}
+              />
+            </TableCell>
+            <TableCell>
+              <SocialLinks seeker={app.seeker} />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={7}>Total Applications</TableCell>
+          <TableCell className="text-right">{applications.length}</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  );
 };
 
-export { Applications };
+export default Applications;

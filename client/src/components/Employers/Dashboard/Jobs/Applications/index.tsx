@@ -1,1 +1,0 @@
-export { Applications } from "./applications";

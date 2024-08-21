@@ -1,12 +1,12 @@
 "use client";
 
-import Followers from "@/components/Employers/Dashboard/Overview/Charts/Followers";
-import JobsPerMonth from "@/components/Employers/Dashboard/Overview/Charts/JobsPerMonth";
-import Types from "@/components/Employers/Dashboard/Overview/Charts/Types";
-import { Statistics } from "@/components/Employers/Dashboard/Overview/Statistics";
+import Followers from "@/components/employers/dashboard/overview/Followers";
+import JobsPerMonth from "@/components/employers/dashboard/overview/JobsPerMonth";
+import Statistics from "@/components/employers/dashboard/overview/Statistics";
+import Types from "@/components/employers/dashboard/overview/Types";
 import Protected from "@/components/hoc/Protected";
+import useGetEmployer from "@/hooks/mutations/useGetEmployer";
 import useAuthentication from "@/hooks/useAuthentication";
-import useGetEmployer from "@/hooks/useGetEmployer";
 import { getEmployerAnalytics } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";

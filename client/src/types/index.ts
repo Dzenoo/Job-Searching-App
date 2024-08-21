@@ -202,6 +202,13 @@ type ResponseMessageTypes = {
   message: string;
 };
 
+// Auth
+enum TypeOfAccount {
+  Seeker = "seeker",
+  Employer = "employer",
+  Default = "",
+}
+
 // ===============================
 // Exports
 // ===============================
@@ -224,4 +231,5 @@ export {
   type EmployerDirectMessagesTypes,
   ApplicationStatus,
   type ResponseMessageTypes,
+  TypeOfAccount,
 };

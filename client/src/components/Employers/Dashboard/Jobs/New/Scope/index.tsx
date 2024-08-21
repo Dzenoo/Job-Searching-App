@@ -1,1 +1,0 @@
-export { Scope } from "./scope";

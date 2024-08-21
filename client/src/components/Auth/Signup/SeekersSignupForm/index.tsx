@@ -1,1 +1,0 @@
-export { SeekersSignupForm } from "./form";

@@ -1,1 +1,0 @@
-export { LoginFormAccount } from "./form";

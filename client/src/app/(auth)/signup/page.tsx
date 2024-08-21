@@ -1,21 +1,21 @@
 "use client";
 
 import React from "react";
-import { ChooseTypeAccount } from "@/components/Auth/Signup/ChooseTypeAccount";
 import useAuthentication from "@/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
+import ChooseSignup from "@/components/auth/signup/ChooseSignup";
 
 const SignupPage: React.FC = () => {
-  const { token } = useAuthentication().getCookieHandler();
+  const { isAuthenticated } = useAuthentication().getCookieHandler();
   const router = useRouter();
 
-  if (token) {
+  if (isAuthenticated) {
     router.push("/");
   }
 
   return (
     <section className="py-16 flex justify-center h-screen">
-      <ChooseTypeAccount />
+      <ChooseSignup />
     </section>
   );
 };

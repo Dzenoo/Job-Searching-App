@@ -1,13 +1,13 @@
 "use client";
 
-import { Details } from "@/components/Employers/Dashboard/Jobs/New/Details";
-import { Overview } from "@/components/Employers/Dashboard/Jobs/New/Overview";
-import { Scope } from "@/components/Employers/Dashboard/Jobs/New/Scope";
-import { Skills } from "@/components/Employers/Dashboard/Jobs/New/Skills";
-import { AddJobText } from "@/components/Employers/Dashboard/Jobs/New/Text";
+import Details from "@/components/employers/dashboard/jobs/new/Details";
+import Overview from "@/components/employers/dashboard/jobs/new/Overview";
+import Scope from "@/components/employers/dashboard/jobs/new/Scope";
+import Skills from "@/components/employers/dashboard/jobs/new/Skills";
+import Text from "@/components/employers/dashboard/jobs/new/Text";
 import Protected from "@/components/hoc/Protected";
-import { Form } from "@/components/Shared/Forms";
 import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 import { queryClient } from "@/contexts/react-query-client";
 import useAuthentication from "@/hooks/useAuthentication";
 import { createNewJob } from "@/lib/actions/jobs.actions";
@@ -22,9 +22,7 @@ import zod from "zod";
 
 const NewJobPage = () => {
   const { token } = useAuthentication().getCookieHandler();
-  const { handleSubmit, control, formState, setValue, getValues } = useForm<
-    zod.infer<typeof NewJobSchemas>
-  >({
+  const form = useForm<zod.infer<typeof NewJobSchemas>>({
     defaultValues: {
       title: "",
       overview: "",
@@ -61,20 +59,15 @@ const NewJobPage = () => {
   }
 
   const onSelectSkills = (skills: any) => {
-    setValue("skills", skills);
+    form.setValue("skills", skills);
   };
 
   function renderCurrentStep() {
     const components = [
-      <Details formState={formState} control={control} />,
-      <Overview formState={formState} control={control} />,
-      <Skills
-        formState={formState}
-        control={control}
-        initialSkills={getValues("skills")}
-        onSelectSkills={onSelectSkills}
-      />,
-      <Scope formState={formState} control={control} />,
+      <Details control={form.control} />,
+      <Overview control={form.control} />,
+      <Skills control={form.control} onSelectSkills={onSelectSkills} />,
+      <Scope control={form.control} />,
     ];
 
     return components[currentJobForm];
@@ -111,7 +104,7 @@ const NewJobPage = () => {
     <section>
       <div className="flex px-36 gap-3 py-16">
         <div className="basis-1/2 flex flex-col gap-3">
-          <AddJobText
+          <Text
             step={currentJobForm}
             title={stepDetails[currentJobForm].title}
             description={stepDetails[currentJobForm].description}
@@ -119,19 +112,21 @@ const NewJobPage = () => {
         </div>
         <div className="basis-1/2 flex flex-col gap-10 justify-between">
           <div>
-            <Form onSubmit={handleSubmit(addNewJob)} className="p-0">
-              {renderCurrentStep()}
-              {stepDetails.length - 1 === currentJobForm && (
-                <div className="flex gap-3 justify-end">
-                  <Button
-                    type="submit"
-                    variant="default"
-                    disabled={!formState.isValid}
-                  >
-                    {isLoading ? <ClipLoader /> : "Submit"}
-                  </Button>
-                </div>
-              )}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(addNewJob)} className="p-0">
+                {renderCurrentStep()}
+                {stepDetails.length - 1 === currentJobForm && (
+                  <div className="flex gap-3 justify-end">
+                    <Button
+                      type="submit"
+                      variant="default"
+                      disabled={!form.formState.isValid}
+                    >
+                      {isLoading ? <ClipLoader /> : "Submit"}
+                    </Button>
+                  </div>
+                )}
+              </form>
             </Form>
           </div>
           <div className="flex gap-3 items-center">
@@ -140,7 +135,7 @@ const NewJobPage = () => {
                 <Button
                   onClick={hadleFormPrev}
                   className="w-28"
-                  variant="outlined"
+                  variant="outline"
                 >
                   Previous
                 </Button>

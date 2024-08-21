@@ -1,13 +1,22 @@
 "use client";
 
-import { Applications } from "@/components/Employers/Dashboard/Jobs/Applications";
-import { FilterApplications } from "@/components/Employers/Dashboard/Jobs/Applications/Filter";
+import Applications from "@/components/employers/dashboard/jobs/applications/Applications";
+import FilterApplications from "@/components/employers/dashboard/jobs/applications/FilterApplications";
 import Protected from "@/components/hoc/Protected";
-import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getApplications } from "@/lib/actions/jobs.actions";
 import React from "react";
 import { useQuery } from "react-query";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
+import useSearchParams from "@/hooks/useSearchParams";
 
 const JobApplicationsPage = ({
   searchParams,
@@ -27,6 +36,17 @@ const JobApplicationsPage = ({
         type: searchParams.type || "",
       })
   );
+  const { updateSearchParams } = useSearchParams();
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    updateSearchParams("page", page.toString());
+  };
+
+  const totalApplications = data?.totalApplications || 0;
+  const currentPage = Number(searchParams.page) || 1;
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(totalApplications / itemsPerPage);
 
   return (
     <section className="flex flex-col gap-3">
@@ -56,12 +76,49 @@ const JobApplicationsPage = ({
       </div>
       {data?.applications.length !== 0 && (
         <div>
-          <Pagination
-            totalItems={data?.totalApplications || 0}
-            itemsPerPage={10}
-            currentPage={Number(searchParams?.page) || 1}
-            visiblePages={6}
-          />
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                {currentPage > 1 ? (
+                  <PaginationPrevious
+                    href="#"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  />
+                ) : (
+                  <PaginationPrevious href="#" isActive={false} />
+                )}
+              </PaginationItem>
+
+              {[...Array(totalPages)].map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    href="#"
+                    isActive={currentPage === index + 1}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+              {currentPage < totalPages && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+
+              <PaginationItem>
+                {currentPage < totalPages ? (
+                  <PaginationNext
+                    href="#"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  />
+                ) : (
+                  <PaginationNext href="#" isActive={false} />
+                )}
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       )}
     </section>

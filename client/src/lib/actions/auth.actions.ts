@@ -1,4 +1,4 @@
-import { TypeOfAccount } from "@/components/Auth/Signup/ChooseTypeAccount/types";
+import { TypeOfAccount } from "@/components/auth/signup/ChooseTypeAccount/types";
 import { postApiHandler } from "../api";
 import { SeekerTypes } from "@/types/seekers";
 import { EmployerTypes } from "@/types/employers";

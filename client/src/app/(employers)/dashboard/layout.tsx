@@ -1,7 +1,7 @@
-import { EmployersDashboardNavbar } from "@/components/Employers/Dashboard/Navbar";
 import React from "react";
 import "../../globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import EmployersDashboardNavbar from "@/components/employers/dashboard/navbar/EmployersDashboardNavbar";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (

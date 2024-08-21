@@ -1,4 +1,3 @@
-import Footer from "@/components/layout/Navbar/Footer";
 import dynamic from "next/dynamic";
 import AppThemeProvider from "@/contexts/app-theme-provider";
 import { QueryContextProvider } from "@/contexts/react-query-client";
@@ -7,6 +6,7 @@ import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/layout/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Job Talentify Platform",
