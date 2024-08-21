@@ -1,11 +1,9 @@
 import React from "react";
-import { FilterSeekersProps } from "./types";
 import { ListFilter } from "lucide-react";
-import { Card, CardContent } from "@/components/Shared/Card";
-import { FiltersCheckboxesSection } from "@/components/shared/FiltersCheckboxesSection";
-import { SeekersFiltersData } from "@/constants/filters/seekers";
+import { Card, CardContent } from "@/components/ui/card";
+import { SeekersFiltersData } from "@/constants";
 
-const FilterSeekers: React.FC<FilterSeekersProps> = () => {
+const FilterSeekers: React.FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-3 justify-between">
@@ -20,11 +18,7 @@ const FilterSeekers: React.FC<FilterSeekersProps> = () => {
         <CardContent>
           <div className="flex flex-col gap-10">
             {SeekersFiltersData.map((filters) => (
-              <FiltersCheckboxesSection
-                key={filters.id}
-                title={filters.title}
-                checkboxes={filters.checkboxes}
-              />
+              <></>
             ))}
           </div>
         </CardContent>
@@ -33,4 +27,4 @@ const FilterSeekers: React.FC<FilterSeekersProps> = () => {
   );
 };
 
-export { FilterSeekers };
+export default FilterSeekers;

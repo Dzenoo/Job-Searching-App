@@ -1,6 +1,10 @@
 import React from "react";
-import { SeekersListProps } from "./types";
-import { SeekerItem } from "./Item";
+import { SeekerTypes } from "@/types";
+import SeekerItem from "./SeekerItem";
+
+type SeekersListProps = {
+  seekers: SeekerTypes[];
+};
 
 const SeekersList: React.FC<SeekersListProps> = ({ seekers }) => {
   return (

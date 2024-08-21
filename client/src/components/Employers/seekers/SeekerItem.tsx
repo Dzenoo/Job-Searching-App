@@ -1,15 +1,20 @@
 import React from "react";
-import { SeekerItemProps } from "./types";
+
+import Image from "next/image";
+import { Github, Linkedin, LucideImage } from "lucide-react";
+import Link from "next/link";
+import { SeekerTypes } from "@/types";
+import { getImageUrl } from "@/lib/utils";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/Shared/Card";
-import Image from "next/image";
-import { Github, Linkedin, LucideImage } from "lucide-react";
-import Link from "next/link";
-import { getImageUrl } from "@/lib/helpers";
+} from "@/components/ui/card";
+
+type SeekerItemProps = {
+  seeker: SeekerTypes;
+};
 
 const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   const SocialsArrays = new Array(
@@ -78,4 +83,4 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   );
 };
 
-export { SeekerItem };
+export default SeekerItem;

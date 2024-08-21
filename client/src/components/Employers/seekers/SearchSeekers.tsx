@@ -1,9 +1,8 @@
 import React from "react";
-import { SearchSeekersProps } from "./types";
-import { Input } from "@/components/Shared/Input";
 import useSearchParams from "@/hooks/useSearchParams";
+import { Input } from "@/components/ui/input";
 
-const SearchSeekers: React.FC<SearchSeekersProps> = () => {
+const SearchSeekers: React.FC = () => {
   const { searchParams, updateSearchParams, debounce } = useSearchParams();
 
   const debounceSearchParams = React.useMemo(
@@ -25,4 +24,4 @@ const SearchSeekers: React.FC<SearchSeekersProps> = () => {
     </div>
   );
 };
-export { SearchSeekers };
+export default SearchSeekers;

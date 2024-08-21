@@ -1,1 +1,0 @@
-export { SeekerDetailsInfo } from "./details";

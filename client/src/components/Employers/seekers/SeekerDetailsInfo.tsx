@@ -1,13 +1,17 @@
 import React from "react";
-import { SeekerDetailsInfoProps } from "./types";
-import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
-import Navigator from "@/components/shared/navigator";
 import Image from "next/image";
 import Link from "next/link";
-import { getImageUrl, getSkillsData } from "@/lib/helpers";
 import { Github, Linkedin, LucideImage } from "lucide-react";
 import { EducationList } from "@/components/Seekers/Profile/Educations/list";
 import { Button } from "@/components/ui/button";
+import { SeekerTypes } from "@/types";
+import { getImageUrl, getSkillsData } from "@/lib/utils";
+import Navigator from "@/components/ui/navigator";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+
+type SeekerDetailsInfoProps = {
+  seeker: SeekerTypes;
+};
 
 const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
   const profileImageUrl = getImageUrl(seeker?.image);
@@ -130,4 +134,4 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
   );
 };
 
-export { SeekerDetailsInfo };
+export default SeekerDetailsInfo;
