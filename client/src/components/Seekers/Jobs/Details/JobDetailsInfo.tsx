@@ -218,4 +218,4 @@ const renderJobDetails = <
   );
 };
 
-export { JobDetailsInfo };
+export default JobDetailsInfo;

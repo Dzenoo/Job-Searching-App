@@ -26,4 +26,4 @@ const SeekersList: React.FC<SeekersListProps> = ({ seekers }) => {
   );
 };
 
-export { SeekersList };
+export default SeekersList;

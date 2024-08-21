@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FooterLinks } from "@/constants/footer";
+import { FooterLinks } from "@/constants";
 
 const Footer: React.FC = () => {
   return (

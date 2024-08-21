@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { NavbarLinksList } from "./list";
 import { usePathname } from "next/navigation";
 import useAuthentication from "@/hooks/useAuthentication";
 import { EmployersNavbarLinks, SeekersNavbarLinks } from "@/constants";
+import NavbarLinksList from "./NavbarLinksList";
 
 const MobileBar: React.FC = () => {
   const { isAuthenticated, userType } = useAuthentication().getCookieHandler();

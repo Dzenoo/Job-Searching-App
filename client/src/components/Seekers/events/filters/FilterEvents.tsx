@@ -31,4 +31,4 @@ const FilterEvents: React.FC = () => {
   );
 };
 
-export { FilterEvents };
+export default FilterEvents;

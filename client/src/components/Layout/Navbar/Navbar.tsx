@@ -2,7 +2,6 @@
 
 import React from "react";
 import useAuthentication from "@/hooks/useAuthentication";
-import Logo from "./logo";
 import { usePathname } from "next/navigation";
 import {
   EmployersNavbarActions,
@@ -15,10 +14,11 @@ import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { NavbarLinksList } from "./list";
-import NavbarActionsList from "./actions";
+import NavbarActionsList from "./NavbarActionsList";
 import { NotificationTypes } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Logo from "./logo";
+import NavbarLinksList from "./NavbarLinksList";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (

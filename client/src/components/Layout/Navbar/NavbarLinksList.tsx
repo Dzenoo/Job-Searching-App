@@ -37,4 +37,4 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
   );
 };
 
-export { NavbarLinksList };
+export default NavbarLinksList;

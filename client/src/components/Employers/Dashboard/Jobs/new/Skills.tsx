@@ -8,16 +8,8 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import MultiSelect from "@/components/ui/multiselect";
 
 type SkillsProps = {
   control: Control<any>;
@@ -34,28 +26,16 @@ const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
           <FormItem>
             <FormLabel>Select Relevant Skills</FormLabel>
             <FormControl>
-              <Select
-                multiple
-                onValueChange={(value: any) => {
-                  const newSkills = [...field.value, value];
-                  field.onChange(newSkills);
-                  onSelectSkills(newSkills);
-                }}
-                value={field.value}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Skills" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Skills</SelectLabel>
-                    <SelectItem value="React.js">React.js</SelectItem>
-                    <SelectItem value="Node.js">Node.js</SelectItem>
-                    <SelectItem value="Express.js">Express.js</SelectItem>
-                    <SelectItem value="MongoDB">MongoDB</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <MultiSelect
+                options={[
+                  { label: "React.js", value: "React.js" },
+                  { label: "Node.js", value: "Node.js" },
+                  { label: "Express.js", value: "Express.js" },
+                  { label: "MongoDB", value: "MongoDB" },
+                ]}
+                selectedValues={field.value || []}
+                onChange={field.onChange}
+              />
             </FormControl>
             <div className="flex flex-wrap gap-2 mt-2">
               {field.value.map((skill: string) => (
