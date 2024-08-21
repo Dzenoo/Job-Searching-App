@@ -8,7 +8,7 @@ import Text from "@/components/employers/dashboard/jobs/new/Text";
 import Protected from "@/components/hoc/Protected";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import useAuthentication from "@/hooks/useAuthentication";
 import { createNewJob } from "@/lib/actions/jobs.actions";
 import { NewJobSchemas } from "@/lib/zod/jobs";

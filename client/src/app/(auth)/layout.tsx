@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { QueryContextProvider } from "@/contexts/react-query-client";
+import { QueryContextProvider } from "@/context/react-query-client";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 

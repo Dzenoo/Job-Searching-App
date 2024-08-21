@@ -5,7 +5,7 @@ import { Github, ImageIcon, Linkedin } from "lucide-react";
 import { useMutation } from "react-query";
 import { updateApplicationStatus } from "@/lib/actions/jobs.actions";
 import useAuthentication from "@/hooks/useAuthentication";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import { toast } from "react-toastify";
 import { ApplicationsTypes, SeekerTypes } from "@/types";
 import { formatDate, getImageUrl } from "@/lib/utils";

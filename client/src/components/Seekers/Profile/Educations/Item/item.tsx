@@ -8,7 +8,7 @@ import { useMutation } from "react-query";
 import { deleteEducation } from "@/lib/actions/seekers.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 
 const EducationItem: React.FC<EducationItemProps> = ({
   _id,

@@ -8,7 +8,7 @@ import { LinkElement } from "@/components/Shared/Link";
 import { useMutation } from "react-query";
 import { readNotificationsData } from "@/lib/actions/shared";
 import { toast } from "react-toastify";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import useAuthentication from "@/hooks/useAuthentication";
 
 const NotificationsItem: React.FC<NotificationsItemProps> = ({

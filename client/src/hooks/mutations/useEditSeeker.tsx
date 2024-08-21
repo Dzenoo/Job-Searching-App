@@ -1,4 +1,4 @@
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import { editSeekerProfile } from "@/lib/actions/seekers.actions";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";

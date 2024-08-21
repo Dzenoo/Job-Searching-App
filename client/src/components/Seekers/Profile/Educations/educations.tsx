@@ -15,7 +15,7 @@ import { useMutation } from "react-query";
 import { addNewEducation } from "@/lib/actions/seekers.actions";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import { Button } from "@/components/ui/button";
 
 const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({

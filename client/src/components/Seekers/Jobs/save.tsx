@@ -7,7 +7,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { saveJob } from "@/lib/actions/jobs.actions";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { JobTypes } from "@/types/jobs";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import { Button } from "@/components/ui/button";
 
 const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {

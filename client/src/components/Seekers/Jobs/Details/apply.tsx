@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import zod from "zod";
 import { ClipLoader } from "react-spinners";
 import { Textarea } from "@/components/Shared/Textarea";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 import useUploads from "@/hooks/useUploads";
 import { ApplyToJobSchemas } from "@/lib/zod/jobs";
 import { addCoverLetter, applyToJob } from "@/lib/actions/jobs.actions";

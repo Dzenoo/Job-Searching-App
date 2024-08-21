@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
-import AppThemeProvider from "@/contexts/app-theme-provider";
-import { QueryContextProvider } from "@/contexts/react-query-client";
+import AppThemeProvider from "@/context/app-theme-provider";
+import { QueryContextProvider } from "@/context/react-query-client";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";

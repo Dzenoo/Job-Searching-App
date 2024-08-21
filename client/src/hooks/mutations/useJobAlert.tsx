@@ -2,7 +2,7 @@ import { generateJobAlert } from "@/lib/actions/seekers.actions";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import useAuthentication from "../useAuthentication";
-import { queryClient } from "@/contexts/react-query-client";
+import { queryClient } from "@/context/react-query-client";
 
 const useJobAlert = () => {
   const { token } = useAuthentication().getCookieHandler();
