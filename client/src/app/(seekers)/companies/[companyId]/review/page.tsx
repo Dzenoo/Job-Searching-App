@@ -1,6 +1,6 @@
 "use client";
 
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import { ReviewCompanyForm } from "@/components/Seekers/Employers/Details/Reviews/New";
 import React from "react";
 

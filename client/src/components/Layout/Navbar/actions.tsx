@@ -1,8 +1,18 @@
 import React from "react";
-import { NavbarActionsListProps } from "./types";
 import Link from "next/link";
 import { LogOut } from "lucide-react";
-import Themes from "../Themes";
+import Themes from "./Themes";
+
+type NavbarActionsListProps = {
+  data: {
+    id: string;
+    href: string;
+    icon: React.JSX.Element;
+  }[];
+  logout: () => void;
+  pathname: string;
+  notifications: number;
+};
 
 const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
   notifications,
@@ -56,4 +66,4 @@ const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
   );
 };
 
-export { NavbarActionsList };
+export default NavbarActionsList;

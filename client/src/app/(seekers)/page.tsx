@@ -7,10 +7,10 @@ import { Pagination } from "@/components/Shared/Pagination";
 import { PopularJobsInfo } from "@/components/Seekers/Jobs/popular";
 import { useQuery } from "react-query";
 import dynamic from "next/dynamic";
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getJobs } from "@/lib/actions/jobs";
-import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
+import { getJobs } from "@/lib/actions/jobs.actions";
+import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 
 const JobsList = dynamic(
   () => import("@/components/Seekers/Jobs").then((mod) => mod.JobsList),

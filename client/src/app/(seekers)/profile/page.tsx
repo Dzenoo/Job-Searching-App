@@ -1,9 +1,9 @@
 "use client";
 
-import Protected from "@/components/Hoc/Protected";
-import LoadingApplicationsSkeleton from "@/components/Loaders/LoadingApplications";
-import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
-import LoadingSeekersInformationsSkeleton from "@/components/Loaders/LoadingSeekersInformations";
+import Protected from "@/components/hoc/Protected";
+import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
+import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
+import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
 import { SeekerProfileAlerts } from "@/components/Seekers/Profile/Alerts";
 import { SeekerProfileNavigation } from "@/components/Seekers/Profile/Navigation";
 import useAuthentication from "@/hooks/useAuthentication";

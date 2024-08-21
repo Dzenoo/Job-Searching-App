@@ -12,7 +12,7 @@ import { ClipLoader } from "react-spinners";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditableEducationsSchemas } from "@/lib/zod/seekers";
 import { useMutation } from "react-query";
-import { addNewEducation } from "@/lib/actions/seekers";
+import { addNewEducation } from "@/lib/actions/seekers.actions";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";

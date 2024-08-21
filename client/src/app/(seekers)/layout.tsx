@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { QueryContextProvider } from "@/contexts/react-query-client";
 import { ToastContainer } from "react-toastify";
-import Footer from "@/components/Shared/Footer/Footer";
+import Footer from "@/components/layout/Navbar/Footer";
 import { Inter } from "next/font/google";
-const Navbar = dynamic(() => import("@/components/Layout/Navbar/Navbar"), {
+const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
   ssr: false,
 });
 
@@ -12,12 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
 import AppThemeProvider from "@/contexts/app-theme-provider";
 
-const MobileBar = dynamic(
-  () => import("@/components/Layout/Navbar/Mobile/Mobile"),
-  {
-    ssr: false,
-  }
-);
+const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
+  ssr: false,
+});
 
 const inter = Inter({ subsets: ["latin"] });
 

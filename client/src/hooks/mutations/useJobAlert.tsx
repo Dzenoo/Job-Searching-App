@@ -1,4 +1,4 @@
-import { generateJobAlert } from "@/lib/actions/seekers";
+import { generateJobAlert } from "@/lib/actions/seekers.actions";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import useAuthentication from "../useAuthentication";

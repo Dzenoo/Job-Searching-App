@@ -17,7 +17,7 @@ import {
 import Link from "next/link";
 import zod from "zod";
 import useAuthentication from "@/hooks/useAuthentication";
-import { loginUserAccount } from "@/lib/actions/auth";
+import { loginUserAccount } from "@/lib/actions/auth.actions";
 import { LoginSchemasForm } from "@/lib/zod/auth";
 import { Button } from "@/components/ui/button";
 

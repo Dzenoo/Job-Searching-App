@@ -10,7 +10,7 @@ import { Textarea } from "@/components/Shared/Textarea";
 import { queryClient } from "@/contexts/react-query-client";
 import useUploads from "@/hooks/useUploads";
 import { ApplyToJobSchemas } from "@/lib/zod/jobs";
-import { addCoverLetter, applyToJob } from "@/lib/actions/jobs";
+import { addCoverLetter, applyToJob } from "@/lib/actions/jobs.actions";
 import { Button } from "@/components/ui/button";
 
 type ApplyToJobProps = {

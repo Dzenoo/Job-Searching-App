@@ -2,7 +2,7 @@ import React from "react";
 import { ListFilter } from "lucide-react";
 import { Card, CardContent } from "@/components/Shared/Card";
 import { EventsFiltersData } from "@/constants/filters/events";
-import { FiltersCheckboxesSection } from "@/components/Shared/FiltersCheckboxesSection";
+import { FiltersCheckboxesSection } from "@/components/shared/FiltersCheckboxesSection";
 
 const FilterEvents: React.FC = () => {
   return (

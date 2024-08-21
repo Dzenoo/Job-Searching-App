@@ -1,9 +1,9 @@
 "use client";
 
-import Protected from "@/components/Hoc/Protected";
-import LoadingEventsSkeleton from "@/components/Loaders/LoadingEvents";
-import LoadingJobsSkeleton from "@/components/Loaders/LoadingJobsSkeleton";
-import LoadingReviewsSkeleton from "@/components/Loaders/LoadingReviews";
+import Protected from "@/components/hoc/Protected";
+import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
+import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
+import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
 import { EmployerDetailsInfo } from "@/components/Seekers/Employers/Details";
 import { EmployerFilters } from "@/components/Seekers/Employers/Filters";
 import { EmployerType } from "@/components/Seekers/Employers/Filters/types";
@@ -12,7 +12,7 @@ import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
-import { getEmployerById } from "@/lib/actions/seekers";
+import { getEmployerById } from "@/lib/actions/seekers.actions";
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";

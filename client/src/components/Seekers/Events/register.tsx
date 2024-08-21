@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { queryClient } from "@/contexts/react-query-client";
 import useGetSeeker from "@/hooks/useGetSeeker";
-import { registerForEvent } from "@/lib/actions/events";
+import { registerForEvent } from "@/lib/actions/events.actions";
 import React from "react";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";

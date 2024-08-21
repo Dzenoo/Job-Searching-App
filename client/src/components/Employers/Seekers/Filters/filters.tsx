@@ -2,7 +2,7 @@ import React from "react";
 import { FilterSeekersProps } from "./types";
 import { ListFilter } from "lucide-react";
 import { Card, CardContent } from "@/components/Shared/Card";
-import { FiltersCheckboxesSection } from "@/components/Shared/FiltersCheckboxesSection";
+import { FiltersCheckboxesSection } from "@/components/shared/FiltersCheckboxesSection";
 import { SeekersFiltersData } from "@/constants/filters/seekers";
 
 const FilterSeekers: React.FC<FilterSeekersProps> = () => {

@@ -8,7 +8,7 @@ import { Dialog } from "@/components/Shared/Dialog";
 import useDialogs from "@/hooks/useDialogs";
 import { Form } from "@/components/Shared/Forms";
 import { useMutation } from "react-query";
-import { deleteJob } from "@/lib/actions/jobs";
+import { deleteJob } from "@/lib/actions/jobs.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
 import { queryClient } from "@/contexts/react-query-client";

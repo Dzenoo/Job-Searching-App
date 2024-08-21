@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { useQuery } from "react-query";
 import { Pagination } from "@/components/Shared/Pagination";
 import { SearchEmployers } from "@/components/Seekers/Employers/Search";
-import { getEmployers } from "@/lib/actions/seekers";
-import LoadingCompaniesSkeleton from "@/components/Loaders/LoadingCompanies";
+import { getEmployers } from "@/lib/actions/seekers.actions";
+import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
 import dynamic from "next/dynamic";
 
 const EmployersList = dynamic(

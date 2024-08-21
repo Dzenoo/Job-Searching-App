@@ -17,7 +17,7 @@ import {
 import zod from "zod";
 import Link from "next/link";
 import { SeekerRegistrationSchemas } from "@/lib/zod/auth";
-import { signupSeeker } from "@/lib/actions/auth";
+import { signupSeeker } from "@/lib/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 
 const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({

@@ -18,7 +18,7 @@ import {
   Timer,
 } from "lucide-react";
 import SaveJobButton from "../save";
-import Navigator from "@/components/Shared/Navigator";
+import Navigator from "@/components/shared/navigator";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { ApplicationsTypes } from "@/types/shared";
 import { Button } from "@/components/ui/button";

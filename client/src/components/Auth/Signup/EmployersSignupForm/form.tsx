@@ -20,7 +20,7 @@ import {
 import zod from "zod";
 import Link from "next/link";
 import { EmployersRegistrationSchemas } from "@/lib/zod/auth";
-import { signupEmployer } from "@/lib/actions/auth";
+import { signupEmployer } from "@/lib/actions/auth.actions";
 import { Button } from "@/components/ui/button";
 
 const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({

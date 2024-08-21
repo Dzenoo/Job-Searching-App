@@ -2,36 +2,33 @@
 
 import React from "react";
 import useAuthentication from "@/hooks/useAuthentication";
-import Logo from "./Logo/logo";
-import { LinkElement } from "@/components/Shared/Link";
+import Logo from "./logo";
 import { usePathname } from "next/navigation";
-import { NavbarLinksList } from "./List";
 import {
   EmployersNavbarActions,
   EmployersNavbarLinks,
   SeekersNavbarActions,
   SeekersNavbarLinks,
-} from "@/constants/navbar";
-import { NavbarActionsList } from "./Actions";
-import { Avatar } from "@/components/Shared/Avatar";
+} from "@/constants";
 import { useQuery } from "react-query";
-import { getSeekerProfile } from "@/lib/actions/seekers";
-import { getEmployerProfile } from "@/lib/actions/employers";
-import { NotificationTypes } from "@/types/shared";
+import { getSeekerProfile } from "@/lib/actions/seekers.actions";
+import { getEmployerProfile } from "@/lib/actions/employers.actions";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { NavbarLinksList } from "./list";
+import NavbarActionsList from "./actions";
+import { NotificationTypes } from "@/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
     <div className="flex items-center gap-3">
-      <div>
-        <LinkElement variant={"outlined"} href={"/login"}>
-          Login
-        </LinkElement>
-      </div>
-      <div>
-        <LinkElement variant={"default"} href={"/signup"}>
-          Signup
-        </LinkElement>
-      </div>
+      <Link href={"/login"}>
+        <Button variant={"outline"}>Login</Button>
+      </Link>
+      <Link href={"/signup"}>
+        <Button variant={"default"}>Signup</Button>
+      </Link>
     </div>
   );
 };
@@ -91,18 +88,20 @@ const Navbar: React.FC = () => {
             />
           </div>
           <div>
-            <Avatar
-              image={
-                isSeeker
-                  ? fetchedProfile?.seeker.image
-                  : fetchedProfile?.employer.image
-              }
-              name={
-                isSeeker
+            <Avatar>
+              <AvatarImage
+                src={
+                  isSeeker
+                    ? fetchedProfile?.seeker.image
+                    : fetchedProfile?.employer.image
+                }
+              />
+              <AvatarFallback>
+                {isSeeker
                   ? `${fetchedProfile?.seeker.first_name} ${fetchedProfile?.seeker.last_name}`
-                  : fetchedProfile?.employer.name
-              }
-            />
+                  : fetchedProfile?.employer.name}
+              </AvatarFallback>
+            </Avatar>
           </div>
         </div>
       )}

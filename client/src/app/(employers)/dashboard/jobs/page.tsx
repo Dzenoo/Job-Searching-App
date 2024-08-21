@@ -2,10 +2,10 @@
 
 import { DashboardEmployerJobs } from "@/components/Employers/Dashboard/Jobs";
 import { SearchJobs } from "@/components/Employers/Dashboard/Jobs/Search";
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getEmployerProfile } from "@/lib/actions/employers";
+import { getEmployerProfile } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";
 

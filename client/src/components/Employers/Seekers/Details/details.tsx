@@ -1,7 +1,7 @@
 import React from "react";
 import { SeekerDetailsInfoProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
-import Navigator from "@/components/Shared/Navigator";
+import Navigator from "@/components/shared/navigator";
 import Image from "next/image";
 import Link from "next/link";
 import { getImageUrl, getSkillsData } from "@/lib/helpers";

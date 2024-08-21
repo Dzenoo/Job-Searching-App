@@ -1,6 +1,15 @@
 import React from "react";
-import { NavbarLinksListProps } from "./types";
 import Link from "next/link";
+
+type NavbarLinksListProps = {
+  pathname: string;
+  data: {
+    id: string;
+    title: string;
+    icon: React.JSX.Element;
+    href: string;
+  }[];
+};
 
 const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
   pathname,

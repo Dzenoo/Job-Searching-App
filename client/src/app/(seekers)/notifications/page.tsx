@@ -1,9 +1,9 @@
 "use client";
 
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import { NotificationsList } from "@/components/Seekers/Notifications";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerProfile } from "@/lib/actions/seekers";
+import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 

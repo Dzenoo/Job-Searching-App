@@ -4,7 +4,7 @@ import { QueryContextProvider } from "@/contexts/react-query-client";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 
-const Navbar = dynamic(() => import("@/components/Layout/Navbar/Navbar"), {
+const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
   ssr: false,
 });
 

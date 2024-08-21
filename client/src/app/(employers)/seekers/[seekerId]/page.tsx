@@ -1,9 +1,9 @@
 "use client";
 
 import { SeekerDetailsInfo } from "@/components/Employers/Seekers/Details";
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerById } from "@/lib/actions/employers";
+import { getSeekerById } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";
 

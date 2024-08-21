@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Github, ImageIcon, Linkedin } from "lucide-react";
 import { SeekerTypes } from "@/types/seekers";
 import { useMutation } from "react-query";
-import { updateApplicationStatus } from "@/lib/actions/jobs";
+import { updateApplicationStatus } from "@/lib/actions/jobs.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";
 import { toast } from "react-toastify";

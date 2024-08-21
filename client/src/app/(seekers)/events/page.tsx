@@ -1,7 +1,7 @@
 "use client";
 
-import Protected from "@/components/Hoc/Protected";
-import LoadingEventsSkeleton from "@/components/Loaders/LoadingEvents";
+import Protected from "@/components/hoc/Protected";
+import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
 import { FilterEvents } from "@/components/Seekers/Events/Filters";
 import { SearchEvents } from "@/components/Seekers/Events/Search";
 import RegisterEvents from "@/components/Seekers/Events/register";
@@ -9,7 +9,7 @@ import { Dialog } from "@/components/Shared/Dialog";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import useDialogs from "@/hooks/useDialogs";
-import { getEvents } from "@/lib/actions/events";
+import { getEvents } from "@/lib/actions/events.actions";
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";

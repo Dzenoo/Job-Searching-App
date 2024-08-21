@@ -5,7 +5,7 @@ import { Calendar, Trash } from "lucide-react";
 import { renderIconText } from "@/lib/jsx/render-icon-text";
 import { formatDate } from "@/lib/date";
 import { useMutation } from "react-query";
-import { deleteEducation } from "@/lib/actions/seekers";
+import { deleteEducation } from "@/lib/actions/seekers.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
 import { queryClient } from "@/contexts/react-query-client";

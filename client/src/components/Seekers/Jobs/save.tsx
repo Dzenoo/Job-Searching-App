@@ -4,7 +4,7 @@ import { SaveJobButtonProps } from "./types";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
-import { saveJob } from "@/lib/actions/jobs";
+import { saveJob } from "@/lib/actions/jobs.actions";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { JobTypes } from "@/types/jobs";
 import { queryClient } from "@/contexts/react-query-client";

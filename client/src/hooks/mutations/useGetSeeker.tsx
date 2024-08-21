@@ -1,4 +1,4 @@
-import { getSeekerProfile } from "@/lib/actions/seekers";
+import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import { useQuery } from "react-query";
 import useAuthentication from "./useAuthentication";
 

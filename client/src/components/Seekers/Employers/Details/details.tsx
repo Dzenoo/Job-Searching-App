@@ -1,6 +1,6 @@
 import React from "react";
 import { EmployerDetailsInfoProps } from "./types";
-import Navigator from "@/components/Shared/Navigator";
+import Navigator from "@/components/shared/navigator";
 import {
   Card,
   CardContent,

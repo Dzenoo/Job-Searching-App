@@ -1,6 +1,6 @@
 "use client";
 
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import { Button } from "@/components/ui/button";
 import React from "react";
 

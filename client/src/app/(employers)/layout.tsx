@@ -1,4 +1,4 @@
-import Footer from "@/components/Shared/Footer/Footer";
+import Footer from "@/components/layout/Navbar/Footer";
 import dynamic from "next/dynamic";
 import AppThemeProvider from "@/contexts/app-theme-provider";
 import { QueryContextProvider } from "@/contexts/react-query-client";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Navbar = dynamic(() => import("@/components/Layout/Navbar/Navbar"), {
+const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
   ssr: false,
 });
 

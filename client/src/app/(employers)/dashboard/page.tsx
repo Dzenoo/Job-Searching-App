@@ -4,10 +4,10 @@ import Followers from "@/components/Employers/Dashboard/Overview/Charts/Follower
 import JobsPerMonth from "@/components/Employers/Dashboard/Overview/Charts/JobsPerMonth";
 import Types from "@/components/Employers/Dashboard/Overview/Charts/Types";
 import { Statistics } from "@/components/Employers/Dashboard/Overview/Statistics";
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetEmployer from "@/hooks/useGetEmployer";
-import { getEmployerAnalytics } from "@/lib/actions/employers";
+import { getEmployerAnalytics } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";
 

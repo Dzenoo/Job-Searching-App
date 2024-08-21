@@ -3,10 +3,10 @@
 import { SeekersList } from "@/components/Employers/Seekers";
 import { FilterSeekers } from "@/components/Employers/Seekers/Filters";
 import { SearchSeekers } from "@/components/Employers/Seekers/Search";
-import Protected from "@/components/Hoc/Protected";
+import Protected from "@/components/hoc/Protected";
 import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekers } from "@/lib/actions/employers";
+import { getSeekers } from "@/lib/actions/employers.actions";
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
