@@ -1,4 +1,4 @@
-import { Button } from "@/components/Shared/Button";
+import { Button } from "@/components/ui/button";
 import { queryClient } from "@/contexts/react-query-client";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { registerForEvent } from "@/lib/actions/events";
@@ -48,7 +48,7 @@ const RegisterEvents: React.FC<RegisterEventsProps> = ({
       </div>
       <div>
         <Button
-          variant={isRegistered ? "outlined" : "default"}
+          variant={isRegistered ? "outline" : "default"}
           type="submit"
           disabled={isLoading}
           className="w-full"

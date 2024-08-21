@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { AddEducationsDialogProps, EducationsProps } from "./types";
-import { Button } from "@/components/Shared/Button";
 import { Plus } from "lucide-react";
 import { EducationList } from "./list";
 import { Dialog } from "@/components/Shared/Dialog";
@@ -17,6 +16,7 @@ import { addNewEducation } from "@/lib/actions/seekers";
 import { toast } from "react-toastify";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/contexts/react-query-client";
+import { Button } from "@/components/ui/button";
 
 const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   closeDialog,

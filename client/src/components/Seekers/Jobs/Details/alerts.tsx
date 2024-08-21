@@ -1,4 +1,3 @@
-import { Button } from "@/components/Shared/Button";
 import {
   Card,
   CardContent,
@@ -9,6 +8,7 @@ import React from "react";
 import { JobAlertProps } from "./types";
 import { ClipLoader } from "react-spinners";
 import useJobAlert from "@/hooks/mutations/useJobAlert";
+import { Button } from "@/components/ui/button";
 
 const AddJobAlert: React.FC<JobAlertProps> = ({ level, type, title }) => {
   const jobAlertData = {

@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import React from "react";
-import Cookies from "../../node_modules/@types/js-cookie";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 type AuthData = {

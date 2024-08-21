@@ -1,7 +1,7 @@
 import React from "react";
 import { EmployerTypeFilters } from "./types";
 import useSearchParams from "@/hooks/useSearchParams";
-import { Button } from "@/components/Shared/Button";
+import { Button } from "@/components/ui/button";
 
 const EmployerFilters: React.FC<EmployerTypeFilters> = ({ type }) => {
   const { updateSearchParams } = useSearchParams();
@@ -29,7 +29,7 @@ const EmployerFilters: React.FC<EmployerTypeFilters> = ({ type }) => {
       {FilterButtons.map((button) => (
         <Button
           key={button.id}
-          variant={type === button.filter ? "default" : "outlined"}
+          variant={type === button.filter ? "default" : "outline"}
           onClick={() => updateSearchParams("typeEmp", button.filter)}
         >
           {button.title}

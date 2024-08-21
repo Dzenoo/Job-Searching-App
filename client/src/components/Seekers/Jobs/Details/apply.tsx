@@ -1,4 +1,3 @@
-import { Button } from "@/components/Shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
@@ -12,6 +11,7 @@ import { queryClient } from "@/contexts/react-query-client";
 import useUploads from "@/hooks/useUploads";
 import { ApplyToJobSchemas } from "@/lib/zod/jobs";
 import { addCoverLetter, applyToJob } from "@/lib/actions/jobs";
+import { Button } from "@/components/ui/button";
 
 type ApplyToJobProps = {
   jobId: string;
@@ -133,7 +133,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
                   value={field.value}
                   action={
                     <Button
-                      variant="outlined"
+                      variant="outline"
                       onClick={async () => await coverLetterJob()}
                       type="button"
                       disabled={coverLetterLoading}

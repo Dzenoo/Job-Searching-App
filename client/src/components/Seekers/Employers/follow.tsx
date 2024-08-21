@@ -1,8 +1,8 @@
-import { Button } from "@/components/Shared/Button";
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import React from "react";
 import { FollowEmployerProps } from "./types";
 import useGetSeeker from "@/hooks/useGetSeeker";
+import { Button } from "@/components/ui/button";
 
 const FollowEmployerButton: React.FC<FollowEmployerProps> = ({
   employerId,
@@ -22,7 +22,7 @@ const FollowEmployerButton: React.FC<FollowEmployerProps> = ({
   return (
     <div>
       <Button
-        variant={isEmployerFollowed ? "outlined" : "default"}
+        variant={isEmployerFollowed ? "outline" : "default"}
         className="px-10"
         onClick={handleFollowToggle}
         disabled={isLoading}

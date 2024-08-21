@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@/components/Shared/Button";
 import { Bookmark } from "lucide-react";
 import { SaveJobButtonProps } from "./types";
 import { useMutation } from "react-query";
@@ -9,6 +8,7 @@ import { saveJob } from "@/lib/actions/jobs";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { JobTypes } from "@/types/jobs";
 import { queryClient } from "@/contexts/react-query-client";
+import { Button } from "@/components/ui/button";
 
 const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
   const { data } = useGetSeeker();
@@ -33,7 +33,7 @@ const SaveJobButton: React.FC<SaveJobButtonProps> = ({ jobId }) => {
   return (
     <div>
       <Button
-        variant="outlined"
+        variant="outline"
         onClick={async () => await saveJobMutate()}
         disabled={isLoading}
       >

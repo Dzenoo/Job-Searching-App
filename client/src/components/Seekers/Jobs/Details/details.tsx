@@ -5,7 +5,6 @@ import { JobDetailsInfoProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 import { renderIconText } from "@/lib/jsx/render-icon-text";
 
-import { Button } from "@/components/Shared/Button";
 import { formatDate, getTime } from "@/lib/date";
 import { getSkillsData } from "@/lib/helpers";
 import {
@@ -22,6 +21,7 @@ import SaveJobButton from "../save";
 import Navigator from "@/components/Shared/Navigator";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { ApplicationsTypes } from "@/types/shared";
+import { Button } from "@/components/ui/button";
 
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();
@@ -125,7 +125,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
             <div className="basis-full">
               <Button
                 className="w-full px-6"
-                variant={isAppliedJob ? "outlined" : "default"}
+                variant={isAppliedJob ? "outline" : "default"}
                 onClick={onApplyJob}
                 disabled={isAppliedJob !== undefined}
               >

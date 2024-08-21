@@ -5,7 +5,6 @@ import {
 } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
 import { ImagePlusIcon, Trash } from "lucide-react";
-import { Button } from "@/components/Shared/Button";
 import { Form } from "@/components/Shared/Forms";
 import { toast } from "react-toastify";
 import { Informations } from "./Informations";
@@ -20,6 +19,7 @@ import { deleteSeekerProfile } from "@/lib/actions/seekers";
 import useAuthentication from "@/hooks/useAuthentication";
 import { Educations } from "./Educations";
 import { Skills } from "./Skills";
+import { Button } from "@/components/ui/button";
 
 const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
   token,
@@ -58,7 +58,7 @@ const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
         </div>
       </div>
       <Form onSubmit={onDeleteAccount}>
-        <Button variant="danger" type="submit" className="w-full">
+        <Button variant="destructive" type="submit" className="w-full">
           Delete
         </Button>
       </Form>
@@ -164,7 +164,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
           <div>
             <Button
               className="flex items-center gap-3"
-              variant="danger"
+              variant="destructive"
               onClick={() => openDialog("delete")}
             >
               <div className="whitespace-nowrap">Delete Profile</div>

@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { AddSkillsProps, SkillsProps } from "./types";
-import { Button } from "@/components/Shared/Button";
 import { Plus } from "lucide-react";
 import useDialogs from "@/hooks/useDialogs";
 import { Dialog } from "@/components/Shared/Dialog";
@@ -13,6 +12,7 @@ import zod from "zod";
 import { SeekersSkillsSchemas } from "@/lib/zod/seekers";
 import { Tag } from "@/components/Shared/Tag";
 import { getSkillsData } from "@/lib/helpers";
+import { Button } from "@/components/ui/button";
 
 const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills }) => {
   const {

@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@/components/Shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Input } from "@/components/Shared/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +19,7 @@ import zod from "zod";
 import useAuthentication from "@/hooks/useAuthentication";
 import { loginUserAccount } from "@/lib/actions/auth";
 import { LoginSchemasForm } from "@/lib/zod/auth";
+import { Button } from "@/components/ui/button";
 
 const LoginFormAccount: React.FC<LoginFormTypes> = ({
   handleTypeSelection,

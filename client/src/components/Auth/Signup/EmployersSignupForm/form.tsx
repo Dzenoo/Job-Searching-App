@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Button } from "@/components/Shared/Button";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/Shared/Input";
@@ -22,6 +21,7 @@ import zod from "zod";
 import Link from "next/link";
 import { EmployersRegistrationSchemas } from "@/lib/zod/auth";
 import { signupEmployer } from "@/lib/actions/auth";
+import { Button } from "@/components/ui/button";
 
 const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
   handleTypeSelection,

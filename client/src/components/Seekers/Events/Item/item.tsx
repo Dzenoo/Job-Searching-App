@@ -7,12 +7,12 @@ import {
   CardHeader,
 } from "@/components/Shared/Card";
 import Image from "next/image";
-import { Button } from "@/components/Shared/Button";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { renderIconText } from "@/lib/jsx/render-icon-text";
 import useSearchParams from "@/hooks/useSearchParams";
 import useGetSeeker from "@/hooks/useGetSeeker";
 import { formatDate } from "@/lib/date";
+import { Button } from "@/components/ui/button";
 
 const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();
@@ -63,7 +63,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onRegisterEvent }) => {
             <div>
               <Button
                 className="w-full"
-                variant={isRegistered ? "outlined" : "default"}
+                variant={isRegistered ? "outline" : "default"}
                 onClick={() => {
                   onRegisterEvent();
                   updateSearchParams("evt", event?._id);

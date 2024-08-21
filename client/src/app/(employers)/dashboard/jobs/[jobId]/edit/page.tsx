@@ -1,7 +1,7 @@
 "use client";
 
 import Protected from "@/components/Hoc/Protected";
-import { Button } from "@/components/Shared/Button";
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 const EditJobPage = ({ params }: { params: { jobId: string } }) => {

@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { SocialsDialogProps, SocialsProps } from "./types";
-import { Button } from "@/components/Shared/Button";
 import { Input } from "@/components/Shared/Input";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Dialog } from "@/components/Shared/Dialog";
@@ -13,6 +12,7 @@ import useDialogs from "@/hooks/useDialogs";
 import zod from "zod";
 import Link from "next/link";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
+import { Button } from "@/components/ui/button";
 
 const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
   closeDialog,

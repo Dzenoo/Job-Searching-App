@@ -8,9 +8,9 @@ import { InformationsProps } from "./types";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import zod from "zod";
 import { Input } from "@/components/Shared/Input";
-import { Button } from "@/components/Shared/Button";
 import { Textarea } from "@/components/Shared/Textarea";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
+import { Button } from "@/components/ui/button";
 
 const Informations: React.FC<InformationsProps> = ({ seeker }) => {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -74,7 +74,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
         </div>
         <div>
           <Button
-            variant={isEditMode ? "outlined" : "default"}
+            variant={isEditMode ? "outline" : "default"}
             className="flex items-center gap-3"
             onClick={() => setIsEditMode((prevEditMode) => !prevEditMode)}
           >

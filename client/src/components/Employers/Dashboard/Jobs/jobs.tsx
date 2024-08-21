@@ -7,7 +7,6 @@ import Link from "next/link";
 import { Dialog } from "@/components/Shared/Dialog";
 import useDialogs from "@/hooks/useDialogs";
 import { Form } from "@/components/Shared/Forms";
-import { Button } from "@/components/Shared/Button";
 import { useMutation } from "react-query";
 import { deleteJob } from "@/lib/actions/jobs";
 import useAuthentication from "@/hooks/useAuthentication";
@@ -15,6 +14,7 @@ import { toast } from "react-toastify";
 import { queryClient } from "@/contexts/react-query-client";
 import { ClipLoader } from "react-spinners";
 import { findLocationData } from "@/lib/helpers";
+import { Button } from "@/components/ui/button";
 
 const DeleteJobDialog: React.FC<{
   onCloseDialog: (dialogIds: string) => void;
@@ -56,7 +56,7 @@ const DeleteJobDialog: React.FC<{
         </div>
       </div>
       <Form onSubmit={onDeleteJob}>
-        <Button variant="danger" type="submit" className="w-full">
+        <Button variant="destructive" type="submit" className="w-full">
           {isLoading ? <ClipLoader /> : "Delete"}
         </Button>
       </Form>

@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { NewAlertsFormProps, SeekerProfileAlertsProps } from "./types";
 import { Card, CardContent, CardHeader } from "@/components/Shared/Card";
-import { Button } from "@/components/Shared/Button";
 import useDialogs from "@/hooks/useDialogs";
 import { Dialog } from "@/components/Shared/Dialog";
 import zod from "zod";
@@ -12,6 +11,7 @@ import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Input } from "@/components/Shared/Input";
 import { ClipLoader } from "react-spinners";
 import useJobAlert from "@/hooks/mutations/useJobAlert";
+import { Button } from "@/components/ui/button";
 
 const NewAlertsForm: React.FC<NewAlertsFormProps> = ({
   alerts,

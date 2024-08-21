@@ -11,7 +11,6 @@ import Image from "next/image";
 import { Building, Camera, FileText, Text } from "lucide-react";
 import { findIndustriesData } from "@/lib/helpers";
 import Link from "next/link";
-import { Button } from "@/components/Shared/Button";
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { LinkElement } from "@/components/Shared/Link";
 import { renderIconText } from "@/lib/jsx/render-icon-text";

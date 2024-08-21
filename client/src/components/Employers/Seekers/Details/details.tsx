@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getImageUrl, getSkillsData } from "@/lib/helpers";
 import { Github, Linkedin, LucideImage } from "lucide-react";
-import { Button } from "@/components/Shared/Button";
 import { EducationList } from "@/components/Seekers/Profile/Educations/list";
+import { Button } from "@/components/ui/button";
 
 const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
   const profileImageUrl = getImageUrl(seeker?.image);

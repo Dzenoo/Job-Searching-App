@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/Shared/Card";
 import { Form, FormInfo, FormItem } from "@/components/Shared/Forms";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "@/components/Shared/Input";
-import { Button } from "@/components/Shared/Button";
 import { ClipLoader } from "react-spinners";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +16,7 @@ import { redirect } from "next/navigation";
 import { ReviewCompanyFormProps } from "./types";
 import { ReviewEmployersSchemas } from "@/lib/zod/reviews";
 import { reviewEmployer } from "@/lib/actions/reviews";
+import { Button } from "@/components/ui/button";
 
 const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   employerId,
