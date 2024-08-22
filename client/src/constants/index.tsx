@@ -188,6 +188,7 @@ export const JobsFiltersData = [
       { id: "1", title: "Junior", value: "Junior", type: "seniority" },
       { id: "2", title: "Medior", value: "Medior", type: "seniority" },
       { id: "3", title: "Senior", value: "Senior", type: "seniority" },
+      { id: "4", title: "Lead", value: "Lead", type: "seniority" },
     ],
   },
   {

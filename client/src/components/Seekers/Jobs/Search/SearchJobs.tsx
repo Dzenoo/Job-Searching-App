@@ -28,7 +28,7 @@ const SearchJobs: React.FC = () => {
           }
         />
       </div>
-      <div className="basis-1/2">
+      <div className="basis-1/2 max-sm:basis-full">
         <Select
           onValueChange={(value) => updateSearchParams("sort", value)}
           defaultValue={searchParams.get("sort")?.toString() || ""}
