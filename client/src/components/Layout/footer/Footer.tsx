@@ -59,7 +59,7 @@ function renderFooterLinks<T extends FooterLinkDivProps>({
   return (
     <div key={id} className="flex flex-col gap-3">
       <div>
-        <h1 className="text-[--blue-base-color]">{title}</h1>
+        <h1 className="text-blue-500">{title}</h1>
       </div>
       <div>
         <ul className="flex flex-col gap-4">
