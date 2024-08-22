@@ -4,6 +4,7 @@ import React from "react";
 import { ListFilter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { JobsFiltersData } from "@/constants";
+import FilterHandler from "./FilterHandler";
 
 const FilterJobs: React.FC = () => {
   return (
@@ -17,16 +18,14 @@ const FilterJobs: React.FC = () => {
         </div>
       </div>
       <Card>
-        <CardContent>
-          {/* <div className="flex flex-col gap-10">
-            {JobsFiltersData.map((filters) => (
-              <FiltersCheckboxesSection
-                key={filters.id}
-                title={filters.title}
-                checkboxes={filters.checkboxes}
-              />
-            ))}
-          </div> */}
+        <CardContent className="pt-5">
+          {JobsFiltersData.map((filterGroup) => (
+            <FilterHandler
+              key={filterGroup.id}
+              title={filterGroup.title}
+              checkboxes={filterGroup.checkboxes}
+            />
+          ))}
         </CardContent>
       </Card>
     </div>

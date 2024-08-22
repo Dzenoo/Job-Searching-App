@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { QueryContextProvider } from "@/context/react-query-client";
 import { ToastContainer } from "react-toastify";
-import { Inter } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
   ssr: false,
 });
@@ -16,7 +16,7 @@ const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
   ssr: false,
 });
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Job Talentify Platform",

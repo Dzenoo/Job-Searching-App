@@ -30,26 +30,25 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
   }
-
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 0, 0%, 5%, 1; /* Very dark grayish-blue */
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 0, 0%, 5%, 1; /* Very dark grayish-blue */
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 0, 0%, 5%, 1; /* Very dark grayish-blue */
     --popover-foreground: 210 40% 98%;
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 0, 0%, 12%, 1; /* Darker, but not black */
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 0, 0%, 12%, 1; /* Darker, but not black */
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 0, 0%, 12%, 1; /* Darker, but not black */
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 0, 0%, 19%, 1;
+    --input: 0, 0%, 19%, 1;
     --ring: 212.7 26.8% 83.9%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -63,7 +62,72 @@
   * {
     @apply border-border;
   }
+  a {
+    @apply cursor-pointer;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white dark:bg-[#0d0d0d];
+  }
+  .base-margin {
+    @apply px-16 py-3 overflow-auto max-lg:px-8 max-sm:px-5;
+  }
+  .text-base-black {
+    @apply text-2xl font-bold text-black dark:text-white;
+  }
+
+  .text-base-blue {
+    @apply text-2xl font-bold text-blue-700 dark:text-white;
+  }
+
+  .text-base-gray {
+    @apply text-2xl font-bold text-gray-500 dark:text-white;
+  }
+
+  .text-base-white {
+    @apply text-2xl font-bold text-white dark:text-white;
+  }
+
+  .text-initial-black {
+    @apply text-base font-normal text-black dark:text-white;
+  }
+
+  .text-initial-blue {
+    @apply text-base font-normal text-blue-700 dark:text-white;
+  }
+
+  .text-initial-gray {
+    @apply text-base font-normal text-gray-500;
+  }
+
+  .text-initial-white {
+    @apply text-base font-normal text-white dark:text-white;
+  }
+
+  .text-low-black {
+    @apply text-sm font-light text-black dark:text-white;
+  }
+
+  .text-low-blue {
+    @apply text-sm font-light text-blue-700 dark:text-white;
+  }
+
+  .text-low-gray {
+    @apply text-sm font-light text-gray-500;
+  }
+
+  .text-low-white {
+    @apply text-sm font-light text-white dark:text-white;
+  }
+
+  .border-base-gray {
+    @apply dark:border-[#404040] border-gray-100;
+  }
+
+  .border-base-blue {
+    @apply border-blue-700;
+  }
+
+  .border-base-black {
+    @apply border-black;
   }
 }

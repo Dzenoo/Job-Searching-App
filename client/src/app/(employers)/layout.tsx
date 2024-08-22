@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import AppThemeProvider from "@/context/app-theme-provider";
 import { QueryContextProvider } from "@/context/react-query-client";
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Find your dream job with ease using Job Talentify Platform. Discover events, read employer reviews, and stay informed with our intuitive platform. Start your job search journey today!",
 };
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
   ssr: false,

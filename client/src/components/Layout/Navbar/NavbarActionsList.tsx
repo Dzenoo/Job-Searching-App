@@ -29,7 +29,7 @@ const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
               <div className="relative">
                 <Link
                   href={href}
-                  className={`flex items-center gap-3 transition-colors ${
+                  className={`flex items-center gap-3 transition-colors hover:text-blue-700 ${
                     pathname === href && "text-[#0066ff]"
                   }`}
                 >
@@ -48,7 +48,7 @@ const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
           <Link
             key={id}
             href={href}
-            className={`flex items-center gap-3 transition-colors ${
+            className={`flex items-center gap-3 transition-colors hover:text-blue-700 ${
               pathname === href && "text-[#0066ff]"
             }`}
           >

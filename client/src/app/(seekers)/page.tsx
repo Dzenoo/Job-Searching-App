@@ -10,6 +10,16 @@ import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import SearchJobs from "@/components/seekers/jobs/Search/SearchJobs";
 import FilterJobs from "@/components/seekers/jobs/Filters/FilterJobs";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
+import usePagination from "@/hooks/usePagination";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
@@ -39,8 +49,17 @@ const Jobs = ({
     refetch();
   }, [searchParams]);
 
+  const totalJobs = fetchedJobs?.totalJobs || 0;
+  const itemsPerPage = 10;
+
+  const { currentPage, totalPages, handlePageChange } = usePagination({
+    totalItems: totalJobs,
+    itemsPerPage,
+    initialPage: Number(searchParams.page) || 1,
+  });
+
   return (
-    <section className="flex justify-between gap-[10px] py-6 max-xl:flex-col">
+    <section className="flex justify-between gap-[25px] py-6 max-xl:flex-col">
       <div className="basis-1/2">
         <PopularJobsInfo jobs={fetchedJobs?.popularJobs} />
       </div>
@@ -51,16 +70,43 @@ const Jobs = ({
         <div>
           <JobsList jobs={fetchedJobs?.jobs} />
         </div>
-        {/* {fetchedJobs && fetchedJobs?.jobs.length > 0 && (
-          <div className="py-6">
-            <Pagination
-              totalItems={fetchedJobs?.totalJobs}
-              itemsPerPage={10}
-              currentPage={Number(searchParams?.page) || 1}
-              visiblePages={6}
-            />
-          </div>
-        )} */}
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              {currentPage > 1 ? (
+                <PaginationPrevious
+                  onClick={() => handlePageChange(currentPage - 1)}
+                />
+              ) : (
+                <PaginationPrevious isActive={false} />
+              )}
+            </PaginationItem>
+            {[...Array(totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  isActive={currentPage === index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            {currentPage < totalPages && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              {currentPage < totalPages ? (
+                <PaginationNext
+                  onClick={() => handlePageChange(currentPage + 1)}
+                />
+              ) : (
+                <PaginationNext isActive={false} />
+              )}
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
       <div className="basis-1/2">
         <FilterJobs />

@@ -5,7 +5,7 @@ import { FooterLinks } from "@/constants";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="py-10 px-16 shadow-lg border-t bg-[#0d0d0d] flex flex-col gap-6 max-lg:px-6 border-[#1b1b1b]">
+    <footer className="p-5 shadow-lg border-t bg-[#0d0d0d] flex flex-col gap-6 border-[#1b1b1b]">
       <div className="flex justify-between gap-10 items-start border-b pb-6 border-[#1b1b1b] max-xl:flex-wrap">
         <div className="flex flex-col gap-3 basis-[36em] max-xl:basis-full">
           <div>
