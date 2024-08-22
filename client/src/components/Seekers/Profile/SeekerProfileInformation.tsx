@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { SeekerTypes } from "@/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Informations from "./informations/Informations";
-import Socials from "./socials/socials";
 import Educations from "./educations/Educations";
 import Skills from "./skills/Skills";
 import {
@@ -21,6 +20,7 @@ import {
 import useAuthentication from "@/hooks/useAuthentication";
 import { useMutation } from "react-query";
 import { deleteSeekerProfile } from "@/lib/actions/seekers.actions";
+import Socials from "./socials/Socials";
 
 type SeekerDeleteDialogProps = {
   token: string;
@@ -67,9 +67,6 @@ const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
         <DialogFooter>
           <Button variant="destructive" onClick={onDeleteAccount}>
             Delete
-          </Button>
-          <Button variant="default" onClick={closeDialog}>
-            Cancel
           </Button>
         </DialogFooter>
       </div>
@@ -120,63 +117,65 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
 
   return (
     <Fragment>
-      <Dialog open={isDialogOpen}>
+      <Dialog onOpenChange={setIsDialogOpen} open={isDialogOpen}>
         <DeleteSeekerProfileDialog
           token={token}
           closeDialog={() => setIsDialogOpen(false)}
         />
       </Dialog>
       <Card>
-        <CardHeader className="flex justify-between gap-6 border-b border-gray-300 pb-7 dark:border-[#0d0d0d] max-lg:flex-col">
-          <div className="flex items-center gap-7 flex-wrap">
-            <div>
-              <Image
-                src={profileImageUrl}
-                alt="seeker_profile_img"
-                width={130}
-                height={130}
-                className="rounded-full w-36 h-36 object-cover"
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <h1 className="text-initial-black">Profile Image</h1>
-              <form
-                onSubmit={changeSeekerImage}
-                className="flex items-center gap-3"
-              >
-                <div
-                  {...getRootProps()}
-                  className="tag flex items-center gap-3 w-fit cursor-pointer"
+        <CardHeader>
+          <div className="flex justify-between items-start gap-5">
+            <div className="flex items-center gap-7 flex-wrap">
+              <div>
+                <Image
+                  src={profileImageUrl}
+                  alt="seeker_profile_img"
+                  width={130}
+                  height={130}
+                  className="rounded-full w-36 h-36 object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <h1 className="text-initial-black">Profile Image</h1>
+                <form
+                  onSubmit={changeSeekerImage}
+                  className="flex items-center gap-3"
                 >
-                  <input {...getInputProps()} type="file" />
-                  <div className="flex items-center gap-3">
-                    <p>Upload new photo</p>
-                    <ImagePlusIcon />
+                  <div
+                    {...getRootProps()}
+                    className="tag flex items-center gap-3 w-fit cursor-pointer"
+                  >
+                    <input {...getInputProps()} type="file" />
+                    <div className="flex items-center gap-3">
+                      <Button variant="outline">Upload new photo</Button>
+                      <ImagePlusIcon />
+                    </div>
                   </div>
-                </div>
-                {selectedFile && (
-                  <Button variant="default" type="submit">
-                    Save
-                  </Button>
-                )}
-              </form>
-              <p className="text-initial-gray">
-                JPG or PNG formats are needed for photo.
-              </p>
+                  {selectedFile && (
+                    <Button variant="default" type="submit">
+                      Save
+                    </Button>
+                  )}
+                </form>
+                <p className="text-initial-gray">
+                  Please upload your photo in JPG or PNG format.
+                </p>
+              </div>
             </div>
-          </div>
-          <div>
-            <Button
-              className="flex items-center gap-3"
-              variant="destructive"
-              onClick={() => setIsDialogOpen(true)}
-            >
-              <div className="whitespace-nowrap">Delete Profile</div>
-              <Trash color="#fff" />
-            </Button>
+            <div>
+              <Button
+                className="flex items-center gap-3"
+                variant="destructive"
+                onClick={() => setIsDialogOpen(true)}
+              >
+                <div className="whitespace-nowrap">Delete Profile</div>
+                <Trash color="#fff" />
+              </Button>
+            </div>
           </div>
         </CardHeader>
-        <CardContent className="flex flex-col gap-6">
+        <CardContent className="flex flex-col gap-10">
           <Informations seeker={seeker} />
           <Socials seeker={seeker} />
           <Educations seeker={seeker} />

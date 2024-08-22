@@ -2,6 +2,7 @@ import React from "react";
 import { ListFilter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { EventsFiltersData } from "@/constants";
+import FilterHandler from "@/components/shared/FilterHandler";
 
 const FilterEvents: React.FC = () => {
   return (
@@ -15,16 +16,14 @@ const FilterEvents: React.FC = () => {
         </div>
       </div>
       <Card>
-        <CardContent>
-          <div className="flex flex-col gap-10">
-            {EventsFiltersData.map((filters) => (
-              <FiltersCheckboxesSection
-                key={filters.id}
-                title={filters.title}
-                checkboxes={filters.checkboxes}
-              />
-            ))}
-          </div>
+        <CardContent className="pt-5">
+          {EventsFiltersData.map((filters) => (
+            <FilterHandler
+              key={filters.id}
+              title={filters.title}
+              checkboxes={filters.checkboxes}
+            />
+          ))}
         </CardContent>
       </Card>
     </div>

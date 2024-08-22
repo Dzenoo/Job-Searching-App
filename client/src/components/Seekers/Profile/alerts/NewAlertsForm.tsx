@@ -67,7 +67,7 @@ const NewAlertsForm: React.FC<NewAlertsFormProps> = ({
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Add Job Alerts</DialogTitle>
+        <DialogTitle>Add Job Alert</DialogTitle>
         <DialogDescription>
           Stay updated with personalized alerts tailored to your job
           preferences. Receive notifications about new job postings.

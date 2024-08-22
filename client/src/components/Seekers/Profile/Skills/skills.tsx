@@ -108,19 +108,13 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const openDialog = () => setIsDialogOpen(true);
-  const closeDialog = () => setIsDialogOpen(false);
 
   const categorizedSkills = getSkillsData(skills || []);
 
   return (
     <Fragment>
-      <Dialog open={isDialogOpen}>
+      <Dialog onOpenChange={setIsDialogOpen} open={isDialogOpen}>
         <AddSkillsForm skills={skills} />
-        <DialogFooter>
-          <Button variant="default" onClick={closeDialog}>
-            Close
-          </Button>
-        </DialogFooter>
       </Dialog>
       <div className="flex flex-col gap-10">
         <div className="flex justify-between items-center gap-3">
@@ -157,9 +151,9 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                   </div>
                   <div className="flex flex-wrap gap-3">
                     {skills.map((skill, index) => (
-                      <div key={index} className="tag">
+                      <Button variant="outline" key={index}>
                         {skill}
-                      </div>
+                      </Button>
                     ))}
                   </div>
                 </div>

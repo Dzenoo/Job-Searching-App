@@ -24,7 +24,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
 
 type SocialsDialogProps = {
@@ -72,7 +71,7 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
       </DialogHeader>
       <div className="flex flex-col gap-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="portfolio"
@@ -80,9 +79,12 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
                 <FormItem>
                   <FormLabel>Portfolio</FormLabel>
                   <FormControl>
-                    <Input placeholder="Portfolio" {...field} />
+                    <Input placeholder="https://yourportfolio.com" {...field} />
                   </FormControl>
-                  <FormDescription>This is your portfolio URL</FormDescription>
+                  <FormDescription>
+                    Provide the URL to your online portfolio or personal
+                    website.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -94,9 +96,14 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
                 <FormItem>
                   <FormLabel>Github</FormLabel>
                   <FormControl>
-                    <Input placeholder="Github" {...field} />
+                    <Input
+                      placeholder="https://github.com/yourusername"
+                      {...field}
+                    />
                   </FormControl>
-                  <FormDescription>This is your Github URL</FormDescription>
+                  <FormDescription>
+                    Enter the URL to your Github profile.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -108,9 +115,14 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
                 <FormItem>
                   <FormLabel>Linkedin</FormLabel>
                   <FormControl>
-                    <Input placeholder="Linkedin" {...field} />
+                    <Input
+                      placeholder="https://linkedin.com/in/yourprofile"
+                      {...field}
+                    />
                   </FormControl>
-                  <FormDescription>This is your Linkedin URL</FormDescription>
+                  <FormDescription>
+                    Provide the URL to your LinkedIn profile.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -132,11 +144,6 @@ const EditSocialsDialog: React.FC<SocialsDialogProps> = ({
           </form>
         </Form>
       </div>
-      <DialogFooter>
-        <Button variant="default" onClick={closeDialog}>
-          Close
-        </Button>
-      </DialogFooter>
     </DialogContent>
   );
 };
@@ -174,7 +181,7 @@ const Socials: React.FC<SocialsProps> = ({ seeker }) => {
 
   return (
     <Fragment>
-      <Dialog open={isDialogOpen}>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <EditSocialsDialog seeker={seeker} closeDialog={closeDialog} />
       </Dialog>
       <div className="flex flex-col gap-10">

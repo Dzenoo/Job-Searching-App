@@ -55,7 +55,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
     setIsEditMode(false);
   };
 
-  const ProfileInformationArrays = new Array(
+  const ProfileInformationArrays = [
     {
       id: "1",
       title: "First Name",
@@ -70,11 +70,11 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
       id: "3",
       title: "Email",
       data: seeker?.email,
-    }
-  );
+    },
+  ];
 
   return (
-    <div className="p-7 border border-gray-300 rounded-lg flex flex-col gap-[16px] dark:border-[#3b3b3b] max-sm:p-4">
+    <div className="flex flex-col gap-[16px] dark:border-[#3b3b3b] max-sm:p-4">
       <div className="flex justify-between items-center gap-3">
         <div>
           <h1 className="text-base-black">Profile Information</h1>
@@ -132,20 +132,21 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(changeSeekerInformation)}
-              className="p-0"
+              className="space-y-5"
             >
-              <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-3">
                 <FormField
                   control={form.control}
                   name="first_name"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="w-full">
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
                         <Input placeholder="First Name" {...field} />
                       </FormControl>
                       <FormDescription>
-                        This is your public email
+                        Enter your first name as it appears on your official
+                        documents.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -155,13 +156,14 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
                   control={form.control}
                   name="last_name"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="w-full">
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
                         <Input placeholder="Last Name" {...field} />
                       </FormControl>
                       <FormDescription>
-                        This is your public email
+                        Enter your last name as it appears on your official
+                        documents.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -177,7 +179,10 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
                     <FormControl>
                       <Input placeholder="Overview" {...field} />
                     </FormControl>
-                    <FormDescription>This is your public email</FormDescription>
+                    <FormDescription>
+                      Provide a brief overview of your professional background
+                      and skills.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -191,7 +196,10 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
                     <FormControl>
                       <Textarea placeholder="Biography" {...field} />
                     </FormControl>
-                    <FormDescription>This is your public email</FormDescription>
+                    <FormDescription>
+                      Share more detailed information about your professional
+                      journey and experiences.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -206,7 +214,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
                   {form.formState.isSubmitting ? (
                     <ClipLoader color="#fff" />
                   ) : (
-                    "Submit"
+                    "Save"
                   )}
                 </Button>
               </div>

@@ -1,6 +1,5 @@
 import React from "react";
-import { EducationItem } from "./Item";
-import { EducationItemProps } from "./Item/types";
+import EducationItem, { EducationItemProps } from "./EducationItem";
 
 type EducationListProps = {
   educations?: EducationItemProps[];
@@ -11,7 +10,7 @@ const EducationList: React.FC<EducationListProps> = ({ educations }) => {
     <div>
       <div className="text-center">
         {educations?.length === 0 && (
-          <p className="text-initial-gray">No Educations Founded</p>
+          <p className="text-initial-gray">No Educations Found</p>
         )}
       </div>
       <div className="flex flex-col gap-3">

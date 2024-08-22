@@ -1,6 +1,6 @@
 "use client";
 
-import { SeekerDetailsInfo } from "@/components/employers/seekers/Details";
+import SeekerDetailsInfo from "@/components/employers/seekers/SeekerDetailsInfo";
 import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekerById } from "@/lib/actions/employers.actions";

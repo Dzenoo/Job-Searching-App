@@ -19,6 +19,7 @@ import { NotificationTypes } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NavbarLinksList from "./NavbarLinksList";
 import Logo from "./Logo";
+import { getImageUrl } from "@/lib/utils";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -90,11 +91,11 @@ const Navbar: React.FC = () => {
           <div>
             <Avatar>
               <AvatarImage
-                src={
+                src={getImageUrl(
                   isSeeker
                     ? fetchedProfile?.seeker.image
                     : fetchedProfile?.employer.image
-                }
+                )}
               />
               <AvatarFallback>
                 {isSeeker

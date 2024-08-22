@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Plus } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
 import { ClipLoader } from "react-spinners";
@@ -12,7 +12,6 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/context/react-query-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -28,8 +27,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import EducationList from "./EducationList";
+import { format } from "date-fns";
 import { SeekerTypes } from "@/types";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import EducationList from "./EducationList";
+import { cn } from "@/lib/utils";
 
 type AddEducationsDialogProps = {
   closeDialog: () => void;
@@ -79,95 +86,103 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
         </div>
       </DialogHeader>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card>
-            <CardContent>
-              <FormField
-                control={form.control}
-                name="institution"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Institution</FormLabel>
+        <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="institution"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Institution</FormLabel>
+                <FormControl>
+                  <Input placeholder="Institution" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Please enter the institution where you studied
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="graduationDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Graduation Date</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
                     <FormControl>
-                      <Input placeholder="Institution" {...field} />
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
                     </FormControl>
-                    <FormDescription>
-                      Please enter the institution where you studied
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="graduationDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Graduation Date</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Pick the date"
-                        type="date"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Select your graduation date
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="fieldOfStudy"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Field of Study</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Field of Study" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Specify your field of study
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="degree"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Degree</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Degree" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Specify the degree you obtained
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-            <CardFooter>
-              <Button
-                variant="default"
-                type="submit"
-                disabled={
-                  form.formState.isSubmitting || !form.formState.isValid
-                }
-                className="w-full"
-              >
-                {form.formState.isSubmitting ? (
-                  <ClipLoader color="#fff" />
-                ) : (
-                  "Add"
-                )}
-              </Button>
-            </CardFooter>
-          </Card>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value as any}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormDescription>Select your graduation date</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="fieldOfStudy"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Field of Study</FormLabel>
+                <FormControl>
+                  <Input placeholder="Field of Study" {...field} />
+                </FormControl>
+                <FormDescription>Specify your field of study</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="degree"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Degree</FormLabel>
+                <FormControl>
+                  <Input placeholder="Degree" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Specify the degree you obtained
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            variant="default"
+            type="submit"
+            disabled={form.formState.isSubmitting || !form.formState.isValid}
+            className="w-full"
+          >
+            {form.formState.isSubmitting ? <ClipLoader color="#fff" /> : "Add"}
+          </Button>
         </form>
       </Form>
     </DialogContent>
@@ -186,7 +201,7 @@ const Educations: React.FC<EducationsProps> = ({ seeker }) => {
 
   return (
     <Fragment>
-      <Dialog open={isDialogOpen}>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <AddEducationsDialog closeDialog={closeDialog} />
       </Dialog>
       <div className="flex flex-col gap-10">
@@ -200,8 +215,10 @@ const Educations: React.FC<EducationsProps> = ({ seeker }) => {
               variant="default"
               onClick={openDialog}
             >
-              <Plus />
-              <span className="hidden max-lg:inline">Add New Education</span>
+              <div className="max-lg:hidden">Add Education</div>
+              <div>
+                <Plus />
+              </div>
             </Button>
           </div>
         </div>

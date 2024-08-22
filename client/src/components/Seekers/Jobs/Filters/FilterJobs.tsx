@@ -4,7 +4,7 @@ import React from "react";
 import { ListFilter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { JobsFiltersData } from "@/constants";
-import FilterHandler from "./FilterHandler";
+import FilterHandler from "@/components/shared/FilterHandler";
 
 const FilterJobs: React.FC = () => {
   return (

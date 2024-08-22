@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Command,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandGroup,
@@ -39,6 +38,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   return (
     <div className="relative">
       <Button
+        type="button"
         variant="outline"
         onClick={() => setOpen(!open)}
         className="w-full justify-between"
@@ -48,8 +48,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         </span>
       </Button>
       {open && (
-        <Command className="absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg">
-          <CommandInput placeholder={placeholder} />
+        <Command className="h-36 overflow-y-scroll absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg">
           <CommandList>
             <CommandGroup>
               {options.map((option) => (

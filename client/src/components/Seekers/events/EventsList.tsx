@@ -14,7 +14,7 @@ const EventsList: React.FC<EventsListProps> = ({ events, onRegisterEvent }) => {
         {events?.length === 0 && (
           <div>
             <h1 className="text-initial-gray text-center py-6">
-              Ops! Looks like there are no events founded
+              No events found.
             </h1>
           </div>
         )}

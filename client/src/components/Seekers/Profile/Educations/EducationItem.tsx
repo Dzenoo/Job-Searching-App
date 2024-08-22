@@ -9,7 +9,7 @@ import { queryClient } from "@/context/react-query-client";
 import { formatDate } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
-type EducationItemProps = {
+export type EducationItemProps = {
   institution: string;
   graduationDate: string;
   fieldOfStudy: string;

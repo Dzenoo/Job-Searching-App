@@ -28,7 +28,7 @@ const SearchEvents: React.FC = () => {
           }
         />
       </div>
-      <div className="max-sm:basis-full">
+      <div className="basis-1/2 max-sm:basis-full">
         <Select
           onValueChange={(value) => updateSearchParams("sort", value)}
           defaultValue={searchParams.get("sort")?.toString() || ""}
@@ -37,7 +37,7 @@ const SearchEvents: React.FC = () => {
             <SelectValue placeholder="Sort By Date" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Sort By Date</SelectItem>
+            <SelectItem value="all">Sort By Date</SelectItem>
             <SelectItem value="asc">Descending</SelectItem>
             <SelectItem value="desc">Newest</SelectItem>
           </SelectContent>

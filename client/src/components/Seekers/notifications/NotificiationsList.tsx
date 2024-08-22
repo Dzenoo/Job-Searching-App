@@ -14,7 +14,7 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
       {notifications?.length === 0 && (
         <div>
           <h1 className="text-initial-gray text-center py-6">
-            Ops! Looks like there are no notifications founded
+            No notifications found.
           </h1>
         </div>
       )}
