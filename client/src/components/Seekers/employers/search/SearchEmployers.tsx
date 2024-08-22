@@ -32,7 +32,7 @@ const SearchEmployers: React.FC = () => {
             }
           />
         </div>
-        <div className="max-md:basis-full">
+        <div className="basis-1/2 max-sm:basis-full">
           <Select
             onValueChange={(value) => updateSearchParams("sort", value)}
             defaultValue={searchParams.get("sort")?.toString() || ""}
@@ -41,7 +41,7 @@ const SearchEmployers: React.FC = () => {
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Sort</SelectItem>
+              <SelectItem value="all">Sort</SelectItem>
               <SelectItem value="followers">Followers</SelectItem>
               <SelectItem value="reviews">Reviews</SelectItem>
               <SelectItem value="events">Events</SelectItem>
