@@ -148,7 +148,9 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
                   >
                     <input {...getInputProps()} type="file" />
                     <div className="flex items-center gap-3">
-                      <Button variant="outline">Upload new photo</Button>
+                      <Button type="button" variant="outline">
+                        Upload new photo
+                      </Button>
                       <ImagePlusIcon />
                     </div>
                   </div>

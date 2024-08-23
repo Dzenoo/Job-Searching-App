@@ -26,7 +26,7 @@ const Applications: React.FC<ApplicationsProps> = ({ applications }) => {
       <CardContent>
         <div className="text-center">
           {applications?.length === 0 && (
-            <p className="text-initial-gray">No Applications Founded</p>
+            <p className="text-initial-gray">No Applications Found</p>
           )}
         </div>
         <div className="grid gap-3 grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1">
