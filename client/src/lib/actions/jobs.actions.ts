@@ -1,11 +1,10 @@
-import { ApplicationsTypes, ResponseMessageTypes } from "@/types/shared";
+import { ApplicationsTypes, JobTypes, ResponseMessageTypes } from "@/types";
 import {
   deleteApiHandler,
   getApiHandler,
   patchApiHandler,
   postApiHandler,
 } from "../api";
-import { JobTypes } from "@/types/jobs";
 
 export const getJobs = async ({
   page = "1",
