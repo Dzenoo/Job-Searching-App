@@ -1,11 +1,15 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useQuery } from "react-query";
 import dynamic from "next/dynamic";
-import Protected from "@/components/hoc/Protected";
+import { useQuery } from "react-query";
+
 import useAuthentication from "@/hooks/useAuthentication";
+import usePagination from "@/hooks/usePagination";
+
 import { getJobs } from "@/lib/actions/jobs.actions";
+
+import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import SearchJobs from "@/components/seekers/jobs/Search/SearchJobs";
@@ -19,7 +23,6 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import usePagination from "@/hooks/usePagination";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,

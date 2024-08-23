@@ -1,12 +1,18 @@
 import React from "react";
+
 import { Bookmark } from "lucide-react";
+
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+
 import useAuthentication from "@/hooks/useAuthentication";
+import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+
 import { saveJob } from "@/lib/actions/jobs.actions";
 import { queryClient } from "@/context/react-query-client";
+
 import { Button } from "@/components/ui/button";
-import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+
 import { JobTypes } from "@/types";
 
 type SaveJobButtonProps = {

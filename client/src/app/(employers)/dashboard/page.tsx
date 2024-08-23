@@ -1,15 +1,18 @@
 "use client";
 
+import React from "react";
+import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import useGetEmployer from "@/hooks/mutations/useGetEmployer";
+
+import { getEmployerAnalytics } from "@/lib/actions/employers.actions";
+
+import Protected from "@/components/hoc/Protected";
 import Followers from "@/components/employers/dashboard/overview/Followers";
 import JobsPerMonth from "@/components/employers/dashboard/overview/JobsPerMonth";
 import Statistics from "@/components/employers/dashboard/overview/Statistics";
 import Types from "@/components/employers/dashboard/overview/Types";
-import Protected from "@/components/hoc/Protected";
-import useGetEmployer from "@/hooks/mutations/useGetEmployer";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getEmployerAnalytics } from "@/lib/actions/employers.actions";
-import React from "react";
-import { useQuery } from "react-query";
 
 const Dashboard = () => {
   const { token } = useAuthentication().getCookieHandler();

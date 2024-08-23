@@ -1,5 +1,7 @@
 import React from "react";
+
 import { EventTypes } from "@/types";
+
 import EventItem from "./EventItem";
 
 type EventsListProps = {

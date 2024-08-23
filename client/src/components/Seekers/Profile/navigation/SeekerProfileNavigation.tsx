@@ -1,5 +1,6 @@
-import useSearchParams from "@/hooks/useSearchParams";
 import React from "react";
+
+import useSearchParams from "@/hooks/useSearchParams";
 
 const SeekerProfileNavigation: React.FC = () => {
   const { updateSearchParams } = useSearchParams();

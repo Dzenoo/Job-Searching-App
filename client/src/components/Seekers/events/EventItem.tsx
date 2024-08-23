@@ -1,17 +1,22 @@
 import React from "react";
+import Image from "next/image";
+
+import { Briefcase, Calendar, MapPin } from "lucide-react";
+
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import Image from "next/image";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
-import { renderIconText } from "@/helpers";
+import { Button } from "@/components/ui/button";
+
 import useSearchParams from "@/hooks/useSearchParams";
 import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+
+import { renderIconText } from "@/helpers";
 import { formatDate } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+
 import { EventTypes } from "@/types";
 
 type EventItemProps = {

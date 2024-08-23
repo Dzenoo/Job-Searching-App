@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { ClipLoader } from "react-spinners";
-import { EditableSeekerInformationsSchemas } from "@/lib/zod/seekers";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Edit } from "lucide-react";
-import { useForm } from "react-hook-form";
 import zod from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ClipLoader } from "react-spinners";
+import { Edit } from "lucide-react";
+
+import { EditableSeekerInformationsSchemas } from "@/lib/zod/seekers";
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
-import { Button } from "@/components/ui/button";
 import { SeekerTypes } from "@/types";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -17,8 +21,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 type InformationsProps = {
   seeker?: SeekerTypes;

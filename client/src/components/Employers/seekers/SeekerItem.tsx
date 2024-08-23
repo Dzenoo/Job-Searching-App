@@ -1,10 +1,13 @@
 import React from "react";
 
 import Image from "next/image";
-import { Github, Linkedin, LucideImage } from "lucide-react";
 import Link from "next/link";
+
+import { Github, Linkedin, LucideImage } from "lucide-react";
+
 import { SeekerTypes } from "@/types";
 import { getImageUrl } from "@/lib/utils";
+
 import {
   Card,
   CardContent,

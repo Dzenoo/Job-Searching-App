@@ -1,9 +1,12 @@
 "use client";
 
-import Protected from "@/components/hoc/Protected";
-import useAuthentication from "@/hooks/useAuthentication";
 import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+
 import { getJobById } from "@/lib/actions/jobs.actions";
+
+import Protected from "@/components/hoc/Protected";
 import LoadingJobDetails from "@/components/loaders/LoadingJobDetails";
 import AddJobAlert from "@/components/seekers/jobs/Details/AddJobAlert";
 import JobDetailsInfo from "@/components/seekers/jobs/Details/JobDetailsInfo";

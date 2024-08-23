@@ -1,12 +1,17 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ClipLoader } from "react-spinners";
-import { useMutation } from "react-query";
-import zod from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import zod from "zod";
+import { ClipLoader } from "react-spinners";
+
 import { SeekerRegistrationSchemas } from "@/lib/zod/auth";
 import { signupSeeker } from "@/lib/actions/auth.actions";
+import { TypeOfAccount } from "@/types";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,7 +19,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { TypeOfAccount } from "@/types";
 import {
   Form,
   FormControl,
@@ -25,7 +29,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { redirect, useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 type SeekersSignupFormTypes = {

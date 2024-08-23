@@ -1,7 +1,7 @@
 "use client";
-import { TypeOfAccount } from "@/types";
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
+import { TypeOfAccount } from "@/types";
 
 const ChooseLogin: React.FC = () => {
   const [typeOfAccount, setTypeOfAccount] = useState<TypeOfAccount>(

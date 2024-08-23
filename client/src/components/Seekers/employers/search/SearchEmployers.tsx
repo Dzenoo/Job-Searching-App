@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -7,6 +8,7 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+
 import useSearchParams from "@/hooks/useSearchParams";
 
 const SearchEmployers: React.FC = () => {

@@ -1,25 +1,31 @@
 "use client";
 
 import React from "react";
-import useAuthentication from "@/hooks/useAuthentication";
 import { usePathname } from "next/navigation";
+import { useQuery } from "react-query";
+import Link from "next/link";
+
+import useAuthentication from "@/hooks/useAuthentication";
+
 import {
   EmployersNavbarActions,
   EmployersNavbarLinks,
   SeekersNavbarActions,
   SeekersNavbarLinks,
 } from "@/constants";
-import { useQuery } from "react-query";
+
 import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import NavbarActionsList from "./NavbarActionsList";
+import { getImageUrl } from "@/lib/utils";
+
 import { NotificationTypes } from "@/types";
+
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import NavbarActionsList from "./NavbarActionsList";
 import NavbarLinksList from "./NavbarLinksList";
 import Logo from "./Logo";
-import { getImageUrl } from "@/lib/utils";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (

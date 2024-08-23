@@ -1,6 +1,5 @@
-import { EmployerTypes } from "@/types/employers";
+import { EmployerTypes, SeekerTypes } from "@/types";
 import { getApiHandler } from "../api";
-import { SeekerTypes } from "@/types/seekers";
 
 export const getSeekers = async ({
   page = "1",

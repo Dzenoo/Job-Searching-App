@@ -1,6 +1,5 @@
-import { ReviewTime, ReviewType } from "@/types/reviews";
+import { ResponseMessageTypes, ReviewTime, ReviewType } from "@/types";
 import { postApiHandler } from "../api";
-import { ResponseMessageTypes } from "@/types/shared";
 
 export const reviewEmployer = async (
   employerId: string,

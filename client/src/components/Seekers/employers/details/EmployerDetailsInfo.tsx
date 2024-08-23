@@ -1,11 +1,14 @@
 import React from "react";
 import Image from "next/image";
-import { Building, Camera, FileText, Text } from "lucide-react";
 import Link from "next/link";
+
+import { Building, Camera, FileText, Text } from "lucide-react";
+
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { EmployerTypes } from "@/types";
 import { findIndustriesData } from "@/lib/utils";
-import Navigator from "@/components/ui/navigator";
+import { renderIconText } from "@/helpers";
+
 import {
   Card,
   CardContent,
@@ -13,7 +16,8 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { renderIconText } from "@/helpers";
+import Navigator from "@/components/ui/navigator";
+
 import FollowEmployerButton from "../FollowEmployerButton";
 
 type EmployerDetailsInfoProps = {

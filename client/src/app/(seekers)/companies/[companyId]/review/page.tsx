@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
+
 import Protected from "@/components/hoc/Protected";
 import ReviewCompanyForm from "@/components/seekers/employers/details/reviews/ReviewCompanyForm";
-import React from "react";
 
 const ReviewCompany = ({ params }: { params: { companyId: string } }) => {
   return (

@@ -1,13 +1,18 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Protected from "@/components/hoc/Protected";
-import useAuthentication from "@/hooks/useAuthentication";
-import { useQuery } from "react-query";
-import { getEmployers } from "@/lib/actions/seekers.actions";
-import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
 import dynamic from "next/dynamic";
+import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import usePagination from "@/hooks/usePagination";
+
+import { getEmployers } from "@/lib/actions/seekers.actions";
+
+import Protected from "@/components/hoc/Protected";
+import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
 import SearchEmployers from "@/components/seekers/employers/search/SearchEmployers";
+
 import {
   Pagination,
   PaginationContent,
@@ -17,7 +22,6 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import usePagination from "@/hooks/usePagination";
 
 const EmployersList = dynamic(
   () => import("@/components/seekers/employers/EmployersList"),

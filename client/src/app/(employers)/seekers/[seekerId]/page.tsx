@@ -1,11 +1,13 @@
 "use client";
 
-import SeekerDetailsInfo from "@/components/employers/seekers/SeekerDetailsInfo";
-import Protected from "@/components/hoc/Protected";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerById } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import { getSeekerById } from "@/lib/actions/employers.actions";
+
+import Protected from "@/components/hoc/Protected";
+import SeekerDetailsInfo from "@/components/employers/seekers/SeekerDetailsInfo";
 
 const SeekerDetailsPage = ({
   params: { seekerId },

@@ -1,22 +1,18 @@
 import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { ClipLoader } from "react-spinners";
-import { useMutation } from "react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
 import zod from "zod";
+import { ClipLoader } from "react-spinners";
+
 import useAuthentication from "@/hooks/useAuthentication";
 import { loginUserAccount } from "@/lib/actions/auth.actions";
 import { LoginSchema } from "@/lib/zod/auth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import { TypeOfAccount } from "@/types";
+
 import {
   Form,
   FormControl,
@@ -25,7 +21,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { TypeOfAccount } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
 type LoginFormTypes = {

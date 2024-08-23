@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import useAuthentication from "@/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
+import useAuthentication from "@/hooks/useAuthentication";
 import ChooseSignup from "@/components/auth/signup/ChooseSignup";
 
 const SignupPage: React.FC = () => {

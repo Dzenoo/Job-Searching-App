@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 import {
   Briefcase,
   Building,
@@ -9,15 +11,17 @@ import {
   MapPin,
   LayoutTemplate,
 } from "lucide-react";
-import Link from "next/link";
-import { formatDate } from "@/lib/utils";
+
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+
+import { formatDate } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
+
 import { ApplicationsTypes } from "@/types";
 
 type ApplicationItemProps = {

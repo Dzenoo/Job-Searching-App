@@ -2,8 +2,10 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
+
 import useAuthentication from "@/hooks/useAuthentication";
 import { EmployersNavbarLinks, SeekersNavbarLinks } from "@/constants";
+
 import NavbarLinksList from "./NavbarLinksList";
 
 const MobileBar: React.FC = () => {

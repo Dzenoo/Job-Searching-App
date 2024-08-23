@@ -1,5 +1,14 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import usePagination from "@/hooks/usePagination";
+
+import { getEmployerById } from "@/lib/actions/seekers.actions";
+
 import Protected from "@/components/hoc/Protected";
 import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
@@ -7,11 +16,8 @@ import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
 import EmployerDetailsInfo from "@/components/seekers/employers/details/EmployerDetailsInfo";
 import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilters";
 import RegisterEvents from "@/components/seekers/events/RegisterEvents";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getEmployerById } from "@/lib/actions/seekers.actions";
-import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -19,8 +25,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import usePagination from "@/hooks/usePagination";
 import {
   Pagination,
   PaginationContent,

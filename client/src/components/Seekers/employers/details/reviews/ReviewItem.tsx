@@ -1,14 +1,17 @@
 import React from "react";
+
 import { Briefcase, Calendar, Timer } from "lucide-react";
+
 import { ReviewTypes } from "@/types";
 import { getTime } from "@/lib/utils";
+import { renderIconText } from "@/helpers";
+
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { renderIconText } from "@/helpers";
 
 type ReviewItemProps = {
   review: ReviewTypes;

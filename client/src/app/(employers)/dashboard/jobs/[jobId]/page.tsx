@@ -1,12 +1,17 @@
 "use client";
 
-import Applications from "@/components/employers/dashboard/jobs/applications/Applications";
-import FilterApplications from "@/components/employers/dashboard/jobs/applications/FilterApplications";
-import Protected from "@/components/hoc/Protected";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getApplications } from "@/lib/actions/jobs.actions";
 import React from "react";
 import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import useSearchParams from "@/hooks/useSearchParams";
+
+import { getApplications } from "@/lib/actions/jobs.actions";
+
+import Protected from "@/components/hoc/Protected";
+import Applications from "@/components/employers/dashboard/jobs/applications/Applications";
+import FilterApplications from "@/components/employers/dashboard/jobs/applications/FilterApplications";
+
 import {
   Pagination,
   PaginationContent,
@@ -16,7 +21,6 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import useSearchParams from "@/hooks/useSearchParams";
 
 const JobApplicationsPage = ({
   searchParams,

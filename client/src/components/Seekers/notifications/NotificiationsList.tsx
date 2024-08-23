@@ -1,5 +1,7 @@
 import React from "react";
+
 import { NotificationTypes } from "@/types";
+
 import NotificationsItem from "./NotificationItem";
 
 type NotificationsListProps = {

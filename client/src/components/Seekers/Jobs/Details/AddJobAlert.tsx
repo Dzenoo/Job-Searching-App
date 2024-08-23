@@ -1,6 +1,8 @@
 import React from "react";
 import { ClipLoader } from "react-spinners";
+
 import useJobAlert from "@/hooks/mutations/useJobAlert";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,

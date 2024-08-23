@@ -1,14 +1,16 @@
 "use client";
 
+import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import { getEvents } from "@/lib/actions/events.actions";
+
 import Protected from "@/components/hoc/Protected";
 import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
 import FilterEvents from "@/components/seekers/events/filters/FilterEvents";
 import SearchEvents from "@/components/seekers/events/search/SearchEvents";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getEvents } from "@/lib/actions/events.actions";
-import dynamic from "next/dynamic";
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
 
 const EventsList = dynamic(
   () => import("@/components/seekers/events/EventsList"),

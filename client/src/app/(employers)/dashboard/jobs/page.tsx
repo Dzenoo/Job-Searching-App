@@ -1,12 +1,18 @@
 "use client";
 
-import DashboardEmployerJobs from "@/components/employers/dashboard/jobs/DashboardEmployerJobs";
-import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
-import Protected from "@/components/hoc/Protected";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getEmployerProfile } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import useSearchParams from "@/hooks/useSearchParams";
+import usePagination from "@/hooks/usePagination";
+
+import { getEmployerProfile } from "@/lib/actions/employers.actions";
+
+import Protected from "@/components/hoc/Protected";
+import DashboardEmployerJobs from "@/components/employers/dashboard/jobs/DashboardEmployerJobs";
+import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
+
 import {
   Pagination,
   PaginationContent,
@@ -16,8 +22,6 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import useSearchParams from "@/hooks/useSearchParams";
-import usePagination from "@/hooks/usePagination";
 
 const DashboardJobsPage = ({
   searchParams,

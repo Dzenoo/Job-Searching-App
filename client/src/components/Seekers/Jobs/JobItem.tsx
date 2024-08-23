@@ -1,16 +1,20 @@
 import React from "react";
 import Image from "next/image";
-import { GraduationCap, MapPin, Timer } from "lucide-react";
 import Link from "next/link";
-import SaveJobButton from "./SaveJobButton";
-import { JobTypes } from "@/types";
-import { checkExpired, formatDate, getTime } from "@/lib/utils";
+
+import { GraduationCap, MapPin, Timer } from "lucide-react";
+
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import SaveJobButton from "./SaveJobButton";
+
+import { JobTypes } from "@/types";
+
+import { checkExpired, formatDate, getTime } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 type JobItemProps = {

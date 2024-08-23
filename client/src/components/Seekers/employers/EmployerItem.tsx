@@ -1,10 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+
 import { Camera, FileText, Text } from "lucide-react";
+
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { renderIconText } from "@/helpers";
 import { EmployerTypes } from "@/types";
+
 import FollowEmployerButton from "./FollowEmployerButton";
 
 type EmployersItemProps = {

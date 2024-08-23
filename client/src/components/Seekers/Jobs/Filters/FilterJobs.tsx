@@ -1,10 +1,13 @@
 "use client";
 
 import React from "react";
+
 import { ListFilter } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { JobsFiltersData } from "@/constants";
 import FilterHandler from "@/components/shared/FilterHandler";
+
+import { JobsFiltersData } from "@/constants";
 
 const FilterJobs: React.FC = () => {
   return (

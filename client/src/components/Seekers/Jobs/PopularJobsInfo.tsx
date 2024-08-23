@@ -1,5 +1,7 @@
 import React from "react";
+
 import useSearchParams from "@/hooks/useSearchParams";
+
 import { Card, CardContent } from "@/components/ui/card";
 
 type PopularsJobsInfoProps = {

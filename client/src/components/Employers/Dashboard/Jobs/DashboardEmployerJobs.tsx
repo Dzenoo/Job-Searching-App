@@ -1,15 +1,18 @@
 import React, { FormEvent, useState } from "react";
-import { Edit, Eye, Trash } from "lucide-react";
 import Link from "next/link";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
+
+import { Edit, Eye, Trash } from "lucide-react";
+
 import { deleteJob } from "@/lib/actions/jobs.actions";
 import useAuthentication from "@/hooks/useAuthentication";
-import { toast } from "react-toastify";
 import { queryClient } from "@/context/react-query-client";
-import { ClipLoader } from "react-spinners";
-import { Button } from "@/components/ui/button";
 import { JobTypes } from "@/types";
 import { findLocationData, formatDate } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,

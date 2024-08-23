@@ -1,24 +1,28 @@
 "use client";
 
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import zod from "zod";
+
+import useAuthentication from "@/hooks/useAuthentication";
+
+import { createNewJob } from "@/lib/actions/jobs.actions";
+import { NewJobSchemas } from "@/lib/zod/jobs";
+
+import { queryClient } from "@/context/react-query-client";
+
+import Protected from "@/components/hoc/Protected";
 import Details from "@/components/employers/dashboard/jobs/new/Details";
 import Overview from "@/components/employers/dashboard/jobs/new/Overview";
 import Scope from "@/components/employers/dashboard/jobs/new/Scope";
 import Skills from "@/components/employers/dashboard/jobs/new/Skills";
 import Text from "@/components/employers/dashboard/jobs/new/Text";
-import Protected from "@/components/hoc/Protected";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { queryClient } from "@/context/react-query-client";
-import useAuthentication from "@/hooks/useAuthentication";
-import { createNewJob } from "@/lib/actions/jobs.actions";
-import { NewJobSchemas } from "@/lib/zod/jobs";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import { ClipLoader } from "react-spinners";
-import { toast } from "react-toastify";
-import zod from "zod";
 
 const NewJobPage = () => {
   const { token } = useAuthentication().getCookieHandler();

@@ -1,5 +1,7 @@
 import React from "react";
+
 import { ApplicationsTypes } from "@/types";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ApplicationsItem from "./ApplicationsItem";
 

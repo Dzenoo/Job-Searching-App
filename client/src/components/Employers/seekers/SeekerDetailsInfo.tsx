@@ -1,13 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+
 import { Github, Linkedin, LucideImage } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import Navigator from "@/components/ui/navigator";
+
+import EducationList from "@/components/seekers/profile/educations/EducationList";
+
 import { SeekerTypes } from "@/types";
 import { getImageUrl, getSkillsData } from "@/lib/utils";
-import Navigator from "@/components/ui/navigator";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import EducationList from "@/components/seekers/profile/educations/EducationList";
 
 type SeekerDetailsInfoProps = {
   seeker: SeekerTypes;

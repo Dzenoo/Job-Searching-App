@@ -1,8 +1,11 @@
 import React from "react";
+
 import { ListFilter } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { EventsFiltersData } from "@/constants";
 import FilterHandler from "@/components/shared/FilterHandler";
+
+import { EventsFiltersData } from "@/constants";
 
 const FilterEvents: React.FC = () => {
   return (

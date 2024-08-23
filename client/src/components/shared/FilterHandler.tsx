@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import useSearchParams from "@/hooks/useSearchParams";
+
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface CheckboxOption {
   id: string;

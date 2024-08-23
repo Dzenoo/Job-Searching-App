@@ -1,15 +1,21 @@
 import React, { Fragment, useState } from "react";
+
 import { CalendarIcon, Plus } from "lucide-react";
-import { useForm } from "react-hook-form";
-import zod from "zod";
 import { ClipLoader } from "react-spinners";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { EditableEducationsSchemas } from "@/lib/zod/seekers";
-import { useMutation } from "react-query";
-import { addNewEducation } from "@/lib/actions/seekers.actions";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+
+import { EditableEducationsSchemas } from "@/lib/zod/seekers";
+import { addNewEducation } from "@/lib/actions/seekers.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/context/react-query-client";
+import { cn } from "@/lib/utils";
+import { SeekerTypes } from "@/types";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -27,16 +33,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { format } from "date-fns";
-import { SeekerTypes } from "@/types";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+
 import EducationList from "./EducationList";
-import { cn } from "@/lib/utils";
 
 type AddEducationsDialogProps = {
   closeDialog: () => void;

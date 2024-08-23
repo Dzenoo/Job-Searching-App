@@ -1,12 +1,18 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ClipLoader } from "react-spinners";
-import { useMutation } from "react-query";
-import zod from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import zod from "zod";
+import { ClipLoader } from "react-spinners";
+
 import { EmployersRegistrationSchemas } from "@/lib/zod/auth";
 import { signupEmployer } from "@/lib/actions/auth.actions";
+import { TypeOfAccount } from "@/types";
+import { industries } from "@/constants";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,7 +20,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { TypeOfAccount } from "@/types";
 import {
   Form,
   FormControl,
@@ -25,7 +30,6 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import {
   Select,
@@ -34,7 +38,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { industries } from "@/constants";
 
 type EmployersSignupFormTypes = {
   handleTypeSelection: (type: TypeOfAccount) => void;

@@ -1,7 +1,9 @@
 import React from "react";
-import useSearchParams from "@/hooks/useSearchParams";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
+
+import useSearchParams from "@/hooks/useSearchParams";
+
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Select,

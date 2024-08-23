@@ -1,12 +1,15 @@
-import dynamic from "next/dynamic";
-import AppThemeProvider from "@/context/app-theme-provider";
-import { QueryContextProvider } from "@/context/react-query-client";
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Libre_Franklin } from "next/font/google";
 import { ToastContainer } from "react-toastify";
+
+import AppThemeProvider from "@/context/app-theme-provider";
+import { QueryContextProvider } from "@/context/react-query-client";
+
+import Footer from "@/components/layout/footer/Footer";
+
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "@/components/layout/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Job Talentify Platform",

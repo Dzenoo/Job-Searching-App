@@ -1,15 +1,19 @@
 "use client";
 
+import React from "react";
+import dynamic from "next/dynamic";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+
 import Protected from "@/components/hoc/Protected";
+
 import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
+
 import SeekerProfileAlerts from "@/components/seekers/profile/alerts/NewAlertsForm";
 import SeekerProfileNavigation from "@/components/seekers/profile/navigation/SeekerProfileNavigation";
-import useGetSeeker from "@/hooks/mutations/useGetSeeker";
-import useAuthentication from "@/hooks/useAuthentication";
-import dynamic from "next/dynamic";
-import React from "react";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,

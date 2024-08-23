@@ -1,14 +1,17 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import zod from "zod";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
-import zod from "zod";
 import { ClipLoader } from "react-spinners";
+
 import { queryClient } from "@/context/react-query-client";
 import useUploads from "@/hooks/useUploads";
+
 import { ApplyToJobSchemas } from "@/lib/zod/jobs";
 import { addCoverLetter, applyToJob } from "@/lib/actions/jobs.actions";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,

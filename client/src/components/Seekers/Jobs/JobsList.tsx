@@ -1,5 +1,7 @@
 import React from "react";
+
 import { JobTypes } from "@/types";
+
 import JobItem from "./JobItem";
 
 type JobListProps = {

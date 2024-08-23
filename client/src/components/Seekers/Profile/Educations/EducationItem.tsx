@@ -1,11 +1,16 @@
 import React from "react";
 import Image from "next/image";
+
 import { Calendar, Trash } from "lucide-react";
+
 import { useMutation } from "react-query";
-import { deleteEducation } from "@/lib/actions/seekers.actions";
-import useAuthentication from "@/hooks/useAuthentication";
 import { toast } from "react-toastify";
+
+import useAuthentication from "@/hooks/useAuthentication";
+
+import { deleteEducation } from "@/lib/actions/seekers.actions";
 import { queryClient } from "@/context/react-query-client";
+
 import { formatDate } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 

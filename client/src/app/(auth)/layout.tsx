@@ -1,16 +1,17 @@
 import { Metadata } from "next";
 import { Libre_Franklin } from "next/font/google";
-import { QueryContextProvider } from "@/context/react-query-client";
 import dynamic from "next/dynamic";
-
-const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
-  ssr: false,
-});
-
+import { QueryContextProvider } from "@/context/react-query-client";
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "@/components/ui/toaster";
 
+// Dynamically imported components
+const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
+  ssr: false,
+});
+
+// Font setup
 const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {

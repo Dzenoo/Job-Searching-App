@@ -1,6 +1,8 @@
-import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import React from "react";
+
 import { Button } from "@/components/ui/button";
+
+import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 
 type FollowEmployerProps = {

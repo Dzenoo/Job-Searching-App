@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
+import Link from "next/link";
 import Image from "next/image";
+
 import { Calendar } from "lucide-react";
+
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+
 import { queryClient } from "@/context/react-query-client";
+
 import useAuthentication from "@/hooks/useAuthentication";
+
 import { NotificationTypes } from "@/types";
+
 import { readNotificationsData } from "@/lib/actions/shared.actions";
 import { formatDate } from "@/lib/utils";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 type NotificationsItemProps = {

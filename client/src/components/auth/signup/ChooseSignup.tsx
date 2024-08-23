@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Briefcase, Building } from "lucide-react";
 import Link from "next/link";
+
+import { Briefcase, Building } from "lucide-react";
+
 import { TypeOfAccount } from "@/types";
 import EmployersSignupForm from "./EmployersSignupForm";
 import SeekersSignupForm from "./SeekersSignupForm";

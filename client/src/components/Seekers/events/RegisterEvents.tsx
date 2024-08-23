@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { queryClient } from "@/context/react-query-client";
-import useGetSeeker from "@/hooks/mutations/useGetSeeker";
-import { registerForEvent } from "@/lib/actions/events.actions";
 import React from "react";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+
+import { Button } from "@/components/ui/button";
+import { queryClient } from "@/context/react-query-client";
+
+import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+import { registerForEvent } from "@/lib/actions/events.actions";
 
 type RegisterEventsProps = {
   eventId: string;

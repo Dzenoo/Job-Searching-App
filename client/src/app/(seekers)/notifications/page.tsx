@@ -1,11 +1,13 @@
 "use client";
 
-import Protected from "@/components/hoc/Protected";
-import NotificationsList from "@/components/seekers/notifications/NotificiationsList";
-import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import { getSeekerProfile } from "@/lib/actions/seekers.actions";
+
+import Protected from "@/components/hoc/Protected";
+import NotificationsList from "@/components/seekers/notifications/NotificiationsList";
 
 const NotificationsPage = () => {
   const [notifications, setNotifications] = useState<any>([]);

@@ -1,15 +1,20 @@
 import React, { FormEvent, Fragment, useState } from "react";
+import Image from "next/image";
+
 import { ImagePlusIcon, Trash } from "lucide-react";
 import { toast } from "react-toastify";
+import { useMutation } from "react-query";
+
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import useUploads from "@/hooks/useUploads";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import useAuthentication from "@/hooks/useAuthentication";
+
 import { SeekerTypes } from "@/types";
+
+import { deleteSeekerProfile } from "@/lib/actions/seekers.actions";
+
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Informations from "./informations/Informations";
-import Educations from "./educations/Educations";
-import Skills from "./skills/Skills";
 import {
   Dialog,
   DialogContent,
@@ -17,9 +22,10 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import useAuthentication from "@/hooks/useAuthentication";
-import { useMutation } from "react-query";
-import { deleteSeekerProfile } from "@/lib/actions/seekers.actions";
+
+import Informations from "./informations/Informations";
+import Educations from "./educations/Educations";
+import Skills from "./skills/Skills";
 import Socials from "./socials/Socials";
 
 type SeekerDeleteDialogProps = {

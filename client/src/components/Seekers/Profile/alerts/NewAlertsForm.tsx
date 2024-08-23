@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect } from "react";
+
 import zod from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ClipLoader } from "react-spinners";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -15,9 +17,6 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import { JobAlertsSchemas } from "@/lib/zod/seekers";
-import useJobAlert from "@/hooks/mutations/useJobAlert";
-import { JobAlertsTypes } from "@/types";
 import {
   Dialog,
   DialogContent,
@@ -25,8 +24,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
+
+import { JobAlertsSchemas } from "@/lib/zod/seekers";
+import { JobAlertsTypes } from "@/types";
+
+import useJobAlert from "@/hooks/mutations/useJobAlert";
 
 type NewAlertsFormProps = {
   closeDialog: () => void;

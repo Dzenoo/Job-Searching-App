@@ -1,6 +1,6 @@
-import { Card } from "@/components/ui/card";
-import useSearchParams from "@/hooks/useSearchParams";
 import React from "react";
+import useSearchParams from "@/hooks/useSearchParams";
+import { Card } from "@/components/ui/card";
 
 type FilterApplicationsProps = {
   applicants: number;

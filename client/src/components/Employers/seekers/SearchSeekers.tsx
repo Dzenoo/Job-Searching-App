@@ -1,5 +1,7 @@
 import React from "react";
+
 import useSearchParams from "@/hooks/useSearchParams";
+
 import { Input } from "@/components/ui/input";
 
 const SearchSeekers: React.FC = () => {

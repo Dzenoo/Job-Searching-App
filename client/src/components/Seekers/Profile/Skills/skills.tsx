@@ -1,12 +1,17 @@
 import React, { Fragment, useState } from "react";
+
 import { Plus } from "lucide-react";
-import { useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
-import { zodResolver } from "@hookform/resolvers/zod";
-import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import zod from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import { SeekersSkillsSchemas } from "@/lib/zod/seekers";
+import { getSkillsData } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
+import MultiSelect from "@/components/ui/multiselect";
 import {
   Form,
   FormControl,
@@ -16,14 +21,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { getSkillsData } from "@/lib/utils";
-import MultiSelect from "@/components/ui/multiselect";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
 
 type AddSkillsProps = {

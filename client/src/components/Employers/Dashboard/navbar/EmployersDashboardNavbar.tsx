@@ -1,6 +1,9 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
   Bell,
   Briefcase,
@@ -9,15 +12,13 @@ import {
   MessageCircle,
   Settings,
 } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
 
 const EmployersDashboardNavbar: React.FC = () => {
   const pathname = usePathname();

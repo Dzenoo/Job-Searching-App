@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+
 import {
   Building,
   Calendar,
@@ -9,14 +10,18 @@ import {
   MapPinIcon,
   Timer,
 } from "lucide-react";
-import SaveJobButton from "../SaveJobButton";
+
 import { Button } from "@/components/ui/button";
-import { ApplicationsTypes, JobTypes } from "@/types";
-import useGetSeeker from "@/hooks/mutations/useGetSeeker";
-import { formatDate, getSkillsData, getTime } from "@/lib/utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { renderIconText } from "@/helpers";
 import Navigator from "@/components/ui/navigator";
+import SaveJobButton from "../SaveJobButton";
+
+import { ApplicationsTypes, JobTypes } from "@/types";
+
+import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+
+import { formatDate, getSkillsData, getTime } from "@/lib/utils";
+import { renderIconText } from "@/helpers";
 
 type JobDetailsInfoProps = {
   job: JobTypes;

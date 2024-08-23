@@ -1,6 +1,6 @@
 import React from "react";
-import { SeekerTypes } from "@/types";
 import SeekerItem from "./SeekerItem";
+import { SeekerTypes } from "@/types";
 
 type SeekersListProps = {
   seekers: SeekerTypes[];

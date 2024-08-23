@@ -1,8 +1,10 @@
 import React from "react";
 import { ListFilter } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { SeekersFiltersData } from "@/constants";
 import FilterHandler from "@/components/shared/FilterHandler";
+
+import { SeekersFiltersData } from "@/constants";
 
 const FilterSeekers: React.FC = () => {
   return (
