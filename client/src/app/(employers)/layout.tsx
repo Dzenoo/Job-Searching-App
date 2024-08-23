@@ -30,9 +30,11 @@ export default function RootLayout({
       <html suppressHydrationWarning={true} lang="en">
         <body className={inter.className}>
           <AppThemeProvider>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
             <ToastContainer />
           </AppThemeProvider>
         </body>

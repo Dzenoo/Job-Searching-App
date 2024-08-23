@@ -11,6 +11,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type SeekerItemProps = {
   seeker: SeekerTypes;
@@ -73,9 +74,9 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
       <CardFooter>
         <div className="flex gap-3 whitespace-nowrap overflow-hidden items-center justify-center">
           {seeker?.skills.map((skill, index) => (
-            <div key={index} className="tag">
+            <Button variant="outline" key={index}>
               {skill}
-            </div>
+            </Button>
           ))}
         </div>
       </CardFooter>

@@ -40,46 +40,48 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
     <div className="flex flex-col gap-6">
       <Navigator info="Seekers" href={"/seekers"} title={seeker?.first_name} />
       <Card>
-        <CardHeader className="flex justify-between items-start gap-3">
-          <div className="flex items-start gap-7">
-            <div>
-              <Image
-                src={profileImageUrl}
-                width={100}
-                height={100}
-                className="rounded-full w-28 h-28 object-cover"
-                alt="seeker"
-              ></Image>
+        <CardHeader>
+          <div className="flex justify-between items-start gap-3">
+            <div className="flex items-start gap-7">
+              <div>
+                <Image
+                  src={profileImageUrl}
+                  width={100}
+                  height={100}
+                  className="rounded-full w-28 h-28 object-cover"
+                  alt="seeker"
+                ></Image>
+              </div>
+              <div className="flex flex-col gap-[3px]">
+                <div>
+                  <h1 className="text-base-black">
+                    {seeker?.first_name} {seeker?.last_name}
+                  </h1>
+                </div>
+                <div>
+                  <p className="text-initial-gray">{seeker?.email}</p>
+                </div>
+                <div>
+                  <p className="font-bold">{seeker?.overview}</p>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col gap-[3px]">
+            <div className="flex items-center gap-10">
+              {SocialsArrays.map((socials) => (
+                <Link href={socials.href} key={socials.id} target="_blank">
+                  {socials.icon}
+                </Link>
+              ))}
               <div>
-                <h1 className="text-base-black">
-                  {seeker?.first_name} {seeker?.last_name}
-                </h1>
+                <Button variant="default">Message</Button>
               </div>
-              <div>
-                <p className="text-initial-gray">{seeker?.email}</p>
-              </div>
-              <div>
-                <p className="text-initial-black">{seeker?.overview}</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-10">
-            {SocialsArrays.map((socials) => (
-              <Link href={socials.href} key={socials.id} target="_blank">
-                {socials.icon}
-              </Link>
-            ))}
-            <div>
-              <Button variant="default">Message</Button>
             </div>
           </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-10">
           <div className="flex flex-col gap-3">
             <div>
-              <h1 className="text-initial-black">Biography</h1>
+              <h1 className="font-bold">Biography</h1>
             </div>
             {seeker?.biography ? (
               <div>
@@ -93,7 +95,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
           </div>
           <div className="flex flex-col gap-3">
             <div>
-              <h1 className="text-initial-black">Education</h1>
+              <h1 className="font-bold">Education</h1>
             </div>
             <div>
               <EducationList educations={seeker?.education} />
@@ -101,7 +103,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
           </div>
           <div className="flex flex-col gap-3">
             <div>
-              <h1 className="text-initial-black">Skills</h1>
+              <h1 className="font-bold">Skills</h1>
             </div>
             <div className="py-3 flex gap-6">
               {Object.entries(categorizedSkills).map(
@@ -109,13 +111,13 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
                   skills.length > 0 && (
                     <div key={category} className="flex flex-col gap-3">
                       <div>
-                        <h1 className="text-initial-black">{category}</h1>
+                        <h1 className="font-bold">{category}</h1>
                       </div>
                       <div className="flex flex-wrap gap-3">
                         {skills.map((skill, index) => (
-                          <div key={index} className="tag">
+                          <Button variant="outline" key={index}>
                             {skill}
-                          </div>
+                          </Button>
                         ))}
                       </div>
                     </div>

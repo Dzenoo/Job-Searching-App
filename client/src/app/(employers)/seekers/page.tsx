@@ -1,10 +1,9 @@
 "use client";
 
-import { SeekersList } from "@/components/employers/seekers";
-import { FilterSeekers } from "@/components/employers/seekers/Filters";
-import { SearchSeekers } from "@/components/employers/seekers/Search";
+import FilterSeekers from "@/components/employers/seekers/FilterSeekers";
+import SearchSeekers from "@/components/employers/seekers/SearchSeekers";
+import SeekersList from "@/components/employers/seekers/SeekersList";
 import Protected from "@/components/hoc/Protected";
-import { Pagination } from "@/components/Shared/Pagination";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekers } from "@/lib/actions/employers.actions";
 import React, { useEffect } from "react";
@@ -41,7 +40,7 @@ const SeekersPage = ({
         <div>
           <SeekersList seekers={fetchedSeekers?.seekers || []} />
         </div>
-        {fetchedSeekers && fetchedSeekers?.seekers.length > 0 && (
+        {/* {fetchedSeekers && fetchedSeekers?.seekers.length > 0 && (
           <div className="py-6">
             <Pagination
               totalItems={fetchedSeekers?.totalSeekers}
@@ -50,7 +49,7 @@ const SeekersPage = ({
               visiblePages={6}
             />
           </div>
-        )}
+        )} */}
       </div>
       <div className="basis-1/2">
         <FilterSeekers />

@@ -42,8 +42,8 @@ export const EmployersRegistrationSchemas = zod.object({
     .min(5, { message: "Name must be at least 5 characters long" })
     .max(50, { message: "Name must be at most 50 characters long" })
     .regex(
-      /^[A-Z][a-zA-Z\s]*$/,
-      "First name must start with an uppercase letter"
+      /^[A-Z][a-zA-Z\s-]*$/,
+      "Name must start with an uppercase letter and can include letters, spaces, and hyphens"
     ),
   industry: zod.enum(
     industries.map((industry) => industry.value) as [string, ...string[]],

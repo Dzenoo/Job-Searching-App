@@ -2,6 +2,7 @@ import React from "react";
 import { ListFilter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SeekersFiltersData } from "@/constants";
+import FilterHandler from "@/components/shared/FilterHandler";
 
 const FilterSeekers: React.FC = () => {
   return (
@@ -15,10 +16,14 @@ const FilterSeekers: React.FC = () => {
         </div>
       </div>
       <Card>
-        <CardContent>
+        <CardContent className="pt-5">
           <div className="flex flex-col gap-10">
             {SeekersFiltersData.map((filters) => (
-              <></>
+              <FilterHandler
+                key={filters.id}
+                title={filters.title}
+                checkboxes={filters.checkboxes}
+              />
             ))}
           </div>
         </CardContent>
