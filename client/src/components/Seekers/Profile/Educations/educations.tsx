@@ -53,7 +53,7 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   const form = useForm<zod.infer<typeof EditableEducationsSchemas>>({
     resolver: zodResolver(EditableEducationsSchemas),
     defaultValues: {
-      graduationDate: "",
+      graduationDate: new Date(),
       institution: "",
       degree: "",
       fieldOfStudy: "",
@@ -71,6 +71,8 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
       toast.error(error?.response?.data?.message || "An error occurred");
     },
   });
+
+  console.log(form.getValues());
 
   const onSubmit = async (
     values: zod.infer<typeof EditableEducationsSchemas>

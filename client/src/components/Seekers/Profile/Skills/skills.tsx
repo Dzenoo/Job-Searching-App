@@ -32,21 +32,19 @@ type AddSkillsProps = {
   skills?: string[];
 };
 
-const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills }) => {
+const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills = [] }) => {
   const form = useForm<zod.infer<typeof SeekersSkillsSchemas>>({
     resolver: zodResolver(SeekersSkillsSchemas),
     defaultValues: {
-      skills: [],
+      skills: skills,
     },
   });
-
-  const onSelectTechnology = (skills: any) => {
-    form.setValue("skills", skills);
-  };
 
   const { mutateAsync: editSeekerProfileMutate } = useEditSeeker();
 
   const onSubmit = async (values: zod.infer<typeof SeekersSkillsSchemas>) => {
+    console.log(values);
+
     await editSeekerProfileMutate(values);
   };
 
@@ -71,8 +69,10 @@ const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills }) => {
                       { label: "Express.js", value: "Express.js" },
                       { label: "MongoDB", value: "MongoDB" },
                     ]}
-                    selectedValues={field.value || []}
-                    onChange={field.onChange}
+                    selectedValues={field.value}
+                    onChange={(selectedValues) => {
+                      form.setValue("skills", selectedValues);
+                    }}
                   />
                 </FormControl>
                 <FormDescription>

@@ -17,7 +17,7 @@ export const EditableEducationsSchemas = zod.object({
   institution: zod.string().min(3).max(300),
   fieldOfStudy: zod.string().min(3).max(30),
   degree: zod.string().min(3).max(30),
-  graduationDate: zod.string().min(3).max(30),
+  graduationDate: zod.date(),
 });
 
 export const SeekersSkillsSchemas = zod.object({

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandItem,
   CommandList,
   CommandGroup,
 } from "@/components/ui/command";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 
 type MultiSelectOption = {
   value: string;
@@ -16,7 +15,7 @@ type MultiSelectOption = {
 type MultiSelectProps = {
   options: MultiSelectOption[];
   selectedValues: string[];
-  onChange: (values: string[]) => void;
+  onChange: (selectedValues: string[]) => void;
   placeholder?: string;
 };
 
@@ -28,11 +27,14 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  const toggleDropdown = () => setOpen((prev) => !prev);
+
   const handleSelect = (value: string) => {
-    const newValues = selectedValues.includes(value)
-      ? selectedValues.filter((v) => v !== value)
-      : [...selectedValues, value];
-    onChange(newValues);
+    onChange(
+      selectedValues.includes(value)
+        ? selectedValues.filter((v) => v !== value)
+        : [...selectedValues, value]
+    );
   };
 
   return (
@@ -40,7 +42,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       <Button
         type="button"
         variant="outline"
-        onClick={() => setOpen(!open)}
+        onClick={toggleDropdown}
         className="w-full justify-between"
       >
         <span>
@@ -55,13 +57,13 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                 <CommandItem
                   key={option.value}
                   onSelect={() => handleSelect(option.value)}
-                  className={
+                  className={`flex justify-between p-2 ${
                     selectedValues.includes(option.value) ? "bg-blue-100" : ""
-                  }
+                  }`}
                 >
                   <span>{option.label}</span>
                   {selectedValues.includes(option.value) && (
-                    <X className="ml-auto h-4 w-4" />
+                    <span>&#10003;</span>
                   )}
                 </CommandItem>
               ))}
