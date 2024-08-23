@@ -6,7 +6,6 @@ type NavbarLinksListProps = {
   data: {
     id: string;
     title: string;
-    icon: React.JSX.Element;
     href: string;
   }[];
 };
@@ -17,7 +16,7 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
 }) => {
   return (
     <ul className="flex items-center gap-6">
-      {Array.from(data).map(({ href, title, id, icon }) => (
+      {Array.from(data).map(({ href, title, id }) => (
         <Link
           key={id}
           href={href}
@@ -27,9 +26,8 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
               : "text-[--black-base-color] dark:text-white"
           }`}
         >
-          <div>{icon}</div>
           <div className="max-sm:hidden">
-            <h1>{title}</h1>
+            <h1 className="font-extralight">{title}</h1>
           </div>
         </Link>
       ))}

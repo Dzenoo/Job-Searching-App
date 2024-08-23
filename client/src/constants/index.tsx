@@ -16,19 +16,16 @@ export const SeekersNavbarLinks = [
     id: "1",
     title: "Find Jobs",
     href: "/",
-    icon: <Search />,
   },
   {
     id: "3",
     title: "Find Companies",
     href: "/companies",
-    icon: <Building />,
   },
   {
     id: "4",
     title: "Find Events",
     href: "/events",
-    icon: <FileText />,
   },
 ];
 
@@ -37,7 +34,6 @@ export const EmployersNavbarLinks = [
     id: "3",
     title: "Find Seekers",
     href: "/seekers",
-    icon: <Building />,
   },
 ];
 
