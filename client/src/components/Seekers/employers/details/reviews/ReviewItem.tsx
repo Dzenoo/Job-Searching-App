@@ -12,6 +12,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type ReviewItemProps = {
   review: ReviewTypes;
@@ -45,7 +46,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
           <h1 className="text-base-black">{review?.job_position}</h1>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3 py-0">
+      <CardContent className="flex flex-col gap-3">
         <div className="flex flex-col gap-3">
           <div>
             <h1 className="font-bold">Positive Review</h1>
@@ -68,15 +69,15 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
           </div>
           <div className="flex flex-wrap gap-3">
             {review?.technologies?.map((technology, index) => (
-              <div key={index} className="tag">
+              <Button variant="outline" key={index}>
                 {technology}
-              </div>
+              </Button>
             ))}
           </div>
         </div>
       </CardContent>
       <CardFooter className="border-t border-gray-100 pt-6 dark:border-[#0d0d0d]">
-        <div className="flex justify-between items-center gap-3 max-sm:flex-wrap">
+        <div className="w-full flex justify-between items-center gap-3 max-sm:flex-wrap">
           {ReviewFooterData.map((footerData) => renderIconText(footerData))}
         </div>
       </CardFooter>

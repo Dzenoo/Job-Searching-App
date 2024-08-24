@@ -5,7 +5,7 @@ import zod from "zod";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import useAuthentication from "@/hooks/useAuthentication";
 import { ReviewEmployersSchemas } from "@/lib/zod/reviews";
@@ -40,6 +40,7 @@ type ReviewCompanyFormProps = {
 const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   employerId,
 }) => {
+  const router = useRouter();
   const { token } = useAuthentication().getCookieHandler();
   const form = useForm<zod.infer<typeof ReviewEmployersSchemas>>({
     resolver: zodResolver(ReviewEmployersSchemas),
@@ -56,7 +57,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   const { mutateAsync: reviewEmployerMutate } = useMutation({
     mutationFn: (formData: any) => reviewEmployer(employerId, token!, formData),
     onSuccess: () => {
-      redirect(`/companies/${employerId}?typeEmp=reviews`);
+      router.push(`/companies/${employerId}?typeEmp=reviews`);
     },
     onError: (error: any) => {
       toast.error(error?.response?.data?.message);

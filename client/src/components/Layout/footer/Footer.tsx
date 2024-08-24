@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col gap-3 basis-[36em] max-xl:basis-full">
           <div>
             <Image
-              src="/images/logo/logo-dark.png"
+              src="/images/logo-dark.png"
               alt="light-talentify-logo"
               width={300}
               height={300}

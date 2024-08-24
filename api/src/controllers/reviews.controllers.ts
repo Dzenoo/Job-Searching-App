@@ -1,6 +1,7 @@
 import { asyncErrors } from "../errors/asyncErrors";
 import Employer from "../models/employer/employers.schema";
 import Review from "../models/employer/reviews.schema";
+import Notification from "../models/shared/notifications.schema";
 import { sendResponse, validate } from "../utils/validation";
 
 // Controller function to create a review for an employer
@@ -63,20 +64,32 @@ export const createReview = asyncErrors(async (request, response) => {
       seeker: seekerId,
     });
 
+    if (!review) {
+      return sendResponse(
+        { message: "Failed to create the review." },
+        500,
+        response
+      );
+    }
+
+    const notification = await Notification.create({
+      title: "New Review Notification",
+      message: `A new review has been added to your profile`,
+      type: "reviews",
+    });
+
     // Add the review to the employer's list of reviews and create a notification
     await Employer.findByIdAndUpdate(employerId, {
       $push: {
         reviews: review._id,
-        notifications: {
-          title: "New Review Notification",
-          message: `A new review has been added to your profile`,
-        },
+        notifications: notification._id,
       },
     });
 
     // Send a success response
     sendResponse({ message: "Review successfully added" }, 201, response);
   } catch (error) {
+    console.log(error);
     // Handle any errors during the process
     sendResponse(
       { message: "Cannot add review, please try again" },

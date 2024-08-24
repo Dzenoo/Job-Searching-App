@@ -13,7 +13,7 @@ const Navigator: React.FC<NavigatorProps> = ({ href, title, info }) => {
     <div className="flex items-center gap-6">
       <div>
         <Image
-          src={"/images/logo/logo-icon.png"}
+          src={"/images/logo-icon.png"}
           alt="logo_light_talentify"
           width={40}
           height={40}
