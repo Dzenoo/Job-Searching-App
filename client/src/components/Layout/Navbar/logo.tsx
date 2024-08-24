@@ -9,11 +9,9 @@ const Logo: React.FC = () => {
     <Link href="/">
       <Image
         src={
-          theme === "dark"
-            ? "/images/logo/logo-dark.png"
-            : "/images/logo/logo-light.png"
+          theme === "dark" ? "/images/logo-dark.png" : "/images/logo-light.png"
         }
-        alt="light-talentify-logo"
+        alt="logo"
         width={170}
         height={170}
         loading="lazy"
