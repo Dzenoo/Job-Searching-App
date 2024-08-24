@@ -14,7 +14,12 @@ import SaveJobButton from "./SaveJobButton";
 
 import { JobTypes } from "@/types";
 
-import { checkExpired, formatDate, getTime } from "@/lib/utils";
+import {
+  checkExpired,
+  findLocationData,
+  formatDate,
+  getTime,
+} from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 type JobItemProps = {
@@ -30,7 +35,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   let FooterInfoData = new Array(
     {
       id: "1",
-      data: job.location,
+      data: findLocationData(job.location),
       icon: <MapPin color="gray" />,
     },
     {
@@ -48,36 +53,38 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
   return (
     <li>
       <Card>
-        <CardHeader className="flex justify-between sm:items-center">
-          <div className="flex items-center gap-3 flex-wrap">
-            <div>
-              <Image
-                src={job.company?.image}
-                alt={job.company?.name}
-                width={60}
-                height={60}
-                className="object-cover w-auto h-auto"
-              />
-            </div>
-            <div className="flex flex-col gap-[3px]">
+        <CardHeader>
+          <div className="flex justify-between sm:items-center">
+            <div className="flex items-center gap-3 flex-wrap">
               <div>
-                <Link href={`/jobs/${job._id}`}>
-                  <h1 className="text-base-black font-bold">{job.title}</h1>
-                </Link>
+                <Image
+                  src={job.company?.image}
+                  alt={job.company?.name}
+                  width={60}
+                  height={60}
+                  className="object-cover w-auto h-auto"
+                />
               </div>
-              <div className="flex items-center gap-3 max-sm:flex-wrap">
+              <div className="flex flex-col gap-[3px]">
                 <div>
-                  <p className="text-low-gray">{job.company?.name}</p>
+                  <Link href={`/jobs/${job._id}`}>
+                    <h1 className="text-base-black font-bold">{job.title}</h1>
+                  </Link>
                 </div>
-                <div>
-                  <p className="text-low-gray">
-                    {job?.applications?.length} Applicants
-                  </p>
+                <div className="flex items-center gap-3 max-sm:flex-wrap">
+                  <div>
+                    <p className="text-low-gray">{job.company?.name}</p>
+                  </div>
+                  <div>
+                    <p className="text-low-gray">
+                      {job?.applications?.length} Applicants
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+            <SaveJobButton jobId={job?._id} />
           </div>
-          <SaveJobButton jobId={job?._id} />
         </CardHeader>
         {showDescription && (
           <CardContent>
@@ -86,7 +93,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
             </div>
           </CardContent>
         )}
-        <CardFooter className="border-t  border-gray-100 dark:border-[#0d0d0d] pt-6 flex items-center justify-between gap-3 flex-wrap max-sm:pb-0">
+        <CardFooter className="border-t border-gray-100 dark:border-[#0d0d0d] pt-6 flex items-center justify-between gap-3 flex-wrap max-sm:pb-0">
           <div className="flex items-center gap-6 justify-between flex-wrap">
             {FooterInfoData.map((data) => renderIconText(data))}
           </div>

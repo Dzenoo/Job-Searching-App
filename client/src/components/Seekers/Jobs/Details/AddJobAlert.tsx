@@ -27,8 +27,8 @@ const AddJobAlert: React.FC<JobAlertProps> = ({ level, type, title }) => {
 
   return (
     <Card>
-      <CardHeader className="py-0">
-        <h1 className="text-initial-black">Generate Job Alert</h1>
+      <CardHeader className="pt-5">
+        <h1 className="text-base-black">Generate Job Alert</h1>
       </CardHeader>
       <CardContent>
         <p className="text-initial-gray">

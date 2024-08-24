@@ -78,7 +78,7 @@ export const getSkillsData = (
       if (!categorizedSkills[category.category]) {
         categorizedSkills[category.category] = [];
       }
-      if (skills?.includes(skill.title)) {
+      if (skills?.includes(skill.value)) {
         categorizedSkills[category.category].push(skill.title);
       }
     });

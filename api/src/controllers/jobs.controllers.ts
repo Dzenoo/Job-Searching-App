@@ -331,6 +331,8 @@ export const generateJobAlert = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
+    console.log(error);
+
     sendResponse(
       { message: "Cannot generate job alert, please try again" },
       400,

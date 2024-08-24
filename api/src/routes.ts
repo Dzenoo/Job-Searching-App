@@ -133,6 +133,11 @@ export function initializePrivateRoutes(app: Express): void {
     },
     {
       method: EXPRESS_APP_METHODS.PATCH,
+      path: "/seeker/jobs/alerts",
+      handlers: [jobs.generateJobAlert],
+    },
+    {
+      method: EXPRESS_APP_METHODS.PATCH,
       path: "/seeker/:employerId/follow",
       handlers: [employers.followEmployer],
     },

@@ -12,6 +12,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 
 import { createNewJob } from "@/lib/actions/jobs.actions";
 import { NewJobSchemas } from "@/lib/zod/jobs";
+import { useRouter } from "next/navigation";
 
 import { queryClient } from "@/context/react-query-client";
 
@@ -25,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 const NewJobPage = () => {
+  const router = useRouter();
   const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
   const form = useForm<zod.infer<typeof NewJobSchemas>>({
@@ -45,6 +47,7 @@ const NewJobPage = () => {
   const { mutateAsync: addNewJobMutate, isLoading } = useMutation({
     mutationFn: (formData: any) => createNewJob(token!, formData),
     onSuccess: (response) => {
+      router.push(`/dashboard/jobs/?page=1`);
       queryClient.invalidateQueries(["jobs"]);
       toast({ title: "Success", description: response.message });
     },
@@ -52,7 +55,6 @@ const NewJobPage = () => {
       toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
-  console.log(form.getValues());
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
 
   function hadleFormNext(): void {

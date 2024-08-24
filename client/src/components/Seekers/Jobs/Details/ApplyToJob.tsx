@@ -22,16 +22,25 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  Dialog,
+} from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 
 type ApplyToJobProps = {
+  isDialogOpen: boolean;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   jobId: string;
   token: string;
-  closeDialog: (dialogId: string) => void;
 };
 
 const ApplyToJob: React.FC<ApplyToJobProps> = ({
-  closeDialog,
+  setDialogOpen,
+  isDialogOpen,
   jobId,
   token,
 }) => {
@@ -58,6 +67,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
       queryClient.invalidateQueries(["job", { jobId }]);
       queryClient.invalidateQueries(["profile"]);
       queryClient.invalidateQueries(["jobs"]);
+      setDialogOpen(false);
     },
     onError: (error: any) => {
       toast({ title: "Error", description: error.response.data.message });
@@ -90,29 +100,20 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
     }
 
     await applyToJobMutate(formData);
-
-    closeDialog("applyToJob");
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="max-w-lg">
-        <div className="flex flex-col gap-3 items-center justify-center text-center">
-          <div>
-            <h1 className="text-base-black">Apply to job</h1>
-          </div>
-          <div>
-            <p className="text-initial-gray">
-              Ready to take the next step? Apply for this job opportunity by
-              uploading resume and cover letter. Your information will be sent
-              directly to the employer for consideration. Good luck!
-            </p>
-          </div>
-        </div>
-      </div>
-      <div>
+    <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Apply to Job</DialogTitle>
+          <DialogDescription>
+            Ready to take the next step? Apply for this job opportunity by
+            uploading your resume and cover letter.
+          </DialogDescription>
+        </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormItem>
               <div
                 {...getRootProps()}
@@ -136,21 +137,29 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
                 <FormItem>
                   <FormLabel>Cover Letter (optional)</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Cover Letter" {...field} />
-                    <Button
-                      variant="outline"
-                      onClick={async () => await coverLetterJob()}
-                      type="button"
-                      disabled={coverLetterLoading}
-                    >
-                      {coverLetterLoading ? (
-                        <ClipLoader color="blue" />
-                      ) : (
-                        "Generate By Ai"
-                      )}
-                    </Button>
+                    <>
+                      <Textarea
+                        className="max-h-10"
+                        placeholder="Cover Letter"
+                        {...field}
+                      />
+                      <Button
+                        variant="outline"
+                        onClick={async () => await coverLetterJob()}
+                        type="button"
+                        disabled={coverLetterLoading}
+                      >
+                        {coverLetterLoading ? (
+                          <ClipLoader color="blue" />
+                        ) : (
+                          "Generate By Ai"
+                        )}
+                      </Button>
+                    </>
                   </FormControl>
-                  <FormDescription>This is your public email</FormDescription>
+                  <FormDescription>
+                    Add a cover letter to strengthen your application
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -171,8 +180,8 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
             </div>
           </form>
         </Form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

@@ -20,7 +20,13 @@ import { ApplicationsTypes, JobTypes } from "@/types";
 
 import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 
-import { formatDate, getSkillsData, getTime } from "@/lib/utils";
+import {
+  findIndustriesData,
+  findLocationData,
+  formatDate,
+  getSkillsData,
+  getTime,
+} from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 type JobDetailsInfoProps = {
@@ -32,14 +38,15 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();
 
   const expirationDate = formatDate(job?.expiration_date);
-  const createdTime = getTime(job?.expiration_date);
+  const createdTime = getTime(job?.createdAt);
   const categorizedSkills = getSkillsData(job?.skills);
+  console.log(categorizedSkills);
 
   const CompanyInformationsData = new Array(
     {
       id: "1",
       icon: <MapPinIcon color="gray" />,
-      data: job?.company.address || job?.location,
+      data: job?.company.address || findLocationData(job?.location),
     },
     {
       id: "2",
@@ -101,43 +108,45 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
     <div className="flex flex-col gap-3">
       <Navigator info="Jobs" href={"/"} title={job?.title} />
       <Card>
-        <CardHeader className="flex justify-between gap-6 max-md:flex-col">
-          <div className="flex gap-3 items-center">
-            <div>
-              <Image
-                src={job?.company.image}
-                alt={job?.company.name}
-                width={100}
-                height={100}
-                className="h-auto w-auto object-cover"
-              />
-            </div>
-            <div className="flex flex-col gap-3">
+        <CardHeader>
+          <div className="flex justify-between gap-6 max-md:flex-col">
+            <div className="flex gap-3 items-center">
               <div>
-                <h3 className="text-initial-black">{job?.company.name}</h3>
+                <Image
+                  src={job?.company.image}
+                  alt={job?.company.name}
+                  width={100}
+                  height={100}
+                  className="h-auto w-auto object-cover"
+                />
               </div>
-              {renderIconText({
-                id: "3",
-                icon: <Building color="gray" />,
-                data: job?.company.industry,
-              })}
-              <div className="flex items-center gap-3">
-                {CompanyInformationsData.map((data) => renderIconText(data))}
+              <div className="flex flex-col gap-3">
+                <div>
+                  <h3 className="text-initial-black">{job?.company.name}</h3>
+                </div>
+                {renderIconText({
+                  id: "3",
+                  icon: <Building color="gray" />,
+                  data: findIndustriesData(job?.company.industry),
+                })}
+                <div className="flex items-center gap-3">
+                  {CompanyInformationsData.map((data) => renderIconText(data))}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex gap-3">
-            <div className="basis-full">
-              <Button
-                className="w-full px-6"
-                variant={isAppliedJob ? "outline" : "default"}
-                onClick={onApplyJob}
-                disabled={isAppliedJob !== undefined}
-              >
-                {isAppliedJob ? "Already Applied Job" : "Apply to Job"}
-              </Button>
+            <div className="flex gap-3">
+              <div className="basis-full">
+                <Button
+                  className="w-full px-6"
+                  variant={isAppliedJob ? "outline" : "default"}
+                  onClick={onApplyJob}
+                  disabled={isAppliedJob !== undefined}
+                >
+                  {isAppliedJob ? "Already Applied Job" : "Apply to Job"}
+                </Button>
+              </div>
+              <SaveJobButton jobId={job?._id} />
             </div>
-            <SaveJobButton jobId={job?._id} />
           </div>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
@@ -178,9 +187,9 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
                       </div>
                       <div className="flex flex-wrap gap-3">
                         {skills.map((skill, index) => (
-                          <div key={index} className="tag">
+                          <Button variant="outline" key={index}>
                             {skill}
-                          </div>
+                          </Button>
                         ))}
                       </div>
                     </div>
