@@ -7,6 +7,7 @@ import { useMutation } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import zod from "zod";
 import { ClipLoader } from "react-spinners";
+import { useToast } from "@/components/ui/use-toast";
 
 import { SeekerRegistrationSchemas } from "@/lib/zod/auth";
 import { signupSeeker } from "@/lib/actions/auth.actions";
@@ -29,7 +30,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 
 type SeekersSignupFormTypes = {
   handleTypeSelection: (type: TypeOfAccount) => void;

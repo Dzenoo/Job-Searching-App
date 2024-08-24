@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Calendar, Trash } from "lucide-react";
 
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 
 import useAuthentication from "@/hooks/useAuthentication";
 
@@ -29,15 +29,16 @@ const EducationItem: React.FC<EducationItemProps> = ({
   graduationDate,
   institution,
 }) => {
+  const { toast } = useToast();
   const { userType, token } = useAuthentication().getCookieHandler();
   const { mutateAsync: deleteEducationMutate } = useMutation({
     mutationFn: () => deleteEducation(_id, token!),
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast({ title: "Success", description: response.message });
       queryClient.invalidateQueries(["profile"]);
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 

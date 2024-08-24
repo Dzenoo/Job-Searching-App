@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import zod from "zod";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
 import useAuthentication from "@/hooks/useAuthentication";
@@ -40,6 +40,7 @@ type ReviewCompanyFormProps = {
 const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   employerId,
 }) => {
+  const { toast } = useToast();
   const router = useRouter();
   const { token } = useAuthentication().getCookieHandler();
   const form = useForm<zod.infer<typeof ReviewEmployersSchemas>>({
@@ -60,7 +61,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
       router.push(`/companies/${employerId}?typeEmp=reviews`);
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 

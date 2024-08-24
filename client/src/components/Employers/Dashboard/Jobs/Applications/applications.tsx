@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Github, ImageIcon, Linkedin } from "lucide-react";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 
 import { updateApplicationStatus } from "@/lib/actions/jobs.actions";
 import { formatDate, getImageUrl } from "@/lib/utils";
@@ -51,6 +51,7 @@ const StatusBadge = ({
   isOpen: boolean;
   toggleStatus: () => void;
 }) => {
+  const { toast } = useToast();
   const statusBarRef = useRef(null);
 
   const { token } = useAuthentication().getCookieHandler();
@@ -62,7 +63,7 @@ const StatusBadge = ({
       queryClient.invalidateQueries(["applications"]);
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 

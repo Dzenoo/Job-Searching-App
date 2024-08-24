@@ -4,8 +4,7 @@ import dynamic from "next/dynamic";
 import { QueryContextProvider } from "@/context/react-query-client";
 import AppThemeProvider from "@/context/app-theme-provider";
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "@/components/ui/toaster";
 
 import { Libre_Franklin } from "next/font/google";
 
@@ -40,7 +39,7 @@ export default function RootLayout({
               <main className="flex-1 base-margin">{children}</main>
               <Footer />
             </div>
-            <ToastContainer />
+            <Toaster />
             <MobileBar />
           </AppThemeProvider>
         </body>

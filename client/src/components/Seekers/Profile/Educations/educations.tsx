@@ -2,12 +2,12 @@ import React, { Fragment, useState } from "react";
 
 import { CalendarIcon, Plus } from "lucide-react";
 import { ClipLoader } from "react-spinners";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
+import { useToast } from "@/components/ui/use-toast";
 
 import { EditableEducationsSchemas } from "@/lib/zod/seekers";
 import { addNewEducation } from "@/lib/actions/seekers.actions";
@@ -49,6 +49,7 @@ type AddEducationsDialogProps = {
 const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   closeDialog,
 }) => {
+  const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
   const form = useForm<zod.infer<typeof EditableEducationsSchemas>>({
     resolver: zodResolver(EditableEducationsSchemas),
@@ -63,12 +64,15 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
   const { mutateAsync: addNewEducationMutate } = useMutation({
     mutationFn: (formData: any) => addNewEducation(formData, token!),
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast({ title: "Success", description: response.message });
       queryClient.invalidateQueries(["profile"]);
       closeDialog();
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "An error occurred");
+      toast({
+        title: "Error",
+        description: error?.response?.data?.message || "An error occurred",
+      });
     },
   });
 

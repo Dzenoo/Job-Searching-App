@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import zod from "zod";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 import { ClipLoader } from "react-spinners";
 
 import { queryClient } from "@/context/react-query-client";
@@ -35,6 +35,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
   jobId,
   token,
 }) => {
+  const { toast } = useToast();
   const { getInputProps, getRootProps, selectedFile } = useUploads({
     accept: {
       "application/pdf": [".pdf"],
@@ -53,13 +54,13 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
     mutationFn: (formData: FormData) => applyToJob(jobId, token, formData),
     onSuccess: () => {
       form.reset();
-      toast.success("Successfully Applied to Job");
+      toast({ title: "Success", description: "Successfully Applied to Job" });
       queryClient.invalidateQueries(["job", { jobId }]);
       queryClient.invalidateQueries(["profile"]);
       queryClient.invalidateQueries(["jobs"]);
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
+      toast({ title: "Error", description: error.response.data.message });
     },
   });
 
@@ -70,13 +71,14 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
         form.setValue("coverLetter", response.cover_letter);
       },
       onError: (error: any) => {
-        toast.error(error.response.data.message);
+        toast({ title: "Error", description: error.response.data.message });
       },
     });
 
   const onSubmit = async (values: zod.infer<typeof ApplyToJobSchemas>) => {
     if (!selectedFile) {
-      toast.error("Please select a resume file");
+      toast({ title: "Error", description: "Please select a resume file" });
+
       return;
     }
 

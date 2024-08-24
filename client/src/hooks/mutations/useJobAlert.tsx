@@ -1,10 +1,11 @@
 import { generateJobAlert } from "@/lib/actions/seekers.actions";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import useAuthentication from "../useAuthentication";
 import { queryClient } from "@/context/react-query-client";
+import { useToast } from "@/components/ui/use-toast";
 
 const useJobAlert = () => {
+  const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
 
   return useMutation({
@@ -12,10 +13,10 @@ const useJobAlert = () => {
       generateJobAlert(formData, token!),
     onSuccess: (response) => {
       queryClient.invalidateQueries(["profile"]);
-      toast.success(response.message);
+      toast({ title: "Success", description: response.message });
     },
     onError: (error: any) => {
-      toast.error(error?.data?.response?.message);
+      toast({ title: "Error", description: error?.data?.response?.message });
     },
   });
 };

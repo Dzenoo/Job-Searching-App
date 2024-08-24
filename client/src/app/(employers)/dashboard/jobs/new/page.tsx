@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ClipLoader } from "react-spinners";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 import zod from "zod";
 
 import useAuthentication from "@/hooks/useAuthentication";
@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
 const NewJobPage = () => {
+  const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
   const form = useForm<zod.infer<typeof NewJobSchemas>>({
     defaultValues: {
@@ -45,10 +46,10 @@ const NewJobPage = () => {
     mutationFn: (formData: any) => createNewJob(token!, formData),
     onSuccess: (response) => {
       queryClient.invalidateQueries(["jobs"]);
-      toast.success(response.message);
+      toast({ title: "Success", description: response.message });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 

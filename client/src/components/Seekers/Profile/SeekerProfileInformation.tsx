@@ -2,7 +2,7 @@ import React, { FormEvent, Fragment, useState } from "react";
 import Image from "next/image";
 
 import { ImagePlusIcon, Trash } from "lucide-react";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "react-query";
 
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
@@ -37,12 +37,13 @@ const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
   token,
   closeDialog,
 }) => {
+  const { toast } = useToast();
   const { deleteCookieHandler } = useAuthentication();
   const { mutateAsync: deleteSeekerProfileMutate } = useMutation({
     mutationFn: () => deleteSeekerProfile(token),
     onSuccess: () => {},
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 
@@ -89,6 +90,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
   seeker,
   token,
 }) => {
+  const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { getInputProps, getRootProps, selectedFile, restart } = useUploads({
@@ -104,7 +106,7 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
     e.preventDefault();
 
     if (!selectedFile) {
-      toast.error("Please Select Image");
+      toast({ title: "Error", description: "Please Select Image" });
       return;
     }
 

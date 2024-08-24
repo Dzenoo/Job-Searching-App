@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
 import { ClipLoader } from "react-spinners";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 
 import { Button } from "@/components/ui/button";
 import { queryClient } from "@/context/react-query-client";
@@ -20,15 +20,16 @@ const RegisterEvents: React.FC<RegisterEventsProps> = ({
   token,
   closeDialog,
 }) => {
+  const { toast } = useToast();
   const { data: fetchedSeekerProfile } = useGetSeeker();
   const { mutateAsync: registerForEventMutate, isLoading } = useMutation({
     mutationFn: () => registerForEvent(eventId, token),
     onSuccess: (response) => {
-      toast.success(response.message);
+      toast({ title: "Success", description: response.message });
       queryClient.invalidateQueries(["profile"]);
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
+      toast({ title: "Error", description: error.response.data.message });
     },
   });
 

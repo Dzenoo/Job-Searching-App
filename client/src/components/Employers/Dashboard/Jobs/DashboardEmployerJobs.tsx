@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 import { ClipLoader } from "react-spinners";
 
 import { Edit, Eye, Trash } from "lucide-react";
@@ -35,6 +35,7 @@ const DeleteJobDialog: React.FC<{
   onCloseDialog: (dialogIds: string) => void;
   ids: string;
 }> = ({ onCloseDialog, ids }) => {
+  const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
   const { mutateAsync: deleteJobMutate, isLoading } = useMutation({
     mutationFn: () => deleteJob(token as string, ids),
@@ -42,7 +43,7 @@ const DeleteJobDialog: React.FC<{
       queryClient.invalidateQueries(["jobs"]);
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 

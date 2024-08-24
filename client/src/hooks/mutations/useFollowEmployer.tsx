@@ -1,10 +1,11 @@
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import useAuthentication from "../useAuthentication";
 import { queryClient } from "@/context/react-query-client";
 import { followEmployer } from "@/lib/actions/seekers.actions";
+import { useToast } from "@/components/ui/use-toast";
 
 const useFollowEmployer = (employerId: string) => {
+  const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
 
   return useMutation({
@@ -12,10 +13,10 @@ const useFollowEmployer = (employerId: string) => {
     mutationKey: ["profile", "company", "companies"],
     onSuccess: (response) => {
       queryClient.invalidateQueries(["profile", "company", "companies"]);
-      toast.success(response.message);
+      toast({ title: "Success", description: response.message });
     },
     onError: (error: any) => {
-      toast.error(error.response.data.message);
+      toast({ title: "Error", description: error.response.data.message });
     },
   });
 };

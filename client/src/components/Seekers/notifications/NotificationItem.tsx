@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Calendar } from "lucide-react";
 
 import { useMutation } from "react-query";
-import { toast } from "react-toastify";
+import { useToast } from "@/components/ui/use-toast";
 
 import { queryClient } from "@/context/react-query-client";
 
@@ -26,6 +26,7 @@ type NotificationsItemProps = {
 const NotificationsItem: React.FC<NotificationsItemProps> = ({
   notification,
 }) => {
+  const { toast } = useToast();
   const { token } = useAuthentication().getCookieHandler();
   const { mutateAsync: readNotificationsMutate } = useMutation({
     mutationFn: () => readNotificationsData(token!, notification?._id),
@@ -33,7 +34,7 @@ const NotificationsItem: React.FC<NotificationsItemProps> = ({
       queryClient.invalidateQueries(["profile"]);
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+      toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
 
