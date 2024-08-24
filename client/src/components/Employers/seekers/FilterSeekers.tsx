@@ -1,7 +1,6 @@
 import React from "react";
 import { ListFilter } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
 import FilterHandler from "@/components/shared/FilterHandler";
 
 import { SkillsInformationsData } from "@/constants";
@@ -17,19 +16,15 @@ const FilterSeekers: React.FC = () => {
           <ListFilter />
         </div>
       </div>
-      <Card>
-        <CardContent>
-          <div className="flex flex-col gap-10">
-            {SkillsInformationsData.map((filters) => (
-              <FilterHandler
-                key={filters.id}
-                title={filters.category}
-                checkboxes={filters.data}
-              />
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex flex-col gap-10">
+        {SkillsInformationsData.map((filters) => (
+          <FilterHandler
+            key={filters.id}
+            title={filters.category}
+            checkboxes={filters.data}
+          />
+        ))}
+      </div>
     </div>
   );
 };

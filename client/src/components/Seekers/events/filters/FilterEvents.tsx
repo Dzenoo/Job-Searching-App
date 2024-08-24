@@ -2,7 +2,6 @@ import React from "react";
 
 import { ListFilter } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
 import FilterHandler from "@/components/shared/FilterHandler";
 
 import { EventsFiltersData } from "@/constants";
@@ -18,17 +17,13 @@ const FilterEvents: React.FC = () => {
           <ListFilter />
         </div>
       </div>
-      <Card>
-        <CardContent>
-          {EventsFiltersData.map((filters) => (
-            <FilterHandler
-              key={filters.id}
-              title={filters.title}
-              checkboxes={filters.data}
-            />
-          ))}
-        </CardContent>
-      </Card>
+      {EventsFiltersData.map((filters) => (
+        <FilterHandler
+          key={filters.id}
+          title={filters.title}
+          checkboxes={filters.data}
+        />
+      ))}
     </div>
   );
 };

@@ -4,7 +4,6 @@ import React from "react";
 
 import { ListFilter } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
 import FilterHandler from "@/components/shared/FilterHandler";
 
 import { JobsFiltersData } from "@/constants";
@@ -20,17 +19,13 @@ const FilterJobs: React.FC = () => {
           <ListFilter />
         </div>
       </div>
-      <Card>
-        <CardContent>
-          {JobsFiltersData.map((filterGroup) => (
-            <FilterHandler
-              key={filterGroup.id}
-              title={filterGroup.title}
-              checkboxes={filterGroup.data}
-            />
-          ))}
-        </CardContent>
-      </Card>
+      {JobsFiltersData.map((filterGroup) => (
+        <FilterHandler
+          key={filterGroup.id}
+          title={filterGroup.title}
+          checkboxes={filterGroup.data}
+        />
+      ))}
     </div>
   );
 };
