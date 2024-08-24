@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import { SeekersSkillsSchemas } from "@/lib/zod/seekers";
-import { getSkillsData } from "@/lib/utils";
+import { getSkillsData, multiselectSkills } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import MultiSelect from "@/components/ui/multiselect";
@@ -63,12 +63,7 @@ const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills = [] }) => {
                 <FormLabel>Skills</FormLabel>
                 <FormControl>
                   <MultiSelect
-                    options={[
-                      { label: "React.js", value: "React.js" },
-                      { label: "Node.js", value: "Node.js" },
-                      { label: "Express.js", value: "Express.js" },
-                      { label: "MongoDB", value: "MongoDB" },
-                    ]}
+                    options={multiselectSkills}
                     selectedValues={field.value}
                     onChange={(selectedValues) => {
                       form.setValue("skills", selectedValues);

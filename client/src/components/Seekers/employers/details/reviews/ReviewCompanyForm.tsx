@@ -32,6 +32,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SkillsInformationsData } from "@/constants";
+import { multiselectSkills } from "@/lib/utils";
 
 type ReviewCompanyFormProps = {
   employerId: string;
@@ -196,12 +198,7 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
                   <FormLabel>Technologies</FormLabel>
                   <FormControl>
                     <MultiSelect
-                      options={[
-                        { label: "React.js", value: "React.js" },
-                        { label: "Node.js", value: "Node.js" },
-                        { label: "Express.js", value: "Express.js" },
-                        { label: "MongoDB", value: "MongoDB" },
-                      ]}
+                      options={multiselectSkills}
                       selectedValues={field.value || []}
                       onChange={field.onChange}
                     />

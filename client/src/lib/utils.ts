@@ -87,6 +87,13 @@ export const getSkillsData = (
   return categorizedSkills;
 };
 
+export const multiselectSkills = SkillsInformationsData.flatMap((category) =>
+  category.data.map((data) => ({
+    label: data.title,
+    value: data.value,
+  }))
+);
+
 /**
  * Finds the location label based on the selected value.
  * @param selectedValue - The value of the selected location.

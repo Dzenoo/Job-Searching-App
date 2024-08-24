@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
 import MultiSelect from "@/components/ui/multiselect";
+import { SkillsInformationsData } from "@/constants";
+import { multiselectSkills } from "@/lib/utils";
 
 type SkillsProps = {
   control: Control<any>;
@@ -28,12 +30,7 @@ const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
             <FormLabel>Select Relevant Skills</FormLabel>
             <FormControl>
               <MultiSelect
-                options={[
-                  { label: "React.js", value: "React.js" },
-                  { label: "Node.js", value: "Node.js" },
-                  { label: "Express.js", value: "Express.js" },
-                  { label: "MongoDB", value: "MongoDB" },
-                ]}
+                options={multiselectSkills}
                 selectedValues={field.value || []}
                 onChange={field.onChange}
               />
