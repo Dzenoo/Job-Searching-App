@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
 import MultiSelect from "@/components/ui/multiselect";
-import { SkillsInformationsData } from "@/constants";
 import { multiselectSkills } from "@/lib/utils";
 
 type SkillsProps = {
@@ -32,7 +31,7 @@ const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
               <MultiSelect
                 options={multiselectSkills}
                 selectedValues={field.value || []}
-                onChange={field.onChange}
+                onChange={(selectedValues) => onSelectSkills(selectedValues)}
               />
             </FormControl>
             <div className="flex flex-wrap gap-2 mt-2">
@@ -43,7 +42,10 @@ const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
               ))}
             </div>
             <FormDescription>
-              Select multiple skills that are relevant to the job.
+              Choose multiple skills that are essential for this job. Each skill
+              should be clearly defined and relevant to the role. You can select
+              as many skills as needed, but ensure each is between 1 to 16
+              characters long.
             </FormDescription>
             <FormMessage />
           </FormItem>

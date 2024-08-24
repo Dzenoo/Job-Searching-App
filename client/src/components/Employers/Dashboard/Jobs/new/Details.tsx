@@ -20,6 +20,7 @@ import {
   SelectItem,
   SelectLabel,
 } from "@/components/ui/select";
+import { locations } from "@/constants";
 
 type DetailsProps = {
   control: Control<any>;
@@ -37,7 +38,10 @@ const Details: React.FC<DetailsProps> = ({ control }) => {
             <FormControl>
               <Input placeholder="Senior Software Engineer" {...field} />
             </FormControl>
-            <FormDescription>Ensure your job title is concise</FormDescription>
+            <FormDescription>
+              Ensure your job title is concise, descriptive, and between 3 to 30
+              characters long. This helps attract the right candidates.
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -49,9 +53,16 @@ const Details: React.FC<DetailsProps> = ({ control }) => {
           <FormItem>
             <FormLabel>Write a brief overview about this job</FormLabel>
             <FormControl>
-              <Textarea placeholder="" {...field} />
+              <Textarea
+                placeholder="Provide a summary of the job responsibilities, required qualifications, and what makes this role unique."
+                {...field}
+              />
             </FormControl>
-            <FormDescription>Provide a brief overview</FormDescription>
+            <FormDescription>
+              Provide a concise overview of 30 to 300 characters that gives
+              potential applicants a snapshot of the role. This is your
+              opportunity to spark interest.
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -61,7 +72,7 @@ const Details: React.FC<DetailsProps> = ({ control }) => {
         name="location"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Write a location for your job post</FormLabel>
+            <FormLabel>Select the location for your job post</FormLabel>
             <FormControl>
               <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger>
@@ -70,19 +81,20 @@ const Details: React.FC<DetailsProps> = ({ control }) => {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Locations</SelectLabel>
-                    <SelectItem value="aus">Australia</SelectItem>
-                    <SelectItem value="eng">England</SelectItem>
-                    <SelectItem value="tur">Turkiye</SelectItem>
-                    <SelectItem value="ger">Germany</SelectItem>
-                    <SelectItem value="spa">Spain</SelectItem>
-                    <SelectItem value="fra">France</SelectItem>
+                    {locations.map((location) => (
+                      <SelectItem key={location.value} value={location.value}>
+                        {location.label}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </FormControl>
             <FormDescription>
-              A clear location enhances the visibility of your job post in
-              search results.
+              Choose a location that accurately reflects where the job is based.
+              This should be a location between 3 to 30 characters long, and it
+              helps in filtering and matching with candidates looking in
+              specific areas.
             </FormDescription>
             <FormMessage />
           </FormItem>

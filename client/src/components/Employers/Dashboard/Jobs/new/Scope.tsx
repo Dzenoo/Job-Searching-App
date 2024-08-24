@@ -67,22 +67,25 @@ const Scope: React.FC<ScopeProps> = ({ control }) => {
     {
       value: "Full-Time",
       title: "Full-Time",
-      description: "Full-Time position",
+      description: "Standard full-time position with regular working hours.",
     },
     {
       value: "Internship",
       title: "Internship",
-      description: "Position for students and graduates to gain experience",
+      description:
+        "Position designed for students and recent graduates to gain hands-on experience.",
     },
     {
       value: "Part-Time",
       title: "Part-Time",
-      description: "Position with reduced hours",
+      description:
+        "Position with reduced working hours, typically less than 40 hours per week.",
     },
     {
       value: "Freelance",
       title: "Freelance",
-      description: "Contract-based position where the worker is self-employed.",
+      description:
+        "Contract-based position where the worker is self-employed, often on a project basis.",
     },
   ];
 
@@ -125,7 +128,7 @@ const Scope: React.FC<ScopeProps> = ({ control }) => {
         name="position"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Specify the job position</FormLabel>
+            <FormLabel>Specify the job location type</FormLabel>
             <FormControl>
               <RadioGroup
                 onValueChange={field.onChange}
@@ -155,7 +158,7 @@ const Scope: React.FC<ScopeProps> = ({ control }) => {
         name="type"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Specify the desired type for this job</FormLabel>
+            <FormLabel>Specify the employment type for this job</FormLabel>
             <FormControl>
               <RadioGroup
                 onValueChange={field.onChange}

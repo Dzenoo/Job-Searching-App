@@ -33,7 +33,7 @@ const NewJobPage = () => {
       overview: "",
       location: "",
       description: "",
-      expiration_date: "",
+      expiration_date: new Date(),
       salary: 0,
       skills: [],
       position: "Hybrid",
@@ -52,7 +52,7 @@ const NewJobPage = () => {
       toast({ title: "Error", description: error?.response?.data?.message });
     },
   });
-
+  console.log(form.getValues());
   const [currentJobForm, setCurrentJobForm] = useState<number>(0);
 
   function hadleFormNext(): void {
@@ -118,7 +118,10 @@ const NewJobPage = () => {
         <div className="basis-1/2 flex flex-col gap-10 justify-between">
           <div>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(addNewJob)} className="p-0">
+              <form
+                onSubmit={form.handleSubmit(addNewJob)}
+                className="space-y-5"
+              >
                 {renderCurrentStep()}
                 {stepDetails.length - 1 === currentJobForm && (
                   <div className="flex gap-3 justify-end">

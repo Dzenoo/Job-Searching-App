@@ -7,41 +7,54 @@ export const ApplyToJobSchemas = zod.object({
 export const NewJobSchemas = zod.object({
   title: zod
     .string()
-    .min(3, "Title must be at least 3 characters long")
-    .max(30, "Title must not exceed 30 characters")
+    .min(3, "Title should have at least 3 characters.")
+    .max(30, "Title can be up to 30 characters long.")
     .trim(),
-  position: zod.enum(["Remote", "On-Site", "Hybrid"]),
+  position: zod.enum(["Remote", "On-Site", "Hybrid"], {
+    errorMap: () => ({
+      message: "Position must be either 'Remote', 'On-Site', or 'Hybrid'.",
+    }),
+  }),
   location: zod
     .string()
-    .min(3, "Location must be at least 3 characters long")
-    .max(30, "Location must not exceed 30 characters")
+    .min(3, "Location should have at least 3 characters.")
+    .max(30, "Location can be up to 30 characters long.")
     .trim(),
   overview: zod
     .string()
-    .min(30, "Overview must be at least 30 characters long")
-    .max(300, "Overview must not exceed 300 characters")
+    .min(
+      30,
+      "Overview should have at least 30 characters to provide sufficient detail."
+    )
+    .max(300, "Overview can be up to 300 characters long.")
     .trim(),
-  type: zod.enum(["Internship", "Full-Time", "Part-Time", "Freelance"]),
+  type: zod.enum(["Internship", "Full-Time", "Part-Time", "Freelance"], {
+    errorMap: () => ({
+      message:
+        "Job type must be 'Internship', 'Full-Time', 'Part-Time', or 'Freelance'.",
+    }),
+  }),
   skills: zod.array(
     zod
       .string()
-      .min(1, "Skills must be at least 1 character long")
-      .max(16, "Skills must not exceed 16 characters")
+      .min(1, "Each skill must have at least 1 character.")
+      .max(16, "Each skill can be up to 16 characters long.")
       .trim()
   ),
-  level: zod.enum(["Junior", "Medior", "Senior", "Lead"]),
+  level: zod.enum(["Junior", "Medior", "Senior", "Lead"], {
+    errorMap: () => ({
+      message: "Level must be 'Junior', 'Medior', 'Senior', or 'Lead'.",
+    }),
+  }),
   salary: zod
     .number()
-    .min(30000, "Salary must be at least $30,000")
-    .nonnegative(),
-  expiration_date: zod
-    .string()
-    .refine(
-      (val) => zod.date().safeParse(new Date(val)).success,
-      "Expiration date must be a valid date"
-    ),
+    .min(30000, "Salary should be at least $30,000.")
+    .nonnegative("Salary must be a positive number."),
+  expiration_date: zod.date({
+    errorMap: () => ({ message: "Please provide a valid expiration date." }),
+  }),
   description: zod
     .string()
-    .min(30, "Description must be at least 30 characters long")
-    .max(600, "Description must not exceed 600 characters"),
+    .min(30, "Description should be detailed, with at least 30 characters.")
+    .max(600, "Description can be up to 600 characters long."),
 });
