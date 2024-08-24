@@ -26,7 +26,7 @@ const FilterJobs: React.FC = () => {
             <FilterHandler
               key={filterGroup.id}
               title={filterGroup.title}
-              checkboxes={filterGroup.checkboxes}
+              checkboxes={filterGroup.data}
             />
           ))}
         </CardContent>

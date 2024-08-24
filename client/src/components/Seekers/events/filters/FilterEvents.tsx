@@ -24,7 +24,7 @@ const FilterEvents: React.FC = () => {
             <FilterHandler
               key={filters.id}
               title={filters.title}
-              checkboxes={filters.checkboxes}
+              checkboxes={filters.data}
             />
           ))}
         </CardContent>
