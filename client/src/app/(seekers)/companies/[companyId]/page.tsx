@@ -17,13 +17,11 @@ import EmployerDetailsInfo from "@/components/seekers/employers/details/Employer
 import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilters";
 import RegisterEvents from "@/components/seekers/events/RegisterEvents";
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import {
   Pagination,
@@ -119,23 +117,20 @@ const CompanyDetails = ({
               events={fetchedCompany?.employer.events || []}
               onRegisterEvent={openDialog}
             />
-            <Dialog open={isDialogOpen}>
-              <DialogHeader>
-                <DialogTitle>Register for Event</DialogTitle>
-              </DialogHeader>
-              <DialogContent>
-                <RegisterEvents
-                  eventId={searchParams?.evt}
-                  token={token!}
-                  closeDialog={closeDialog}
-                />
-              </DialogContent>
-              <DialogFooter>
-                <Button variant="default" onClick={closeDialog}>
-                  Close
-                </Button>
-              </DialogFooter>
-            </Dialog>
+            {fetchedCompany?.employer.events.length! > 0 && (
+              <Dialog open={isDialogOpen}>
+                <DialogHeader>
+                  <DialogTitle>Register for Event</DialogTitle>
+                </DialogHeader>
+                <DialogContent>
+                  <RegisterEvents
+                    eventId={searchParams?.evt}
+                    token={token!}
+                    closeDialog={closeDialog}
+                  />
+                </DialogContent>
+              </Dialog>
+            )}
           </>
         )}
         {searchParamsReviews && (
@@ -147,18 +142,16 @@ const CompanyDetails = ({
               <PaginationItem>
                 {currentPage > 1 ? (
                   <PaginationPrevious
-                    href="#"
                     onClick={() => handlePageChange(currentPage - 1)}
                   />
                 ) : (
-                  <PaginationPrevious href="#" isActive={false} />
+                  <PaginationPrevious isActive={false} />
                 )}
               </PaginationItem>
 
               {[...Array(totalPages)].map((_, index) => (
                 <PaginationItem key={index}>
                   <PaginationLink
-                    href="#"
                     isActive={currentPage === index + 1}
                     onClick={() => handlePageChange(index + 1)}
                   >
@@ -176,11 +169,10 @@ const CompanyDetails = ({
               <PaginationItem>
                 {currentPage < totalPages ? (
                   <PaginationNext
-                    href="#"
                     onClick={() => handlePageChange(currentPage + 1)}
                   />
                 ) : (
-                  <PaginationNext href="#" isActive={false} />
+                  <PaginationNext isActive={false} />
                 )}
               </PaginationItem>
             </PaginationContent>

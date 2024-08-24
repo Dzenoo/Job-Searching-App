@@ -14,7 +14,7 @@ import { reviewEmployer } from "@/lib/actions/reviews.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import MultiSelect from "@/components/ui/multiselect";
 import {
   Form,
@@ -70,18 +70,10 @@ const ReviewCompanyForm: React.FC<ReviewCompanyFormProps> = ({
   };
 
   return (
-    <Card className="flex flex-col gap-7 py-6 lg:w-[430px]">
-      <CardHeader>
-        <div className="flex items-center justify-center gap-3 flex-col">
-          <h1 className="text-base-black">Review Employer</h1>
-          <p className="text-low-gray">
-            Provide detailed feedback on your experience with the employer.
-          </p>
-        </div>
-      </CardHeader>
+    <Card className="flex flex-col gap-7 py-6 ">
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
               control={form.control}
               name="type"

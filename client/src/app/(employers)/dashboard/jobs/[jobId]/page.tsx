@@ -85,18 +85,16 @@ const JobApplicationsPage = ({
               <PaginationItem>
                 {currentPage > 1 ? (
                   <PaginationPrevious
-                    href="#"
                     onClick={() => handlePageChange(currentPage - 1)}
                   />
                 ) : (
-                  <PaginationPrevious href="#" isActive={false} />
+                  <PaginationPrevious isActive={false} />
                 )}
               </PaginationItem>
 
               {[...Array(totalPages)].map((_, index) => (
                 <PaginationItem key={index}>
                   <PaginationLink
-                    href="#"
                     isActive={currentPage === index + 1}
                     onClick={() => handlePageChange(index + 1)}
                   >
@@ -114,11 +112,10 @@ const JobApplicationsPage = ({
               <PaginationItem>
                 {currentPage < totalPages ? (
                   <PaginationNext
-                    href="#"
                     onClick={() => handlePageChange(currentPage + 1)}
                   />
                 ) : (
-                  <PaginationNext href="#" isActive={false} />
+                  <PaginationNext isActive={false} />
                 )}
               </PaginationItem>
             </PaginationContent>

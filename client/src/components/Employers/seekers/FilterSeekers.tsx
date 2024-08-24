@@ -18,7 +18,7 @@ const FilterSeekers: React.FC = () => {
         </div>
       </div>
       <Card>
-        <CardContent className="pt-5">
+        <CardContent>
           <div className="flex flex-col gap-10">
             {SeekersFiltersData.map((filters) => (
               <FilterHandler

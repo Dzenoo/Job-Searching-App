@@ -66,7 +66,7 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
         </div>
       </CardContent>
       <CardFooter className="border-t border-gray-100 pt-6 dark:border-[#0d0d0d]">
-        <div className="gap-6 flex items-center justify-between flex-wrap">
+        <div className="w-full gap-6 flex items-center justify-between flex-wrap">
           {FooterEmployerData.map((data) => renderIconText(data))}
         </div>
       </CardFooter>

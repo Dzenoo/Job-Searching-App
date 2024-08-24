@@ -54,7 +54,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
     <div className="flex flex-col gap-6">
       <Navigator info="Employers" href={"/companies"} title={employer?.name} />
       <Card>
-        <div className="flex gap-3 overflow-auto justify-between max-lg:flex-wrap">
+        <div className="flex overflow-auto justify-between max-lg:flex-wrap">
           <div className="flex sm:items-center gap-3 max-sm:flex-col">
             <CardHeader>
               <div>
@@ -85,7 +85,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
               </div>
             </CardContent>
           </div>
-          <CardFooter className="flex flex-col justify-between gap-10 max-lg:basis-full">
+          <CardFooter className="pt-5 flex flex-col justify-between gap-10 max-lg:basis-full">
             <div className="flex items-center gap-6 flex-wrap justify-between">
               {FooterEmployerData.map((data) => renderIconText(data))}
             </div>

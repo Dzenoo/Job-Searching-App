@@ -21,7 +21,7 @@ const FilterJobs: React.FC = () => {
         </div>
       </div>
       <Card>
-        <CardContent className="pt-5">
+        <CardContent>
           {JobsFiltersData.map((filterGroup) => (
             <FilterHandler
               key={filterGroup.id}
