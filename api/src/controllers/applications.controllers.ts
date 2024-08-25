@@ -214,17 +214,17 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
       .limit(Number(limit))
       .exec();
 
-    // Check if any applications were found
-    if (!applications.length) {
-      return sendResponse(
-        {
-          message:
-            "No applications found for this job. Please check back later.",
-        },
-        404,
-        response
-      );
-    }
+    // // Check if any applications were found
+    // if (!applications.length) {
+    //   return sendResponse(
+    //     {
+    //       message:
+    //         "No applications found for this job. Please check back later.",
+    //     },
+    //     404,
+    //     response
+    //   );
+    // }
 
     // Calculate application statistics
     const totalApplications = await Application.countDocuments({ job: jobId });

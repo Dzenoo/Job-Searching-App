@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,6 +22,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const NameWithImage = ({ seeker }: { seeker: SeekerTypes }) => (
   <div className="flex items-center gap-3">
@@ -43,16 +50,11 @@ const NameWithImage = ({ seeker }: { seeker: SeekerTypes }) => (
 const StatusBadge = ({
   applicationId,
   status,
-  isOpen,
-  toggleStatus,
 }: {
   applicationId: string;
   status: "Pending" | "Interview" | "Accepted" | "Rejected";
-  isOpen: boolean;
-  toggleStatus: () => void;
 }) => {
   const { toast } = useToast();
-  const statusBarRef = useRef(null);
 
   const { token } = useAuthentication().getCookieHandler();
 
@@ -60,6 +62,7 @@ const StatusBadge = ({
     mutationFn: (status: string) =>
       updateApplicationStatus(applicationId, token!, status),
     onSuccess: () => {
+      window.location.reload;
       queryClient.invalidateQueries(["applications"]);
     },
     onError: (error: any) => {
@@ -79,73 +82,81 @@ const StatusBadge = ({
   };
 
   return (
-    <>
-      {isOpen && (
+    <Popover>
+      <PopoverTrigger asChild>
         <div
-          ref={statusBarRef}
-          className="bg-white rounded-lg p-3 absolute bottom-16 dark:bg-[#0d0d0d] border"
+          className={`rounded-full p-3 transition-colors cursor-pointer ${
+            statusClasses[status] || ""
+          }`}
         >
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => {
-                updateStatusApi("Pending");
-                toggleStatus();
-              }}
-              className={`p-1 rounded-lg overflow-x-auto ${statusClasses.Pending}`}
-            >
-              Pending
-            </button>
-            <button
-              onClick={() => {
-                updateStatusApi("Interview");
-                toggleStatus();
-              }}
-              className={`p-1 rounded-lg overflow-x-auto ${statusClasses.Interview}`}
-            >
-              Interview
-            </button>
-            <button
-              onClick={() => {
-                updateStatusApi("Accepted");
-                toggleStatus();
-              }}
-              className={`p-1 rounded-lg overflow-x-auto ${statusClasses.Accepted}`}
-            >
-              Accepted
-            </button>
-            <button
-              onClick={() => {
-                updateStatusApi("Rejected");
-                toggleStatus();
-              }}
-              className={`p-1 rounded-lg overflow-x-auto ${statusClasses.Rejected}`}
-            >
-              Rejected
-            </button>
-          </div>
+          {status}
         </div>
-      )}
-      <div
-        onClick={toggleStatus}
-        className={`rounded-full p-3 transition-colors cursor-pointer ${
-          statusClasses[status] || ""
-        }`}
-      >
-        {status}
-      </div>
-    </>
+      </PopoverTrigger>
+      <PopoverContent align="start">
+        <div className="flex flex-col gap-2">
+          <Button
+            variant="outline"
+            onClick={() => {
+              updateStatusApi("Pending");
+            }}
+            className={statusClasses.Pending}
+          >
+            Pending
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              updateStatusApi("Interview");
+            }}
+            className={statusClasses.Interview}
+          >
+            Interview
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              updateStatusApi("Accepted");
+            }}
+            className={statusClasses.Accepted}
+          >
+            Accepted
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              updateStatusApi("Rejected");
+            }}
+            className={statusClasses.Rejected}
+          >
+            Rejected
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 
 const SocialLinks = ({ seeker }: { seeker: SeekerTypes }) => (
   <div className="flex items-center gap-6">
-    <Link aria-label="Github" target="_blank" href={seeker.github}>
+    <Link
+      target="_blank"
+      rel="noopener noreferrer"
+      href={`https://${seeker.github}`}
+    >
       <Github />
     </Link>
-    <Link aria-label="LinkedIn" target="_blank" href={seeker.linkedin}>
+    <Link
+      target="_blank"
+      rel="noopener noreferrer"
+      href={`https://${seeker.linkedin}`}
+    >
       <Linkedin />
     </Link>
-    <Link aria-label="Portfolio" target="_blank" href={seeker.portfolio}>
+    <Link
+      target="_blank"
+      rel="noopener noreferrer"
+      href={`https://${seeker.portfolio}`}
+    >
       <ImageIcon />
     </Link>
   </div>
@@ -168,16 +179,6 @@ const Applications: React.FC<ApplicationsProps> = ({
         No Applications Found
       </div>
     );
-
-  const [openedStatusId, setOpenedStatusId] = useState<string | null>(null);
-
-  const toggleStatus = (applicationId: string) => {
-    if (openedStatusId === applicationId) {
-      setOpenedStatusId(null);
-    } else {
-      setOpenedStatusId(applicationId);
-    }
-  };
 
   return (
     <Table>
@@ -218,19 +219,24 @@ const Applications: React.FC<ApplicationsProps> = ({
             </TableCell>
             <TableCell>
               {app.cover_letter ? (
-                <button className="text-initial-blue">Read</button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="link" className="text-initial-blue">
+                      Read
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <h2 className="text-lg font-bold">Cover Letter</h2>
+                    <p className="mt-2">{app.cover_letter}</p>
+                  </DialogContent>
+                </Dialog>
               ) : (
                 "Cover Letter Unassigned"
               )}
             </TableCell>
             <TableCell>{formatDate(app.createdAt)}</TableCell>
             <TableCell>
-              <StatusBadge
-                applicationId={app._id}
-                status={app.status}
-                isOpen={openedStatusId === app._id}
-                toggleStatus={() => toggleStatus(app._id)}
-              />
+              <StatusBadge applicationId={app._id} status={app.status} />
             </TableCell>
             <TableCell>
               <SocialLinks seeker={app.seeker} />

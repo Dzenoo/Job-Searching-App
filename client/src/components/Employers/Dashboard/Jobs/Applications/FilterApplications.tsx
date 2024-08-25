@@ -1,6 +1,7 @@
 import React from "react";
 import useSearchParams from "@/hooks/useSearchParams";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type FilterApplicationsProps = {
   applicants: number;
@@ -23,15 +24,24 @@ const FilterApplications: React.FC<FilterApplicationsProps> = ({
     <Card>
       <CardContent>
         <div className="flex items-center gap-10">
-          <button onClick={() => updateApplicationsFilters("")}>
+          <Button
+            variant="outline"
+            onClick={() => updateApplicationsFilters("")}
+          >
             Seekers ({applicants})
-          </button>
-          <button onClick={() => updateApplicationsFilters("Pending")}>
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => updateApplicationsFilters("Pending")}
+          >
             Pending ({pending})
-          </button>
-          <button onClick={() => updateApplicationsFilters("Interview")}>
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => updateApplicationsFilters("Interview")}
+          >
             Interviews ({interviews})
-          </button>
+          </Button>
         </div>
       </CardContent>
     </Card>
