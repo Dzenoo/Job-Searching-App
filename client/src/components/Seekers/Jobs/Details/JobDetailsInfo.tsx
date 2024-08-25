@@ -40,7 +40,6 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.createdAt);
   const categorizedSkills = getSkillsData(job?.skills);
-  console.log(categorizedSkills);
 
   const CompanyInformationsData = new Array(
     {
@@ -142,7 +141,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
                   onClick={onApplyJob}
                   disabled={isAppliedJob !== undefined}
                 >
-                  {isAppliedJob ? "Already Applied Job" : "Apply to Job"}
+                  {isAppliedJob ? "Already Applied" : "Apply to Job"}
                 </Button>
               </div>
               <SaveJobButton jobId={job?._id} />

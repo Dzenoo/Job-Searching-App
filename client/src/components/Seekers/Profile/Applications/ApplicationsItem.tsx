@@ -19,7 +19,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import { formatDate } from "@/lib/utils";
+import { findIndustriesData, formatDate } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 import { ApplicationsTypes } from "@/types";
@@ -35,7 +35,7 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
     {
       id: "1",
       icon: <Building />,
-      data: application?.job.company.industry,
+      data: findIndustriesData(application?.job.company.industry),
     },
     {
       id: "2",

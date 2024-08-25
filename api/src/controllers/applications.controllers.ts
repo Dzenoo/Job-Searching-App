@@ -115,6 +115,8 @@ export const generateCoverLetter = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
+    console.log(error);
+
     // Send error response
     sendResponse(
       {

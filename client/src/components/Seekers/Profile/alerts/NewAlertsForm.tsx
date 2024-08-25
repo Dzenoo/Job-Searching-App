@@ -25,11 +25,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { JobAlertsSchemas } from "@/lib/zod/seekers";
 import { JobAlertsTypes } from "@/types";
 
 import useJobAlert from "@/hooks/mutations/useJobAlert";
+import { JobsFiltersData } from "@/constants";
 
 type NewAlertsFormProps = {
   closeDialog: () => void;
@@ -52,9 +60,9 @@ const NewAlertsForm: React.FC<NewAlertsFormProps> = ({
   const { mutateAsync: generateJobAlertMutate } = useJobAlert();
 
   useEffect(() => {
-    form.setValue("title", alerts.title || "");
-    form.setValue("level", alerts.level || "");
-    form.setValue("type", alerts.type || "");
+    form.setValue("title", alerts?.title || "");
+    form.setValue("level", alerts?.level || "");
+    form.setValue("type", alerts?.type || "");
   }, [alerts, form]);
 
   const onSubmit = async (values: zod.infer<typeof JobAlertsSchemas>) => {
@@ -101,7 +109,21 @@ const NewAlertsForm: React.FC<NewAlertsFormProps> = ({
               <FormItem>
                 <FormLabel>Level</FormLabel>
                 <FormControl>
-                  <Input placeholder="Level" {...field} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {JobsFiltersData[1].data.map((level) => (
+                        <SelectItem key={level.value} value={level.value}>
+                          {level.title}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormDescription>
                   Select the desired job level for the alert.
@@ -117,7 +139,21 @@ const NewAlertsForm: React.FC<NewAlertsFormProps> = ({
               <FormItem>
                 <FormLabel>Type</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type" {...field} />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {JobsFiltersData[0].data.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
+                          {type.title}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormDescription>
                   Select the preferred job type for the alert.
@@ -158,6 +194,9 @@ const SeekerProfileAlerts: React.FC<SeekerProfileAlertsProps> = ({
   const openDialog = () => setIsOpen(true);
 
   function areObjectKeysEmpty(obj: any) {
+    if (obj == null || typeof obj !== "object") {
+      return true;
+    }
     return !Object.values(obj).some((value) => value);
   }
 

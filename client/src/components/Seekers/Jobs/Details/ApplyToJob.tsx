@@ -147,7 +147,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
                         variant="outline"
                         onClick={async () => await coverLetterJob()}
                         type="button"
-                        disabled={coverLetterLoading}
+                        disabled={true}
                       >
                         {coverLetterLoading ? (
                           <ClipLoader color="blue" />
