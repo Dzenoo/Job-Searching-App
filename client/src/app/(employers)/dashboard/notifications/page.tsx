@@ -4,20 +4,20 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 import useAuthentication from "@/hooks/useAuthentication";
-import { getSeekerProfile } from "@/lib/actions/seekers.actions";
+import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import NotificationsList from "@/components/shared/notifications/NotificiationsList";
 
-const NotificationsPage = () => {
+const DashboardNotificationsPage = () => {
   const [notifications, setNotifications] = useState<any>([]);
   const { token } = useAuthentication().getCookieHandler();
 
   useEffect(() => {
     const socket = io("http://localhost:7000");
 
-    getSeekerProfile(token!).then((response) => {
-      setNotifications(response?.seeker.notifications);
+    getEmployerProfile({ token: token! }).then((response) => {
+      setNotifications(response?.employer.notifications);
     });
 
     socket.on("notification", (notification) => {
@@ -33,7 +33,7 @@ const NotificationsPage = () => {
   }, []);
 
   return (
-    <section className="py-16 mx-40 overflow-auto flex flex-col gap-[10px] max-xl:mx-0">
+    <section className="overflow-auto flex flex-col gap-[10px]">
       <div>
         <h1 className="text-base-black">
           Notifications ({notifications.length})
@@ -50,4 +50,4 @@ const NotificationsPage = () => {
   );
 };
 
-export default Protected(NotificationsPage, ["seeker"]);
+export default Protected(DashboardNotificationsPage, ["employer"]);

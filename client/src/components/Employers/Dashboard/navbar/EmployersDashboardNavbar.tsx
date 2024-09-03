@@ -47,18 +47,12 @@ const EmployersDashboardNavbar: React.FC = () => {
     },
     {
       id: "4",
-      icon: <LayoutTemplate />,
-      href: "/dashboard/reviews",
-      tooltip: "Reviews",
-    },
-    {
-      id: "5",
       icon: <Bell />,
       href: "/dashboard/notifications",
       tooltip: "Notifications",
     },
     {
-      id: "6",
+      id: "5",
       icon: <MessageCircle />,
       href: "/dashboard/messages",
       tooltip: "Messages",

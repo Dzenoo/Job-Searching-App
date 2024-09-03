@@ -4,7 +4,7 @@ import React from "react";
 
 import { ListFilter } from "lucide-react";
 
-import FilterHandler from "@/components/shared/FilterHandler";
+import FilterHandler from "@/components/shared/filters/FilterHandler";
 
 import { JobsFiltersData } from "@/constants";
 
