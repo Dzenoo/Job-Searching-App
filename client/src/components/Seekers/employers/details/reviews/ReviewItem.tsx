@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Briefcase, Calendar, Timer, Trash } from "lucide-react";
 
@@ -6,6 +6,12 @@ import { ReviewTypes } from "@/types";
 import { getTime } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Card,
   CardContent,
@@ -20,12 +26,14 @@ import { deleteReview } from "@/lib/actions/reviews.actions";
 import useAuthentication from "@/hooks/useAuthentication";
 import { queryClient } from "@/context/react-query-client";
 import { toast } from "@/components/ui/use-toast";
+import EditReview from "./EditReview";
 
 type ReviewItemProps = {
   review: ReviewTypes;
 };
 
 const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { token } = useAuthentication().getCookieHandler();
   const { data: seekerData } = useGetSeeker();
   const { mutateAsync: deleteReviewMutate } = useMutation({
@@ -60,73 +68,90 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
     }
   );
 
+  const openDialog = () => setIsDialogOpen(true);
+
+  const closeDialog = () => setIsDialogOpen(false);
+
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-center justify-between gap-10">
-          <div>
-            <h1 className="text-base-black">{review?.job_position}</h1>
-          </div>
-          {isAlreadyReviewedEmployer && (
-            <>
-              <div>
-                <Button
-                  onClick={async () => await deleteReviewMutate()}
-                  variant="destructive"
-                >
-                  <Trash />
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        <div className="flex flex-col gap-3">
-          <div>
-            <h1 className="font-bold">Positive Review</h1>
-          </div>
-          <div>
-            <p className="text-initial-gray">{review?.positiveReview}</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-3">
-          <div>
-            <h1 className="font-bold">Negative Review</h1>
-          </div>
-          <div>
-            <p className="text-initial-gray">{review?.negativeReview}</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-3">
-          <div>
-            <h1 className="font-bold">Skills</h1>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {review?.technologies?.map((technology, index) => {
-              const matchingSkill = SkillsInformationsData.flatMap(
-                (skill) => skill.data
-              ).find((data) => data.value === technology);
-
-              if (matchingSkill) {
-                return (
-                  <Button variant="outline" key={index}>
-                    {matchingSkill.title}
+    <>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogHeader>
+          <DialogTitle>Edit Review</DialogTitle>
+        </DialogHeader>
+        <DialogContent>
+          <EditReview review={review} closeDialog={closeDialog} />
+        </DialogContent>
+      </Dialog>
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-10">
+            <div>
+              <h1 className="text-base-black">{review?.job_position}</h1>
+            </div>
+            {isAlreadyReviewedEmployer && (
+              <div className="flex items-center gap-5">
+                <div>
+                  <Button onClick={openDialog}>Edit</Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={async () => await deleteReviewMutate()}
+                    variant="destructive"
+                  >
+                    <Trash />
                   </Button>
-                );
-              }
-
-              return null;
-            })}
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      </CardContent>
-      <CardFooter className="border-t border-gray-100 pt-6 dark:border-[#0d0d0d]">
-        <div className="w-full flex justify-between items-center gap-3 max-sm:flex-wrap">
-          {ReviewFooterData.map((footerData) => renderIconText(footerData))}
-        </div>
-      </CardFooter>
-    </Card>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
+            <div>
+              <h1 className="font-bold">Positive Review</h1>
+            </div>
+            <div>
+              <p className="text-initial-gray">{review?.positiveReview}</p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <div>
+              <h1 className="font-bold">Negative Review</h1>
+            </div>
+            <div>
+              <p className="text-initial-gray">{review?.negativeReview}</p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <div>
+              <h1 className="font-bold">Skills</h1>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {review?.technologies?.map((technology, index) => {
+                const matchingSkill = SkillsInformationsData.flatMap(
+                  (skill) => skill.data
+                ).find((data) => data.value === technology);
+
+                if (matchingSkill) {
+                  return (
+                    <Button variant="outline" key={index}>
+                      {matchingSkill.title}
+                    </Button>
+                  );
+                }
+
+                return null;
+              })}
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="border-t border-gray-100 pt-6 dark:border-[#0d0d0d]">
+          <div className="w-full flex justify-between items-center gap-3 max-sm:flex-wrap">
+            {ReviewFooterData.map((footerData) => renderIconText(footerData))}
+          </div>
+        </CardFooter>
+      </Card>
+    </>
   );
 };
 

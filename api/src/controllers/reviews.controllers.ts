@@ -115,7 +115,7 @@ export const editReview = asyncErrors(async (request, response) => {
       return sendResponse(
         {
           message:
-            "he review you are trying to edit could not be found. Please check the review ID and try again.",
+            "The review you are trying to edit could not be found. Please check the review ID and try again.",
         },
         404,
         response

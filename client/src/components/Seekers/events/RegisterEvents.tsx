@@ -12,7 +12,7 @@ import { registerForEvent } from "@/lib/actions/events.actions";
 type RegisterEventsProps = {
   eventId: string;
   token: string;
-  closeDialog: (dialogId: string) => void;
+  closeDialog: () => void;
 };
 
 const RegisterEvents: React.FC<RegisterEventsProps> = ({
@@ -55,9 +55,9 @@ const RegisterEvents: React.FC<RegisterEventsProps> = ({
           type="submit"
           disabled={isLoading}
           className="w-full"
-          onClick={() => {
-            registerForEventMutate();
-            closeDialog("registerForEvent");
+          onClick={async () => {
+            await registerForEventMutate();
+            closeDialog();
           }}
         >
           {isLoading ? (

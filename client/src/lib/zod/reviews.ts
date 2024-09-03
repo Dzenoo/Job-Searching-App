@@ -1,5 +1,11 @@
 import zod from "zod";
 
+export const EditReviewEmployersSchemas = zod.object({
+  job_position: zod.string().min(3).max(30),
+  negativeReview: zod.string().min(3).max(300),
+  positiveReview: zod.string().min(3).max(300),
+});
+
 export const ReviewEmployersSchemas = zod.object({
   job_position: zod.string().min(3).max(30),
   type: zod.enum(["Freelance", "Part-Time", "Full-Time", "Internship"]),
