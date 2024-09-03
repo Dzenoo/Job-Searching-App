@@ -179,7 +179,9 @@ const SeekerProfileInformation: React.FC<SeekerProfileInformationProps> = ({
                 variant="destructive"
                 onClick={() => setIsDialogOpen(true)}
               >
-                <div className="whitespace-nowrap">Delete Profile</div>
+                <div className="max-sm:hidden whitespace-nowrap">
+                  Delete Profile
+                </div>
                 <Trash color="#fff" />
               </Button>
             </div>

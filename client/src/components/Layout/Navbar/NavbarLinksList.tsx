@@ -26,7 +26,7 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
               : "text-[--black-base-color] dark:text-white"
           }`}
         >
-          <div className="max-sm:hidden">
+          <div>
             <h1 className="font-extralight">{title}</h1>
           </div>
         </Link>

@@ -33,11 +33,11 @@ export const EmployersNavbarLinks = [
 // Navbar Actions
 // ===============================
 export const SeekersNavbarActions = [
-  {
-    id: "1",
-    href: "/messages",
-    icon: <MessageCircle />,
-  },
+  // {
+  //   id: "1",
+  //   href: "/messages",
+  //   icon: <MessageCircle />,
+  // },
   {
     id: "2",
     href: "/notifications",

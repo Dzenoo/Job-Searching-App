@@ -176,7 +176,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
             <div>
               <h1 className="font-bold">Skills</h1>
             </div>
-            <div className="py-3 flex gap-6">
+            <div className="py-3 flex gap-6 flex-wrap">
               {Object.entries(categorizedSkills).map(
                 ([category, skills]) =>
                   skills.length > 0 && (
