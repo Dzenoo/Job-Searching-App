@@ -19,7 +19,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-import { findIndustriesData, formatDate } from "@/lib/utils";
+import { findIndustriesData, formatDate, getImageUrl } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 import { ApplicationsTypes } from "@/types";
@@ -77,11 +77,7 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
         <div className="flex gap-3 items-center max-sm:flex-wrap">
           <div>
             <Image
-              src={
-                !application?.job.company.image.includes("https:")
-                  ? `https://job-searching-application.s3.amazonaws.com/${application?.job.company.image}`
-                  : application?.job.company.image
-              }
+              src={getImageUrl(application?.job.company.image)}
               alt={application?.job.company.name}
               width={170}
               height={170}
@@ -122,12 +118,12 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
         <div
           className={`p-3 rounded-full border w-full overflow-auto text-center ${
             applicationStatusAccepted
-              ? "bg-green-100"
+              ? "bg-green-100 dark:bg-green-500"
               : applicationStatusRejected
-              ? "bg-red-100"
+              ? "bg-red-100 dark:bg-red-500"
               : applicationsStatusInterview
-              ? "bg-yellow-100"
-              : "bg-blue-100"
+              ? "bg-yellow-100 dark:bg-yellow-500"
+              : "bg-blue-100 dark:bg-blue-500"
           }`}
         >
           <p
