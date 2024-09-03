@@ -28,7 +28,7 @@ type DetailsProps = {
 
 const Details: React.FC<DetailsProps> = ({ control }) => {
   return (
-    <div className="flex flex-col gap-3">
+    <>
       <FormField
         control={control}
         name="title"
@@ -100,7 +100,7 @@ const Details: React.FC<DetailsProps> = ({ control }) => {
           </FormItem>
         )}
       />
-    </div>
+    </>
   );
 };
 

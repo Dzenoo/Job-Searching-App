@@ -90,7 +90,7 @@ const Scope: React.FC<ScopeProps> = ({ control }) => {
   ];
 
   return (
-    <div className="flex flex-col gap-6">
+    <>
       <FormField
         control={control}
         name="level"
@@ -182,7 +182,7 @@ const Scope: React.FC<ScopeProps> = ({ control }) => {
           </FormItem>
         )}
       />
-    </div>
+    </>
   );
 };
 

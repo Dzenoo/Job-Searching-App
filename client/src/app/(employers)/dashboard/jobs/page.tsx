@@ -57,7 +57,7 @@ const DashboardJobsPage = ({
 
   return (
     <section className="flex flex-col gap-6">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex justify-between gap-3 max-xl:flex-col xl:items-center">
         <div>
           <h1 className="text-base-black">Jobs</h1>
           <p className="text-initial-gray">

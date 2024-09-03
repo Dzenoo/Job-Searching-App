@@ -43,7 +43,7 @@ const SearchJobs: React.FC = () => {
           onValueChange={handleSortChange}
           defaultValue={searchParams.get("sort")?.toString() || ""}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] max-sm:w-full">
             <SelectValue placeholder="Sort By Date" />
           </SelectTrigger>
           <SelectContent>

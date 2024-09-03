@@ -8,8 +8,8 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekers } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
-import FilterSeekers from "@/components/employers/seekers/FilterSeekers";
-import SearchSeekers from "@/components/employers/seekers/SearchSeekers";
+import FilterSeekers from "@/components/employers/seekers/filters/FilterSeekers";
+import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
 import SeekersList from "@/components/employers/seekers/SeekersList";
 
 const SeekersPage = ({

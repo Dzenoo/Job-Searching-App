@@ -30,7 +30,7 @@ type OverviewProps = {
 
 const Overview: React.FC<OverviewProps> = ({ control }) => {
   return (
-    <div className="flex flex-col gap-3">
+    <>
       <FormField
         control={control}
         name="description"
@@ -122,7 +122,7 @@ const Overview: React.FC<OverviewProps> = ({ control }) => {
           </FormItem>
         )}
       />
-    </div>
+    </>
   );
 };
 

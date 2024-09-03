@@ -109,7 +109,7 @@ const NewJobPage = () => {
 
   return (
     <section>
-      <div className="flex px-36 gap-3 py-16">
+      <div className="flex px-36 gap-10 py-16 max-xl:flex-col max-lg:px-0">
         <div className="basis-1/2 flex flex-col gap-3">
           <Text
             step={currentJobForm}
@@ -122,7 +122,7 @@ const NewJobPage = () => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(addNewJob)}
-                className="space-y-5"
+                className="space-y-10"
               >
                 {renderCurrentStep()}
                 {stepDetails.length - 1 === currentJobForm && (

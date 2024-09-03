@@ -20,7 +20,7 @@ type SkillsProps = {
 
 const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
   return (
-    <div className="flex flex-col gap-3">
+    <>
       <FormField
         control={control}
         name="skills"
@@ -51,7 +51,7 @@ const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
           </FormItem>
         )}
       />
-    </div>
+    </>
   );
 };
 

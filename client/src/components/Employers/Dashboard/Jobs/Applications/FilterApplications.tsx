@@ -23,7 +23,7 @@ const FilterApplications: React.FC<FilterApplicationsProps> = ({
   return (
     <Card>
       <CardContent>
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-10 max-sm:overflow-auto max-sm:gap-5">
           <Button
             variant="outline"
             onClick={() => updateApplicationsFilters("")}

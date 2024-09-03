@@ -45,8 +45,8 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
       <Navigator info="Seekers" href={"/seekers"} title={seeker?.first_name} />
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-start gap-3">
-            <div className="flex items-start gap-7">
+          <div className="flex justify-between items-start gap-5 max-sm:flex-col">
+            <div className="flex items-start gap-7 max-md:flex-col">
               <div>
                 <Image
                   src={profileImageUrl}
@@ -70,7 +70,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-10">
+            <div className="flex items-center gap-10 flex-wrap">
               {SocialsArrays.map((socials) => (
                 <Link href={socials.href} key={socials.id} target="_blank">
                   {socials.icon}
@@ -109,7 +109,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
             <div>
               <h1 className="font-bold">Skills</h1>
             </div>
-            <div className="py-3 flex gap-6">
+            <div className="py-3 flex gap-6 flex-wrap">
               {Object.entries(categorizedSkills).map(
                 ([category, skills]) =>
                   skills.length > 0 && (

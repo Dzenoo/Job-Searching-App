@@ -43,7 +43,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         type="button"
         variant="outline"
         onClick={toggleDropdown}
-        className="w-full justify-between"
+        className="w-full justify-between overflow-auto"
       >
         <span>
           {selectedValues.length > 0 ? selectedValues.join(", ") : placeholder}

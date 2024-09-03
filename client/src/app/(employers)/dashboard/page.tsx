@@ -42,7 +42,7 @@ const Dashboard = () => {
           totalApplications={analytics?.totalApplications || 0}
         />
       </div>
-      <div className="grid gap-3 grid-cols-3">
+      <div className="grid gap-3 grid-cols-3 max-lg:grid-cols-1">
         <div>
           <JobsPerMonth data={analytics?.jobsPerMonth} />
         </div>

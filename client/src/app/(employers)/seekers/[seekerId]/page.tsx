@@ -7,7 +7,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekerById } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
-import SeekerDetailsInfo from "@/components/employers/seekers/SeekerDetailsInfo";
+import SeekerDetailsInfo from "@/components/employers/seekers/details/SeekerDetailsInfo";
 
 const SeekerDetailsPage = ({
   params: { seekerId },

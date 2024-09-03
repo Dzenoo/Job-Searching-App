@@ -50,7 +50,7 @@ const Statistics: React.FC<StatisticsProps> = ({
   );
 
   return (
-    <div className="grid gap-3 grid-cols-4">
+    <div className="grid gap-3 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
       {StatisticsData.map((statistics) => (
         <Card key={statistics.id}>
           <CardHeader className="flex justify-between gap-3">
