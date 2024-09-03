@@ -1,5 +1,5 @@
 import { ResponseMessageTypes, ReviewTime, ReviewType } from "@/types";
-import { postApiHandler } from "../api";
+import { deleteApiHandler, postApiHandler } from "../api";
 
 export const reviewEmployer = async (
   employerId: string,
@@ -14,3 +14,6 @@ export const reviewEmployer = async (
   }
 ): Promise<ResponseMessageTypes> =>
   await postApiHandler(`seeker/${employerId}/review`, formData, token);
+
+export const deleteReview = async (employerId: string, token: string) =>
+  await deleteApiHandler(`seeker/${employerId}/review`, token);

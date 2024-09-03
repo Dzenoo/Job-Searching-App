@@ -50,7 +50,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         </span>
       </Button>
       {open && (
-        <Command className="h-36 overflow-y-scroll absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg">
+        <Command className="h-36 overflow-y-scroll absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg dark:bg-[#1b1b1b]">
           <CommandList>
             <CommandGroup>
               {options.map((option) => (
@@ -58,7 +58,9 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                   key={option.value}
                   onSelect={() => handleSelect(option.value)}
                   className={`flex justify-between p-2 ${
-                    selectedValues.includes(option.value) ? "bg-blue-100" : ""
+                    selectedValues.includes(option.value)
+                      ? "bg-blue-100 dark:bg-gray-500"
+                      : ""
                   }`}
                 >
                   <span>{option.label}</span>

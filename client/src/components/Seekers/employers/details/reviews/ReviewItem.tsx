@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Briefcase, Calendar, Timer } from "lucide-react";
+import { Briefcase, Calendar, Timer, Trash } from "lucide-react";
 
 import { ReviewTypes } from "@/types";
 import { getTime } from "@/lib/utils";
@@ -13,13 +13,34 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { SkillsInformationsData } from "@/constants";
+import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+import { useMutation } from "react-query";
+import { deleteReview } from "@/lib/actions/reviews.actions";
+import useAuthentication from "@/hooks/useAuthentication";
+import { queryClient } from "@/context/react-query-client";
+import { toast } from "@/components/ui/use-toast";
 
 type ReviewItemProps = {
   review: ReviewTypes;
 };
 
 const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { data: seekerData } = useGetSeeker();
+  const { mutateAsync: deleteReviewMutate } = useMutation({
+    mutationFn: () => deleteReview(review?.company, token!),
+    onSuccess: () => {
+      toast({ title: "Success", description: "Deleted!" });
+      queryClient.invalidateQueries(["company"]);
+    },
+    onError: (error: any) => {
+      toast({ title: "Error", description: error?.data?.response.message });
+    },
+  });
   const createdTime = getTime(review?.createdAt);
+
+  const isAlreadyReviewedEmployer = review.seeker === seekerData?.seeker._id;
 
   const ReviewFooterData = new Array(
     {
@@ -42,8 +63,22 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
   return (
     <Card>
       <CardHeader>
-        <div>
-          <h1 className="text-base-black">{review?.job_position}</h1>
+        <div className="flex items-center justify-between gap-10">
+          <div>
+            <h1 className="text-base-black">{review?.job_position}</h1>
+          </div>
+          {isAlreadyReviewedEmployer && (
+            <>
+              <div>
+                <Button
+                  onClick={async () => await deleteReviewMutate()}
+                  variant="destructive"
+                >
+                  <Trash />
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
@@ -68,11 +103,21 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
             <h1 className="font-bold">Skills</h1>
           </div>
           <div className="flex flex-wrap gap-3">
-            {review?.technologies?.map((technology, index) => (
-              <Button variant="outline" key={index}>
-                {technology}
-              </Button>
-            ))}
+            {review?.technologies?.map((technology, index) => {
+              const matchingSkill = SkillsInformationsData.flatMap(
+                (skill) => skill.data
+              ).find((data) => data.value === technology);
+
+              if (matchingSkill) {
+                return (
+                  <Button variant="outline" key={index}>
+                    {matchingSkill.title}
+                  </Button>
+                );
+              }
+
+              return null;
+            })}
           </div>
         </div>
       </CardContent>

@@ -109,7 +109,7 @@ type JobTypes = {
 
 type ReviewTypes = {
   _id: string;
-  company: EmployerTypes;
+  company: EmployerTypes & string;
   job_position: string;
   type: keyof typeof ReviewType;
   time: keyof typeof ReviewTime;
