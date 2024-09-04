@@ -34,7 +34,7 @@ export const getEmployerProfile = async ({
   employer: EmployerTypes;
 }> =>
   await getApiHandler(
-    `employer?type=${type || ""}&page=${page}&srt=${srt}&search=${search}`,
+    `employer?type=${type}&page=${page}&srt=${srt}&search=${search}`,
     token
   );
 

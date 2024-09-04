@@ -66,6 +66,7 @@ export const createJob = asyncErrors(
 
       // Create a notification for matched seekers
       const createdNotifications = await Notification.create({
+        user: "seeker",
         data: {
           employerImage: employer.image,
           jobLocation: newJob.location,

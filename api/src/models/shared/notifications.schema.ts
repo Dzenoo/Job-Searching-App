@@ -5,6 +5,10 @@ const NotificationSchemas = new mongoose.Schema({
     type: Object,
     default: {},
   },
+  user: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

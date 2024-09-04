@@ -184,6 +184,7 @@ export const followEmployer = asyncErrors(async (request, response) => {
 
     // Create a new notification for the employer
     const newNotification = await Notification.create({
+      user: "employer",
       title: "New Followers Notification",
       message: `${seeker.first_name} is now following you`,
       type: "followers",
@@ -246,6 +247,16 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
 
     let populateQuery: any = {};
     switch (type) {
+      case "notifications":
+        populateQuery = {
+          path: "notifications",
+          options: {
+            skip,
+            limit: Number(limit),
+          },
+          select: "data title message date type isRead",
+        };
+        break;
       case "jobs":
         populateQuery = {
           path: "jobs",

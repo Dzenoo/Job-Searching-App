@@ -16,7 +16,13 @@ const DashboardNotificationsPage = () => {
   useEffect(() => {
     const socket = io("http://localhost:7000");
 
-    getEmployerProfile({ token: token! }).then((response) => {
+    getEmployerProfile({
+      token: token!,
+      type: "notifications",
+      srt: "",
+      search: "",
+      page: "1",
+    }).then((response) => {
       setNotifications(response?.employer.notifications);
     });
 

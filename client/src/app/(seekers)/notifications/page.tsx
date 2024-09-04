@@ -36,12 +36,12 @@ const NotificationsPage = () => {
     <section className="py-16 mx-40 overflow-auto flex flex-col gap-[10px] max-xl:mx-0">
       <div>
         <h1 className="text-base-black">
-          Notifications ({notifications.length})
+          Notifications ({notifications?.length})
         </h1>
       </div>
       <div>
         <NotificationsList
-          notifications={notifications.sort(
+          notifications={notifications?.sort(
             (a: any, b: any) => b.createdAt - a.createdAt
           )}
         />

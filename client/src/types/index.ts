@@ -158,6 +158,7 @@ type SeekerTypes = {
 };
 
 type NotificationTypes = {
+  user: string;
   _id: string;
   title: string;
   message: string;

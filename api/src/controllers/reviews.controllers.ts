@@ -73,6 +73,7 @@ export const createReview = asyncErrors(async (request, response) => {
     }
 
     const notification = await Notification.create({
+      user: "employer",
       title: "New Review Notification",
       message: `A new review has been added to your profile`,
       type: "reviews",
