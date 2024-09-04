@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Github, Linkedin, LucideImage } from "lucide-react";
 
 import { SeekerTypes } from "@/types";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, getSkillNames } from "@/lib/utils";
 
 import {
   Card,
@@ -40,6 +40,8 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   );
 
   const profileImageUrl = getImageUrl(seeker?.image);
+
+  const skillNames = getSkillNames(seeker?.skills || []);
 
   return (
     <Card className="overflow-hidden">
@@ -76,9 +78,9 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
       </CardContent>
       <CardFooter>
         <div className="flex gap-3 whitespace-nowrap overflow-hidden items-center justify-center">
-          {seeker?.skills.map((skill, index) => (
+          {skillNames.map((skillName, index) => (
             <Button variant="outline" key={index}>
-              {skill}
+              {skillName}
             </Button>
           ))}
         </div>

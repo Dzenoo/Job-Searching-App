@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Briefcase, Calendar, Timer, Trash } from "lucide-react";
 
 import { ReviewTypes } from "@/types";
-import { getTime } from "@/lib/utils";
+import { getSkillNames, getTime } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 import {
@@ -72,6 +72,8 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
 
   const closeDialog = () => setIsDialogOpen(false);
 
+  const skillNames = getSkillNames(review?.technologies || []);
+
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -127,21 +129,11 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
               <h1 className="font-bold">Skills</h1>
             </div>
             <div className="flex flex-wrap gap-3">
-              {review?.technologies?.map((technology, index) => {
-                const matchingSkill = SkillsInformationsData.flatMap(
-                  (skill) => skill.data
-                ).find((data) => data.value === technology);
-
-                if (matchingSkill) {
-                  return (
-                    <Button variant="outline" key={index}>
-                      {matchingSkill.title}
-                    </Button>
-                  );
-                }
-
-                return null;
-              })}
+              {skillNames.map((skillName, index) => (
+                <Button variant="outline" key={index}>
+                  {skillName}
+                </Button>
+              ))}
             </div>
           </div>
         </CardContent>

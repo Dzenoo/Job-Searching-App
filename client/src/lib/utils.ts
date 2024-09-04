@@ -87,6 +87,17 @@ export const getSkillsData = (
   return categorizedSkills;
 };
 
+export const getSkillNames = (technologies: string[]): string[] => {
+  return technologies
+    .map((technology) => {
+      const matchingSkill = SkillsInformationsData.flatMap(
+        (skill) => skill.data
+      ).find((data) => data.value === technology);
+      return matchingSkill ? matchingSkill.title : null;
+    })
+    .filter((skillName): skillName is string => skillName !== null);
+};
+
 export const multiselectSkills = SkillsInformationsData.flatMap((category) =>
   category.data.map((data) => ({
     label: data.title,
