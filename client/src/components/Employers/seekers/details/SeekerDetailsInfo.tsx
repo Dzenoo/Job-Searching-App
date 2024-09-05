@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Navigator from "@/components/ui/navigator";
 
+import useGetEmployer from "@/hooks/mutations/useGetEmployer";
+
 import EducationList from "@/components/seekers/profile/educations/EducationList";
+import CreateDirectMessagesButton from "./CreateDirectMessagesButton";
 
 import { SeekerTypes } from "@/types";
 import { getImageUrl, getSkillsData } from "@/lib/utils";
@@ -19,6 +24,7 @@ type SeekerDetailsInfoProps = {
 
 const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
   const profileImageUrl = getImageUrl(seeker?.image);
+  const categorizedSkills = getSkillsData(seeker?.skills);
 
   const SocialsArrays = new Array(
     {
@@ -38,8 +44,6 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
     }
   );
 
-  const categorizedSkills = getSkillsData(seeker?.skills);
-
   return (
     <div className="flex flex-col gap-6">
       <Navigator info="Seekers" href={"/seekers"} title={seeker?.first_name} />
@@ -54,7 +58,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
                   height={100}
                   className="rounded-full w-28 h-28 object-cover"
                   alt="seeker"
-                ></Image>
+                />
               </div>
               <div className="flex flex-col gap-[3px]">
                 <div>
@@ -77,7 +81,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
                 </Link>
               ))}
               <div>
-                <Button variant="default">Message</Button>
+                <CreateDirectMessagesButton seekerId={seeker?._id} />
               </div>
             </div>
           </div>

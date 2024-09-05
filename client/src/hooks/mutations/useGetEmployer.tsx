@@ -6,7 +6,11 @@ const useGetEmployer = (type?: string) => {
   const { token } = useAuthentication().getCookieHandler();
 
   return useQuery({
-    queryFn: () => getEmployerProfile({ token: token as string, type: type }),
+    queryFn: () =>
+      getEmployerProfile({
+        token: token as string,
+        type: type,
+      }),
     queryKey: ["profile"],
   });
 };

@@ -180,7 +180,7 @@ type SeekerDirectMessagesTypes = {
 };
 
 type EmployerDirectMessagesTypes = {
-  employerId: string;
+  seekerId: string;
   messages: MessageTypes[];
 };
 

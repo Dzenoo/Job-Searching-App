@@ -1,6 +1,4 @@
 import React from "react";
-import "../../globals.css";
-import "react-toastify/dist/ReactToastify.css";
 
 import EmployersDashboardNavbar from "@/components/employers/dashboard/navbar/EmployersDashboardNavbar";
 

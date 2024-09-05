@@ -289,12 +289,6 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
           },
         };
         break;
-      case "messages":
-        populateQuery = {
-          path: "directMessages.messages",
-          select: "content sender createdAt",
-        };
-        break;
       default:
         break;
     }
@@ -324,14 +318,17 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
     }
 
     // Fetch the employer's profile with the appropriate population based on type
-    const employer = type
-      ? await Employer.findById(employerId)
-          .populate({
-            ...populateQuery,
-            match: searchQuery,
-          })
-          .exec()
-      : await Employer.findById(employerId).exec();
+    let employer;
+    if (type && populateQuery.path) {
+      employer = await Employer.findById(employerId)
+        .populate({
+          ...populateQuery,
+          match: searchQuery,
+        })
+        .exec();
+    } else {
+      employer = await Employer.findById(employerId).exec();
+    }
 
     if (!employer) {
       return sendResponse({ message: "Cannot Find Employer" }, 404, response);
