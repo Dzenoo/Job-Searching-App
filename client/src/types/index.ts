@@ -92,14 +92,14 @@ type EventTypes = {
 
 type JobTypes = {
   title: string;
-  position: string;
+  position: "Remote" | "On-Site" | "Hybrid";
   location: string;
-  type: string;
+  type: "Internship" | "Full-Time" | "Part-Time" | "Freelance";
   skills: string[];
-  level: string;
+  level: "Junior" | "Medior" | "Senior";
   salary: number;
   _id: string;
-  expiration_date: string;
+  expiration_date: string & Date;
   description: string;
   overview: string;
   applications: ApplicationsTypes[];

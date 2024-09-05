@@ -128,6 +128,8 @@ export const editJob = asyncErrors(async (request, response) => {
       "position",
       "overview",
       "title",
+      "skills",
+      "location",
     ];
 
     // Validate the incoming update data

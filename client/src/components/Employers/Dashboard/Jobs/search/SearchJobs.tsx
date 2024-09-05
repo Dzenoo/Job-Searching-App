@@ -50,7 +50,7 @@ const SearchJobs: React.FC = () => {
             <SelectGroup>
               <SelectLabel>Sort Options</SelectLabel>
               <SelectItem value="all">Sort By Date</SelectItem>
-              <SelectItem value="asc">Descending</SelectItem>
+              <SelectItem value="asc">Ascending</SelectItem>
               <SelectItem value="desc">Newest</SelectItem>
             </SelectGroup>
           </SelectContent>
@@ -58,7 +58,9 @@ const SearchJobs: React.FC = () => {
       </div>
       <div className="basis-full">
         <Link href="/dashboard/jobs/new">
-          <Button variant="default">Add New Job</Button>
+          <Button className="w-full" variant="default">
+            Add New Job
+          </Button>
         </Link>
       </div>
     </div>

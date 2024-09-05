@@ -219,6 +219,11 @@ export function initializePrivateRoutes(app: Express): void {
     },
     {
       method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/jobs/:jobId",
+      handlers: [employers.getJobById],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
       path: "/employer/applications/:jobId",
       handlers: [applications.getApplicationsForJob],
     },

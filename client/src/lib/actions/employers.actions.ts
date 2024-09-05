@@ -1,4 +1,4 @@
-import { EmployerTypes, SeekerTypes } from "@/types";
+import { EmployerTypes, JobTypes, SeekerTypes } from "@/types";
 import { getApiHandler } from "../api";
 
 export const getSeekers = async ({
@@ -55,3 +55,9 @@ export const getEmployerAnalytics = async (
   followersOverTime: number;
   jobTypes: any;
 }> => await getApiHandler(`employer/analytics`, token);
+
+export const getJob = async (
+  token: string,
+  jobId: string
+): Promise<{ job: JobTypes }> =>
+  await getApiHandler(`employer/jobs/${jobId}`, token);

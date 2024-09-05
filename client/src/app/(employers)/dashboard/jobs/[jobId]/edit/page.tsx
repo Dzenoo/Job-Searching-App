@@ -1,20 +1,28 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
 import Protected from "@/components/hoc/Protected";
+import UpdateJobForm from "@/components/shared/forms/UpdateJobForm";
+
+import { useQuery } from "react-query";
+import { getJob } from "@/lib/actions/employers.actions";
+
+import useAuthentication from "@/hooks/useAuthentication";
+import { JobTypes } from "@/types";
 
 const EditJobPage = ({ params }: { params: { jobId: string } }) => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { data: fetchedJob } = useQuery({
+    queryFn: () => getJob(token as string, params.jobId),
+  });
+
   return (
-    <section className="flex flex-col gap-3">
-      <div className="flex justify-between items-center gap-3">
-        <div>
-          <h1 className="text-base-black">Edit This Job</h1>
-        </div>
-        <div>
-          <Button variant="default">Save</Button>
-        </div>
-      </div>
+    <section>
+      <UpdateJobForm
+        isEdit={true}
+        jobId={params.jobId}
+        formData={fetchedJob?.job as JobTypes}
+      />
     </section>
   );
 };

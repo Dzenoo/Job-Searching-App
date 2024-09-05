@@ -4,7 +4,7 @@ export const ApplyToJobSchemas = zod.object({
   coverLetter: zod.string().optional(),
 });
 
-export const NewJobSchemas = zod.object({
+export const UpdateJobSchemas = zod.object({
   title: zod
     .string()
     .min(3, "Title should have at least 3 characters.")
@@ -38,7 +38,7 @@ export const NewJobSchemas = zod.object({
     zod
       .string()
       .min(1, "Each skill must have at least 1 character.")
-      .max(16, "Each skill can be up to 16 characters long.")
+      .max(25, "Each skill can be up to 25 characters long.")
       .trim()
   ),
   level: zod.enum(["Junior", "Medior", "Senior", "Lead"], {

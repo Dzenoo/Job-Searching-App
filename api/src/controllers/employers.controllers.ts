@@ -243,7 +243,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
     const { employerId } = request.user; // Get the employer ID from the request user object
     const { page = 1, limit = 10, type, search, srt } = request.query; // Get query parameters for pagination and filtering
     const skip = (Number(page) - 1) * Number(limit);
-    const sort = String(srt);
+    const sort = srt === "desc" ? -1 : 1;
 
     let populateQuery: any = {};
     switch (type) {
@@ -263,7 +263,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
           options: {
             skip,
             limit: Number(limit),
-            sort: sort ? { [sort]: 1 } : { _id: 1 },
+            sort: { _id: sort },
           },
           select:
             "title position _id location level type applications expiration_date salary",
@@ -275,7 +275,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
           options: {
             skip,
             limit: Number(limit),
-            sort: sort ? { [sort]: 1 } : { _id: 1 },
+            sort: { _id: sort },
           },
         };
         break;
@@ -285,7 +285,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
           options: {
             skip,
             limit: Number(limit),
-            sort: sort ? { [sort]: 1 } : { _id: 1 },
+            sort: { _id: sort },
           },
         };
         break;
@@ -654,6 +654,22 @@ export const getEmployers = asyncErrors(async (request, response) => {
       400,
       response
     );
+  }
+});
+
+export const getJobById = asyncErrors(async (request, response) => {
+  try {
+    const job = await Job.findById(request.params.jobId).select(
+      "title overview position location expiration_date level salary skills description type"
+    );
+
+    if (!job) {
+      sendResponse({ message: "Cannot find job right now" }, 400, response);
+    }
+
+    sendResponse({ job: job }, 201, response);
+  } catch (error) {
+    response.status(500).json({ message: "Internal server error" });
   }
 });
 

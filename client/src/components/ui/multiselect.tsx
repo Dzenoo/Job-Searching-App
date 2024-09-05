@@ -43,14 +43,14 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         type="button"
         variant="outline"
         onClick={toggleDropdown}
-        className="w-full justify-between overflow-auto"
+        className="w-full justify-between"
       >
         <span>
           {selectedValues.length > 0 ? selectedValues.join(", ") : placeholder}
         </span>
       </Button>
       {open && (
-        <Command className="h-36 overflow-y-scroll absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg dark:bg-[#1b1b1b]">
+        <Command className="h-52 absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg dark:bg-[#1b1b1b]">
           <CommandList>
             <CommandGroup>
               {options.map((option) => (

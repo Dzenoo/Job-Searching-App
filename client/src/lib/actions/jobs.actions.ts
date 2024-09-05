@@ -42,6 +42,13 @@ export const createNewJob = async (
 ): Promise<ResponseMessageTypes> =>
   await postApiHandler(`employer/jobs/create-new-job`, formData, token);
 
+export const editJob = async (
+  token: string,
+  jobId: string,
+  formData: any
+): Promise<ResponseMessageTypes> =>
+  await patchApiHandler(`employer/jobs/${jobId}/edit`, formData, token);
+
 export const applyToJob = async (
   jobId: string,
   token: string,
