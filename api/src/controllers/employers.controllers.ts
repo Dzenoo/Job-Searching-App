@@ -670,6 +670,35 @@ export const getJobById = asyncErrors(async (request, response) => {
   }
 });
 
+export const getDirectMessages = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+
+    const employer = await Employer.findById(employerId)
+      .populate({
+        path: "directMessages.seekerId",
+        select: "first_name last_name email image",
+      })
+      .populate({
+        path: "directMessages.messages",
+        select: "content createdAt",
+      });
+
+    if (!employer) {
+      return sendResponse(
+        { message: "Cannot find employer profile" },
+        400,
+        response
+      );
+    }
+
+    sendResponse({ directMessages: employer.directMessages }, 200, response);
+  } catch (error) {
+    response.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Get employer analytics data
 export const getEmployerAnalytics = asyncErrors(async (request, response) => {
   try {

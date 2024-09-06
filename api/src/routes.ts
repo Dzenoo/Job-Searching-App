@@ -87,7 +87,7 @@ export function initializePrivateRoutes(app: Express): void {
     },
     {
       method: EXPRESS_APP_METHODS.POST,
-      path: "/employer/:seekerId/direct-messages",
+      path: "/employer/messages/:seekerId",
       handlers: [messages.createDirectMessages],
     },
     // Seeker routes
@@ -187,6 +187,11 @@ export function initializePrivateRoutes(app: Express): void {
       handlers: [events.registerEvent],
     },
     // Employer routes
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/messages",
+      handlers: [employers.getDirectMessages],
+    },
     {
       method: EXPRESS_APP_METHODS.GET,
       path: "/employer",

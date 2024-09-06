@@ -3,7 +3,7 @@ import { toast } from "@/components/ui/use-toast";
 import { queryClient } from "@/context/react-query-client";
 import useGetEmployer from "@/hooks/mutations/useGetEmployer";
 import useAuthentication from "@/hooks/useAuthentication";
-import { createDirectMessages } from "@/lib/actions/messages.actions";
+import { createDirectMessages } from "@/lib/actions/employers.actions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
