@@ -1,11 +1,35 @@
 "use client";
+
+import React, { useEffect } from "react";
 import Protected from "@/components/hoc/Protected";
-import { Button } from "@/components/ui/button";
+import useOverflow from "@/hooks/useOverflow";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+
+import { Button } from "@/components/ui/button";
+import useAuthentication from "@/hooks/useAuthentication";
+import { useQuery } from "react-query";
+import { getDirectMessages } from "@/lib/actions/employers.actions";
+import { useRouter } from "next/navigation";
 
 const RoomsPage = () => {
+  const { token } = useAuthentication().getCookieHandler();
+  const { data: directMessagesData } = useQuery({
+    queryFn: () => getDirectMessages(token!),
+    queryKey: ["directMessages"],
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    if (directMessagesData && directMessagesData?.directMessages.length > 0) {
+      router.push(
+        `/dashboard/messages/rooms/${directMessagesData?.directMessages[0].seekerId._id}`
+      );
+    }
+  }, [directMessagesData]);
+
+  useOverflow("rooms");
+
   return (
     <div className="flex justify-center items-center gap-5 flex-col">
       <div>

@@ -2,8 +2,10 @@
 
 import React from "react";
 import MessagesNavbar from "./MessagesNavbar";
+
 import { useQuery } from "react-query";
 import { getDirectMessages } from "@/lib/actions/employers.actions";
+
 import useAuthentication from "@/hooks/useAuthentication";
 
 const MessagesLayout: React.FC<{ children: React.ReactNode }> = ({
@@ -16,13 +18,15 @@ const MessagesLayout: React.FC<{ children: React.ReactNode }> = ({
   });
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row">
-      <div className="basis-[25%]">
+    <div className="flex h-screen gap-5">
+      <div className="basis-[25%] flex flex-col h-full overflow-y-auto hide-scrollbar">
         <MessagesNavbar
           messagesData={directMessagesData?.directMessages || []}
         />
       </div>
-      <div className="basis-full overflow-hidden">{children}</div>
+      <div className="flex-grow flex flex-col h-full min-h-0 overflow-hidden">
+        <div className="flex-grow overflow-auto">{children}</div>
+      </div>
     </div>
   );
 };

@@ -38,12 +38,11 @@ export default function RootLayout({
         <body className={inter.className}>
           <AppThemeProvider>
             <div className="flex flex-col min-h-screen">
-              <Navbar />
+              <Navbar href="/seekers" />
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
             <Toaster />
-            <MobileBar />
           </AppThemeProvider>
         </body>
       </html>

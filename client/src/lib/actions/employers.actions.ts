@@ -5,7 +5,7 @@ import {
   ResponseMessageTypes,
   SeekerTypes,
 } from "@/types";
-import { getApiHandler, postApiHandler } from "../api";
+import { getApiHandler, patchApiHandler, postApiHandler } from "../api";
 
 export const getSeekers = async ({
   page = "1",

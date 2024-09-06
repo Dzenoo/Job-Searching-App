@@ -21,14 +21,6 @@ export const SeekersNavbarLinks = [
   },
 ];
 
-export const EmployersNavbarLinks = [
-  {
-    id: "3",
-    title: "Find Seekers",
-    href: "/seekers",
-  },
-];
-
 // ===============================
 // Navbar Actions
 // ===============================

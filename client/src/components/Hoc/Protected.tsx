@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useAuthentication from "@/hooks/useAuthentication";
+import LoadingSeekersInformationsSkeleton from "../loaders/LoadingSeekersInformations";
 
 const Protected = (
   WrappedComponent: React.FC<any>,
@@ -11,7 +12,6 @@ const Protected = (
   const Wrapper = (props: any) => {
     const { token, userType } = useAuthentication().getCookieHandler();
     const router = useRouter();
-    const pathname = usePathname();
 
     useEffect(() => {
       if (!token) {
@@ -23,7 +23,7 @@ const Protected = (
           router.push("/");
         }
       }
-    }, [token, userType, pathname, router]);
+    }, [token, userType]);
 
     return <WrappedComponent {...props} />;
   };

@@ -130,4 +130,16 @@
   .border-base-black {
     @apply border-black;
   }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+  }
 }

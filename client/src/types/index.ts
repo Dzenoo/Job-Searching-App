@@ -185,7 +185,7 @@ type EmployerDirectMessagesTypes = {
 };
 
 type MessageTypes = {
-  sender: SeekerTypes | EmployerTypes;
+  sender: string;
   content: string;
 };
 

@@ -9,7 +9,6 @@ import useAuthentication from "@/hooks/useAuthentication";
 
 import {
   EmployersNavbarActions,
-  EmployersNavbarLinks,
   SeekersNavbarActions,
   SeekersNavbarLinks,
 } from "@/constants";
@@ -40,7 +39,7 @@ const AuthenticationDivLinks: React.FC = () => {
   );
 };
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ href?: string }> = ({ href }) => {
   const { deleteCookieHandler, getCookieHandler } = useAuthentication();
   const { isAuthenticated, userType, token } = getCookieHandler();
   const { data } = useQuery({
@@ -68,13 +67,13 @@ const Navbar: React.FC = () => {
   return (
     <header className="px-5 py-2 dark:bg-[#0d0d0d] base-margin flex justify-between items-center gap-3 overflow-hidden border-b border-base-gray dark:border-[#1b1b1b] bg-white">
       <div>
-        <Logo />
+        <Logo href={href} />
       </div>
       {isAuthenticated && (
         <div className="max-xl:hidden">
           <NavbarLinksList
             pathname={pathname}
-            data={isSeeker ? SeekersNavbarLinks : EmployersNavbarLinks}
+            data={isSeeker ? SeekersNavbarLinks : []}
           />
         </div>
       )}

@@ -18,13 +18,13 @@ const MessagesNavbar: React.FC<MessagesNavbarProps> = ({ messagesData }) => {
   const isActiveChatSeeker = pathname.split("/rooms/")[1];
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <div>
           <h1 className="text-base-black">Messages</h1>
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent className="h-full pt-0">
         {messagesData === undefined ? (
           <div>
             <p className="text-initial-gray">Messages will appear here</p>
@@ -37,7 +37,7 @@ const MessagesNavbar: React.FC<MessagesNavbarProps> = ({ messagesData }) => {
                 href={`/dashboard/messages/rooms/${messages.seekerId._id}`}
               >
                 <div
-                  className={`p-2 flex gap-5 items-center transition-all hover:bg-gray-100 dark:hover:bg-[#1b1b1b] rounded-lg cursor-pointer ${
+                  className={`p-2 flex gap-5 items-center transition-all hover:bg-gray-100 dark:hover:bg-[#1b1b1b] rounded-lg cursor-pointer overflow-hidden ${
                     isActiveChatSeeker === messages.seekerId._id &&
                     "bg-blue-100 dark:bg-blue-700"
                   }`}
