@@ -208,7 +208,6 @@ const Applications: React.FC<ApplicationsProps> = ({
             <TableCell>
               {app.resume ? (
                 <Link
-                  className="text-initial-blue"
                   href={`https://job-searching-application.s3.amazonaws.com/${app.resume}`}
                 >
                   View Seeker Resume
