@@ -77,5 +77,12 @@ export const createDirectMessages = async (
 export const getDirectMessages = async (
   token: string
 ): Promise<{
-  directMessages: { seekerId: SeekerTypes; messages: MessageTypes }[];
+  directMessages: { seekerId: SeekerTypes; messages: MessageTypes[] }[];
 }> => await getApiHandler(`employer/messages`, token);
+
+export const getMessagesRoom = async (
+  token: string,
+  seekerId: string
+): Promise<{
+  messageRoom: { seekerId: SeekerTypes; messages: MessageTypes[] };
+}> => await getApiHandler(`employer/messages/${seekerId}`, token);

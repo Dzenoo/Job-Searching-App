@@ -12,6 +12,7 @@ const MessagesLayout: React.FC<{ children: React.ReactNode }> = ({
   const { token } = useAuthentication().getCookieHandler();
   const { data: directMessagesData } = useQuery({
     queryFn: () => getDirectMessages(token!),
+    queryKey: ["directMessages"],
   });
 
   return (

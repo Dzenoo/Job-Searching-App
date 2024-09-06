@@ -9,7 +9,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 type MessagesNavbarProps = {
-  messagesData: { seekerId: SeekerTypes; messages: MessageTypes }[];
+  messagesData: { seekerId: SeekerTypes; messages: MessageTypes[] }[];
 };
 
 const MessagesNavbar: React.FC<MessagesNavbarProps> = ({ messagesData }) => {
@@ -49,7 +49,7 @@ const MessagesNavbar: React.FC<MessagesNavbarProps> = ({ messagesData }) => {
                   </div>
                   <div>
                     <div>
-                      <h1 className="text-initial-black">
+                      <h1 className="text-initial-black whitespace-nowrap">
                         {messages.seekerId.first_name}{" "}
                         {messages.seekerId.last_name}
                       </h1>

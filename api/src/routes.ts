@@ -194,6 +194,11 @@ export function initializePrivateRoutes(app: Express): void {
     },
     {
       method: EXPRESS_APP_METHODS.GET,
+      path: "/employer/messages/:seekerId",
+      handlers: [employers.getMessageRoom],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
       path: "/employer",
       handlers: [employers.getEmployerProfile],
     },

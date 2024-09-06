@@ -654,22 +654,6 @@ export const getEmployers = asyncErrors(async (request, response) => {
   }
 });
 
-export const getJobById = asyncErrors(async (request, response) => {
-  try {
-    const job = await Job.findById(request.params.jobId).select(
-      "title overview position location expiration_date level salary skills description type"
-    );
-
-    if (!job) {
-      sendResponse({ message: "Cannot find job right now" }, 400, response);
-    }
-
-    sendResponse({ job: job }, 201, response);
-  } catch (error) {
-    response.status(500).json({ message: "Internal server error" });
-  }
-});
-
 export const getDirectMessages = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
@@ -694,6 +678,65 @@ export const getDirectMessages = asyncErrors(async (request, response) => {
     }
 
     sendResponse({ directMessages: employer.directMessages }, 200, response);
+  } catch (error) {
+    response.status(500).json({ message: "Internal server error" });
+  }
+});
+
+export const getMessageRoom = asyncErrors(async (request, response) => {
+  try {
+    // @ts-ignore
+    const { employerId } = request.user;
+    const { seekerId } = request.params;
+
+    const employer = await Employer.findById(employerId)
+      .populate({
+        path: "directMessages.seekerId",
+        match: { _id: seekerId },
+        select: "first_name last_name email image",
+      })
+      .populate({
+        path: "directMessages.messages",
+        select: "content createdAt",
+      });
+
+    if (!employer) {
+      return sendResponse(
+        { message: "Cannot find employer profile" },
+        400,
+        response
+      );
+    }
+
+    const messageRoom = employer.directMessages.find(
+      (dm: any) => dm.seekerId && dm.seekerId._id.toString() === seekerId
+    );
+
+    if (!messageRoom) {
+      return sendResponse(
+        { message: "Message room not found for this seeker" },
+        404,
+        response
+      );
+    }
+
+    sendResponse({ messageRoom }, 200, response);
+  } catch (error) {
+    response.status(500).json({ message: "Internal server error" });
+  }
+});
+
+export const getJobById = asyncErrors(async (request, response) => {
+  try {
+    const job = await Job.findById(request.params.jobId).select(
+      "title overview position location expiration_date level salary skills description type"
+    );
+
+    if (!job) {
+      sendResponse({ message: "Cannot find job right now" }, 400, response);
+    }
+
+    sendResponse({ job: job }, 201, response);
   } catch (error) {
     response.status(500).json({ message: "Internal server error" });
   }
