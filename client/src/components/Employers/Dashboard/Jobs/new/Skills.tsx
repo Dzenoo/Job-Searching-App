@@ -34,13 +34,6 @@ const Skills: React.FC<SkillsProps> = ({ control, onSelectSkills }) => {
                 onChange={(selectedValues) => onSelectSkills(selectedValues)}
               />
             </FormControl>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {field.value.map((skill: string) => (
-                <Badge key={skill} variant="secondary">
-                  {skill}
-                </Badge>
-              ))}
-            </div>
             <FormDescription>
               Choose multiple skills that are essential for this job. Each skill
               should be clearly defined and relevant to the role. You can select

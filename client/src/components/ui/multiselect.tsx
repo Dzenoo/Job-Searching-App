@@ -6,6 +6,7 @@ import {
   CommandList,
   CommandGroup,
 } from "@/components/ui/command";
+import { Badge } from "./badge";
 
 type MultiSelectOption = {
   value: string;
@@ -43,11 +44,15 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         type="button"
         variant="outline"
         onClick={toggleDropdown}
-        className="w-full justify-between"
+        className="h-fit flex gap-2 justify-between flex-wrap hover:bg-white"
       >
-        <span>
-          {selectedValues.length > 0 ? selectedValues.join(", ") : placeholder}
-        </span>
+        {selectedValues.length > 0
+          ? selectedValues.map((value) => (
+              <Badge key={value} variant="secondary">
+                {value}
+              </Badge>
+            ))
+          : placeholder}
       </Button>
       {open && (
         <Command className="h-52 absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg dark:bg-[#1b1b1b]">
