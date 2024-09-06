@@ -35,7 +35,7 @@ export const EmployersNavbarLinks = [
 export const SeekersNavbarActions = [
   // {
   //   id: "1",
-  //   href: "/direct/rooms",
+  //   href: "/messages/rooms",
   //   icon: <MessageCircle />,
   // },
   {

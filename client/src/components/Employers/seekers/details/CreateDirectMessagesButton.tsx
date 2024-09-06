@@ -23,7 +23,7 @@ const CreateDirectMessagesButton: React.FC<CreateDirectMessagesButtonProps> = ({
   const { mutateAsync: createDirectMessagesMutate, isLoading } = useMutation({
     mutationFn: () => createDirectMessages(seekerId, token!),
     onSuccess: () => {
-      router.push(`/dashboard/direct/rooms/${seekerId}`);
+      router.push(`/dashboard/messages/rooms/${seekerId}`);
       queryClient.invalidateQueries(["profile, seeker"]);
     },
     onError: (error: any) => {
@@ -39,7 +39,7 @@ const CreateDirectMessagesButton: React.FC<CreateDirectMessagesButtonProps> = ({
     <>
       {isExistingDirectMessages ? (
         <Link
-          href={`/dashboard/direct/rooms/${isExistingDirectMessages.seekerId}`}
+          href={`/dashboard/messages/rooms/${isExistingDirectMessages.seekerId}`}
         >
           <Button variant="default">Message</Button>
         </Link>

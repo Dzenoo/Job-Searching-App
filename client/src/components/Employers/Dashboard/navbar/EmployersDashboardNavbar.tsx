@@ -54,7 +54,7 @@ const EmployersDashboardNavbar: React.FC = () => {
     {
       id: "5",
       icon: <MessageCircle />,
-      href: "/dashboard/direct/rooms",
+      href: "/dashboard/messages/rooms",
       tooltip: "Messages",
     },
   ];
