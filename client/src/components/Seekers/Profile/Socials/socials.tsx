@@ -28,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { formatURL } from "@/lib/utils";
 
 type SocialsDialogProps = {
   closeDialog: () => void;
@@ -219,13 +220,14 @@ const Socials: React.FC<SocialsProps> = ({ seeker }) => {
                 {data === "" ? (
                   <p className="text-initial-gray">Add {title}</p>
                 ) : (
-                  <Link
+                  <a
                     className="text-[--blue-base-color]"
-                    href={data}
+                    href={formatURL(data)}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {data}
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>

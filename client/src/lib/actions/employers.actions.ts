@@ -1,11 +1,5 @@
-import {
-  EmployerTypes,
-  JobTypes,
-  MessageTypes,
-  ResponseMessageTypes,
-  SeekerTypes,
-} from "@/types";
-import { getApiHandler, patchApiHandler, postApiHandler } from "../api";
+import { EmployerTypes, JobTypes, SeekerTypes } from "@/types";
+import { getApiHandler } from "../api";
 
 export const getSeekers = async ({
   page = "1",
@@ -67,22 +61,3 @@ export const getJob = async (
   jobId: string
 ): Promise<{ job: JobTypes }> =>
   await getApiHandler(`employer/jobs/${jobId}`, token);
-
-export const createDirectMessages = async (
-  seekerId: string,
-  token: string
-): Promise<ResponseMessageTypes> =>
-  await postApiHandler(`employer/messages/${seekerId}`, {}, token);
-
-export const getDirectMessages = async (
-  token: string
-): Promise<{
-  directMessages: { seekerId: SeekerTypes; messages: MessageTypes[] }[];
-}> => await getApiHandler(`employer/messages`, token);
-
-export const getMessagesRoom = async (
-  token: string,
-  seekerId: string
-): Promise<{
-  messageRoom: { seekerId: SeekerTypes; messages: MessageTypes[] };
-}> => await getApiHandler(`employer/messages/${seekerId}`, token);

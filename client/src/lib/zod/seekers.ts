@@ -8,9 +8,24 @@ export const EditableSeekerInformationsSchemas = zod.object({
 });
 
 export const EditableSeekerSocialsSchemas = zod.object({
-  portfolio: zod.string().optional(),
-  linkedin: zod.string().optional(),
-  github: zod.string().optional(),
+  portfolio: zod
+    .string()
+    .optional()
+    .refine((value) => !value || zod.string().url().safeParse(value).success, {
+      message: "Please enter a valid URL for the portfolio.",
+    }),
+  linkedin: zod
+    .string()
+    .optional()
+    .refine((value) => !value || zod.string().url().safeParse(value).success, {
+      message: "Please enter a valid URL for LinkedIn.",
+    }),
+  github: zod
+    .string()
+    .optional()
+    .refine((value) => !value || zod.string().url().safeParse(value).success, {
+      message: "Please enter a valid URL for GitHub.",
+    }),
 });
 
 export const EditableEducationsSchemas = zod.object({

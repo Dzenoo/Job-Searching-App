@@ -166,7 +166,11 @@ export const editJob = asyncErrors(async (request, response) => {
     }
 
     // Send the response with the updated job details
-    sendResponse({ job: editedJob }, 201, response);
+    sendResponse(
+      { job: editedJob, message: "Successfully edited" },
+      201,
+      response
+    );
   } catch (error) {
     sendResponse(
       { message: "Cannot edit job, please try again" },

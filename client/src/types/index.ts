@@ -73,7 +73,6 @@ type EmployerTypes = {
   notifications: NotificationTypes[];
   jobs: JobTypes[];
   followers: SeekerTypes[];
-  directMessages: EmployerDirectMessagesTypes[];
   events: EventTypes[];
   reviews: ReviewTypes[];
 };
@@ -150,7 +149,6 @@ type SeekerTypes = {
   }[];
   savedJobs: JobTypes[];
   following: string[];
-  directMessages: SeekerDirectMessagesTypes[];
   events: string[];
   alerts: JobAlertsTypes;
   createdAt: Date;
@@ -165,42 +163,7 @@ type NotificationTypes = {
   date: string;
   data: any;
   isRead: boolean;
-  type:
-    | "jobs"
-    | "applications"
-    | "messages"
-    | "reviews"
-    | "events"
-    | "followers";
-};
-
-type SeekerDirectMessagesTypes = {
-  employerId: string;
-  messages: MessageTypes[];
-};
-
-type EmployerDirectMessagesTypes = {
-  seekerId: string;
-  messages: MessageTypes[];
-};
-
-type MessageTypes = {
-  createdAt: string;
-  sender:
-    | {
-        email: string;
-        image: string;
-        name: string;
-        _id: string;
-      }
-    | {
-        emaiL: string;
-        image: string;
-        first_name: string;
-        last_name: string;
-        _id: string;
-      };
-  content: string;
+  type: "jobs" | "applications" | "reviews" | "events" | "followers";
 };
 
 type ApplicationsTypes = {
@@ -240,10 +203,7 @@ export {
   type JobAlertsTypes,
   type SeekerTypes,
   type NotificationTypes,
-  type SeekerDirectMessagesTypes,
-  type MessageTypes,
   type ApplicationsTypes,
-  type EmployerDirectMessagesTypes,
   ApplicationStatus,
   type ResponseMessageTypes,
   TypeOfAccount,

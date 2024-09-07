@@ -27,7 +27,7 @@ import {
   getSkillsData,
   getTime,
 } from "@/lib/utils";
-import { renderIconText } from "@/helpers";
+import { renderIconText, renderSkills } from "@/helpers";
 
 type JobDetailsInfoProps = {
   job: JobTypes;
@@ -176,25 +176,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
             <div>
               <h1 className="font-bold">Skills</h1>
             </div>
-            <div className="py-3 flex gap-6 flex-wrap">
-              {Object.entries(categorizedSkills).map(
-                ([category, skills]) =>
-                  skills.length > 0 && (
-                    <div key={category} className="flex flex-col gap-3">
-                      <div>
-                        <h1 className="text-initial-black">{category}</h1>
-                      </div>
-                      <div className="flex flex-wrap gap-3">
-                        {skills.map((skill, index) => (
-                          <Button variant="outline" key={index}>
-                            {skill}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  )
-              )}
-            </div>
+            {renderSkills(categorizedSkills)}
           </div>
         </CardContent>
       </Card>

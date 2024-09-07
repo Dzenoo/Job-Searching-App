@@ -9,7 +9,7 @@ type EducationListProps = {
 const EducationList: React.FC<EducationListProps> = ({ educations }) => {
   return (
     <div>
-      <div className="text-center">
+      <div>
         {educations?.length === 0 && (
           <p className="text-initial-gray">No Educations Found</p>
         )}

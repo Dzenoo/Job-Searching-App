@@ -2,21 +2,17 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import { Github, Linkedin, LucideImage } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Navigator from "@/components/ui/navigator";
 
-import useGetEmployer from "@/hooks/mutations/useGetEmployer";
-
 import EducationList from "@/components/seekers/profile/educations/EducationList";
-import CreateDirectMessagesButton from "./CreateDirectMessagesButton";
 
 import { SeekerTypes } from "@/types";
-import { getImageUrl, getSkillsData } from "@/lib/utils";
+import { formatURL, getImageUrl, getSkillsData } from "@/lib/utils";
+import { renderSkills } from "@/helpers";
 
 type SeekerDetailsInfoProps = {
   seeker: SeekerTypes;
@@ -26,23 +22,26 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
   const profileImageUrl = getImageUrl(seeker?.image);
   const categorizedSkills = getSkillsData(seeker?.skills);
 
-  const SocialsArrays = new Array(
+  const SocialsArrays = [
     {
       id: "1",
-      href: seeker?.portfolio || "",
+      href: seeker?.portfolio,
       icon: <LucideImage />,
+      label: "Portfolio",
     },
     {
       id: "2",
-      href: seeker?.github || "",
+      href: seeker?.github,
       icon: <Github />,
+      label: "Github",
     },
     {
       id: "3",
-      href: seeker?.linkedin || "",
+      href: seeker?.linkedin,
       icon: <Linkedin />,
-    }
-  );
+      label: "Linkedin",
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6">
@@ -75,14 +74,26 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
               </div>
             </div>
             <div className="flex items-center gap-10 flex-wrap">
-              {SocialsArrays.map((socials) => (
-                <Link href={socials.href} key={socials.id} target="_blank">
-                  {socials.icon}
-                </Link>
-              ))}
-              <div>
-                <CreateDirectMessagesButton seekerId={seeker?._id} />
-              </div>
+              {SocialsArrays.map((socials) =>
+                socials.href ? (
+                  <a
+                    className="text-[--blue-base-color]"
+                    href={formatURL(socials.href)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={socials.id}
+                  >
+                    {socials.icon}
+                  </a>
+                ) : (
+                  <div
+                    className="text-initial-gray cursor-not-allowed"
+                    key={socials.id}
+                  >
+                    {socials.icon}
+                  </div>
+                )
+              )}
             </div>
           </div>
         </CardHeader>
@@ -97,7 +108,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
               </div>
             ) : (
               <div>
-                <p className="text-initial-gray">No Biography Defined</p>
+                <p className="text-initial-gray">No Biography Found</p>
               </div>
             )}
           </div>
@@ -113,28 +124,10 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
             <div>
               <h1 className="font-bold">Skills</h1>
             </div>
-            <div className="py-3 flex gap-6 flex-wrap">
-              {Object.entries(categorizedSkills).map(
-                ([category, skills]) =>
-                  skills.length > 0 && (
-                    <div key={category} className="flex flex-col gap-3">
-                      <div>
-                        <h1 className="font-bold">{category}</h1>
-                      </div>
-                      <div className="flex flex-wrap gap-3">
-                        {skills.map((skill, index) => (
-                          <Button variant="outline" key={index}>
-                            {skill}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  )
-              )}
-            </div>
+            {renderSkills(categorizedSkills)}
             <div className="text-center">
               {seeker?.skills.length === 0 && (
-                <p className="text-initial-gray">No Skills Founded</p>
+                <p className="text-initial-gray">No Skills Found</p>
               )}
             </div>
           </div>

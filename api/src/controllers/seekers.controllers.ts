@@ -168,10 +168,6 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         },
         select: "_id status createdAt updatedAt",
       })
-      .populate({
-        path: "directMessages.messages",
-        select: "content sender createdAt",
-      })
       .select(
         "_id first_name last_name email biography image education skills alerts github linkedin portfolio following events notifications overview"
       )

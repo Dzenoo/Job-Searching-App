@@ -118,15 +118,6 @@ const SeekerSchema = new mongoose.Schema(
         default: [],
       },
     ],
-    directMessages: [
-      {
-        _id: false,
-        employerId: { type: mongoose.Types.ObjectId, ref: "Employer" },
-        messages: [
-          { type: mongoose.Types.ObjectId, ref: "Message", default: [] },
-        ],
-      },
-    ],
     events: [
       {
         type: mongoose.Types.ObjectId,

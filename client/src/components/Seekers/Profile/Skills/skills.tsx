@@ -27,6 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { renderSkills } from "@/helpers";
 
 type AddSkillsProps = {
   skills?: string[];
@@ -43,8 +44,6 @@ const AddSkillsForm: React.FC<AddSkillsProps> = ({ skills = [] }) => {
   const { mutateAsync: editSeekerProfileMutate } = useEditSeeker();
 
   const onSubmit = async (values: zod.infer<typeof SeekersSkillsSchemas>) => {
-    console.log(values);
-
     await editSeekerProfileMutate(values);
   };
 
@@ -138,25 +137,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
             <p className="text-initial-gray">No Skills Found</p>
           )}
         </div>
-        <div className="flex gap-6">
-          {Object.entries(categorizedSkills).map(
-            ([category, skills]) =>
-              skills.length > 0 && (
-                <div key={category} className="flex flex-col gap-3">
-                  <div>
-                    <h1 className="text-initial-black">{category}</h1>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {skills.map((skill, index) => (
-                      <Button variant="outline" key={index}>
-                        {skill}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              )
-          )}
-        </div>
+        {renderSkills(categorizedSkills)}
       </div>
     </Fragment>
   );

@@ -10,7 +10,6 @@ import * as seekers from "./controllers/seekers.controllers";
 import * as applications from "./controllers/applications.controllers";
 import * as events from "./controllers/events.controllers";
 import * as reviews from "./controllers/reviews.controllers";
-import * as messages from "./controllers/messages.controllers";
 
 // Enum for HTTP methods
 enum EXPRESS_APP_METHODS {
@@ -78,17 +77,6 @@ export function initializePrivateRoutes(app: Express): void {
       method: EXPRESS_APP_METHODS.PATCH,
       path: "/notifications/:notification",
       handlers: [notifications.readNotificationsData],
-    },
-    // Messages
-    {
-      method: EXPRESS_APP_METHODS.PATCH,
-      path: "/create-message/:employerId/:seekerId",
-      handlers: [messages.createMessage],
-    },
-    {
-      method: EXPRESS_APP_METHODS.POST,
-      path: "/employer/messages/:seekerId",
-      handlers: [messages.createDirectMessages],
     },
     // Seeker routes
     {
@@ -187,16 +175,6 @@ export function initializePrivateRoutes(app: Express): void {
       handlers: [events.registerEvent],
     },
     // Employer routes
-    {
-      method: EXPRESS_APP_METHODS.GET,
-      path: "/employer/messages",
-      handlers: [employers.getDirectMessages],
-    },
-    {
-      method: EXPRESS_APP_METHODS.GET,
-      path: "/employer/messages/:seekerId",
-      handlers: [employers.getMessageRoom],
-    },
     {
       method: EXPRESS_APP_METHODS.GET,
       path: "/employer",

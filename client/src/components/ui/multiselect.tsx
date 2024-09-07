@@ -44,7 +44,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         type="button"
         variant="outline"
         onClick={toggleDropdown}
-        className="h-fit flex gap-2 justify-between flex-wrap hover:bg-white"
+        className="w-full h-fit flex gap-2 justify-between flex-wrap hover:bg-white dark:hover:bg-[#1b1b1b]"
       >
         {selectedValues.length > 0
           ? selectedValues.map((value) => (

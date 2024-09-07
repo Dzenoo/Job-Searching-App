@@ -25,14 +25,7 @@ const NotificationSchemas = new mongoose.Schema({
     type: String,
     required: true,
     enum: {
-      values: [
-        "jobs",
-        "applications",
-        "messages",
-        "reviews",
-        "events",
-        "followers",
-      ],
+      values: ["jobs", "applications", "reviews", "events", "followers"],
       message: "{VALUE} is not defined",
     },
   },

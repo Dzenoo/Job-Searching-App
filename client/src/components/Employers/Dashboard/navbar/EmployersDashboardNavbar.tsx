@@ -8,8 +8,6 @@ import {
   Bell,
   Briefcase,
   LayoutDashboard,
-  LayoutTemplate,
-  MessageCircle,
   Settings,
   Menu,
   X,
@@ -33,12 +31,12 @@ const EmployersDashboardNavbar: React.FC = () => {
       href: "/dashboard",
       tooltip: "Dashboard",
     },
-    // {
-    //   id: "2",
-    //   icon: <Settings />,
-    //   href: "/dashboard/settings",
-    //   tooltip: "Settings",
-    // },
+    {
+      id: "2",
+      icon: <Settings />,
+      href: "/dashboard/settings",
+      tooltip: "Settings",
+    },
     {
       id: "3",
       icon: <Briefcase />,
@@ -50,12 +48,6 @@ const EmployersDashboardNavbar: React.FC = () => {
       icon: <Bell />,
       href: "/dashboard/notifications",
       tooltip: "Notifications",
-    },
-    {
-      id: "5",
-      icon: <MessageCircle />,
-      href: "/dashboard/messages/rooms",
-      tooltip: "Messages",
     },
   ];
 

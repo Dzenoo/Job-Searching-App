@@ -25,18 +25,13 @@ export const SeekersNavbarLinks = [
 // Navbar Actions
 // ===============================
 export const SeekersNavbarActions = [
-  // {
-  //   id: "1",
-  //   href: "/messages/rooms",
-  //   icon: <MessageCircle />,
-  // },
   {
-    id: "2",
+    id: "1",
     href: "/notifications",
     icon: <Bell />,
   },
   {
-    id: "3",
+    id: "2",
     href: "/profile",
     icon: <User />,
   },

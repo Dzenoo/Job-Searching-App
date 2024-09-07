@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Github, Linkedin, LucideImage } from "lucide-react";
 
 import { SeekerTypes } from "@/types";
-import { getImageUrl, getSkillNames } from "@/lib/utils";
+import { formatURL, getImageUrl, getSkillNames } from "@/lib/utils";
 
 import {
   Card,
@@ -24,17 +24,17 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   const SocialsArrays = new Array(
     {
       id: "1",
-      href: seeker?.portfolio || "",
+      href: seeker?.portfolio,
       icon: <LucideImage />,
     },
     {
       id: "2",
-      href: seeker?.github || "",
+      href: seeker?.github,
       icon: <Github />,
     },
     {
       id: "3",
-      href: seeker?.linkedin || "",
+      href: seeker?.linkedin,
       icon: <Linkedin />,
     }
   );
@@ -69,15 +69,30 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
           <p>{seeker?.overview}</p>
         </div>
         <div className="flex items-center gap-10 pt-3">
-          {SocialsArrays.map((socials) => (
-            <Link href={socials.href} key={socials.id} target="_blank">
-              {socials.icon}
-            </Link>
-          ))}
+          {SocialsArrays.map((socials) =>
+            socials.href ? (
+              <a
+                className="text-[--blue-base-color]"
+                href={formatURL(socials.href)}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={socials.id}
+              >
+                {socials.icon}
+              </a>
+            ) : (
+              <div
+                className="text-initial-gray cursor-not-allowed"
+                key={socials.id}
+              >
+                {socials.icon}
+              </div>
+            )
+          )}
         </div>
       </CardContent>
       <CardFooter>
-        <div className="flex gap-3 whitespace-nowrap overflow-hidden items-center justify-center">
+        <div className="flex gap-3 whitespace-nowrap overflow-x-scroll items-center justify-center hide-scrollbar">
           {skillNames.map((skillName, index) => (
             <Button variant="outline" key={index}>
               {skillName}

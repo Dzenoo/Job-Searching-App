@@ -130,6 +130,13 @@ export const formatDate = (
   return date ? moment.utc(date).format(format) : date;
 };
 
+export const formatURL = (url: string) => {
+  if (!/^https?:\/\//i.test(url)) {
+    return `https://${url}`;
+  }
+  return url;
+};
+
 /**
  * Checks if a given date is expired (i.e., is in the past).
  * @param date - The date string to check.
