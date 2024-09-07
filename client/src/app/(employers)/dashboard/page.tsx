@@ -34,7 +34,6 @@ const Dashboard = () => {
       <div>
         <Statistics
           totalJobs={analytics?.totalJobs || 0}
-          totalEvents={analytics?.totalEvents || 0}
           totalReviews={analytics?.totalReviews || 0}
           totalApplications={analytics?.totalApplications || 0}
         />

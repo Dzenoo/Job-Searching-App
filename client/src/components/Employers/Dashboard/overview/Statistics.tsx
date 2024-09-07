@@ -12,13 +12,11 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 type StatisticsProps = {
   totalJobs: number;
   totalReviews: number;
-  totalEvents: number;
   totalApplications: number;
 };
 
 const Statistics: React.FC<StatisticsProps> = ({
   totalApplications,
-  totalEvents,
   totalReviews,
   totalJobs,
 }) => {
@@ -36,12 +34,6 @@ const Statistics: React.FC<StatisticsProps> = ({
       icon: <MessageSquareDot color="#00C7E2" />,
     },
     {
-      id: "3",
-      title: "Total Events",
-      data: totalEvents,
-      icon: <FileText color="#9225FF" />,
-    },
-    {
       id: "4",
       title: "Total Applications",
       data: totalApplications,
@@ -50,7 +42,7 @@ const Statistics: React.FC<StatisticsProps> = ({
   );
 
   return (
-    <div className="grid gap-3 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+    <div className="grid gap-3 grid-cols-3 max-lg:grid-cols-1">
       {StatisticsData.map((statistics) => (
         <Card key={statistics.id}>
           <CardHeader className="flex justify-between gap-3">

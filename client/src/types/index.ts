@@ -10,28 +10,6 @@ enum SizeOfEmployers {
   "500-1000" = "500-1000",
 }
 
-enum EventLocation {
-  Online = "Online",
-  InPerson = "InPerson",
-  Hybrid = "Hybrid",
-  Virtual = "Virtual",
-  Outdoor = "Outdoor",
-  Indoor = "Indoor",
-}
-
-enum EventCategory {
-  Conference = "Conference",
-  Seminar = "Seminar",
-  Workshop = "Workshop",
-  Networking = "Networking",
-  Webinar = "Webinar",
-  Hackathon = "Hackathon",
-  JobFair = "JobFair",
-  Meetup = "Meetup",
-  Exhibition = "Exhibition",
-  Other = "Other",
-}
-
 enum ReviewType {
   "Freelance",
   "Part-Time",
@@ -73,20 +51,7 @@ type EmployerTypes = {
   notifications: NotificationTypes[];
   jobs: JobTypes[];
   followers: SeekerTypes[];
-  events: EventTypes[];
   reviews: ReviewTypes[];
-};
-
-type EventTypes = {
-  _id: string;
-  title: string;
-  date: string;
-  description: string;
-  image: string;
-  location: keyof typeof EventLocation | string;
-  category: keyof typeof EventCategory | string;
-  company: EmployerTypes;
-  seekers: SeekerTypes[];
 };
 
 type JobTypes = {
@@ -149,7 +114,6 @@ type SeekerTypes = {
   }[];
   savedJobs: JobTypes[];
   following: string[];
-  events: string[];
   alerts: JobAlertsTypes;
   createdAt: Date;
   updatedAt: Date;
@@ -163,7 +127,7 @@ type NotificationTypes = {
   date: string;
   data: any;
   isRead: boolean;
-  type: "jobs" | "applications" | "reviews" | "events" | "followers";
+  type: "jobs" | "applications" | "reviews" | "followers";
 };
 
 type ApplicationsTypes = {
@@ -193,9 +157,6 @@ enum TypeOfAccount {
 export {
   type EmployerTypes,
   SizeOfEmployers,
-  type EventTypes,
-  EventLocation,
-  EventCategory,
   type JobTypes,
   type ReviewTypes,
   ReviewType,

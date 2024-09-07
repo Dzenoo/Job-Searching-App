@@ -28,6 +28,7 @@ import {
   getTime,
 } from "@/lib/utils";
 import { renderIconText, renderSkills } from "@/helpers";
+import Link from "next/link";
 
 type JobDetailsInfoProps = {
   job: JobTypes;
@@ -121,7 +122,9 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
               </div>
               <div className="flex flex-col gap-3">
                 <div>
-                  <h3 className="text-initial-black">{job?.company.name}</h3>
+                  <Link href={`/companies/${job?.company._id}`}>
+                    <h3 className="text-initial-black">{job?.company.name}</h3>
+                  </Link>
                 </div>
                 {renderIconText({
                   id: "3",

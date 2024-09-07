@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Building, Camera, FileText, Text } from "lucide-react";
+import { Building, Camera, Text } from "lucide-react";
 
 import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { EmployerTypes } from "@/types";
@@ -42,11 +42,6 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
       id: "2",
       icon: <Text color="gray" />,
       data: employer?.reviews.length + " Reviews",
-    },
-    {
-      id: "3",
-      icon: <FileText color="gray" />,
-      data: employer?.events.length + " Events",
     }
   );
 
@@ -68,7 +63,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
               </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
-              <div className="rounded-full bg-blue-100 p-3 w-fit dark:bg-blue-300">
+              <div className="rounded-full bg-blue-100 p-3 w-fit dark:bg-blue-500">
                 <p className="text-initial-blue">
                   {employer?.address || "Location"}
                 </p>
@@ -85,11 +80,11 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
               </div>
             </CardContent>
           </div>
-          <CardFooter className="pt-5 flex flex-col justify-between gap-10 max-lg:basis-full">
-            <div className="flex items-center gap-6 flex-wrap justify-between">
+          <CardFooter className="items-start pt-5 flex flex-col justify-between gap-10 max-lg:basis-full">
+            <div className="flex items-center gap-6 flex-wrap">
               {FooterEmployerData.map((data) => renderIconText(data))}
             </div>
-            <div className="flex items-center justify-end gap-6 max-lg:justify-stretch max-lg:flex-wrap">
+            <div className="flex items-center justify-end gap-2 max-lg:justify-stretch max-lg:flex-wrap">
               <div>
                 <Link
                   href={employer?.website || ""}

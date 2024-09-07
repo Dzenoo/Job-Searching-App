@@ -143,7 +143,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
                         placeholder="Cover Letter"
                         {...field}
                       />
-                      <Button
+                      {/* <Button
                         variant="outline"
                         onClick={async () => await coverLetterJob()}
                         type="button"
@@ -154,7 +154,7 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
                         ) : (
                           "Generate By Ai"
                         )}
-                      </Button>
+                      </Button> */}
                     </>
                   </FormControl>
                   <FormDescription>

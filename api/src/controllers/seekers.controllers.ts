@@ -1,13 +1,12 @@
 import { uuidv7 } from "uuidv7";
 import { asyncErrors } from "../errors/asyncErrors";
-import Seeker from "../models/seeker/seekers.schema";
-import Job from "../models/shared/jobs.schema";
+import Seeker from "../models/seekers.schema";
+import Job from "../models/jobs.schema";
 import { deleteFileFromS3, uploadFileToS3 } from "../utils/aws";
 import { sendResponse, validate } from "../utils/validation";
-import Application from "../models/shared/applications.schema";
-import Review from "../models/employer/reviews.schema";
-import Event from "../models/employer/events.schema";
-import Employer from "../models/employer/employers.schema";
+import Application from "../models/applications.schema";
+import Review from "../models/reviews.schema";
+import Employer from "../models/employers.schema";
 
 // Controller function to sign up a new seeker
 export const signupSeeker = asyncErrors(
@@ -169,7 +168,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         select: "_id status createdAt updatedAt",
       })
       .select(
-        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following events notifications overview"
+        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following notifications overview"
       )
       .exec();
 
@@ -286,10 +285,6 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
     // Delete related data for the seeker
     await Application.deleteMany({ seeker: seekerId });
     await Review.deleteMany({ seeker: seekerId });
-    await Event.updateMany(
-      { seekers: seekerId },
-      { $pull: { seekers: seekerId } }
-    );
     await Job.updateMany(
       { applications: { $in: applications.map((app) => app._id) } },
       {

@@ -6,12 +6,7 @@ import { ReviewTypes } from "@/types";
 import { getSkillNames, getTime } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   Card,
   CardContent,
@@ -19,7 +14,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { SkillsInformationsData } from "@/constants";
 import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 import { useMutation } from "react-query";
 import { deleteReview } from "@/lib/actions/reviews.actions";
@@ -77,9 +71,6 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogHeader>
-          <DialogTitle>Edit Review</DialogTitle>
-        </DialogHeader>
         <DialogContent>
           <EditReview review={review} closeDialog={closeDialog} />
         </DialogContent>

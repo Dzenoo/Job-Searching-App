@@ -8,7 +8,6 @@ import * as jobs from "./controllers/jobs.controllers";
 import * as employers from "./controllers/employers.controllers";
 import * as seekers from "./controllers/seekers.controllers";
 import * as applications from "./controllers/applications.controllers";
-import * as events from "./controllers/events.controllers";
 import * as reviews from "./controllers/reviews.controllers";
 
 // Enum for HTTP methods
@@ -164,16 +163,6 @@ export function initializePrivateRoutes(app: Express): void {
       path: "/seeker/jobs/:jobId",
       handlers: [jobs.getJobById],
     },
-    {
-      method: EXPRESS_APP_METHODS.GET,
-      path: "/seeker/events",
-      handlers: [events.getEvents],
-    },
-    {
-      method: EXPRESS_APP_METHODS.PATCH,
-      path: "/seeker/events/:eventId/register",
-      handlers: [events.registerEvent],
-    },
     // Employer routes
     {
       method: EXPRESS_APP_METHODS.GET,
@@ -224,21 +213,6 @@ export function initializePrivateRoutes(app: Express): void {
       method: EXPRESS_APP_METHODS.GET,
       path: "/employer/seekers/:seekerId",
       handlers: [seekers.getSeekerById],
-    },
-    {
-      method: EXPRESS_APP_METHODS.POST,
-      path: "/employer/events/new",
-      handlers: [upload.single("image"), events.createEvent],
-    },
-    {
-      method: EXPRESS_APP_METHODS.PATCH,
-      path: "/employer/events/:eventId/edit",
-      handlers: [events.editEvent],
-    },
-    {
-      method: EXPRESS_APP_METHODS.DELETE,
-      path: "/employer/events/:eventId/delete",
-      handlers: [events.deleteEvent],
     },
     {
       method: EXPRESS_APP_METHODS.PATCH,

@@ -1,9 +1,9 @@
 import { asyncErrors } from "../errors/asyncErrors";
-import Employer from "../models/employer/employers.schema";
-import Seeker from "../models/seeker/seekers.schema";
-import Application from "../models/shared/applications.schema";
-import Job from "../models/shared/jobs.schema";
-import Notification from "../models/shared/notifications.schema";
+import Employer from "../models/employers.schema";
+import Seeker from "../models/seekers.schema";
+import Application from "../models/applications.schema";
+import Job from "../models/jobs.schema";
+import Notification from "../models/notifications.schema";
 import { io } from "../server";
 import { sendResponse, validate } from "../utils/validation";
 

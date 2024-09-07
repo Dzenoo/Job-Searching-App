@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
@@ -10,19 +10,11 @@ import usePagination from "@/hooks/usePagination";
 import { getEmployerById } from "@/lib/actions/seekers.actions";
 
 import Protected from "@/components/hoc/Protected";
-import LoadingEventsSkeleton from "@/components/loaders/LoadingEvents";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
 import EmployerDetailsInfo from "@/components/seekers/employers/details/EmployerDetailsInfo";
 import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilters";
-import RegisterEvents from "@/components/seekers/events/RegisterEvents";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Pagination,
   PaginationContent,
@@ -33,12 +25,6 @@ import {
   PaginationEllipsis,
 } from "@/components/ui/pagination";
 
-const EventsList = dynamic(
-  () => import("@/components/seekers/events/EventsList"),
-  {
-    loading: () => <LoadingEventsSkeleton />,
-  }
-);
 const ReviewsList = dynamic(
   () => import("@/components/seekers/employers/details/reviews/ReviewsList"),
   {
@@ -57,7 +43,6 @@ const CompanyDetails = ({
   searchParams: { [key: string]: any };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { data: fetchedCompany, refetch } = useQuery({
     queryFn: () =>
@@ -81,15 +66,12 @@ const CompanyDetails = ({
 
   const searchParamsJobs = searchParams?.typeEmp === "jobs";
   const searchParamsReviews = searchParams?.typeEmp === "reviews";
-  const searchParamsEvents = searchParams?.typeEmp === "events";
 
   let totalItems = 0;
   if (searchParamsJobs && fetchedCompany?.totalJobs) {
     totalItems = fetchedCompany?.totalJobs;
   } else if (searchParamsReviews && fetchedCompany?.totalReviews) {
     totalItems = fetchedCompany?.totalReviews;
-  } else if (searchParamsEvents && fetchedCompany?.totalEvents) {
-    totalItems = fetchedCompany?.totalEvents;
   }
 
   const { currentPage, totalPages, handlePageChange } = usePagination({
@@ -97,9 +79,6 @@ const CompanyDetails = ({
     itemsPerPage: 10,
     initialPage: Number(searchParams?.page) || 1,
   });
-
-  const openDialog = () => setIsDialogOpen(true);
-  const closeDialog = () => setIsDialogOpen(false);
 
   return (
     <section className="py-6 overflow-hidden mx-40 max-xl:mx-0">
@@ -111,28 +90,6 @@ const CompanyDetails = ({
       </div>
       <div className="flex flex-col gap-6 justify-center overflow-auto py-6">
         {searchParamsJobs && <JobsList jobs={fetchedCompany?.employer?.jobs} />}
-        {searchParamsEvents && (
-          <>
-            <EventsList
-              events={fetchedCompany?.employer.events || []}
-              onRegisterEvent={openDialog}
-            />
-            {fetchedCompany?.employer.events.length! > 0 && (
-              <Dialog open={isDialogOpen}>
-                <DialogHeader>
-                  <DialogTitle>Register for Event</DialogTitle>
-                </DialogHeader>
-                <DialogContent>
-                  <RegisterEvents
-                    eventId={searchParams?.evt}
-                    token={token!}
-                    closeDialog={closeDialog}
-                  />
-                </DialogContent>
-              </Dialog>
-            )}
-          </>
-        )}
         {searchParamsReviews && (
           <ReviewsList reviews={fetchedCompany?.employer.reviews} />
         )}

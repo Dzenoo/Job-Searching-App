@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Camera, FileText, Text } from "lucide-react";
+import { Camera, Text } from "lucide-react";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { renderIconText } from "@/helpers";
@@ -25,11 +25,6 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
       id: "2",
       icon: <Text color="gray" />,
       data: employer.reviews.length + " Reviews",
-    },
-    {
-      id: "3",
-      icon: <FileText color="gray" />,
-      data: employer.events.length + " Events",
     }
   );
 

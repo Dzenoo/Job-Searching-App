@@ -46,7 +46,6 @@ const SearchEmployers: React.FC = () => {
               <SelectItem value="all">Sort</SelectItem>
               <SelectItem value="followers">Followers</SelectItem>
               <SelectItem value="reviews">Reviews</SelectItem>
-              <SelectItem value="events">Events</SelectItem>
             </SelectContent>
           </Select>
         </div>

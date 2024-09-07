@@ -2,13 +2,12 @@ import { sendResponse, validate } from "../utils/validation";
 import { uuidv7 } from "uuidv7";
 import { asyncErrors } from "../errors/asyncErrors";
 import { uploadFileToS3 } from "../utils/aws";
-import Employer from "../models/employer/employers.schema";
-import Event from "../models/employer/events.schema";
-import Review from "../models/employer/reviews.schema";
-import Seeker from "../models/seeker/seekers.schema";
-import Job from "../models/shared/jobs.schema";
-import Notification from "../models/shared/notifications.schema";
-import Application from "../models/shared/applications.schema";
+import Employer from "../models/employers.schema";
+import Review from "../models/reviews.schema";
+import Seeker from "../models/seekers.schema";
+import Job from "../models/jobs.schema";
+import Notification from "../models/notifications.schema";
+import Application from "../models/applications.schema";
 import mongoose from "mongoose";
 
 // Sign up a new employer
@@ -279,16 +278,6 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
           },
         };
         break;
-      case "events":
-        populateQuery = {
-          path: "events",
-          options: {
-            skip,
-            limit: Number(limit),
-            sort: { _id: sort },
-          },
-        };
-        break;
       default:
         break;
     }
@@ -304,9 +293,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
         case "reviews":
           searchFields.push("type");
           break;
-        case "events":
-          searchFields.push("title", "description");
-          break;
+
         default:
           break;
       }
@@ -334,7 +321,7 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       return sendResponse({ message: "Cannot Find Employer" }, 404, response);
     }
 
-    // Count the total number of jobs, reviews, and events based on type and search query
+    // Count the total number of jobs, reviews based on type and search query
     const counts: any = {};
     if (type === "jobs" || !type) {
       counts.totalJobs = await Job.countDocuments({
@@ -344,12 +331,6 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
     }
     if (type === "reviews" || !type) {
       counts.totalReviews = await Review.countDocuments({
-        company: employerId,
-        ...searchQuery,
-      });
-    }
-    if (type === "events" || !type) {
-      counts.totalEvents = await Event.countDocuments({
         company: employerId,
         ...searchQuery,
       });
@@ -470,10 +451,9 @@ export const deleteEmployerProfile = asyncErrors(async (request, response) => {
       );
     }
 
-    // Delete associated jobs, reviews, and events
+    // Delete associated jobs, reviews
     await Job.deleteMany({ company: employerId });
     await Review.deleteMany({ company: employerId });
-    await Event.deleteMany({ company: employerId });
 
     // Update seekers to remove references to the deleted employer and jobs
     await Seeker.updateMany(
@@ -538,12 +518,6 @@ export const getEmployerById = asyncErrors(async (request, response) => {
           options: { skip, limit: Number(limit) },
         };
         break;
-      case "events":
-        populateQuery = {
-          path: "events",
-          options: { skip, limit: Number(limit) },
-        };
-        break;
       default:
         populateQuery = {};
     }
@@ -552,7 +526,7 @@ export const getEmployerById = asyncErrors(async (request, response) => {
     const employer = await Employer.findById(employerId)
       .populate(populateQuery)
       .select(
-        "name reviews events email address size website followers number company_description industry image jobs"
+        "name reviews email address size website followers number company_description industry image jobs"
       )
       .exec();
 
@@ -567,10 +541,9 @@ export const getEmployerById = asyncErrors(async (request, response) => {
       );
     }
 
-    // Count the total number of jobs, reviews, and events for the employer
+    // Count the total number of jobs, reviews for the employer
     const totalJobs = await Job.countDocuments({ company: employerId });
     const totalReviews = await Review.countDocuments({ company: employerId });
-    const totalEvents = await Event.countDocuments({ company: employerId });
 
     // Send response with employer details and counts
     sendResponse(
@@ -578,7 +551,6 @@ export const getEmployerById = asyncErrors(async (request, response) => {
         employer: employer,
         totalJobs: totalJobs,
         totalReviews: totalReviews,
-        totalEvents: totalEvents,
       },
       201,
       response
@@ -608,7 +580,7 @@ export const getEmployers = asyncErrors(async (request, response) => {
 
     // Define sorting options based on the sort parameter
     if (srt) {
-      if (srt === "followers" || srt === "events" || srt === "reviews") {
+      if (srt === "followers" || srt === "reviews") {
         sortOptions[srt] = -1;
       }
     }
@@ -618,9 +590,7 @@ export const getEmployers = asyncErrors(async (request, response) => {
       .sort(sortOptions)
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit))
-      .select(
-        "image name company_description reviews followers events size address"
-      )
+      .select("image name company_description reviews followers size address")
       .exec();
 
     const totalEmployers = await Employer.countDocuments(conditions); // Count the total number of employers
@@ -676,9 +646,8 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
     // @ts-ignore
     const { employerId } = request.user; // Get the employer ID from the request user object
 
-    // Count the total number of jobs, events, reviews, and applications for the employer
+    // Count the total number of jobs, reviews, and applications for the employer
     const totalJobs = await Job.countDocuments({ company: employerId });
-    const totalEvents = await Event.countDocuments({ company: employerId });
     const totalReviews = await Review.countDocuments({ company: employerId });
     const totalApplications = await Application.countDocuments({
       job: { $in: await Job.find({ company: employerId }).distinct("_id") },
@@ -692,7 +661,6 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
     // Send response with the analytics data
     response.status(200).json({
       totalJobs,
-      totalEvents,
       totalReviews,
       totalApplications,
       jobsPerMonth,

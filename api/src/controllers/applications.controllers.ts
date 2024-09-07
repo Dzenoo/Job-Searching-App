@@ -1,7 +1,7 @@
 import { asyncErrors } from "../errors/asyncErrors";
-import Seeker from "../models/seeker/seekers.schema";
-import Application from "../models/shared/applications.schema";
-import Job from "../models/shared/jobs.schema";
+import Seeker from "../models/seekers.schema";
+import Application from "../models/applications.schema";
+import Job from "../models/jobs.schema";
 import { initializeChatbots } from "../server";
 import { uploadFileToS3 } from "../utils/aws";
 import { sendResponse } from "../utils/validation";

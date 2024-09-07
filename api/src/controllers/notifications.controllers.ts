@@ -1,5 +1,5 @@
 import { asyncErrors } from "../errors/asyncErrors";
-import Notification from "../models/shared/notifications.schema";
+import Notification from "../models/notifications.schema";
 import { sendResponse } from "../utils/validation";
 
 // Controller function to mark a notification as read

@@ -26,7 +26,6 @@ export const getEmployerById = async (
   employer: EmployerTypes;
   totalJobs: number;
   totalReviews: number;
-  totalEvents: number;
 }> =>
   await getApiHandler(
     `seeker/employers/${employerId}?page=${page}&type=${type}`,

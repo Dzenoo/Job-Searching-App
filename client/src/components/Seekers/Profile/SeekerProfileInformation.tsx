@@ -66,8 +66,8 @@ const DeleteSeekerProfileDialog: React.FC<SeekerDeleteDialogProps> = ({
           <div className="flex items-center justify-center gap-3 flex-col">
             <p className="text-initial-gray text-center">
               Deleting your account will remove all your information, including
-              applications, events, and jobs. Employers will no longer be able
-              to contact you. Are you sure you want to proceed?
+              applications and jobs. Employers will no longer be able to contact
+              you. Are you sure you want to proceed?
             </p>
           </div>
         </div>

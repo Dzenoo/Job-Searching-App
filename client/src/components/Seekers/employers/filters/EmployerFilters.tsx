@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 
 enum EmployerType {
   reviews = "reviews",
-  events = "events",
   jobs = "jobs",
 }
 
@@ -25,11 +24,6 @@ const EmployerFilters: React.FC<EmployerTypeFilters> = ({ type }) => {
     },
     {
       id: "2",
-      title: "Events",
-      filter: "events",
-    },
-    {
-      id: "3",
       title: "Reviews",
       filter: "reviews",
     }

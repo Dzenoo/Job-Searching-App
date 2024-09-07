@@ -1,7 +1,7 @@
 import { asyncErrors } from "../errors/asyncErrors";
-import Employer from "../models/employer/employers.schema";
-import Review from "../models/employer/reviews.schema";
-import Notification from "../models/shared/notifications.schema";
+import Employer from "../models/employers.schema";
+import Review from "../models/reviews.schema";
+import Notification from "../models/notifications.schema";
 import { sendResponse, validate } from "../utils/validation";
 
 // Controller function to create a review for an employer
