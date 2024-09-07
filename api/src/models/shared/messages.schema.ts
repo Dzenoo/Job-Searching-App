@@ -8,7 +8,7 @@ const MessageSchema = new mongoose.Schema(
     },
     content: {
       type: String,
-      minlength: [3, "Message cannot be empty"],
+      minlength: [1, "Message cannot be empty"],
       maxlength: [300, "Message cannot be longer"],
       required: [true, "Message cannot be empty"],
     },

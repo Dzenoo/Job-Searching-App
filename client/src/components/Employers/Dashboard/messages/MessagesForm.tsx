@@ -1,63 +1,69 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { Send } from "lucide-react";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
 import { typeMessage } from "@/lib/actions/shared.actions";
-import { MessageTypes } from "@/types";
+
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MessageSchema } from "@/lib/zod/messages";
 
 type MessagesFormProps = {
-  setMessages: React.Dispatch<React.SetStateAction<MessageTypes[]>>;
+  refetchMessages: () => void;
   token: string;
   employerId: string;
   seekerId: string;
 };
 
+type FormValues = z.infer<typeof MessageSchema>;
+
 const MessagesForm: React.FC<MessagesFormProps> = ({
-  setMessages,
+  refetchMessages,
   token,
   employerId,
   seekerId,
 }) => {
-  const [message, setMessage] = useState<MessageTypes>({
-    content: "",
-    sender: employerId,
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isValid, errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(MessageSchema),
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (message.content.trim()) {
+  const onSubmit = async (data: FormValues) => {
+    try {
       await typeMessage(
-        { sender: employerId, content: message.content },
+        { content: data.content, sender: employerId },
         token,
         employerId,
         seekerId
-      ).then((data) => console.log(data));
+      );
 
-      setMessages((prevMessages) => [...prevMessages, { ...message }]);
-
-      setMessage({ content: "", sender: employerId });
+      refetchMessages();
+      reset();
+    } catch (error) {
+      console.error("Error sending message:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex gap-2">
         <Input
           type="text"
-          value={message.content}
-          onChange={(e) =>
-            setMessage((prev) => ({ ...prev, content: e.target.value }))
-          }
           placeholder="Type a message..."
+          {...register("content")}
         />
-        <Button type="submit">
+        <Button disabled={!isValid} type="submit">
           <Send />
         </Button>
       </div>
+      {errors.content && (
+        <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>
+      )}
     </form>
   );
 };

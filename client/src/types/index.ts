@@ -185,7 +185,21 @@ type EmployerDirectMessagesTypes = {
 };
 
 type MessageTypes = {
-  sender: string;
+  createdAt: string;
+  sender:
+    | {
+        email: string;
+        image: string;
+        name: string;
+        _id: string;
+      }
+    | {
+        emaiL: string;
+        image: string;
+        first_name: string;
+        last_name: string;
+        _id: string;
+      };
   content: string;
 };
 

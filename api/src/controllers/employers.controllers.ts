@@ -697,7 +697,7 @@ export const getMessageRoom = asyncErrors(async (request, response) => {
       })
       .populate({
         path: "directMessages.messages",
-        select: "content createdAt",
+        select: "content createdAt sender",
       });
 
     if (!employer) {
@@ -720,7 +720,34 @@ export const getMessageRoom = asyncErrors(async (request, response) => {
       );
     }
 
-    sendResponse({ messageRoom }, 200, response);
+    // Convert the messageRoom and its messages to plain JavaScript objects
+    const plainMessageRoom = messageRoom.toObject();
+
+    // Now manually populate the sender's information based on whether it's a Seeker or Employer
+    const populatedMessages = await Promise.all(
+      plainMessageRoom.messages.map(async (msg: any) => {
+        if (msg.sender.equals(employerId)) {
+          // If sender is the employer
+          const sender = await Employer.findById(employerId)
+            .select("name email image")
+            .lean(); // Use .lean() to get plain objects
+          return { ...msg, sender };
+        } else {
+          // If sender is the seeker
+          const sender = await Seeker.findById(msg.sender)
+            .select("first_name last_name email image")
+            .lean(); // Use .lean() to get plain objects
+          return { ...msg, sender };
+        }
+      })
+    );
+
+    // Respond with the plain populated messages
+    sendResponse(
+      { messageRoom: { ...plainMessageRoom, messages: populatedMessages } },
+      200,
+      response
+    );
   } catch (error) {
     response.status(500).json({ message: "Internal server error" });
   }
