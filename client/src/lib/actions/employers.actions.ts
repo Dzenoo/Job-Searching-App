@@ -73,6 +73,9 @@ export const getEmployerAnalytics = async (
   totalJobs: number;
   totalReviews: number;
   totalApplications: number;
+  totalFollowers: {
+    followers: string[];
+  };
   jobsPerMonth: number;
   followersOverTime: number;
   jobTypes: any;

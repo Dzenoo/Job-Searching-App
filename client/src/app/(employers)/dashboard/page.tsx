@@ -36,6 +36,7 @@ const Dashboard = () => {
           totalJobs={analytics?.totalJobs || 0}
           totalReviews={analytics?.totalReviews || 0}
           totalApplications={analytics?.totalApplications || 0}
+          totalFollowers={analytics?.totalFollowers.followers.length || 0}
         />
       </div>
       <div className="grid gap-3 grid-cols-3">

@@ -18,9 +18,11 @@ import {
   checkExpired,
   findLocationData,
   formatDate,
+  getImageUrl,
   getTime,
 } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 type JobItemProps = {
   job: JobTypes;
@@ -56,15 +58,12 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
         <CardHeader>
           <div className="flex justify-between sm:items-center">
             <div className="flex items-center gap-3 flex-wrap">
-              <div>
-                <Image
-                  src={job.company?.image}
-                  alt={job.company?.name}
-                  width={60}
-                  height={60}
+              <Avatar className="w-12 h-12">
+                <AvatarImage
+                  src={getImageUrl(job.company?.image)}
                   className="object-cover w-auto h-auto"
                 />
-              </div>
+              </Avatar>
               <div className="flex flex-col gap-[3px]">
                 <div>
                   <Link href={`/jobs/${job._id}`}>

@@ -9,6 +9,8 @@ import { renderIconText } from "@/helpers";
 import { EmployerTypes } from "@/types";
 
 import FollowEmployerButton from "./FollowEmployerButton";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { getImageUrl } from "@/lib/utils";
 
 type EmployersItemProps = {
   employer: EmployerTypes;
@@ -32,16 +34,13 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
     <Card>
       <CardContent>
         <div className="flex gap-3 max-md:flex-col">
-          <div>
-            <Image
-              src={employer?.image}
-              alt={employer?.name}
-              width={100}
-              height={100}
+          <Avatar className="w-28 h-28">
+            <AvatarImage
+              src={getImageUrl(employer?.image)}
               className="object-cover w-auto h-auto"
             />
-          </div>
-          <div className="flex flex-col gap-3 basis-full">
+          </Avatar>
+          <div className="flex flex-col gap-1 basis-full">
             <div className="flex gap-3 justify-between max-sm:flex-col sm:items-center">
               <div>
                 <Link href={`/companies/${employer._id}?typeEmp=jobs`}>

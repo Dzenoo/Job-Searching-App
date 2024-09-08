@@ -3,7 +3,7 @@ import React from "react";
 import {
   Briefcase,
   CalendarSearch,
-  FileText,
+  Folder,
   MessageSquareDot,
 } from "lucide-react";
 
@@ -13,12 +13,14 @@ type StatisticsProps = {
   totalJobs: number;
   totalReviews: number;
   totalApplications: number;
+  totalFollowers: number;
 };
 
 const Statistics: React.FC<StatisticsProps> = ({
   totalApplications,
   totalReviews,
   totalJobs,
+  totalFollowers,
 }) => {
   const StatisticsData = new Array(
     {
@@ -34,15 +36,21 @@ const Statistics: React.FC<StatisticsProps> = ({
       icon: <MessageSquareDot color="#00C7E2" />,
     },
     {
-      id: "4",
+      id: "3",
       title: "Total Applications",
       data: totalApplications,
       icon: <CalendarSearch color="#007D05" />,
+    },
+    {
+      id: "4",
+      title: "Total Followers",
+      data: totalFollowers,
+      icon: <Folder color="#007D05" />,
     }
   );
 
   return (
-    <div className="grid gap-3 grid-cols-3 max-lg:grid-cols-1">
+    <div className="grid gap-3 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
       {StatisticsData.map((statistics) => (
         <Card key={statistics.id}>
           <CardHeader className="flex justify-between gap-3">

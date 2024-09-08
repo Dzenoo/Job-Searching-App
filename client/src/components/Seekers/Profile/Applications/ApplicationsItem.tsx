@@ -23,6 +23,7 @@ import { findIndustriesData, formatDate, getImageUrl } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 import { ApplicationsTypes } from "@/types";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 type ApplicationItemProps = {
   application: ApplicationsTypes;
@@ -75,14 +76,12 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
     <Card className="dark:border-[#3b3b3b]">
       <CardHeader>
         <div className="flex gap-3 items-center max-sm:flex-wrap">
-          <div>
-            <Image
-              src={getImageUrl(application?.job.company.image)}
-              alt={application?.job.company.name}
-              width={170}
-              height={170}
+          <Avatar className="w-28 h-28">
+            <AvatarImage
+              src={getImageUrl(application?.job.company?.image)}
+              className="object-cover w-auto h-auto"
             />
-          </div>
+          </Avatar>
           <div className="flex flex-col gap-3">
             <div>
               <h1>{application?.job.company.name}</h1>

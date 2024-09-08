@@ -1,12 +1,10 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Building, Camera, Text } from "lucide-react";
 
-import useFollowEmployer from "@/hooks/mutations/useFollowEmployer";
 import { EmployerTypes } from "@/types";
-import { findIndustriesData } from "@/lib/utils";
+import { findIndustriesData, getImageUrl } from "@/lib/utils";
 import { renderIconText } from "@/helpers";
 
 import {
@@ -19,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import Navigator from "@/components/ui/navigator";
 
 import FollowEmployerButton from "../FollowEmployerButton";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 type EmployerDetailsInfoProps = {
   employer: EmployerTypes;
@@ -27,9 +26,6 @@ type EmployerDetailsInfoProps = {
 const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
   employer,
 }) => {
-  const { mutateAsync: followEmployerMutate, isLoading } = useFollowEmployer(
-    employer?._id
-  );
   const employerIndustry = findIndustriesData(employer?.industry);
 
   const FooterEmployerData = new Array(
@@ -52,15 +48,12 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
         <div className="flex overflow-auto justify-between max-lg:flex-wrap">
           <div className="flex sm:items-center gap-3 max-sm:flex-col">
             <CardHeader>
-              <div>
-                <Image
-                  src={employer?.image}
-                  alt={employer?.name}
-                  width={100}
-                  height={100}
+              <Avatar className="w-36 h-36">
+                <AvatarImage
+                  src={getImageUrl(employer?.image)}
                   className="object-cover w-auto h-auto"
                 />
-              </div>
+              </Avatar>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
               <div className="rounded-full bg-blue-100 p-3 w-fit dark:bg-blue-500">

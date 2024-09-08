@@ -639,6 +639,8 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
     const totalApplications = await Application.countDocuments({
       job: { $in: await Job.find({ company: employerId }).distinct("_id") },
     });
+    const totalFollowers =
+      await Employer.findById(employerId).select("followers");
 
     // Get the jobs per month, followers over time, and job types for the employer
     const jobsPerMonth = await getJobsPerMonth(employerId);
@@ -650,6 +652,7 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
       totalJobs,
       totalReviews,
       totalApplications,
+      totalFollowers,
       jobsPerMonth,
       followersOverTime,
       jobTypes,
