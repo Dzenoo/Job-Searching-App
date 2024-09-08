@@ -366,25 +366,6 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     const { employerId } = request.user; // Get the employer ID from the request user object
     const updateData = { ...request.body, image: request.file }; // Get the request body and file for image upload
 
-    // Define the allowed properties for validation
-    const allowedProperties = [
-      "industry",
-      "company_description",
-      "size",
-      "name",
-      "number",
-      "address",
-      "website",
-      "image",
-    ];
-
-    // Validate the incoming update data
-    validate(allowedProperties, updateData, (error, message) => {
-      if (error) {
-        return sendResponse({ message: message }, 403, response);
-      }
-    });
-
     if (request.file) {
       // If there's an image file, upload it to S3 and update the image key
       const result = uuidv7();
@@ -417,8 +398,14 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
     }
 
     // Send the response with the updated employer profile
-    sendResponse({ employer: editedProfile }, 201, response);
+    sendResponse(
+      { employer: editedProfile, message: "Successfully edited!" },
+      201,
+      response
+    );
   } catch (error) {
+    console.log(error);
+
     sendResponse(
       {
         message:

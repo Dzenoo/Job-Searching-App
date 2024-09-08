@@ -1,5 +1,10 @@
-import { EmployerTypes, JobTypes, SeekerTypes } from "@/types";
-import { getApiHandler } from "../api";
+import {
+  EmployerTypes,
+  JobTypes,
+  ResponseMessageTypes,
+  SeekerTypes,
+} from "@/types";
+import { deleteApiHandler, getApiHandler, patchApiHandler } from "../api";
 
 export const getSeekers = async ({
   page = "1",
@@ -16,6 +21,13 @@ export const getSeekers = async ({
     `employer/seekers?page=${page}&search=${search}&skills=${skills}`,
     token as string
   );
+
+export const deleteEmployerProfile = async ({
+  token,
+}: {
+  token: string;
+}): Promise<ResponseMessageTypes> =>
+  await deleteApiHandler(`employer/delete-employer-profile`, token);
 
 export const getEmployerProfile = async ({
   token,
@@ -43,6 +55,17 @@ export const getSeekerById = async (
   token: string
 ): Promise<{ seeker: SeekerTypes }> =>
   await getApiHandler(`employer/seekers/${seekerId}`, token);
+
+export const editEmployerProfile = async (
+  formData: FormData,
+  token: string
+): Promise<ResponseMessageTypes> =>
+  await patchApiHandler(
+    `employer/edit-employer-profile`,
+    formData,
+    token,
+    "multipart/form-data"
+  );
 
 export const getEmployerAnalytics = async (
   token: string
