@@ -30,7 +30,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import useSearchParams from "@/hooks/useSearchParams";
 
 const DeleteJobDialog: React.FC<{
   onCloseDialog: (dialogIds: string) => void;

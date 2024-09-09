@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuthentication from "@/hooks/useAuthentication";
-import LoadingSeekersInformationsSkeleton from "../loaders/LoadingSeekersInformations";
 
 const Protected = (
   WrappedComponent: React.FC<any>,

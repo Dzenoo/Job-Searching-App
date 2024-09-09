@@ -12,8 +12,8 @@ import { getJobs } from "@/lib/actions/jobs.actions";
 import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
-import SearchJobs from "@/components/seekers/jobs/Search/SearchJobs";
-import FilterJobs from "@/components/seekers/jobs/Filters/FilterJobs";
+import SearchJobs from "@/components/seekers/jobs/search/SearchJobs";
+import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
 import {
   Pagination,
   PaginationContent,
