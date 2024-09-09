@@ -55,7 +55,7 @@ const EmployersDashboardNavbar: React.FC = () => {
     <header>
       <button
         onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-        className="pl-5 md:hidden"
+        className="p-5 md:hidden"
       >
         {isDrawerOpen ? <X /> : <Menu />}
       </button>

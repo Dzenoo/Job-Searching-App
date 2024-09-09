@@ -33,6 +33,7 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
   };
 
   const chartOptions = {
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -55,19 +56,21 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
   };
 
   return (
-    <Card className="h-full">
+    <Card className="flex flex-col h-full">
       <CardHeader>
         <CardTitle>Total Followers Over Time</CardTitle>
       </CardHeader>
-      {data ? (
-        <CardContent className="p-4">
-          <Line data={chartData} options={chartOptions} />
-        </CardContent>
-      ) : (
-        <CardFooter>
-          <p>No Data Available</p>
-        </CardFooter>
-      )}
+      <CardContent className="flex-1 p-4">
+        {data ? (
+          <div className="h-full">
+            <Line data={chartData} options={chartOptions} />
+          </div>
+        ) : (
+          <CardFooter>
+            <p>No Data Available</p>
+          </CardFooter>
+        )}
+      </CardContent>
     </Card>
   );
 };

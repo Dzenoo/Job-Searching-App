@@ -57,6 +57,9 @@ const SeekersPage = ({
         <div>
           <SearchSeekers />
         </div>
+        <div className="xl:hidden">
+          <FilterSeekers />
+        </div>
         <div>
           <SeekersList seekers={fetchedSeekers?.seekers || []} />
         </div>
@@ -98,7 +101,7 @@ const SeekersPage = ({
           </PaginationContent>
         </Pagination>
       </div>
-      <div className="basis-1/2">
+      <div className="max-xl:hidden basis-1/2">
         <FilterSeekers />
       </div>
     </section>

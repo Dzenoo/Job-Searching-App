@@ -36,7 +36,7 @@ const FilterJobs: React.FC = () => {
               Open Filters
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="overflow-y-scroll h-screen">
             <DialogHeader>
               <DialogTitle>Job Filters</DialogTitle>
             </DialogHeader>

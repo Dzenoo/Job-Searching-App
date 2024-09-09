@@ -33,6 +33,7 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
   };
 
   const chartOptions = {
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -51,13 +52,15 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
   };
 
   return (
-    <Card className="h-full">
+    <Card className="flex flex-col h-full">
       <CardHeader>
         <CardTitle>Number of Jobs Posted Per Month</CardTitle>
       </CardHeader>
       {data ? (
-        <CardContent className="p-4">
-          <Bar data={chartData} options={chartOptions} />
+        <CardContent className="flex-1 p-4">
+          <div className="h-full">
+            <Bar data={chartData} options={chartOptions} />
+          </div>
         </CardContent>
       ) : (
         <CardFooter>
