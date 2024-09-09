@@ -1,3 +1,7 @@
+// ===============================
+// Imports
+// ===============================
+
 import moment from "moment";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -15,6 +19,10 @@ import { industries, locations, SkillsInformationsData } from "@/constants";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+// -------------------------------
+// Date and Time Utilities
+// -------------------------------
 
 /**
  * Returns the labels of the last six months including the current month.
@@ -43,81 +51,6 @@ export const getMonthsLabels = (): string[] => {
 };
 
 /**
- * Generates a full image URL for a given image path.
- * @param image - The image path or URL.
- * @returns The full image URL.
- */
-export const getImageUrl = (image: string): string => {
-  return image?.includes("https:")
-    ? image
-    : `https://job-searching-application.s3.amazonaws.com/${image}`;
-};
-
-/**
- * Finds the industry label based on the industry value.
- * @param industry - The industry value.
- * @returns The industry label.
- */
-export const findIndustriesData = (industry: string): string => {
-  const industryData = industries.find((item) => item.value === industry);
-  return industryData ? industryData.label : "";
-};
-
-/**
- * Categorizes skills based on predefined categories.
- * @param skills - An array of skill titles.
- * @returns An object categorizing the skills.
- */
-export const getSkillsData = (
-  skills: string[]
-): { [key: string]: string[] } => {
-  const categorizedSkills: { [key: string]: string[] } = {};
-
-  SkillsInformationsData.forEach((category) => {
-    category.data.forEach((skill) => {
-      if (!categorizedSkills[category.category]) {
-        categorizedSkills[category.category] = [];
-      }
-      if (skills?.includes(skill.value)) {
-        categorizedSkills[category.category].push(skill.title);
-      }
-    });
-  });
-
-  return categorizedSkills;
-};
-
-export const getSkillNames = (technologies: string[]): string[] => {
-  return technologies
-    .map((technology) => {
-      const matchingSkill = SkillsInformationsData.flatMap(
-        (skill) => skill.data
-      ).find((data) => data.value === technology);
-      return matchingSkill ? matchingSkill.title : null;
-    })
-    .filter((skillName): skillName is string => skillName !== null);
-};
-
-export const multiselectSkills = SkillsInformationsData.flatMap((category) =>
-  category.data.map((data) => ({
-    label: data.title,
-    value: data.value,
-  }))
-);
-
-/**
- * Finds the location label based on the selected value.
- * @param selectedValue - The value of the selected location.
- * @returns The location label or "Location not found".
- */
-export const findLocationData = (selectedValue: string): string => {
-  const selectedOption = locations.find(
-    (option) => option.value === selectedValue
-  );
-  return selectedOption ? selectedOption.label : "Location not found";
-};
-
-/**
  * Formats a date string to a specified format.
  * @param date - The date string to format.
  * @param format - The format string (default: "DD/MM/YYYY").
@@ -128,13 +61,6 @@ export const formatDate = (
   format: string = "DD/MM/YYYY"
 ): string => {
   return date ? moment.utc(date).format(format) : date;
-};
-
-export const formatURL = (url: string) => {
-  if (!/^https?:\/\//i.test(url)) {
-    return `https://${url}`;
-  }
-  return url;
 };
 
 /**
@@ -179,3 +105,110 @@ export const getTime = (date: string): string => {
     return `Posted just now`;
   }
 };
+
+// -------------------------------
+// URL and Image Utilities
+// -------------------------------
+
+/**
+ * Generates a full image URL for a given image path.
+ * @param image - The image path or URL.
+ * @returns The full image URL.
+ */
+export const getImageUrl = (image: string): string => {
+  return image?.includes("https:")
+    ? image
+    : `https://job-searching-application.s3.amazonaws.com/${image}`;
+};
+
+/**
+ * Formats a URL to include the protocol if missing.
+ * @param url - The URL string to format.
+ * @returns The formatted URL with protocol.
+ */
+export const formatURL = (url: string): string => {
+  if (!/^https?:\/\//i.test(url)) {
+    return `https://${url}`;
+  }
+  return url;
+};
+
+// -------------------------------
+// Data Retrieval Utilities
+// -------------------------------
+
+/**
+ * Finds the industry label based on the industry value.
+ * @param industry - The industry value.
+ * @returns The industry label.
+ */
+export const findIndustriesData = (industry: string): string => {
+  const industryData = industries.find((item) => item.value === industry);
+  return industryData ? industryData.label : "";
+};
+
+/**
+ * Finds the location label based on the selected value.
+ * @param selectedValue - The value of the selected location.
+ * @returns The location label or "Location not found".
+ */
+export const findLocationData = (selectedValue: string): string => {
+  const selectedOption = locations.find(
+    (option) => option.value === selectedValue
+  );
+  return selectedOption ? selectedOption.label : "Location not found";
+};
+
+// -------------------------------
+// Skills Utilities
+// -------------------------------
+
+/**
+ * Categorizes skills based on predefined categories.
+ * @param skills - An array of skill titles.
+ * @returns An object categorizing the skills.
+ */
+export const getSkillsData = (
+  skills: string[]
+): { [key: string]: string[] } => {
+  const categorizedSkills: { [key: string]: string[] } = {};
+
+  SkillsInformationsData.forEach((category) => {
+    category.data.forEach((skill) => {
+      if (!categorizedSkills[category.category]) {
+        categorizedSkills[category.category] = [];
+      }
+      if (skills?.includes(skill.value)) {
+        categorizedSkills[category.category].push(skill.title);
+      }
+    });
+  });
+
+  return categorizedSkills;
+};
+
+/**
+ * Retrieves the skill names based on technology values.
+ * @param technologies - An array of technology values.
+ * @returns An array of skill names.
+ */
+export const getSkillNames = (technologies: string[]): string[] => {
+  return technologies
+    .map((technology) => {
+      const matchingSkill = SkillsInformationsData.flatMap(
+        (skill) => skill.data
+      ).find((data) => data.value === technology);
+      return matchingSkill ? matchingSkill.title : null;
+    })
+    .filter((skillName): skillName is string => skillName !== null);
+};
+
+/**
+ * Flattened array of skills for multiselect options.
+ */
+export const multiselectSkills = SkillsInformationsData.flatMap((category) =>
+  category.data.map((data) => ({
+    label: data.title,
+    value: data.value,
+  }))
+);

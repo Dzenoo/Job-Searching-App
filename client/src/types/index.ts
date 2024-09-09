@@ -1,7 +1,7 @@
 // ===============================
 // Enums
 // ===============================
-enum SizeOfEmployers {
+export enum SizeOfEmployers {
   "Less-than-17" = "Less-than-17",
   "20-50" = "20-50",
   "50-100" = "50-100",
@@ -10,14 +10,14 @@ enum SizeOfEmployers {
   "500-1000" = "500-1000",
 }
 
-enum ReviewType {
+export enum ReviewType {
   "Freelance",
   "Part-Time",
   "Full-Time",
   "Internship",
 }
 
-enum ReviewTime {
+export enum ReviewTime {
   "Less than 1",
   "1-2",
   "2-4",
@@ -26,7 +26,7 @@ enum ReviewTime {
   "10 or greater",
 }
 
-enum ApplicationStatus {
+export enum ApplicationStatus {
   Rejected = "Rejected",
   Pending = "Pending",
   Accepted = "Accepted",
@@ -36,7 +36,7 @@ enum ApplicationStatus {
 // ===============================
 // Types
 // ===============================
-type EmployerTypes = {
+export type EmployerTypes = {
   _id: string;
   image: string;
   industry: string;
@@ -54,7 +54,7 @@ type EmployerTypes = {
   reviews: ReviewTypes[];
 };
 
-type JobTypes = {
+export type JobTypes = {
   title: string;
   position: "Remote" | "On-Site" | "Hybrid";
   location: string;
@@ -71,7 +71,7 @@ type JobTypes = {
   company: EmployerTypes;
 };
 
-type ReviewTypes = {
+export type ReviewTypes = {
   _id: string;
   company: EmployerTypes & string;
   job_position: string;
@@ -84,13 +84,13 @@ type ReviewTypes = {
   createdAt: string;
 };
 
-type JobAlertsTypes = {
+export type JobAlertsTypes = {
   title: string;
   type: string;
   level: string;
 };
 
-type SeekerTypes = {
+export type SeekerTypes = {
   _id: string;
   biography: string;
   image: string;
@@ -119,7 +119,7 @@ type SeekerTypes = {
   updatedAt: Date;
 };
 
-type NotificationTypes = {
+export type NotificationTypes = {
   user: string;
   _id: string;
   title: string;
@@ -130,7 +130,7 @@ type NotificationTypes = {
   type: "jobs" | "applications" | "reviews" | "followers";
 };
 
-type ApplicationsTypes = {
+export type ApplicationsTypes = {
   _id: string;
   status: keyof typeof ApplicationStatus;
   cover_letter: string;
@@ -140,32 +140,13 @@ type ApplicationsTypes = {
   createdAt: string;
 };
 
-type ResponseMessageTypes = {
+export type ResponseMessageTypes = {
   message: string;
 };
 
 // Auth
-enum TypeOfAccount {
+export enum TypeOfAccount {
   Seeker = "seeker",
   Employer = "employer",
   Default = "",
 }
-
-// ===============================
-// Exports
-// ===============================
-export {
-  type EmployerTypes,
-  SizeOfEmployers,
-  type JobTypes,
-  type ReviewTypes,
-  ReviewType,
-  ReviewTime,
-  type JobAlertsTypes,
-  type SeekerTypes,
-  type NotificationTypes,
-  type ApplicationsTypes,
-  ApplicationStatus,
-  type ResponseMessageTypes,
-  TypeOfAccount,
-};
