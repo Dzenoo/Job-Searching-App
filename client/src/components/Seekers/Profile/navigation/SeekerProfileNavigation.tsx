@@ -33,7 +33,7 @@ const SeekerProfileNavigation: React.FC = () => {
       <div>
         <h1 className="text-base-black">Profile</h1>
       </div>
-      <div className="flex items-center gap-3 overflow-auto">
+      <div className="flex items-center gap-3 overflow-auto hide-scrollbar">
         {SeekerNavList.map((item) => (
           <button
             className="transition cursor-pointer hover:text-blue-700 whitespace-nowrap"

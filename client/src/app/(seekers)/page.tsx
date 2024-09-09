@@ -70,6 +70,9 @@ const Jobs = ({
         <div>
           <SearchJobs />
         </div>
+        <div className="xl:hidden">
+          <FilterJobs />
+        </div>
         <div>
           <JobsList jobs={fetchedJobs?.jobs} />
         </div>
@@ -111,7 +114,7 @@ const Jobs = ({
           </PaginationContent>
         </Pagination>
       </div>
-      <div className="basis-1/2">
+      <div className="max-xl:hidden basis-1/2">
         <FilterJobs />
       </div>
     </section>
