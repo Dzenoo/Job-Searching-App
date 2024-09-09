@@ -62,15 +62,6 @@ export const FooterLinks = [
       { id: "3", name: "Agreements", href: "/agreements" },
     ],
   },
-  {
-    id: "3",
-    title: "Reference",
-    links: [
-      { id: "1", name: "Privacy Policy", href: "/privacy-policy" },
-      { id: "2", name: "Terms and Conditions", href: "/terms-and-conditions" },
-      { id: "3", name: "Agreements", href: "/agreements" },
-    ],
-  },
 ];
 
 // ===============================

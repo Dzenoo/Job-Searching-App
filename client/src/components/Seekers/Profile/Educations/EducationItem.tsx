@@ -45,15 +45,15 @@ const EducationItem: React.FC<EducationItemProps> = ({
   const graduationDateFormatted = formatDate(graduationDate);
 
   return (
-    <div className="dark:bg-[#1b1b1b] rounded-xl bg-white p-6 flex gap-3 border border-gray-100 dark:border-[#3b3b3b] overflow-auto">
+    <div className="dark:bg-[#1b1b1b] rounded-xl bg-white p-6 flex gap-3 items-center border border-gray-100 dark:border-[#3b3b3b] overflow-auto">
       <div className="max-sm:hidden">
         <Image
           src="/images/education.png"
           alt="education_card_image"
-          width={100}
-          height={100}
+          width={150}
+          height={150}
           priority
-          className="object-cover w-16 h-16 rounded-lg"
+          className="w-10 h-10"
         />
       </div>
       <div className="flex justify-between gap-3 basis-full lg:items-center max-lg:flex-col">

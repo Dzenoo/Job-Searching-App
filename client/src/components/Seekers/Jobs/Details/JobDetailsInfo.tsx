@@ -24,11 +24,13 @@ import {
   findIndustriesData,
   findLocationData,
   formatDate,
+  getImageUrl,
   getSkillsData,
   getTime,
 } from "@/lib/utils";
 import { renderIconText, renderSkills } from "@/helpers";
 import Link from "next/link";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 type JobDetailsInfoProps = {
   job: JobTypes;
@@ -111,15 +113,12 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
         <CardHeader>
           <div className="flex justify-between gap-6 max-md:flex-col">
             <div className="flex gap-3 items-center">
-              <div>
-                <Image
-                  src={job?.company.image}
-                  alt={job?.company.name}
-                  width={100}
-                  height={100}
-                  className="h-auto w-auto object-cover"
+              <Avatar className="w-28 h-28">
+                <AvatarImage
+                  src={getImageUrl(job.company?.image)}
+                  className="object-cover w-auto h-auto"
                 />
-              </div>
+              </Avatar>
               <div className="flex flex-col gap-3">
                 <div>
                   <Link href={`/companies/${job?.company._id}`}>

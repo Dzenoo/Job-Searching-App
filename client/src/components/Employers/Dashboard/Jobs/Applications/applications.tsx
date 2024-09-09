@@ -138,27 +138,45 @@ const StatusBadge = ({
 
 const SocialLinks = ({ seeker }: { seeker: SeekerTypes }) => (
   <div className="flex items-center gap-6">
-    <Link
-      target="_blank"
-      rel="noopener noreferrer"
-      href={`https://${seeker.github}`}
-    >
-      <Github />
-    </Link>
-    <Link
-      target="_blank"
-      rel="noopener noreferrer"
-      href={`https://${seeker.linkedin}`}
-    >
-      <Linkedin />
-    </Link>
-    <Link
-      target="_blank"
-      rel="noopener noreferrer"
-      href={`https://${seeker.portfolio}`}
-    >
-      <ImageIcon />
-    </Link>
+    {seeker.github === "" ? (
+      <div className="text-initial-gray cursor-not-allowed">
+        <Github />
+      </div>
+    ) : (
+      <Link
+        target="_blank"
+        rel="noopener noreferrer"
+        href={`https://${seeker.github}`}
+      >
+        <Github />
+      </Link>
+    )}
+    {seeker.linkedin === "" ? (
+      <div className="text-initial-gray cursor-not-allowed">
+        <Linkedin />
+      </div>
+    ) : (
+      <Link
+        target="_blank"
+        rel="noopener noreferrer"
+        href={`https://${seeker.linkedin}`}
+      >
+        <Linkedin />
+      </Link>
+    )}
+    {seeker.portfolio === "" ? (
+      <div className="text-initial-gray cursor-not-allowed">
+        <ImageIcon />
+      </div>
+    ) : (
+      <Link
+        target="_blank"
+        rel="noopener noreferrer"
+        href={`https://${seeker.portfolio}`}
+      >
+        <ImageIcon />
+      </Link>
+    )}
   </div>
 );
 

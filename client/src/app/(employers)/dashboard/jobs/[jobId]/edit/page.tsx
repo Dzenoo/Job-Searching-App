@@ -2,7 +2,7 @@
 
 import React from "react";
 import Protected from "@/components/hoc/Protected";
-import UpdateJobForm from "@/components/shared/forms/UpdateJobForm";
+import UpdateJobForm from "@/components/employers/dashboard/jobs/new/UpdateJobForm";
 
 import { useQuery } from "react-query";
 import { getJob } from "@/lib/actions/employers.actions";
