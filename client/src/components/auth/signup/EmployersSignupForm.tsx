@@ -169,7 +169,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5 max-sm:flex-col">
               <FormField
                 control={form.control}
                 name="industry"

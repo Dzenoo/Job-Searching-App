@@ -38,7 +38,7 @@ const ChooseSignup: React.FC = () => {
           <div>
             <h1 className="text-2xl font-bold">Join as a Employer or Seeker</h1>
           </div>
-          <div className="flex justify-between gap-3">
+          <div className="flex justify-between gap-3 max-sm:flex-col">
             {Array.from([
               {
                 icon: <Building />,
