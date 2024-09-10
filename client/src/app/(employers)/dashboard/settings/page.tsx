@@ -2,9 +2,20 @@
 
 import React from "react";
 import Protected from "@/components/hoc/Protected";
-import EmployerProfileInformation from "@/components/employers/dashboard/settings/EmployerProfileInformation";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetEmployer from "@/hooks/mutations/useGetEmployer";
+import dynamic from "next/dynamic";
+import LoadingEmployerSettings from "@/components/loaders/LoadingEmployerSettings";
+
+const EmployerProfileInformation = dynamic(
+  () =>
+    import(
+      "@/components/employers/dashboard/settings/EmployerProfileInformation"
+    ),
+  {
+    loading: () => <LoadingEmployerSettings />,
+  }
+);
 
 const SettingsPage = () => {
   const { token } = useAuthentication().getCookieHandler();

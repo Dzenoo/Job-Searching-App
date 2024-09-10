@@ -10,8 +10,9 @@ import usePagination from "@/hooks/usePagination";
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
-import DashboardEmployerJobs from "@/components/employers/dashboard/jobs/DashboardEmployerJobs";
+import dynamic from "next/dynamic";
 import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
+import LoadingDashboardJobs from "@/components/loaders/LoadingDashboardJobs";
 
 import {
   Pagination,
@@ -22,6 +23,13 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
+
+const DashboardEmployerJobs = dynamic(
+  () => import("@/components/employers/dashboard/jobs/DashboardEmployerJobs"),
+  {
+    loading: () => <LoadingDashboardJobs />,
+  }
+);
 
 const DashboardJobsPage = ({
   searchParams,

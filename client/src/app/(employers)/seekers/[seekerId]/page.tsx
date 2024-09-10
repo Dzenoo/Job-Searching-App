@@ -7,7 +7,15 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekerById } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
-import SeekerDetailsInfo from "@/components/employers/seekers/details/SeekerDetailsInfo";
+import dynamic from "next/dynamic";
+import LoadingSeekerDetails from "@/components/loaders/LoadingSeekerDetails";
+
+const SeekerDetailsInfo = dynamic(
+  () => import("@/components/employers/seekers/details/SeekerDetailsInfo"),
+  {
+    loading: () => <LoadingSeekerDetails />,
+  }
+);
 
 const SeekerDetailsPage = ({
   params: { seekerId },

@@ -11,7 +11,6 @@ import usePagination from "@/hooks/usePagination";
 import Protected from "@/components/hoc/Protected";
 import FilterSeekers from "@/components/employers/seekers/filters/FilterSeekers";
 import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
-import SeekersList from "@/components/employers/seekers/SeekersList";
 
 import {
   Pagination,
@@ -22,6 +21,15 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
+import dynamic from "next/dynamic";
+import LoadingSeekers from "@/components/loaders/LoadingSeekers";
+
+const SeekersList = dynamic(
+  () => import("@/components/employers/seekers/SeekersList"),
+  {
+    loading: () => <LoadingSeekers />,
+  }
+);
 
 const SeekersPage = ({
   searchParams,

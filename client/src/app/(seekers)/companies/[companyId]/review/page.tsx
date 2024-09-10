@@ -3,7 +3,16 @@
 import React from "react";
 
 import Protected from "@/components/hoc/Protected";
-import ReviewCompanyForm from "@/components/seekers/employers/details/reviews/ReviewCompanyForm";
+import dynamic from "next/dynamic";
+import LoadingReviewForm from "@/components/loaders/LoadingReviewForm";
+
+const ReviewCompanyForm = dynamic(
+  () =>
+    import("@/components/seekers/employers/details/reviews/ReviewCompanyForm"),
+  {
+    loading: () => <LoadingReviewForm />,
+  }
+);
 
 const ReviewCompany = ({ params }: { params: { companyId: string } }) => {
   return (

@@ -27,6 +27,7 @@ import {
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
 });
+
 const Jobs = ({
   searchParams,
 }: {

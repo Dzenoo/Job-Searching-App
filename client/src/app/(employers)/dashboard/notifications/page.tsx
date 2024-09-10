@@ -7,7 +7,15 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
-import NotificationsList from "@/components/shared/notifications/NotificiationsList";
+import dynamic from "next/dynamic";
+import LoadingNotifications from "@/components/loaders/LoadingNotifications";
+
+const NotificationsList = dynamic(
+  () => import("@/components/shared/notifications/NotificiationsList"),
+  {
+    loading: () => <LoadingNotifications />,
+  }
+);
 
 const DashboardNotificationsPage = () => {
   const [notifications, setNotifications] = useState<any>([]);

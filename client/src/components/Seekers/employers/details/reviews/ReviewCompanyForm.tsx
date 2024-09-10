@@ -32,7 +32,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SkillsInformationsData } from "@/constants";
 import { multiselectSkills } from "@/lib/utils";
 
 type ReviewCompanyFormProps = {
