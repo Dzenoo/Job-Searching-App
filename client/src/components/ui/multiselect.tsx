@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandItem,
   CommandList,
   CommandGroup,
+  CommandInput,
 } from "@/components/ui/command";
-import { Badge } from "./badge";
+import { Badge } from "@/components/ui/badge";
+import { getSkillNames } from "@/lib/utils";
 
 type MultiSelectOption = {
   value: string;
@@ -27,6 +29,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   placeholder = "Select options...",
 }) => {
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleDropdown = () => setOpen((prev) => !prev);
 
@@ -36,45 +39,61 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         ? selectedValues.filter((v) => v !== value)
         : [...selectedValues, value]
     );
+    setSearchQuery("");
   };
+  const skillsNames = getSkillNames(selectedValues);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <Button
         type="button"
         variant="outline"
         onClick={toggleDropdown}
-        className="w-full h-fit flex gap-2 justify-between flex-wrap hover:bg-white dark:hover:bg-[#1b1b1b]"
+        className="w-full h-fit flex gap-2 flex-wrap hover:bg-white dark:hover:bg-[#1b1b1b] text-left"
       >
-        {selectedValues.length > 0
-          ? selectedValues.map((value) => (
-              <Badge key={value} variant="secondary">
-                {value}
-              </Badge>
-            ))
-          : placeholder}
+        {skillsNames.length > 0 ? (
+          skillsNames.map((value) => (
+            <Badge key={value} variant="secondary">
+              {value}
+            </Badge>
+          ))
+        ) : (
+          <span className="text-gray-400">{placeholder}</span>
+        )}
       </Button>
       {open && (
         <Command className="h-52 absolute top-full left-0 mt-2 w-full z-10 bg-white border rounded-md shadow-lg dark:bg-[#1b1b1b]">
-          <CommandList>
-            <CommandGroup>
-              {options.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  onSelect={() => handleSelect(option.value)}
-                  className={`flex justify-between p-2 ${
-                    selectedValues.includes(option.value)
-                      ? "bg-blue-100 dark:bg-gray-500"
-                      : ""
-                  }`}
-                >
-                  <span>{option.label}</span>
-                  {selectedValues.includes(option.value) && (
-                    <span>&#10003;</span>
-                  )}
-                </CommandItem>
-              ))}
-            </CommandGroup>
+          <CommandInput
+            value={searchQuery}
+            onValueChange={setSearchQuery}
+            placeholder="Search skills..."
+            className="w-full px-3 py-2 border-b dark:bg-[#1b1b1b]"
+          />
+          <CommandList className="max-h-48 overflow-auto">
+            {options.length > 0 ? (
+              <CommandGroup>
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    onSelect={() => handleSelect(option.value)}
+                    className={`flex justify-between p-2 ${
+                      selectedValues.includes(option.value)
+                        ? "bg-blue-100 dark:bg-gray-500"
+                        : ""
+                    }`}
+                  >
+                    <span>{option.label}</span>
+                    {selectedValues.includes(option.value) && (
+                      <span>&#10003;</span>
+                    )}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ) : (
+              <div className="p-3 text-center text-gray-500 dark:text-gray-400">
+                No results found.
+              </div>
+            )}
           </CommandList>
         </Command>
       )}

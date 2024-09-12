@@ -23,8 +23,10 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import NavbarActionsList from "./NavbarActionsList";
-import NavbarLinksList from "./NavbarLinksList";
 import Logo from "./Logo";
+import dynamic from "next/dynamic";
+
+const NavbarLinksList = dynamic(import("./NavbarLinksList"), { ssr: false });
 
 const AuthenticationDivLinks: React.FC = () => {
   return (

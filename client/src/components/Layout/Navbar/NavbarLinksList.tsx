@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 
@@ -15,7 +16,7 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
   data,
 }) => {
   return (
-    <ul className="flex items-center gap-6">
+    <div className="flex items-center gap-6">
       {Array.from(data).map(({ href, title, id }) => (
         <Link
           key={id}
@@ -31,7 +32,7 @@ const NavbarLinksList: React.FC<NavbarLinksListProps> = ({
           </div>
         </Link>
       ))}
-    </ul>
+    </div>
   );
 };
 

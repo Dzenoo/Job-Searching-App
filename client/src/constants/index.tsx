@@ -426,7 +426,6 @@ export const SkillsInformationsData = [
     data: [
       { id: "1", title: "HTML", value: "html", type: "skills" },
       { id: "2", title: "CSS", value: "css", type: "skills" },
-      { id: "3", title: "JavaScript", value: "javascript", type: "skills" },
       { id: "4", title: "React", value: "react", type: "skills" },
       { id: "5", title: "Angular", value: "angular", type: "skills" },
       { id: "6", title: "Vue.js", value: "vuejs", type: "skills" },
