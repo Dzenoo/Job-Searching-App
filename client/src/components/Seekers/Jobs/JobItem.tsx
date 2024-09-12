@@ -67,7 +67,9 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
               <div className="flex flex-col gap-[3px]">
                 <div>
                   <Link href={`/jobs/${job._id}`}>
-                    <h1 className="text-base-black font-bold">{job.title}</h1>
+                    <h1 className="hover:text-blue-700 hover:underline text-base-black font-bold">
+                      {job.title}
+                    </h1>
                   </Link>
                 </div>
                 <div className="flex items-center gap-3 max-sm:flex-wrap">

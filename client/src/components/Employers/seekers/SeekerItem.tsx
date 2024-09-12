@@ -56,7 +56,10 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
       </CardHeader>
       <CardContent className="text-center flex flex-col justify-center items-center gap-3">
         <div>
-          <Link href={`/seekers/${seeker?._id}`}>
+          <Link
+            className="hover:text-blue-700 hover:underline"
+            href={`/seekers/${seeker?._id}`}
+          >
             <h1 className="font-bold">
               {seeker?.first_name} {seeker?.last_name}
             </h1>

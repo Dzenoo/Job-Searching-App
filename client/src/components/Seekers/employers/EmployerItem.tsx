@@ -44,7 +44,9 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
             <div className="flex gap-3 justify-between max-sm:flex-col sm:items-center">
               <div>
                 <Link href={`/companies/${employer._id}?typeEmp=jobs`}>
-                  <h1 className="text-base-black font-bold">{employer.name}</h1>
+                  <h1 className="hover:text-blue-700 hover:underline text-base-black font-bold">
+                    {employer.name}
+                  </h1>
                 </Link>
               </div>
               <div>

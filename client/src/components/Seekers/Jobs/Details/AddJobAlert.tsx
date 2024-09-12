@@ -27,10 +27,10 @@ const AddJobAlert: React.FC<JobAlertProps> = ({ level, type, title }) => {
 
   return (
     <Card>
-      <CardHeader className="pt-5">
+      <CardHeader>
         <h1 className="text-base-black">Generate Job Alert</h1>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-0">
         <p className="text-initial-gray">
           Get notified when job like this show. Set up alerts now and never miss
           a matching opportunity.
