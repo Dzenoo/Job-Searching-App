@@ -24,9 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import NavbarActionsList from "./NavbarActionsList";
 import Logo from "./Logo";
-import dynamic from "next/dynamic";
-
-const NavbarLinksList = dynamic(import("./NavbarLinksList"), { ssr: false });
+import NavbarLinksList from "./NavbarLinksList";
 
 const AuthenticationDivLinks: React.FC = () => {
   return (
@@ -42,6 +40,7 @@ const AuthenticationDivLinks: React.FC = () => {
 };
 
 const Navbar: React.FC<{ href?: string }> = ({ href }) => {
+  const [isMounted, setIsMounted] = React.useState(false);
   const { deleteCookieHandler, getCookieHandler } = useAuthentication();
   const { isAuthenticated, userType, token } = getCookieHandler();
   const { data } = useQuery({
@@ -60,10 +59,16 @@ const Navbar: React.FC<{ href?: string }> = ({ href }) => {
     },
   });
 
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const pathname = usePathname();
-
   const isSeeker = userType === "seeker";
-
   const fetchedProfile: any = data;
 
   return (
@@ -73,10 +78,7 @@ const Navbar: React.FC<{ href?: string }> = ({ href }) => {
       </div>
       {isAuthenticated && (
         <div className="max-xl:hidden">
-          <NavbarLinksList
-            pathname={pathname}
-            data={isSeeker ? SeekersNavbarLinks : []}
-          />
+          <NavbarLinksList pathname={pathname} data={SeekersNavbarLinks} />
         </div>
       )}
       {isAuthenticated && (
