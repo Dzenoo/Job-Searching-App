@@ -78,7 +78,10 @@ const Navbar: React.FC<{ href?: string }> = ({ href }) => {
       </div>
       {isAuthenticated && (
         <div className="max-xl:hidden">
-          <NavbarLinksList pathname={pathname} data={SeekersNavbarLinks} />
+          <NavbarLinksList
+            pathname={pathname}
+            data={isSeeker ? SeekersNavbarLinks : []}
+          />
         </div>
       )}
       {isAuthenticated && (
