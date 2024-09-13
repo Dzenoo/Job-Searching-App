@@ -1,0 +1,17 @@
+services:
+  web:
+    depends_on:
+      - api
+    build: ./client
+    ports:
+      - 3000:3000
+
+  api:
+    build: ./api
+    ports:
+      - 7000:7000
+    env_file:
+      - ./api/.env
+
+volumes:
+  job-searching-app:
