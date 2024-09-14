@@ -9,7 +9,7 @@ import usePagination from "@/hooks/usePagination";
 
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
-import Protected from "@/components/tempname/Protected";
+import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
 import LoadingDashboardJobs from "@/components/loaders/LoadingDashboardJobs";

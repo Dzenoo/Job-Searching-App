@@ -9,7 +9,7 @@ import usePagination from "@/hooks/usePagination";
 
 import { getJobs } from "@/lib/actions/jobs.actions";
 
-import Protected from "@/components/tempname/Protected";
+import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import SearchJobs from "@/components/seekers/jobs/search/SearchJobs";

@@ -6,7 +6,7 @@ import io from "socket.io-client";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
-import Protected from "@/components/tempname/Protected";
+import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingNotifications from "@/components/loaders/LoadingNotifications";
 

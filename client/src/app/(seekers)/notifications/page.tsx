@@ -6,7 +6,7 @@ import io from "socket.io-client";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 
-import Protected from "@/components/tempname/Protected";
+import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingNotifications from "@/components/loaders/LoadingNotifications";
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import Protected from "@/components/tempname/Protected";
+import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingReviewForm from "@/components/loaders/LoadingReviewForm";
 

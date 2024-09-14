@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekerById } from "@/lib/actions/employers.actions";
 
-import Protected from "@/components/tempname/Protected";
+import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingSeekerDetails from "@/components/loaders/LoadingSeekerDetails";
 
