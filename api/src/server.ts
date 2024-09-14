@@ -65,7 +65,9 @@ function initializeServer(): void {
 
   app.use(handleError);
 
-  server.listen(7000, () => {
+  const port = process.env.PORT || 7000;
+
+  server.listen(port, () => {
     console.log("Server is running on the port 7000");
   });
 }
