@@ -55,7 +55,12 @@ function initializeServer(): void {
   const app = express();
   const server = http.createServer(app);
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
+
   app.use(express.json());
 
   initializePublicRoutes(app);
@@ -67,7 +72,7 @@ function initializeServer(): void {
   app.use(handleError);
 
   server.listen(port, () => {
-    console.log("Server is running on the port 7000");
+    console.log(`Server is running on port ${port}`);
   });
 }
 
