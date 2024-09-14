@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "@/components/ui/toaster";
 
 // Dynamically imported components
-const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
+const Navbar = dynamic(() => import("@/components/tempname/navbar/Navbar"), {
   ssr: false,
 });
 

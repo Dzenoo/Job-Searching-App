@@ -5,13 +5,13 @@ import { Libre_Franklin } from "next/font/google";
 import AppThemeProvider from "@/context/app-theme-provider";
 import { QueryContextProvider } from "@/context/react-query-client";
 
-import Footer from "@/components/layout/footer/Footer";
+import Footer from "@/components/tempname/footer/Footer";
 
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
+const MobileBar = dynamic(() => import("@/components/tempname/navbar/Mobile"), {
   ssr: false,
 });
 
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
-const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
+const Navbar = dynamic(() => import("@/components/tempname/navbar/Navbar"), {
   ssr: false,
 });
 
