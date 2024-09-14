@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import http from "http";
 import dotenv from "dotenv";
+const port = process.env.PORT || 7000;
 
 import { connectToDatabase } from "./database/mongoose";
 import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
@@ -64,8 +65,6 @@ function initializeServer(): void {
   initializeSocket(server);
 
   app.use(handleError);
-
-  const port = process.env.PORT || 7000;
 
   server.listen(port, () => {
     console.log("Server is running on the port 7000");
