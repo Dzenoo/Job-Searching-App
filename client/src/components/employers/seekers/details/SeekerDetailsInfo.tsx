@@ -8,7 +8,7 @@ import { Github, Linkedin, LucideImage } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Navigator from "@/components/ui/navigator";
 
-import EducationList from "@/components/seekers/profile/educations/EducationList";
+import EducationList from "@/components/tempname/profile/educations/EducationList";
 
 import { SeekerTypes } from "@/types";
 import { formatURL, getImageUrl, getSkillsData } from "@/lib/utils";

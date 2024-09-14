@@ -11,9 +11,9 @@ import { getJobs } from "@/lib/actions/jobs.actions";
 
 import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
-import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
-import SearchJobs from "@/components/seekers/jobs/search/SearchJobs";
-import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
+import PopularJobsInfo from "@/components/tempname/jobs/PopularJobsInfo";
+import SearchJobs from "@/components/tempname/jobs/search/SearchJobs";
+import FilterJobs from "@/components/tempname/jobs/filters/FilterJobs";
 import {
   Pagination,
   PaginationContent,
@@ -24,7 +24,7 @@ import {
   PaginationEllipsis,
 } from "@/components/ui/pagination";
 
-const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
+const JobsList = dynamic(() => import("@/components/tempname/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
 });
 

@@ -11,7 +11,7 @@ import { getEmployers } from "@/lib/actions/seekers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
-import SearchEmployers from "@/components/seekers/employers/search/SearchEmployers";
+import SearchEmployers from "@/components/tempname/employers/search/SearchEmployers";
 
 import {
   Pagination,
@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/pagination";
 
 const EmployersList = dynamic(
-  () => import("@/components/seekers/employers/EmployersList"),
+  () => import("@/components/tempname/employers/EmployersList"),
   {
     loading: () => <LoadingCompaniesSkeleton />,
   }
