@@ -9,8 +9,8 @@ import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 import Protected from "@/components/hoc/Protected";
 
 import LoadingApplicationsSkeleton from "@/components/tempname/LoadingApplications";
-import LoadingJobsSkeleton from "@/components/tempname/LoadingJobsSkeleton";
-import LoadingSeekersInformationsSkeleton from "@/components/tempname/LoadingSeekersInformations";
+import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
+import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
 
 import SeekerProfileAlerts from "@/components/seekers/profile/alerts/NewAlertsForm";
 import SeekerProfileNavigation from "@/components/seekers/profile/navigation/SeekerProfileNavigation";

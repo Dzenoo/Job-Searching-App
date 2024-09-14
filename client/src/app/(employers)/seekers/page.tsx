@@ -22,7 +22,7 @@ import {
   PaginationEllipsis,
 } from "@/components/ui/pagination";
 import dynamic from "next/dynamic";
-import LoadingSeekers from "@/components/tempname/LoadingSeekers";
+import LoadingSeekers from "@/components/loaders/LoadingSeekers";
 
 const SeekersList = dynamic(
   () => import("@/components/employers/seekers/SeekersList"),
