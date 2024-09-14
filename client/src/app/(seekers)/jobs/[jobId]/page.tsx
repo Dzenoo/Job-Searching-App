@@ -9,10 +9,10 @@ import { getJobById } from "@/lib/actions/jobs.actions";
 
 import Protected from "@/components/hoc/Protected";
 import LoadingJobDetails from "@/components/loaders/LoadingJobDetails";
-import AddJobAlert from "@/components/tempname/jobs/details/AddJobAlert";
-import JobDetailsInfo from "@/components/tempname/jobs/details/JobDetailsInfo";
-import JobsList from "@/components/tempname/jobs/JobsList";
-import ApplyToJob from "@/components/tempname/jobs/details/ApplyToJob";
+import AddJobAlert from "@/components/seekers/jobs/details/AddJobAlert";
+import JobDetailsInfo from "@/components/seekers/jobs/details/JobDetailsInfo";
+import JobsList from "@/components/seekers/jobs/JobsList";
+import ApplyToJob from "@/components/seekers/jobs/details/ApplyToJob";
 
 const JobDetailsPage = ({
   params: { jobId },

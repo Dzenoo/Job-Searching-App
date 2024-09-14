@@ -12,8 +12,8 @@ import { getEmployerById } from "@/lib/actions/seekers.actions";
 import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
-import EmployerDetailsInfo from "@/components/tempname/employers/details/EmployerDetailsInfo";
-import EmployerFilters from "@/components/tempname/employers/filters/EmployerFilters";
+import EmployerDetailsInfo from "@/components/seekers/employers/details/EmployerDetailsInfo";
+import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilters";
 
 import {
   Pagination,
@@ -26,12 +26,12 @@ import {
 } from "@/components/ui/pagination";
 
 const ReviewsList = dynamic(
-  () => import("@/components/tempname/employers/details/reviews/ReviewsList"),
+  () => import("@/components/seekers/employers/details/reviews/ReviewsList"),
   {
     loading: () => <LoadingReviewsSkeleton />,
   }
 );
-const JobsList = dynamic(() => import("@/components/tempname/jobs/JobsList"), {
+const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
 });
 

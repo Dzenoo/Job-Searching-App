@@ -8,7 +8,7 @@ import LoadingReviewForm from "@/components/loaders/LoadingReviewForm";
 
 const ReviewCompanyForm = dynamic(
   () =>
-    import("@/components/tempname/employers/details/reviews/ReviewCompanyForm"),
+    import("@/components/seekers/employers/details/reviews/ReviewCompanyForm"),
   {
     loading: () => <LoadingReviewForm />,
   }

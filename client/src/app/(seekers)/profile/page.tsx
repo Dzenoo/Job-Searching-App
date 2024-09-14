@@ -13,21 +13,21 @@ import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
 
 import SeekerProfileAlerts from "@/components/tempname/profile/alerts/NewAlertsForm";
-import SeekerProfileNavigation from "@/components/tempname/profile/navigation/SeekerProfileNavigation";
+import SeekerProfileNavigation from "@/components/seekers/profile/navigation/SeekerProfileNavigation";
 
-const JobsList = dynamic(() => import("@/components/tempname/jobs/JobsList"), {
+const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
 });
 
 const Applications = dynamic(
-  () => import("@/components/tempname/profile/applications/Applications"),
+  () => import("@/components/seekers/profile/applications/Applications"),
   {
     loading: () => <LoadingApplicationsSkeleton />,
   }
 );
 
 const SeekerProfileInformation = dynamic(
-  () => import("@/components/tempname/profile/SeekerProfileInformation"),
+  () => import("@/components/seekers/profile/SeekerProfileInformation"),
   {
     loading: () => <LoadingSeekersInformationsSkeleton />,
   }
