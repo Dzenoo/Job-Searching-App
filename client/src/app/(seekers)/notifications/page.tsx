@@ -8,7 +8,7 @@ import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
-import LoadingNotifications from "@/components/loaders/LoadingNotifications";
+import LoadingNotifications from "@/components/tempname/LoadingNotifications";
 
 const NotificationsList = dynamic(
   () => import("@/components/shared/notifications/NotificiationsList"),

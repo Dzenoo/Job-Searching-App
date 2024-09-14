@@ -4,7 +4,7 @@ import React from "react";
 
 import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
-import LoadingReviewForm from "@/components/loaders/LoadingReviewForm";
+import LoadingReviewForm from "@/components/tempname/LoadingReviewForm";
 
 const ReviewCompanyForm = dynamic(
   () =>

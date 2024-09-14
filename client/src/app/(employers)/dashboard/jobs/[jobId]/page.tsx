@@ -11,7 +11,7 @@ import { getApplications } from "@/lib/actions/jobs.actions";
 import FilterApplications from "@/components/employers/dashboard/jobs/applications/FilterApplications";
 import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
-import LoadingJobApplications from "@/components/loaders/LoadingJobApplications";
+import LoadingJobApplications from "@/components/tempname/LoadingJobApplications";
 
 import {
   Pagination,

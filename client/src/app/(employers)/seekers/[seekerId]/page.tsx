@@ -8,7 +8,7 @@ import { getSeekerById } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
-import LoadingSeekerDetails from "@/components/loaders/LoadingSeekerDetails";
+import LoadingSeekerDetails from "@/components/tempname/LoadingSeekerDetails";
 
 const SeekerDetailsInfo = dynamic(
   () => import("@/components/employers/seekers/details/SeekerDetailsInfo"),

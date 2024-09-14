@@ -5,7 +5,7 @@ import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetEmployer from "@/hooks/mutations/useGetEmployer";
 import dynamic from "next/dynamic";
-import LoadingEmployerSettings from "@/components/loaders/LoadingEmployerSettings";
+import LoadingEmployerSettings from "@/components/tempname/LoadingEmployerSettings";
 
 const EmployerProfileInformation = dynamic(
   () =>
