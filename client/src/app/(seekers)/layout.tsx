@@ -8,11 +8,11 @@ import { Toaster } from "@/components/ui/toaster";
 
 import { Libre_Franklin } from "next/font/google";
 
-import Navbar from "@/components/tempname/navbar/Navbar";
-import Footer from "@/components/tempname/footer/Footer";
+import Navbar from "@/components/layout/navbar/Navbar";
+import Footer from "@/components/layout/footer/Footer";
 import "../globals.css";
 
-const MobileBar = dynamic(() => import("@/components/tempname/navbar/Mobile"), {
+const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
   ssr: false,
 });
 
