@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import http from "http";
 import dotenv from "dotenv";
-const port = process.env.PORT || 7000;
+const port = process.env.PORT;
 
 import { connectToDatabase } from "./database/mongoose";
 import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
