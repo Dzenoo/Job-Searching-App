@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Protected from "@/components/hoc/Protected";
+import Protected from "@/components/tempname/Protected";
 import UpdateJobForm from "@/components/employers/dashboard/jobs/new/UpdateJobForm";
 
 const NewJobPage = () => {

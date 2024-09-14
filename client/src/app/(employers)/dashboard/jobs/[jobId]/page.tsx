@@ -8,7 +8,7 @@ import useSearchParams from "@/hooks/useSearchParams";
 
 import { getApplications } from "@/lib/actions/jobs.actions";
 
-import Protected from "@/components/hoc/Protected";
+import Protected from "@/components/tempname/Protected";
 import FilterApplications from "@/components/employers/dashboard/jobs/applications/FilterApplications";
 import dynamic from "next/dynamic";
 import LoadingJobApplications from "@/components/loaders/LoadingJobApplications";

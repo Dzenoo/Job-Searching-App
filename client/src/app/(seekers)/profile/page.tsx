@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import useAuthentication from "@/hooks/useAuthentication";
 import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 
-import Protected from "@/components/hoc/Protected";
+import Protected from "@/components/tempname/Protected";
 
 import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";

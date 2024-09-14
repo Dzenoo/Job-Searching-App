@@ -8,7 +8,7 @@ import useAuthentication from "@/hooks/useAuthentication";
 import { getSeekers } from "@/lib/actions/employers.actions";
 
 import usePagination from "@/hooks/usePagination";
-import Protected from "@/components/hoc/Protected";
+import Protected from "@/components/tempname/Protected";
 import FilterSeekers from "@/components/employers/seekers/filters/FilterSeekers";
 import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
 
