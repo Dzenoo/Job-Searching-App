@@ -94,7 +94,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
             </div>
           </CardContent>
         )}
-        <CardFooter className="border-t border-gray-100 dark:border-[#0d0d0d] pt-6 flex items-center justify-between gap-3 flex-wrap">
+        <CardFooter className="border-t border-gray-100 dark:border-[#5c5c5c] pt-6 flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-6 justify-between flex-wrap">
             {FooterInfoData.map((data) => renderIconText(data))}
           </div>

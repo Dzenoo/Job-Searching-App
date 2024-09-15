@@ -8,11 +8,11 @@ import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 
 import Protected from "@/components/hoc/Protected";
 
-import LoadingApplicationsSkeleton from "@/components/tempname/LoadingApplications";
+import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
 
-import SeekerProfileAlerts from "@/components/tempname/profile/alerts/NewAlertsForm";
+import SeekerProfileAlerts from "@/components/seekers/profile/alerts/NewAlertsForm";
 import SeekerProfileNavigation from "@/components/seekers/profile/navigation/SeekerProfileNavigation";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {

@@ -75,6 +75,9 @@ const Jobs = ({
           <FilterJobs />
         </div>
         <div>
+          <h1 className="text-initial-gray">Total Jobs ({totalJobs})</h1>
+        </div>
+        <div>
           <JobsList jobs={fetchedJobs?.jobs} />
         </div>
         <Pagination>
