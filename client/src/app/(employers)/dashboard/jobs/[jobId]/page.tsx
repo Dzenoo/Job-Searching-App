@@ -13,15 +13,7 @@ import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingJobApplications from "@/components/loaders/LoadingJobApplications";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationEllipsis,
-} from "@/components/ui/pagination";
+import PaginatedList from "@/components/ui/paginate-list";
 
 const Applications = dynamic(
   () =>
@@ -38,6 +30,7 @@ const JobApplicationsPage = ({
   searchParams: { [key: string]: string };
   params: { jobId: string };
 }) => {
+  const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
   const { data } = useQuery(
     ["applications", params.jobId, searchParams.page, searchParams.type],
@@ -49,17 +42,10 @@ const JobApplicationsPage = ({
         type: searchParams.type || "",
       })
   );
-  const { updateSearchParams } = useSearchParams();
-
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    updateSearchParams("page", page.toString());
-  };
 
   const totalApplications = data?.totalApplications || 0;
   const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(totalApplications / itemsPerPage);
 
   return (
     <section className="flex flex-col gap-3">
@@ -89,46 +75,14 @@ const JobApplicationsPage = ({
       </div>
       {data?.applications.length !== 0 && (
         <div>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                {currentPage > 1 ? (
-                  <PaginationPrevious
-                    onClick={() => handlePageChange(currentPage - 1)}
-                  />
-                ) : (
-                  <PaginationPrevious isActive={false} />
-                )}
-              </PaginationItem>
-
-              {[...Array(totalPages)].map((_, index) => (
-                <PaginationItem key={index}>
-                  <PaginationLink
-                    isActive={currentPage === index + 1}
-                    onClick={() => handlePageChange(index + 1)}
-                  >
-                    {index + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-
-              {currentPage < totalPages && (
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              )}
-
-              <PaginationItem>
-                {currentPage < totalPages ? (
-                  <PaginationNext
-                    onClick={() => handlePageChange(currentPage + 1)}
-                  />
-                ) : (
-                  <PaginationNext isActive={false} />
-                )}
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <PaginatedList
+            onPageChange={(value) =>
+              updateSearchParams("page", value.toString())
+            }
+            totalItems={totalApplications}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+          />
         </div>
       )}
     </section>

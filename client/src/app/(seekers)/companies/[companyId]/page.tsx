@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
 import useAuthentication from "@/hooks/useAuthentication";
-import usePagination from "@/hooks/usePagination";
 
 import { getEmployerById } from "@/lib/actions/seekers.actions";
 
@@ -15,15 +14,8 @@ import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
 import EmployerDetailsInfo from "@/components/seekers/employers/details/EmployerDetailsInfo";
 import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilters";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationEllipsis,
-} from "@/components/ui/pagination";
+import PaginatedList from "@/components/ui/paginate-list";
+import useSearchParams from "@/hooks/useSearchParams";
 
 const ReviewsList = dynamic(
   () => import("@/components/seekers/employers/details/reviews/ReviewsList"),
@@ -42,8 +34,8 @@ const CompanyDetails = ({
   params: { companyId: string };
   searchParams: { [key: string]: any };
 }) => {
+  const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-
   const { data: fetchedCompany, refetch } = useQuery({
     queryFn: () =>
       getEmployerById(
@@ -74,12 +66,6 @@ const CompanyDetails = ({
     totalItems = fetchedCompany?.totalReviews;
   }
 
-  const { currentPage, totalPages, handlePageChange } = usePagination({
-    totalItems,
-    itemsPerPage: 10,
-    initialPage: Number(searchParams?.page) || 1,
-  });
-
   return (
     <section className="py-6 overflow-hidden mx-40 max-xl:mx-0">
       <div>
@@ -94,46 +80,14 @@ const CompanyDetails = ({
           <ReviewsList reviews={fetchedCompany?.employer.reviews} />
         )}
         {totalItems > 0 && (
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                {currentPage > 1 ? (
-                  <PaginationPrevious
-                    onClick={() => handlePageChange(currentPage - 1)}
-                  />
-                ) : (
-                  <PaginationPrevious isActive={false} />
-                )}
-              </PaginationItem>
-
-              {[...Array(totalPages)].map((_, index) => (
-                <PaginationItem key={index}>
-                  <PaginationLink
-                    isActive={currentPage === index + 1}
-                    onClick={() => handlePageChange(index + 1)}
-                  >
-                    {index + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-
-              {currentPage < totalPages && (
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              )}
-
-              <PaginationItem>
-                {currentPage < totalPages ? (
-                  <PaginationNext
-                    onClick={() => handlePageChange(currentPage + 1)}
-                  />
-                ) : (
-                  <PaginationNext isActive={false} />
-                )}
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <PaginatedList
+            onPageChange={(value) =>
+              updateSearchParams("page", value.toString())
+            }
+            totalItems={totalItems}
+            itemsPerPage={10}
+            currentPage={Number(searchParams.page) || 1}
+          />
         )}
       </div>
     </section>

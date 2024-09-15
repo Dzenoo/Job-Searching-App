@@ -7,22 +7,14 @@ import useAuthentication from "@/hooks/useAuthentication";
 
 import { getSeekers } from "@/lib/actions/employers.actions";
 
-import usePagination from "@/hooks/usePagination";
 import Protected from "@/components/hoc/Protected";
 import FilterSeekers from "@/components/employers/seekers/filters/FilterSeekers";
 import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationEllipsis,
-} from "@/components/ui/pagination";
 import dynamic from "next/dynamic";
 import LoadingSeekers from "@/components/loaders/LoadingSeekers";
+import PaginatedList from "@/components/ui/paginate-list";
+import useSearchParams from "@/hooks/useSearchParams";
 
 const SeekersList = dynamic(
   () => import("@/components/employers/seekers/SeekersList"),
@@ -36,6 +28,7 @@ const SeekersPage = ({
 }: {
   searchParams: { [key: string]: string };
 }) => {
+  const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
   const { data: fetchedSeekers, refetch } = useQuery({
     queryFn: () =>
@@ -52,11 +45,7 @@ const SeekersPage = ({
     refetch();
   }, [searchParams]);
 
-  const { currentPage, totalPages, handlePageChange } = usePagination({
-    totalItems: fetchedSeekers?.totalSeekers || 0,
-    itemsPerPage: 10,
-    initialPage: Number(searchParams.page) || 1,
-  });
+  const totalSeekers = fetchedSeekers?.totalSeekers || 0;
 
   return (
     <section className="p-16 overflow-auto max-lg:px-8 max-sm:px-4 flex gap-[10px] max-xl:flex-col">
@@ -71,43 +60,12 @@ const SeekersPage = ({
         <div>
           <SeekersList seekers={fetchedSeekers?.seekers || []} />
         </div>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              {currentPage > 1 ? (
-                <PaginationPrevious
-                  onClick={() => handlePageChange(currentPage - 1)}
-                />
-              ) : (
-                <PaginationPrevious isActive={false} />
-              )}
-            </PaginationItem>
-            {[...Array(totalPages)].map((_, index) => (
-              <PaginationItem key={index}>
-                <PaginationLink
-                  isActive={currentPage === index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            {currentPage < totalPages && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-            <PaginationItem>
-              {currentPage < totalPages ? (
-                <PaginationNext
-                  onClick={() => handlePageChange(currentPage + 1)}
-                />
-              ) : (
-                <PaginationNext isActive={false} />
-              )}
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <PaginatedList
+          onPageChange={(value) => updateSearchParams("page", value.toString())}
+          totalItems={totalSeekers}
+          itemsPerPage={10}
+          currentPage={Number(searchParams.page) || 1}
+        />
       </div>
       <div className="max-xl:hidden basis-1/2">
         <FilterSeekers />

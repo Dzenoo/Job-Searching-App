@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 
 import useAuthentication from "@/hooks/useAuthentication";
 import useSearchParams from "@/hooks/useSearchParams";
-import usePagination from "@/hooks/usePagination";
 
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
@@ -14,15 +13,7 @@ import dynamic from "next/dynamic";
 import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
 import LoadingDashboardJobs from "@/components/loaders/LoadingDashboardJobs";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationEllipsis,
-} from "@/components/ui/pagination";
+import PaginatedList from "@/components/ui/paginate-list";
 
 const DashboardEmployerJobs = dynamic(
   () => import("@/components/employers/dashboard/jobs/DashboardEmployerJobs"),
@@ -36,6 +27,7 @@ const DashboardJobsPage = ({
 }: {
   searchParams: { [key: string]: string };
 }) => {
+  const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
   const { data: fetchedEmployer } = useQuery({
     queryFn: () =>
@@ -48,20 +40,10 @@ const DashboardJobsPage = ({
       }),
     queryKey: ["jobs", searchParams],
   });
-  const { updateSearchParams } = useSearchParams();
 
   const totalJobs = fetchedEmployer?.counts.totalJobs || 0;
   const itemsPerPage = 10;
-
-  const { currentPage, totalPages, handlePageChange } = usePagination({
-    totalItems: totalJobs,
-    itemsPerPage,
-    initialPage: Number(searchParams.page) || 1,
-  });
-
-  React.useEffect(() => {
-    updateSearchParams("page", currentPage.toString());
-  }, [currentPage, updateSearchParams]);
+  const currentPage = Number(searchParams.page) || 1;
 
   return (
     <section className="flex flex-col gap-6">
@@ -80,46 +62,12 @@ const DashboardJobsPage = ({
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
       />
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            {currentPage > 1 ? (
-              <PaginationPrevious
-                onClick={() => handlePageChange(currentPage - 1)}
-              />
-            ) : (
-              <PaginationPrevious isActive={false} />
-            )}
-          </PaginationItem>
-
-          {[...Array(totalPages)].map((_, index) => (
-            <PaginationItem key={index}>
-              <PaginationLink
-                isActive={currentPage === index + 1}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-
-          {currentPage < totalPages && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-
-          <PaginationItem>
-            {currentPage < totalPages ? (
-              <PaginationNext
-                onClick={() => handlePageChange(currentPage + 1)}
-              />
-            ) : (
-              <PaginationNext isActive={false} />
-            )}
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <PaginatedList
+        onPageChange={(value) => updateSearchParams("page", value.toString())}
+        totalItems={totalJobs}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+      />
     </section>
   );
 };
