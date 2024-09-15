@@ -39,6 +39,12 @@ export const getJobs = async ({
   jobs: JobTypes[];
   totalJobs: number;
   popularJobs: JobTypes[];
+  filterCounts: {
+    [key: string]: {
+      _id: string;
+      count: number;
+    }[];
+  };
 }> => {
   try {
     return await getApiHandler(

@@ -12,14 +12,19 @@ import {
 import { Button } from "@/components/ui/button";
 import FilterHandler from "@/components/shared/filters/FilterHandler";
 import { JobsFiltersData } from "@/constants";
+import { injectCountsIntoFilters } from "@/lib/utils";
 
-const FilterJobs: React.FC = () => {
+type FilterJobsProps = {
+  filterCounts: any;
+};
+
+const FilterJobs: React.FC<FilterJobsProps> = ({ filterCounts }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex flex-col gap-6">
       <div className="hidden lg:block">
-        <FiltersContent />
+        <FiltersContent filterCounts={filterCounts} />
       </div>
       <div className="lg:hidden">
         <Button
@@ -40,7 +45,7 @@ const FilterJobs: React.FC = () => {
             <DialogHeader>
               <DialogTitle>Job Filters</DialogTitle>
             </DialogHeader>
-            <FiltersContent />
+            <FiltersContent filterCounts={filterCounts} />
           </DialogContent>
         </Dialog>
       </div>
@@ -48,10 +53,25 @@ const FilterJobs: React.FC = () => {
   );
 };
 
-const FiltersContent: React.FC = () => {
+const FiltersContent: React.FC<{
+  filterCounts: any;
+}> = ({ filterCounts }) => {
+  const typeToCountMapForJobs = {
+    type: "types",
+    seniority: "seniority",
+    salaryRange: "salaryRanges",
+    position: "positions",
+  };
+
+  const updatedJobsFiltersData = injectCountsIntoFilters(
+    JobsFiltersData,
+    filterCounts,
+    typeToCountMapForJobs
+  );
+
   return (
     <div className="space-y-6">
-      {JobsFiltersData.map((filterGroup) => (
+      {updatedJobsFiltersData.map((filterGroup) => (
         <FilterHandler
           key={filterGroup.id}
           title={filterGroup.title}

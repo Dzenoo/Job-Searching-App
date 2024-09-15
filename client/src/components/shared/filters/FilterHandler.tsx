@@ -17,6 +17,7 @@ interface CheckboxOption {
   title: string;
   value: string;
   type: string;
+  count?: number;
 }
 
 interface FilterGroupProps {
@@ -66,9 +67,9 @@ const FilterHandler: React.FC<FilterGroupProps> = ({
                 />
                 <label
                   htmlFor={`${checkbox.type}-${checkbox.value}`}
-                  className="text-sm font-medium leading-none cursor-pointer"
+                  className="flex justify-between gap-2 max-sm:flex-col text-sm font-medium leading-none cursor-pointer"
                 >
-                  {checkbox.title}
+                  {checkbox.title} ({checkbox.count || 0})
                 </label>
               </div>
             ))}

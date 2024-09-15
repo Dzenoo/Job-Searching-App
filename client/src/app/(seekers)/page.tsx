@@ -72,7 +72,7 @@ const Jobs = ({
           <SearchJobs />
         </div>
         <div className="xl:hidden">
-          <FilterJobs />
+          <FilterJobs filterCounts={fetchedJobs?.filterCounts!} />
         </div>
         <div>
           <h1 className="text-initial-gray">Total Jobs ({totalJobs})</h1>
@@ -119,7 +119,7 @@ const Jobs = ({
         </Pagination>
       </div>
       <div className="max-xl:hidden basis-1/2">
-        <FilterJobs />
+        <FilterJobs filterCounts={fetchedJobs?.filterCounts!} />
       </div>
     </section>
   );

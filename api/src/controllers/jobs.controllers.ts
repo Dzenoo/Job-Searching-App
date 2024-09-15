@@ -432,9 +432,26 @@ export const getJobs = asyncErrors(async (request, response) => {
     // Count the total number of jobs matching the conditions
     const totalJobs = await Job.countDocuments(conditions);
 
+    // Add aggregation pipeline to calculate counts for each filter
+    const filterCounts = await Job.aggregate([
+      {
+        $facet: {
+          types: [{ $group: { _id: "$type", count: { $sum: 1 } } }],
+          seniority: [{ $group: { _id: "$level", count: { $sum: 1 } } }],
+          positions: [{ $group: { _id: "$position", count: { $sum: 1 } } }],
+          salaryRanges: [{ $bucketAuto: { groupBy: "$salary", buckets: 4 } }],
+        },
+      },
+    ]);
+
     // Send the response with the list of jobs, total count, and popular jobs
     sendResponse(
-      { jobs: jobs, totalJobs: totalJobs, popularJobs: popularJobs },
+      {
+        jobs: jobs,
+        totalJobs: totalJobs,
+        popularJobs: popularJobs,
+        filterCounts: filterCounts,
+      },
       200,
       response
     );
