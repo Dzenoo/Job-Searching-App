@@ -21,12 +21,14 @@ interface CheckboxOption {
 }
 
 interface FilterGroupProps {
+  showCount: boolean;
   title: string;
   checkboxes: CheckboxOption[];
   initialVisibleCount?: number;
 }
 
 const FilterHandler: React.FC<FilterGroupProps> = ({
+  showCount,
   title,
   checkboxes,
   initialVisibleCount = 5,
@@ -69,7 +71,8 @@ const FilterHandler: React.FC<FilterGroupProps> = ({
                   htmlFor={`${checkbox.type}-${checkbox.value}`}
                   className="flex justify-between gap-2 max-sm:flex-col text-sm font-medium leading-none cursor-pointer"
                 >
-                  {checkbox.title} ({checkbox.count || 0})
+                  {checkbox.title}{" "}
+                  {showCount && checkbox.count ? `(${checkbox.count})` : ""}
                 </label>
               </div>
             ))}

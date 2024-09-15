@@ -22,6 +22,7 @@ const FilterSeekers: React.FC = () => {
         <div className="flex flex-col gap-10">
           {SkillsInformationsData.map((filters) => (
             <FilterHandler
+              showCount={false}
               key={filters.id}
               title={filters.category}
               checkboxes={filters.data}
@@ -51,6 +52,7 @@ const FilterSeekers: React.FC = () => {
             <div className="space-y-6 mt-4">
               {SkillsInformationsData.map((filters) => (
                 <FilterHandler
+                  showCount={false}
                   key={filters.id}
                   title={filters.category}
                   checkboxes={filters.data}

@@ -73,6 +73,7 @@ const FiltersContent: React.FC<{
     <div className="space-y-6">
       {updatedJobsFiltersData.map((filterGroup) => (
         <FilterHandler
+          showCount={true}
           key={filterGroup.id}
           title={filterGroup.title}
           checkboxes={filterGroup.data}
