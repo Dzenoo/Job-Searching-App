@@ -15,7 +15,7 @@ To configure the application, you need to create a `.env` file in the project ro
 
 1. **Create a `.env` file**:
 
-   Create a new `.env` file in the api folder root of project, based on the example provided.
+   Create a new `.env` file in the api folder of project, based on the example provided.
 
 2. **Run Docker for application**:
 
