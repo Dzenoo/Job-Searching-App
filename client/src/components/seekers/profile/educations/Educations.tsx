@@ -76,8 +76,6 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
     },
   });
 
-  console.log(form.getValues());
-
   const onSubmit = async (
     values: zod.infer<typeof EditableEducationsSchemas>
   ) => {

@@ -75,7 +75,7 @@ const ApplicationsItem: React.FC<ApplicationItemProps> = ({ application }) => {
   return (
     <Card className="dark:border-[#3b3b3b]">
       <CardHeader>
-        <div className="flex gap-3 items-center max-sm:flex-wrap">
+        <div className="flex gap-3 items-center max-xl:flex-wrap">
           <Avatar className="w-28 h-28">
             <AvatarImage
               src={getImageUrl(application?.job.company?.image)}
