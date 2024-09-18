@@ -1,7 +1,6 @@
 import { asyncErrors } from "../errors/asyncErrors";
 import Employer from "../models/employers.schema";
 import Review from "../models/reviews.schema";
-import Notification from "../models/notifications.schema";
 import { sendResponse, validate } from "../utils/validation";
 
 // Controller function to create a review for an employer
@@ -72,18 +71,10 @@ export const createReview = asyncErrors(async (request, response) => {
       );
     }
 
-    const notification = await Notification.create({
-      user: "employer",
-      title: "New Review Notification",
-      message: `A new review has been added to your profile`,
-      type: "reviews",
-    });
-
-    // Add the review to the employer's list of reviews and create a notification
+    // Add the review to the employer's list of reviews
     await Employer.findByIdAndUpdate(employerId, {
       $push: {
         reviews: review._id,
-        notifications: notification._id,
       },
     });
 

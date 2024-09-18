@@ -17,8 +17,6 @@ import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 import { getImageUrl } from "@/lib/utils";
 
-import { NotificationTypes } from "@/types";
-
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -88,13 +86,6 @@ const Navbar: React.FC<{ href?: string }> = ({ href }) => {
         <div className="flex items-center gap-6">
           <div>
             <NavbarActionsList
-              notifications={
-                isSeeker
-                  ? fetchedProfile?.seeker.notifications.filter(
-                      (not: NotificationTypes) => !not.isRead
-                    ).length
-                  : 0
-              }
               pathname={pathname}
               logout={deleteCookieHandler}
               data={isSeeker ? SeekersNavbarActions : EmployersNavbarActions}

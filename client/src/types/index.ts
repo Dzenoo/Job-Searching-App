@@ -48,7 +48,6 @@ export type EmployerTypes = {
   email: string;
   name: string;
   password: string;
-  notifications: NotificationTypes[];
   jobs: JobTypes[];
   followers: SeekerTypes[];
   reviews: ReviewTypes[];
@@ -101,7 +100,6 @@ export type SeekerTypes = {
   portfolio: string;
   linkedin: string;
   github: string;
-  notifications: NotificationTypes[];
   applications: ApplicationsTypes[];
   overview: string;
   skills: string[];
@@ -117,17 +115,6 @@ export type SeekerTypes = {
   alerts: JobAlertsTypes;
   createdAt: Date;
   updatedAt: Date;
-};
-
-export type NotificationTypes = {
-  user: string;
-  _id: string;
-  title: string;
-  message: string;
-  date: string;
-  data: any;
-  isRead: boolean;
-  type: "jobs" | "applications" | "reviews" | "followers";
 };
 
 export type ApplicationsTypes = {

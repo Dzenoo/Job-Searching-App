@@ -63,12 +63,6 @@ const SeekerSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    notifications: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Notification",
-      },
-    ],
     applications: [
       {
         type: mongoose.Types.ObjectId,

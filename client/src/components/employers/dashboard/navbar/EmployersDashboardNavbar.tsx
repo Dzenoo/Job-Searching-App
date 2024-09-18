@@ -43,12 +43,6 @@ const EmployersDashboardNavbar: React.FC = () => {
       href: "/dashboard/jobs",
       tooltip: "Jobs",
     },
-    {
-      id: "4",
-      icon: <Bell />,
-      href: "/dashboard/notifications",
-      tooltip: "Notifications",
-    },
   ];
 
   return (

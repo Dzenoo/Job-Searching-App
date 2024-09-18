@@ -3,7 +3,6 @@ import upload from "./middlewares/upload.middleware";
 import { authenticateUser } from "./middlewares/auth.middleware";
 
 // Import controllers
-import * as notifications from "./controllers/notifications.controllers";
 import * as jobs from "./controllers/jobs.controllers";
 import * as employers from "./controllers/employers.controllers";
 import * as seekers from "./controllers/seekers.controllers";
@@ -71,12 +70,6 @@ export function initializePublicRoutes(app: Express): void {
 // Private routes configuration
 export function initializePrivateRoutes(app: Express): void {
   const privateRoutes = [
-    // Notifications
-    {
-      method: EXPRESS_APP_METHODS.PATCH,
-      path: "/notifications/:notification",
-      handlers: [notifications.readNotificationsData],
-    },
     // Seeker routes
     {
       method: EXPRESS_APP_METHODS.GET,

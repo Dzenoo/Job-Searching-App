@@ -6,7 +6,6 @@ import Employer from "../models/employers.schema";
 import Review from "../models/reviews.schema";
 import Seeker from "../models/seekers.schema";
 import Job from "../models/jobs.schema";
-import Notification from "../models/notifications.schema";
 import Application from "../models/applications.schema";
 import mongoose from "mongoose";
 
@@ -181,14 +180,6 @@ export const followEmployer = asyncErrors(async (request, response) => {
       );
     }
 
-    // Create a new notification for the employer
-    const newNotification = await Notification.create({
-      user: "employer",
-      title: "New Followers Notification",
-      message: `${seeker.first_name} is now following you`,
-      type: "followers",
-    });
-
     // Check if the seeker is already following the employer
     const isFollowing = employer.followers.includes(seekerId);
 
@@ -210,7 +201,6 @@ export const followEmployer = asyncErrors(async (request, response) => {
       await Employer.findByIdAndUpdate(employerId, {
         $push: {
           followers: seekerId,
-          notifications: newNotification._id,
         },
       });
       await Seeker.findByIdAndUpdate(seekerId, {
@@ -246,16 +236,6 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
 
     let populateQuery: any = {};
     switch (type) {
-      case "notifications":
-        populateQuery = {
-          path: "notifications",
-          options: {
-            skip,
-            limit: Number(limit),
-          },
-          select: "data title message date type isRead",
-        };
-        break;
       case "jobs":
         populateQuery = {
           path: "jobs",

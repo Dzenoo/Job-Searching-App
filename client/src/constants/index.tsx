@@ -22,11 +22,6 @@ export const SeekersNavbarLinks = [
 export const SeekersNavbarActions = [
   {
     id: "1",
-    href: "/notifications",
-    icon: <Bell />,
-  },
-  {
-    id: "2",
     href: "/profile",
     icon: <User />,
   },

@@ -13,51 +13,26 @@ type NavbarActionsListProps = {
   }[];
   logout: () => void;
   pathname: string;
-  notifications: number;
 };
 
 const NavbarActionsList: React.FC<NavbarActionsListProps> = ({
-  notifications,
   data,
   logout,
   pathname,
 }) => {
   return (
     <ul className="flex items-center gap-4">
-      {Array.from(data).map(({ id, href, icon }) => {
-        if (href === "/notifications") {
-          return (
-            <div key={id}>
-              <div className="relative">
-                <Link
-                  href={href}
-                  className={`flex items-center gap-3 transition-colors hover:text-blue-700 ${
-                    pathname === href && "text-[#0066ff]"
-                  }`}
-                >
-                  {icon}
-                </Link>
-                {notifications > 0 && (
-                  <div className="absolute bottom-4 left-[21px] rounded-full h-[21px] w-[21px] flex items-center justify-center font-bold text-center bg-blue-600 text-xs">
-                    {notifications}
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        }
-        return (
-          <Link
-            key={id}
-            href={href}
-            className={`flex items-center gap-3 transition-colors hover:text-blue-700 ${
-              pathname === href && "text-[#0066ff]"
-            }`}
-          >
-            {icon}
-          </Link>
-        );
-      })}
+      {Array.from(data).map(({ id, href, icon }) => (
+        <Link
+          key={id}
+          href={href}
+          className={`flex items-center gap-3 transition-colors hover:text-blue-700 ${
+            pathname === href && "text-[#0066ff]"
+          }`}
+        >
+          {icon}
+        </Link>
+      ))}
       <div>
         <Themes />
       </div>

@@ -3,8 +3,6 @@ import Employer from "../models/employers.schema";
 import Seeker from "../models/seekers.schema";
 import Application from "../models/applications.schema";
 import Job from "../models/jobs.schema";
-import Notification from "../models/notifications.schema";
-import { io } from "../server";
 import { sendResponse, validate } from "../utils/validation";
 
 // Controller function to create a new job posting
@@ -14,7 +12,6 @@ export const createJob = asyncErrors(
       // @ts-ignore
       const { employerId } = request.user; // Get employer ID from the authenticated user
       const jobData = request.body; // Get job data from the request body
-      const employer = await Employer.findById(employerId); // Find the employer by ID
 
       // Define allowed properties for validation
       const allowedProperties = [
@@ -58,33 +55,11 @@ export const createJob = asyncErrors(
       });
 
       // Find seekers whose alerts match the new job's criteria
-      const matchedSeekers = await Seeker.find({
-        "alerts.type": newJob.type,
-        "alerts.level": { $in: newJob.level },
-        "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
-      }).exec();
-
-      // Create a notification for matched seekers
-      const createdNotifications = await Notification.create({
-        user: "seeker",
-        data: {
-          employerImage: employer.image,
-          jobLocation: newJob.location,
-          idOfJob: newJob._id,
-        },
-        title: "New Matching Job",
-        message: `A new job has been posted matching your alert criteria.`,
-        type: "jobs",
-      });
-
-      // Push the notification to all matched seekers
-      matchedSeekers.forEach((seeker) => {
-        seeker.notifications.push(createdNotifications._id);
-        seeker.save();
-      });
-
-      // Emit the notification via socket to all connected clients
-      io.emit("notification", createdNotifications);
+      // const matchedSeekers = await Seeker.find({
+      //   "alerts.type": newJob.type,
+      //   "alerts.level": { $in: newJob.level },
+      //   "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
+      // }).exec();
 
       // Send the response with the created job ID
       sendResponse({ job: newJob._id }, 201, response);

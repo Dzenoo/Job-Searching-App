@@ -141,10 +141,6 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
     // Find the seeker's profile and populate related fields
     const seeker = await Seeker.findById(seekerId)
       .populate({
-        path: "notifications",
-        options: { skip, limit: Number(limit) },
-      })
-      .populate({
         path: "savedJobs",
         options: { skip, limit: Number(limit) },
         select:
@@ -168,7 +164,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         select: "_id status createdAt updatedAt",
       })
       .select(
-        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following notifications overview"
+        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following overview"
       )
       .exec();
 
