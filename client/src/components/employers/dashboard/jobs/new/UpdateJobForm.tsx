@@ -59,7 +59,7 @@ const UpdateJobForm: React.FC<UpdateJobFormProps> = (props) => {
     resolver: zodResolver(UpdateJobSchemas),
   });
 
-  const { reset } = form;
+  const { setValue, reset } = form;
 
   useEffect(() => {
     if (formData) {

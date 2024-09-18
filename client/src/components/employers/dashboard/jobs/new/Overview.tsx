@@ -21,8 +21,11 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 type OverviewProps = {
   control: Control<any>;
@@ -38,16 +41,32 @@ const Overview: React.FC<OverviewProps> = ({ control }) => {
           <FormItem>
             <FormLabel>Write a detailed description</FormLabel>
             <FormControl>
-              <Textarea
-                placeholder="Provide a detailed description of the job responsibilities, expectations, and any special requirements."
-                {...field}
+              <ReactQuill
+                value={field.value}
+                onChange={field.onChange}
+                modules={{
+                  toolbar: [
+                    ["bold", "italic", "underline"],
+                    [{ list: "ordered" }, { list: "bullet" }],
+                    [{ color: [] }, { background: [] }],
+                  ],
+                }}
+                formats={[
+                  "bold",
+                  "italic",
+                  "underline",
+                  "list",
+                  "bullet",
+                  "color",
+                  "background",
+                ]}
+                placeholder="Write the job description..."
               />
             </FormControl>
             <FormDescription>
               Provide a comprehensive description between 30 to 600 characters.
               Include details about the role's responsibilities, qualifications,
-              and any special requirements to give candidates a clear
-              understanding of what the job entails.
+              and any special requirements.
             </FormDescription>
             <FormMessage />
           </FormItem>

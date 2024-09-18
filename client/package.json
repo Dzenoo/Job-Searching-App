@@ -26,6 +26,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "dompurify": "^3.1.6",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
@@ -37,11 +38,13 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.52.2",
     "react-query": "^3.39.3",
+    "react-quill": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@types/dompurify": "^3.0.5",
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/jwt-decode": "^3.1.0",

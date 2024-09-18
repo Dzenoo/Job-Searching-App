@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import DOMPurify from "dompurify";
 
 import {
   Building,
@@ -40,6 +40,7 @@ type JobDetailsInfoProps = {
 const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
   const { data: fetchedSeekerProfile } = useGetSeeker();
 
+  const sanitizedDescription = DOMPurify.sanitize(job?.description);
   const expirationDate = formatDate(job?.expiration_date);
   const createdTime = getTime(job?.createdAt);
   const categorizedSkills = getSkillsData(job?.skills);
@@ -172,7 +173,10 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
             <div>
               <h1 className="font-bold">Description</h1>
             </div>
-            <div className="py-3">{job?.description}</div>
+            <div
+              className="py-3"
+              dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+            />
           </div>
           <div>
             <div>
