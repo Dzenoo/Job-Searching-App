@@ -611,23 +611,60 @@ export const getJobById = asyncErrors(async (request, response) => {
 export const getEmployerAnalytics = asyncErrors(async (request, response) => {
   try {
     // @ts-ignore
-    const { employerId } = request.user; // Get the employer ID from the request user object
+    const { employerId } = request.user;
 
-    // Count the total number of jobs, reviews, and applications for the employer
+    // Get the start of the current month
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    // Count the total number of jobs, reviews, applications, and followers for the employer
     const totalJobs = await Job.countDocuments({ company: employerId });
     const totalReviews = await Review.countDocuments({ company: employerId });
     const totalApplications = await Application.countDocuments({
       job: { $in: await Job.find({ company: employerId }).distinct("_id") },
     });
-    const totalFollowers =
-      await Employer.findById(employerId).select("followers");
+    const totalFollowers = (
+      await Employer.findById(employerId).select("followers")
+    ).followers.length;
 
-    // Get the jobs per month, followers over time, and job types for the employer
+    // Count the new jobs, reviews, applications, and followers for the current month
+    const jobsThisMonth = await Job.countDocuments({
+      company: employerId,
+      createdAt: { $gte: startOfMonth },
+    });
+
+    const reviewsThisMonth = await Review.countDocuments({
+      company: employerId,
+      createdAt: { $gte: startOfMonth },
+    });
+
+    const applicationsThisMonth = await Application.countDocuments({
+      job: { $in: await Job.find({ company: employerId }).distinct("_id") },
+      createdAt: { $gte: startOfMonth },
+    });
+
+    const followersThisMonth = await Employer.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(employerId) } },
+      {
+        $project: {
+          followersThisMonth: {
+            $size: {
+              $filter: {
+                input: "$followers",
+                as: "follower",
+                cond: { $gte: ["$$follower._id", startOfMonth] },
+              },
+            },
+          },
+        },
+      },
+    ]);
+
     const jobsPerMonth = await getJobsPerMonth(employerId);
     const followersOverTime = await getFollowersOverTime(employerId);
     const jobTypes = await getJobTypes(employerId);
 
-    // Send response with the analytics data
     response.status(200).json({
       totalJobs,
       totalReviews,
@@ -636,6 +673,13 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
       jobsPerMonth,
       followersOverTime,
       jobTypes,
+      jobsThisMonth,
+      reviewsThisMonth,
+      applicationsThisMonth,
+      followersThisMonth:
+        followersThisMonth.length > 0
+          ? followersThisMonth[0].followersThisMonth
+          : 0,
     });
   } catch (error) {
     response.status(500).json({ message: "Internal server error" });

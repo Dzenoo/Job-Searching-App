@@ -141,12 +141,14 @@ export const getEmployerAnalytics = async (
   totalJobs: number;
   totalReviews: number;
   totalApplications: number;
-  totalFollowers: {
-    followers: string[];
-  };
-  jobsPerMonth: number;
-  followersOverTime: number;
-  jobTypes: Record<string, any>;
+  totalFollowers: number;
+  jobsPerMonth: number[];
+  followersOverTime: number[];
+  jobTypes: Record<string, number>;
+  jobsThisMonth: number;
+  reviewsThisMonth: number;
+  applicationsThisMonth: number;
+  followersThisMonth: number;
 }> => {
   try {
     return await getApiHandler("employer/analytics", token);

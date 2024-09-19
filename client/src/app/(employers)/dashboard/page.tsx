@@ -36,7 +36,11 @@ const Dashboard = () => {
           totalJobs={analytics?.totalJobs || 0}
           totalReviews={analytics?.totalReviews || 0}
           totalApplications={analytics?.totalApplications || 0}
-          totalFollowers={analytics?.totalFollowers.followers.length || 0}
+          totalFollowers={analytics?.totalFollowers || 0}
+          jobsThisMonth={analytics?.jobsThisMonth || 0}
+          reviewsThisMonth={analytics?.reviewsThisMonth || 0}
+          applicationsThisMonth={analytics?.applicationsThisMonth || 0}
+          followersThisMonth={analytics?.followersThisMonth || 0}
         />
       </div>
       <div className="grid gap-3 grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">

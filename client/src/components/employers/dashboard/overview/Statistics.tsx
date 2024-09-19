@@ -1,12 +1,10 @@
 import React from "react";
-
 import {
   Briefcase,
   CalendarSearch,
   Folder,
   MessageSquareDot,
 } from "lucide-react";
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 type StatisticsProps = {
@@ -14,6 +12,10 @@ type StatisticsProps = {
   totalReviews: number;
   totalApplications: number;
   totalFollowers: number;
+  jobsThisMonth: number;
+  reviewsThisMonth: number;
+  applicationsThisMonth: number;
+  followersThisMonth: number;
 };
 
 const Statistics: React.FC<StatisticsProps> = ({
@@ -21,33 +23,41 @@ const Statistics: React.FC<StatisticsProps> = ({
   totalReviews,
   totalJobs,
   totalFollowers,
+  jobsThisMonth,
+  reviewsThisMonth,
+  applicationsThisMonth,
+  followersThisMonth,
 }) => {
-  const StatisticsData = new Array(
+  const StatisticsData = [
     {
       id: "1",
       title: "Total Jobs",
       data: totalJobs,
+      increment: jobsThisMonth,
       icon: <Briefcase color="#0066FF" />,
     },
     {
       id: "2",
       title: "Total Reviews",
       data: totalReviews,
+      increment: reviewsThisMonth,
       icon: <MessageSquareDot color="#00C7E2" />,
     },
     {
       id: "3",
       title: "Total Applications",
       data: totalApplications,
+      increment: applicationsThisMonth,
       icon: <CalendarSearch color="#007D05" />,
     },
     {
       id: "4",
       title: "Total Followers",
       data: totalFollowers,
+      increment: followersThisMonth,
       icon: <Folder color="#007D05" />,
-    }
-  );
+    },
+  ];
 
   return (
     <div className="grid gap-3 grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -67,7 +77,9 @@ const Statistics: React.FC<StatisticsProps> = ({
                 <p className="font-bold text-3xl">{statistics.data}</p>
               </div>
               <div>
-                <p className="text-[--green-base-color]">+13 this month</p>
+                <p className="text-[--green-base-color]">
+                  +{statistics.increment} this month
+                </p>
               </div>
             </div>
           </CardContent>
