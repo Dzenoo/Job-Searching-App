@@ -7,7 +7,7 @@ import { useMutation } from "react-query";
 
 import useEditSeeker from "@/hooks/mutations/useEditSeeker";
 import useUploads from "@/hooks/useUploads";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { SeekerTypes } from "@/types";
 

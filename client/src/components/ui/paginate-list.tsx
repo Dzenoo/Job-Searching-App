@@ -8,7 +8,7 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
-import usePagination from "@/hooks/usePagination";
+import usePagination from "@/hooks/defaults/usePagination";
 
 type PaginationProps = {
   totalItems: number;

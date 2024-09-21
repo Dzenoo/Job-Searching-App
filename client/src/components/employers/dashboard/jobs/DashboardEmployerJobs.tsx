@@ -7,7 +7,7 @@ import { ClipLoader } from "react-spinners";
 import { Edit, Eye, Trash } from "lucide-react";
 
 import { deleteJob } from "@/lib/actions/jobs.actions";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { queryClient } from "@/context/react-query-client";
 import { JobTypes } from "@/types";
 import { findLocationData, formatDate } from "@/lib/utils";

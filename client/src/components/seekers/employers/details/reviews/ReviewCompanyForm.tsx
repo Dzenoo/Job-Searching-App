@@ -7,7 +7,7 @@ import { ClipLoader } from "react-spinners";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { ReviewEmployersSchemas } from "@/lib/zod/reviews";
 import { reviewEmployer } from "@/lib/actions/reviews.actions";
 

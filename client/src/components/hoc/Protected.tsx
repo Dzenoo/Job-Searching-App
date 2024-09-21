@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 const Protected = (
   WrappedComponent: React.FC<any>,

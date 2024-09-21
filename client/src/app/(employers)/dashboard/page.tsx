@@ -6,7 +6,7 @@ import Statistics from "@/components/employers/dashboard/overview/Statistics";
 import Types from "@/components/employers/dashboard/overview/Types";
 import Protected from "@/components/hoc/Protected";
 import useGetEmployer from "@/hooks/mutations/useGetEmployer";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { getEmployerAnalytics } from "@/lib/actions/employers.actions";
 import React from "react";
 import { useQuery } from "react-query";

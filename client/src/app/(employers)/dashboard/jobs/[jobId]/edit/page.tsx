@@ -7,7 +7,7 @@ import UpdateJobForm from "@/components/employers/dashboard/jobs/new/UpdateJobFo
 import { useQuery } from "react-query";
 import { getJob } from "@/lib/actions/employers.actions";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { JobTypes } from "@/types";
 
 const EditJobPage = ({ params }: { params: { jobId: string } }) => {

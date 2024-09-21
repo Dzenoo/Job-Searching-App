@@ -8,7 +8,7 @@ import { ClipLoader } from "react-spinners";
 import { useToast } from "@/components/ui/use-toast";
 import zod from "zod";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { createNewJob, editJob } from "@/lib/actions/jobs.actions";
 import { UpdateJobSchemas } from "@/lib/zod/jobs";

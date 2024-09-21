@@ -1,6 +1,6 @@
 import { getSeekerProfile } from "@/lib/actions/seekers.actions";
 import { useQuery } from "react-query";
-import useAuthentication from "../useAuthentication";
+import useAuthentication from "../defaults/useAuthentication";
 
 const useGetSeeker = () => {
   const { token } = useAuthentication().getCookieHandler();

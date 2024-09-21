@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getSeekers } from "@/lib/actions/employers.actions";
 
@@ -14,7 +14,7 @@ import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
 import dynamic from "next/dynamic";
 import LoadingSeekers from "@/components/loaders/LoadingSeekers";
 import PaginatedList from "@/components/ui/paginate-list";
-import useSearchParams from "@/hooks/useSearchParams";
+import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 const SeekersList = dynamic(
   () => import("@/components/employers/seekers/SeekersList"),

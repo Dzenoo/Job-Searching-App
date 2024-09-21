@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getEmployerById } from "@/lib/actions/seekers.actions";
 
@@ -15,7 +15,7 @@ import EmployerDetailsInfo from "@/components/seekers/employers/details/Employer
 import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilters";
 
 import PaginatedList from "@/components/ui/paginate-list";
-import useSearchParams from "@/hooks/useSearchParams";
+import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 const ReviewsList = dynamic(
   () => import("@/components/seekers/employers/details/reviews/ReviewsList"),

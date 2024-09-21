@@ -1,6 +1,6 @@
 import React from "react";
 
-import useSearchParams from "@/hooks/useSearchParams";
+import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 import { Button } from "@/components/ui/button";
 

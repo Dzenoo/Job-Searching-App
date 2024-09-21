@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ReviewTypes } from "@/types";
 import { EditReviewEmployersSchemas } from "@/lib/zod/reviews";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { DialogFooter } from "@/components/ui/dialog";
 import {

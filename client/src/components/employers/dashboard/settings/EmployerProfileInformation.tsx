@@ -7,7 +7,7 @@ import { useMutation } from "react-query";
 
 import useEditEmployer from "@/hooks/mutations/useEditEmployer";
 import useUploads from "@/hooks/useUploads";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { EmployerTypes } from "@/types";
 

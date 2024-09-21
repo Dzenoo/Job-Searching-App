@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import ChooseSignup from "@/components/auth/signup/ChooseSignup";
 
 const SignupPage: React.FC = () => {

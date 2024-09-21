@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import useSearchParams from "@/hooks/useSearchParams";
+import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import {

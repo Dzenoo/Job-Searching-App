@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getJobs } from "@/lib/actions/jobs.actions";
 
@@ -14,7 +14,7 @@ import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import SearchJobs from "@/components/seekers/jobs/search/SearchJobs";
 import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
 import PaginatedList from "@/components/ui/paginate-list";
-import useSearchParams from "@/hooks/useSearchParams";
+import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,

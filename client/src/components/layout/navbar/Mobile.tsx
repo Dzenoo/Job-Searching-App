@@ -3,7 +3,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { SeekersNavbarLinks } from "@/constants";
 
 import NavbarLinksList from "./NavbarLinksList";

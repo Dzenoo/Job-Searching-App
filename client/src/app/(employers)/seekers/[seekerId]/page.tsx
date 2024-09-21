@@ -3,7 +3,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { getSeekerById } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";

@@ -5,7 +5,7 @@ import { Bookmark } from "lucide-react";
 import { useMutation } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import useGetSeeker from "@/hooks/mutations/useGetSeeker";
 
 import { saveJob } from "@/lib/actions/jobs.actions";

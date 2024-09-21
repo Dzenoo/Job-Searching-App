@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import useSearchParams from "@/hooks/useSearchParams";
+import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 const SearchJobs: React.FC = () => {
   const { searchParams, updateSearchParams, debounce } = useSearchParams();

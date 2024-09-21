@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import zod from "zod";
 import { ClipLoader } from "react-spinners";
 
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { loginUserAccount } from "@/lib/actions/auth.actions";
 import { LoginSchema } from "@/lib/zod/auth";
 import { TypeOfAccount } from "@/types";

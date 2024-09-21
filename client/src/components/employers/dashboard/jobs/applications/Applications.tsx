@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { updateApplicationStatus } from "@/lib/actions/jobs.actions";
 import { formatDate, getImageUrl } from "@/lib/utils";
-import useAuthentication from "@/hooks/useAuthentication";
+import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { queryClient } from "@/context/react-query-client";
 import { ApplicationsTypes, SeekerTypes } from "@/types";
 
