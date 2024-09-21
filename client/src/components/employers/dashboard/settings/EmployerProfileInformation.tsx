@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "react-query";
 
 import useEditEmployer from "@/hooks/mutations/useEditEmployer";
-import useUploads from "@/hooks/useUploads";
+import useUploads from "@/hooks/defaults/useUploads";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { EmployerTypes } from "@/types";

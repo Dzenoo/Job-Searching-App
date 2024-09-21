@@ -4,7 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import useAuthentication from "@/hooks/defaults/useAuthentication";
-import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+import useGetSeeker from "@/hooks/queries/useGetSeeker";
 
 import Protected from "@/components/hoc/Protected";
 

@@ -3,7 +3,7 @@
 import React from "react";
 import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
-import useGetEmployer from "@/hooks/mutations/useGetEmployer";
+import useGetEmployer from "@/hooks/queries/useGetEmployer";
 import dynamic from "next/dynamic";
 import LoadingEmployerSettings from "@/components/loaders/LoadingEmployerSettings";
 

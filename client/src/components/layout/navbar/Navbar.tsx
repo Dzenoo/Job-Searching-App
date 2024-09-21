@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getImageUrl } from "@/lib/utils";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
-import useFetchProfile from "@/hooks/mutations/useFetchProfile";
+import useFetchProfile from "@/hooks/queries/useFetchProfile";
 
 import {
   EmployersNavbarActions,

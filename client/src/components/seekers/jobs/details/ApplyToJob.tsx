@@ -7,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ClipLoader } from "react-spinners";
 
 import { queryClient } from "@/context/react-query-client";
-import useUploads from "@/hooks/useUploads";
+import useUploads from "@/hooks/defaults/useUploads";
 
 import { ApplyToJobSchemas } from "@/lib/zod/jobs";
 import { addCoverLetter, applyToJob } from "@/lib/actions/jobs.actions";

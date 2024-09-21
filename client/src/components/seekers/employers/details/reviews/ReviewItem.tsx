@@ -14,7 +14,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import useGetSeeker from "@/hooks/mutations/useGetSeeker";
+import useGetSeeker from "@/hooks/queries/useGetSeeker";
 import { useMutation } from "react-query";
 import { deleteReview } from "@/lib/actions/reviews.actions";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
