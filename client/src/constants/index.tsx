@@ -170,7 +170,6 @@ export const locations = [
   { label: "Iran", value: "irn" },
   { label: "Iraq", value: "irq" },
   { label: "Ireland", value: "irl" },
-  { label: "Israel", value: "isr" },
   { label: "Italy", value: "ita" },
   { label: "Jamaica", value: "jam" },
   { label: "Japan", value: "jpn" },
@@ -360,11 +359,10 @@ export const JobsFiltersData = [
   },
 ];
 
-export const SeekersFiltersData = [];
-
 // ===============================
 // Skills Information Data
 // ===============================
+
 export const SkillsInformationsData = [
   {
     id: "1",
