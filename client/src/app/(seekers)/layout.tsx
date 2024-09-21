@@ -19,6 +19,14 @@ const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
 const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        url: "/images/logo-icon-dark.png",
+        href: "/images/logo-icon-dark.png",
+      },
+    ],
+  },
   title: "Jobernify",
   description:
     "Find your dream job with ease using Jobernify. Read employer reviews, and stay informed with our intuitive platform. Start your job search journey today!",

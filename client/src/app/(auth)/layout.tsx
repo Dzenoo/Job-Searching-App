@@ -13,6 +13,14 @@ const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
 const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        url: "/images/logo-icon-dark.png",
+        href: "/images/logo-icon-dark.png",
+      },
+    ],
+  },
   title: "Jobernify",
   description:
     "Sign Up at Jobernfy and explore various of features that helps finding jobs and candidates easily.",

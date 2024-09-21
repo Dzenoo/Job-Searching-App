@@ -54,7 +54,7 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
       form.reset();
       storeCookieHandler(data.token);
 
-      if (data.employer!) {
+      if (data.employer) {
         router.push("/seekers");
       } else {
         router.push("/");

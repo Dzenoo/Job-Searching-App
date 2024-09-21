@@ -11,11 +11,15 @@ import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
-  ssr: false,
-});
-
 export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        url: "/images/logo-icon-dark.png",
+        href: "/images/logo-icon-dark.png",
+      },
+    ],
+  },
   title: "Jobernify",
   description:
     "Explore candidates with ease using Jobernify. Find various developers, and stay informed with our intuitive platform. Start your candidate search journey today!",

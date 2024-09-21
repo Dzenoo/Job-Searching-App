@@ -63,8 +63,10 @@ export const loginUserAccount = async ({
     password: string;
   };
 }): Promise<
-  | { seeker: SeekerTypes; token: string }
-  | { employer: EmployerTypes; token: string }
+  { seeker: SeekerTypes; token: string } & {
+    employer: EmployerTypes;
+    token: string;
+  }
 > => {
   try {
     const endpoint = type === "employer" ? "employer-login" : "seeker-login";
