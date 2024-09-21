@@ -1,0 +1,12 @@
+# dependencies
+**/node_modules
+
+# environment config
+**/.env
+**/.env.local
+dist
+# config
+# **/src/utils/aws.ts
+next-env.d.ts
+*.tsbuildinfo
+.next
