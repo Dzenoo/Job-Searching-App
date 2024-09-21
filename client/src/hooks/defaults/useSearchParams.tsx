@@ -27,17 +27,21 @@ const useSearchParams = (): UseSearchParams => {
   const [filters, setFilters] = useState<SearchParamsFilters>({});
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = new URLSearchParams(window.location.search);
+
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const paramsObj: SearchParamsFilters = {};
+    if (typeof window !== "undefined") {
+      const paramsObj: SearchParamsFilters = {};
+      searchParams.forEach((value, key) => {
+        paramsObj[key] = paramsObj[key] ? [...paramsObj[key], value] : [value];
+      });
 
-    searchParams.forEach((value, key) => {
-      paramsObj[key] = paramsObj[key] ? [...paramsObj[key], value] : [value];
-    });
-
-    setFilters(paramsObj);
+      setFilters(paramsObj);
+    }
   }, [router]);
 
   const checkboxSearchParams = React.useCallback(
@@ -46,8 +50,8 @@ const useSearchParams = (): UseSearchParams => {
       value: string,
       action: keyof typeof SearchParamsActions
     ) => {
-      const searchParams = new URLSearchParams(window.location.search);
-      let values = searchParams.getAll(param);
+      const newSearchParams = new URLSearchParams(searchParams);
+      let values = newSearchParams.getAll(param);
 
       if (action === "add") {
         if (!values.includes(value)) {
@@ -57,27 +61,27 @@ const useSearchParams = (): UseSearchParams => {
         values = values.filter((v) => v !== value);
       }
 
-      searchParams.delete(param);
-      values.forEach((v) => searchParams.append(param, v));
+      newSearchParams.delete(param);
+      values.forEach((v) => newSearchParams.append(param, v));
 
-      const newPath = `${pathname}?${searchParams.toString()}`;
+      const newPath = `${pathname}?${newSearchParams.toString()}`;
       router.push(newPath, { scroll: false });
 
       setFilters((prev) => ({ ...prev, [param]: values }));
     },
-    []
+    [searchParams, pathname, router]
   );
 
   const updateSearchParams = (param: string, value: string) => {
-    const searchParams = new URLSearchParams(window.location.search);
+    const newSearchParams = new URLSearchParams(searchParams);
 
-    searchParams.set(param, value);
+    newSearchParams.set(param, value);
 
     if (value === "") {
-      searchParams.delete(param);
+      newSearchParams.delete(param);
     }
 
-    const newPath = `${pathname}?${searchParams.toString()}`;
+    const newPath = `${pathname}?${newSearchParams.toString()}`;
     router.push(newPath, { scroll: false });
   };
 
