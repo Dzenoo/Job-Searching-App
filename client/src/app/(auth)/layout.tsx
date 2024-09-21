@@ -6,18 +6,16 @@ import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "@/components/ui/toaster";
 
-// Dynamically imported components
 const Navbar = dynamic(() => import("@/components/layout/navbar/Navbar"), {
   ssr: false,
 });
 
-// Font setup
 const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Job Talentify Platform",
+  title: "Jobernify",
   description:
-    "Find your dream job with ease using Job Talentify Platform. Read employer reviews, and stay informed with our intuitive platform. Start your job search journey today!",
+    "Sign Up at Jobernfy and explore various of features that helps finding jobs and candidates easily.",
 };
 
 export default function AuthLayout({

@@ -19,9 +19,9 @@ const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
 const inter = Libre_Franklin({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
-  title: "Job Talentify Platform",
+  title: "Jobernify",
   description:
-    "Find your dream job with ease using Job Talentify Platform. Read employer reviews, and stay informed with our intuitive platform. Start your job search journey today!",
+    "Find your dream job with ease using Jobernify. Read employer reviews, and stay informed with our intuitive platform. Start your job search journey today!",
 };
 
 export default function RootLayout({
