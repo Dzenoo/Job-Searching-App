@@ -4,16 +4,16 @@ import zod from "zod";
 export const SeekerRegistrationSchemas = zod.object({
   first_name: zod
     .string()
-    .min(5, { message: "First Name must be at least 5 characters long" })
-    .max(50, { message: "First Name must be at most 50 characters long" })
+    .min(2, { message: "First Name must be at least 2 characters long" })
+    .max(15, { message: "First Name must be at most 15 characters long" })
     .regex(
       /^[A-Z][a-zA-Z\s]*$/,
       "First name must start with an uppercase letter"
     ),
   last_name: zod
     .string()
-    .min(5, { message: "Last Name must be at least 5 characters long" })
-    .max(50, { message: "Last Name must be at most 50 characters long" })
+    .min(2, { message: "Last Name must be at least 2 characters long" })
+    .max(15, { message: "Last Name must be at most 15 characters long" })
     .regex(
       /^[A-Z][a-zA-Z\s]*$/,
       "Last name must start with an uppercase letter"

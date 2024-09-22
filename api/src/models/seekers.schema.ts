@@ -42,14 +42,14 @@ const SeekerSchema = new mongoose.Schema(
     first_name: {
       type: String,
       required: [true, "First Name is required"],
-      minlength: [5, "First Name must be at least 5 characters long"],
-      maxlength: [50, "First Name must be at most 50 characters long"],
+      minlength: [2, "First Name must be at least 2 characters long"],
+      maxlength: [15, "First Name must be at most 15 characters long"],
     },
     last_name: {
       type: String,
       required: [true, "Last Name is required"],
-      minlength: [5, "Last Name must be at least 5 characters long"],
-      maxlength: [50, "Last Name must be at most 50 characters long"],
+      minlength: [2, "Last Name must be at least 2 characters long"],
+      maxlength: [15, "Last Name must be at most 15 characters long"],
     },
     portfolio: {
       type: String,
