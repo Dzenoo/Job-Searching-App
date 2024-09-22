@@ -10,7 +10,7 @@ type AxiosHeadersConfig = {
 // ===============================
 // Constants
 // ===============================
-const DEFAULT_API_URL = "http://localhost:7000";
+const DEFAULT_API_URL = process.env.API_URL;
 
 // ===============================
 // API Handlers
