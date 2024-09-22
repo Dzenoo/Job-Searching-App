@@ -8,8 +8,6 @@ import { initializePrivateRoutes, initializePublicRoutes } from "./routes";
 import { handleError } from "./middlewares/error.middleware";
 import { OpenAI } from "openai";
 
-const port = process.env.PORT || 7000;
-
 dotenv.config({ path: ".env", override: true });
 
 async function establishDatabaseConnection(): Promise<void> {
@@ -27,6 +25,8 @@ export const initializeChatbots = (): OpenAI => {
 
   return openai;
 };
+
+const port = process.env.PORT || 7000;
 
 function initializeServer(): void {
   const app = express();
