@@ -10,3 +10,4 @@ dist
 next-env.d.ts
 *.tsbuildinfo
 .next
+jobernify_users.txt
