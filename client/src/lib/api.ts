@@ -10,7 +10,7 @@ type AxiosHeadersConfig = {
 // ===============================
 // Constants
 // ===============================
-const DEFAULT_API_URL = process.env.API_URL;
+const DEFAULT_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // ===============================
 // API Handlers
