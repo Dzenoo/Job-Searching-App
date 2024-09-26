@@ -135,27 +135,27 @@ const ApplyToJob: React.FC<ApplyToJobProps> = ({
               name="coverLetter"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cover Letter (optional)</FormLabel>
+                  <div className="flex justify-between gap-2 items-center flex-wrap">
+                    <FormLabel>Cover Letter (optional)</FormLabel>
+                    {/* <Button
+                      variant="outline"
+                      onClick={async () => await coverLetterJob()}
+                      type="button"
+                      disabled={coverLetterLoading}
+                    >
+                      {coverLetterLoading ? (
+                        <ClipLoader color="blue" />
+                      ) : (
+                        "Generate By Ai"
+                      )}
+                    </Button> */}
+                  </div>
                   <FormControl>
-                    <>
-                      <Textarea
-                        className="max-h-10"
-                        placeholder="Cover Letter"
-                        {...field}
-                      />
-                      {/* <Button
-                        variant="outline"
-                        onClick={async () => await coverLetterJob()}
-                        type="button"
-                        disabled={true}
-                      >
-                        {coverLetterLoading ? (
-                          <ClipLoader color="blue" />
-                        ) : (
-                          "Generate By Ai"
-                        )}
-                      </Button> */}
-                    </>
+                    <Textarea
+                      className="max-h-10"
+                      placeholder="Cover Letter"
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     Add a cover letter to strengthen your application

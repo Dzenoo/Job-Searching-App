@@ -30,7 +30,13 @@ const SeekersPage = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedSeekers, refetch } = useQuery({
+  const {
+    data: fetchedSeekers,
+    refetch,
+    isLoading,
+    isRefetching,
+    isFetching,
+  } = useQuery({
     queryFn: () =>
       getSeekers({
         token: token as string,
@@ -46,6 +52,7 @@ const SeekersPage = ({
   }, [searchParams]);
 
   const totalSeekers = fetchedSeekers?.totalSeekers || 0;
+  const isFiltering = isLoading || isFetching || isRefetching;
 
   return (
     <section className="p-16 overflow-auto max-lg:px-8 max-sm:px-4 flex gap-[10px] max-xl:flex-col">
@@ -58,7 +65,11 @@ const SeekersPage = ({
           <FilterSeekers />
         </div>
         <div>
-          <SeekersList seekers={fetchedSeekers?.seekers || []} />
+          {isFiltering ? (
+            <LoadingSeekers />
+          ) : (
+            <SeekersList seekers={fetchedSeekers?.seekers || []} />
+          )}
         </div>
         <PaginatedList
           onPageChange={(value) => updateSearchParams("page", value.toString())}

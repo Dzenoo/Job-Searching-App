@@ -27,7 +27,13 @@ const Jobs = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedJobs, refetch } = useQuery({
+  const {
+    data: fetchedJobs,
+    refetch,
+    isLoading,
+    isFetching,
+    isRefetching,
+  } = useQuery({
     queryFn: () =>
       getJobs({
         token: token as string,
@@ -39,14 +45,15 @@ const Jobs = ({
         seniority: searchParams.seniority || "",
         type: searchParams.type || "",
       }),
-    queryKey: ["jobs"],
+    queryKey: ["jobs", searchParams],
   });
 
   useEffect(() => {
     refetch();
-  }, [searchParams]);
+  }, [searchParams, refetch]);
 
   const totalJobs = fetchedJobs?.totalJobs || 0;
+  const isFiltering = isLoading || isFetching || isRefetching;
 
   return (
     <section className="flex justify-between gap-[25px] py-6 max-xl:flex-col">
@@ -64,7 +71,11 @@ const Jobs = ({
           <h1 className="text-initial-gray">Total Jobs ({totalJobs})</h1>
         </div>
         <div>
-          <JobsList jobs={fetchedJobs?.jobs} />
+          {isFiltering ? (
+            <LoadingJobsSkeleton />
+          ) : (
+            <JobsList jobs={fetchedJobs?.jobs} />
+          )}
         </div>
         <PaginatedList
           onPageChange={(value) => updateSearchParams("page", value.toString())}

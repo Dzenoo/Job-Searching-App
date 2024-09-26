@@ -29,7 +29,13 @@ const Companies = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedCompanies, refetch } = useQuery({
+  const {
+    data: fetchedCompanies,
+    refetch,
+    isLoading,
+    isFetching,
+    isRefetching,
+  } = useQuery({
     queryFn: () =>
       getEmployers({
         token: token as string,
@@ -45,6 +51,7 @@ const Companies = ({
   }, [searchParams]);
 
   const totalEmployers = fetchedCompanies?.totalEmployers!;
+  const isFiltering = isLoading || isFetching || isRefetching;
 
   return (
     <section className="flex flex-col gap-[10px] py-6">
@@ -52,7 +59,11 @@ const Companies = ({
         <SearchEmployers />
       </div>
       <div>
-        <EmployersList employers={fetchedCompanies?.employers} />
+        {isFiltering ? (
+          <LoadingCompaniesSkeleton />
+        ) : (
+          <EmployersList employers={fetchedCompanies?.employers} />
+        )}
       </div>
       {fetchedCompanies && fetchedCompanies?.employers.length > 0 && (
         <PaginatedList
