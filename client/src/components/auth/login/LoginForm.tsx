@@ -100,7 +100,7 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
             </p>
           </div>
           <div>
-            <h1 className="text-2xl font-bold">Login to JobTalentify</h1>
+            <h1 className="text-2xl font-bold">Login to Jobernify</h1>
           </div>
         </div>
       </CardHeader>
