@@ -55,7 +55,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
                 />
               </Avatar>
             </CardHeader>
-            <CardContent className="flex flex-col gap-3">
+            <CardContent className="pl-0 flex flex-col gap-3">
               <div className="rounded-full bg-blue-100 p-3 w-fit dark:bg-blue-500">
                 <p className="text-initial-blue">
                   {employer?.address || "Location"}

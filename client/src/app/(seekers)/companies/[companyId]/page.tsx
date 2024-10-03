@@ -16,6 +16,7 @@ import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilt
 
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
+import LoadingCompanyDetails from "@/components/loaders/LoadingCompanyDetails";
 
 const ReviewsList = dynamic(
   () => import("@/components/seekers/employers/details/reviews/ReviewsList"),
@@ -36,7 +37,13 @@ const CompanyDetails = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedCompany, refetch } = useQuery({
+  const {
+    data: fetchedCompany,
+    refetch,
+    isFetching,
+    isLoading,
+    isRefetching,
+  } = useQuery({
     queryFn: () =>
       getEmployerById(
         params.companyId,
@@ -66,18 +73,40 @@ const CompanyDetails = ({
     totalItems = fetchedCompany?.totalReviews;
   }
 
+  const isFiltering = isLoading || isFetching || isRefetching;
+
   return (
     <section className="py-6 overflow-hidden mx-40 max-xl:mx-0">
-      <div>
-        <EmployerDetailsInfo employer={fetchedCompany?.employer!} />
-      </div>
-      <div>
-        <EmployerFilters type={searchParams.typeEmp} />
-      </div>
+      {isFiltering ? (
+        <LoadingCompanyDetails />
+      ) : (
+        <div className="flex flex-col gap-6 justify-center overflow-auto py-6">
+          <div>
+            <EmployerDetailsInfo employer={fetchedCompany?.employer!} />
+          </div>
+          <div>
+            <EmployerFilters type={searchParams.typeEmp} />
+          </div>
+        </div>
+      )}
       <div className="flex flex-col gap-6 justify-center overflow-auto py-6">
-        {searchParamsJobs && <JobsList jobs={fetchedCompany?.employer?.jobs} />}
+        {searchParamsJobs && (
+          <>
+            {isFiltering ? (
+              <LoadingJobsSkeleton />
+            ) : (
+              <JobsList jobs={fetchedCompany?.employer?.jobs} />
+            )}
+          </>
+        )}
         {searchParamsReviews && (
-          <ReviewsList reviews={fetchedCompany?.employer.reviews} />
+          <>
+            {isFiltering ? (
+              <LoadingReviewsSkeleton />
+            ) : (
+              <ReviewsList reviews={fetchedCompany?.employer.reviews} />
+            )}
+          </>
         )}
         {totalItems > 0 && (
           <PaginatedList
