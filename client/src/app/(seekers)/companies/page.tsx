@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
@@ -39,16 +39,16 @@ const Companies = ({
     queryFn: () =>
       getEmployers({
         token: token as string,
-        page: searchParams.page,
-        srt: searchParams.sort,
-        search: searchParams.query,
+        page: searchParams.page || "1",
+        srt: searchParams.sort || "",
+        search: searchParams.query || "",
       }),
-    queryKey: ["companies"],
+    queryKey: ["companies", searchParams],
   });
 
   useEffect(() => {
     refetch();
-  }, [searchParams]);
+  }, [searchParams, refetch]);
 
   const totalEmployers = fetchedCompanies?.totalEmployers!;
   const isFiltering = isLoading || isFetching || isRefetching;

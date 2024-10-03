@@ -17,8 +17,8 @@ import { deleteApiHandler, getApiHandler, patchApiHandler } from "../api";
  */
 export const getEmployers = async ({
   page = "1",
-  srt,
-  search,
+  srt = "",
+  search = "",
   token,
 }: {
   token: string;
