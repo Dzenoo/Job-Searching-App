@@ -59,7 +59,7 @@ const SeekersPage = ({
       <div className="basis-1/2"></div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
-          <SearchSeekers />
+          <SearchSeekers query={searchParams.query || ""} />
         </div>
         <div className="xl:hidden">
           <FilterSeekers />

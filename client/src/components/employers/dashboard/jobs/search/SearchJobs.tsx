@@ -16,8 +16,13 @@ import {
   SelectLabel,
 } from "@/components/ui/select";
 
-const SearchJobs: React.FC = () => {
-  const { searchParams, updateSearchParams, debounce } = useSearchParams();
+type SearchJobsProps = {
+  query: string;
+  sort: string;
+};
+
+const SearchJobs: React.FC<SearchJobsProps> = ({ query, sort }) => {
+  const { updateSearchParams, debounce } = useSearchParams();
 
   const debounceSearchParams = React.useMemo(
     () => debounce(updateSearchParams, 300),
@@ -32,7 +37,7 @@ const SearchJobs: React.FC = () => {
     <div className="flex justify-between gap-3 items-center max-sm:flex-wrap">
       <div className="basis-full">
         <Input
-          defaultValue={searchParams.get("query")?.toString()}
+          defaultValue={query}
           placeholder="Search Jobs..."
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             debounceSearchParams("query", e.target.value)
@@ -40,10 +45,7 @@ const SearchJobs: React.FC = () => {
         />
       </div>
       <div className="max-sm:basis-full">
-        <Select
-          onValueChange={handleSortChange}
-          defaultValue={searchParams.get("sort")?.toString() || ""}
-        >
+        <Select onValueChange={handleSortChange} defaultValue={sort}>
           <SelectTrigger className="w-[180px] max-sm:w-full">
             <SelectValue placeholder="Sort By Date" />
           </SelectTrigger>

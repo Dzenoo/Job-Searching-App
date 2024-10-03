@@ -62,7 +62,10 @@ const Jobs = ({
       </div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
-          <SearchJobs />
+          <SearchJobs
+            query={searchParams.query || ""}
+            sort={searchParams.sort || ""}
+          />
         </div>
         <div className="xl:hidden">
           <FilterJobs filterCounts={fetchedJobs?.filterCounts!} />

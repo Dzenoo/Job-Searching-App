@@ -55,7 +55,10 @@ const DashboardJobsPage = ({
             candidates
           </p>
         </div>
-        <SearchJobs />
+        <SearchJobs
+          query={searchParams.query || ""}
+          sort={searchParams.sort || ""}
+        />
       </div>
       <DashboardEmployerJobs
         jobs={fetchedEmployer?.employer.jobs || []}

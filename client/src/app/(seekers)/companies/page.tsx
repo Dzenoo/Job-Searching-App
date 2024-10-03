@@ -56,7 +56,10 @@ const Companies = ({
   return (
     <section className="flex flex-col gap-[10px] py-6">
       <div>
-        <SearchEmployers />
+        <SearchEmployers
+          query={searchParams.query || ""}
+          sort={searchParams.sort || ""}
+        />
       </div>
       <div>
         {isFiltering ? (

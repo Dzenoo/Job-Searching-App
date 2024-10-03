@@ -13,8 +13,13 @@ import {
 
 import useSearchParams from "@/hooks/defaults/useSearchParams";
 
-const SearchJobs: React.FC = () => {
-  const { searchParams, updateSearchParams, debounce } = useSearchParams();
+type SearchJobsProps = {
+  query: string;
+  sort: string;
+};
+
+const SearchJobs: React.FC<SearchJobsProps> = ({ query, sort }) => {
+  const { updateSearchParams, debounce } = useSearchParams();
 
   const debounceSearchParams = React.useMemo(
     () => debounce(updateSearchParams, 300),
@@ -25,7 +30,7 @@ const SearchJobs: React.FC = () => {
     <div className="flex justify-between gap-3 max-sm:flex-wrap">
       <div className="basis-full">
         <Input
-          defaultValue={searchParams.get("query")?.toString()}
+          defaultValue={query}
           placeholder="Search Jobs..."
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             debounceSearchParams("query", e.target.value)
@@ -35,7 +40,7 @@ const SearchJobs: React.FC = () => {
       <div className="basis-1/2 max-sm:basis-full">
         <Select
           onValueChange={(value) => updateSearchParams("sort", value)}
-          defaultValue={searchParams.get("sort")?.toString() || ""}
+          defaultValue={sort}
         >
           <SelectTrigger>
             <SelectValue placeholder="Sort By Date" />
