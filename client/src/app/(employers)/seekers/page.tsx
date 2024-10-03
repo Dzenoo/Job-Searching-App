@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 
 import useAuthentication from "@/hooks/defaults/useAuthentication";
@@ -59,9 +59,7 @@ const SeekersPage = ({
       <div className="basis-1/2"></div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
-          <Suspense>
-            <SearchSeekers />
-          </Suspense>
+          <SearchSeekers />
         </div>
         <div className="xl:hidden">
           <FilterSeekers />

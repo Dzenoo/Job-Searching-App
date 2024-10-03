@@ -1,10 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { Suspense } from "react";
 
 import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 import { Input } from "@/components/ui/input";
 
-const SearchSeekers: React.FC = () => {
+const Search: React.FC = () => {
   const { searchParams, updateSearchParams, debounce } = useSearchParams();
 
   const debounceSearchParams = React.useMemo(
@@ -26,4 +28,13 @@ const SearchSeekers: React.FC = () => {
     </div>
   );
 };
+
+const SearchSeekers = () => {
+  return (
+    <Suspense>
+      <Search />
+    </Suspense>
+  );
+};
+
 export default SearchSeekers;

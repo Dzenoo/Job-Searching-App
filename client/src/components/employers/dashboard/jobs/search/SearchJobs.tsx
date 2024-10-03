@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { Suspense } from "react";
 import Link from "next/link";
 
 import useSearchParams from "@/hooks/defaults/useSearchParams";
@@ -15,7 +17,7 @@ import {
   SelectLabel,
 } from "@/components/ui/select";
 
-const SearchJobs: React.FC = () => {
+const Search: React.FC = () => {
   const { searchParams, updateSearchParams, debounce } = useSearchParams();
 
   const debounceSearchParams = React.useMemo(
@@ -64,6 +66,14 @@ const SearchJobs: React.FC = () => {
         </Link>
       </div>
     </div>
+  );
+};
+
+const SearchJobs = () => {
+  return (
+    <Suspense>
+      <Search />
+    </Suspense>
   );
 };
 

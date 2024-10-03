@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 
 import useAuthentication from "@/hooks/defaults/useAuthentication";
@@ -55,9 +55,7 @@ const DashboardJobsPage = ({
             candidates
           </p>
         </div>
-        <Suspense>
-          <SearchJobs />
-        </Suspense>
+        <SearchJobs />
       </div>
       <DashboardEmployerJobs
         jobs={fetchedEmployer?.employer.jobs || []}
