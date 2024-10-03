@@ -48,7 +48,7 @@ const Companies = ({
 
   useEffect(() => {
     refetch();
-  }, [searchParams, refetch]);
+  }, [searchParams]);
 
   const totalEmployers = fetchedCompanies?.totalEmployers!;
   const isFiltering = isLoading || isFetching || isRefetching;

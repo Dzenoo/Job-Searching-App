@@ -44,7 +44,7 @@ const SeekersPage = ({
         skills: searchParams.skills || "",
         search: searchParams.query || "",
       }),
-    queryKey: ["seekers"],
+    queryKey: ["seekers", searchParams],
   });
 
   useEffect(() => {

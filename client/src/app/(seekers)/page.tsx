@@ -50,7 +50,7 @@ const Jobs = ({
 
   useEffect(() => {
     refetch();
-  }, [searchParams, refetch]);
+  }, [searchParams]);
 
   const totalJobs = fetchedJobs?.totalJobs || 0;
   const isFiltering = isLoading || isFetching || isRefetching;
