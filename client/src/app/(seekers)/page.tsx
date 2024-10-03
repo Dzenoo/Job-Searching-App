@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
@@ -66,7 +66,9 @@ const Jobs = ({
       </div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
-          <SearchJobs />
+          <Suspense fallback={null}>
+            <SearchJobs />
+          </Suspense>
         </div>
         <div className="xl:hidden">
           <FilterJobs filterCounts={fetchedJobs?.filterCounts!} />
