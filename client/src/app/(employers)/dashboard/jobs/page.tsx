@@ -13,11 +13,7 @@ import dynamic from "next/dynamic";
 import LoadingDashboardJobs from "@/components/loaders/LoadingDashboardJobs";
 
 import PaginatedList from "@/components/ui/paginate-list";
-
-const SearchJobs = dynamic(
-  () => import("@/components/employers/dashboard/jobs/search/SearchJobs"),
-  { ssr: false }
-);
+import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
 
 const DashboardEmployerJobs = dynamic(
   () => import("@/components/employers/dashboard/jobs/DashboardEmployerJobs"),
@@ -59,9 +55,7 @@ const DashboardJobsPage = ({
             candidates
           </p>
         </div>
-        <Suspense fallback={null}>
-          <SearchJobs />
-        </Suspense>
+        <SearchJobs />
       </div>
       <DashboardEmployerJobs
         jobs={fetchedEmployer?.employer.jobs || []}

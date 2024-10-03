@@ -13,11 +13,7 @@ import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
 
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
-
-const SearchEmployers = dynamic(
-  () => import("@/components/seekers/employers/search/SearchEmployers"),
-  { ssr: false }
-);
+import SearchEmployers from "@/components/seekers/employers/search/SearchEmployers";
 
 const EmployersList = dynamic(
   () => import("@/components/seekers/employers/EmployersList"),
@@ -43,9 +39,9 @@ const Companies = ({
     queryFn: () =>
       getEmployers({
         token: token as string,
-        page: searchParams.page || "1",
-        srt: searchParams.sort || "",
-        search: searchParams.query || "",
+        page: searchParams.page,
+        srt: searchParams.sort,
+        search: searchParams.query,
       }),
     queryKey: ["companies"],
   });
@@ -60,9 +56,7 @@ const Companies = ({
   return (
     <section className="flex flex-col gap-[10px] py-6">
       <div>
-        <Suspense fallback={null}>
-          <SearchEmployers />
-        </Suspense>
+        <SearchEmployers />
       </div>
       <div>
         {isFiltering ? (

@@ -14,11 +14,7 @@ import dynamic from "next/dynamic";
 import LoadingSeekers from "@/components/loaders/LoadingSeekers";
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
-
-const SearchSeekers = dynamic(
-  () => import("@/components/employers/seekers/search/SearchSeekers"),
-  { ssr: false }
-);
+import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
 
 const SeekersList = dynamic(
   () => import("@/components/employers/seekers/SeekersList"),
@@ -63,9 +59,7 @@ const SeekersPage = ({
       <div className="basis-1/2"></div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
-          <Suspense fallback={null}>
-            <SearchSeekers />
-          </Suspense>
+          <SearchSeekers />
         </div>
         <div className="xl:hidden">
           <FilterSeekers />

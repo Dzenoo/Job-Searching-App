@@ -14,11 +14,7 @@ import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
-
-const SearchJobs = dynamic(
-  () => import("@/components/seekers/jobs/search/SearchJobs"),
-  { ssr: false }
-);
+import SearchJobs from "@/components/seekers/jobs/search/SearchJobs";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
@@ -66,9 +62,7 @@ const Jobs = ({
       </div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
-          <Suspense fallback={null}>
-            <SearchJobs />
-          </Suspense>
+          <SearchJobs />
         </div>
         <div className="xl:hidden">
           <FilterJobs filterCounts={fetchedJobs?.filterCounts!} />
