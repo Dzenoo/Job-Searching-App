@@ -10,10 +10,14 @@ import { getEmployers } from "@/lib/actions/seekers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
-import SearchEmployers from "@/components/seekers/employers/search/SearchEmployers";
 
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
+
+const SearchEmployers = dynamic(
+  () => import("@/components/seekers/employers/search/SearchEmployers"),
+  { ssr: false }
+);
 
 const EmployersList = dynamic(
   () => import("@/components/seekers/employers/EmployersList"),

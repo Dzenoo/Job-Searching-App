@@ -10,10 +10,14 @@ import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
-import SearchJobs from "@/components/employers/dashboard/jobs/search/SearchJobs";
 import LoadingDashboardJobs from "@/components/loaders/LoadingDashboardJobs";
 
 import PaginatedList from "@/components/ui/paginate-list";
+
+const SearchJobs = dynamic(
+  () => import("@/components/employers/dashboard/jobs/search/SearchJobs"),
+  { ssr: false }
+);
 
 const DashboardEmployerJobs = dynamic(
   () => import("@/components/employers/dashboard/jobs/DashboardEmployerJobs"),

@@ -11,10 +11,14 @@ import { getJobs } from "@/lib/actions/jobs.actions";
 import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
-import SearchJobs from "@/components/seekers/jobs/search/SearchJobs";
 import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
+
+const SearchJobs = dynamic(
+  () => import("@/components/seekers/jobs/search/SearchJobs"),
+  { ssr: false }
+);
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,

@@ -9,12 +9,16 @@ import { getSeekers } from "@/lib/actions/employers.actions";
 
 import Protected from "@/components/hoc/Protected";
 import FilterSeekers from "@/components/employers/seekers/filters/FilterSeekers";
-import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
 
 import dynamic from "next/dynamic";
 import LoadingSeekers from "@/components/loaders/LoadingSeekers";
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
+
+const SearchSeekers = dynamic(
+  () => import("@/components/employers/seekers/search/SearchSeekers"),
+  { ssr: false }
+);
 
 const SeekersList = dynamic(
   () => import("@/components/employers/seekers/SeekersList"),
