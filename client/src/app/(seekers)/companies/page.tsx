@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "react-query";
 
@@ -56,7 +56,9 @@ const Companies = ({
   return (
     <section className="flex flex-col gap-[10px] py-6">
       <div>
-        <SearchEmployers />
+        <Suspense>
+          <SearchEmployers />
+        </Suspense>
       </div>
       <div>
         {isFiltering ? (
