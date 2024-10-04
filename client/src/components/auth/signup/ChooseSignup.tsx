@@ -32,7 +32,7 @@ const ChooseSignup: React.FC = () => {
     typeOfAccount === TypeOfAccount.Employer;
 
   return (
-    <div>
+    <div className="px-5">
       {!isSelectedAccount && (
         <div className="flex flex-col justify-center items-center gap-16">
           <div>

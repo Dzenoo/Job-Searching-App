@@ -55,7 +55,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
                 />
               </Avatar>
             </CardHeader>
-            <CardContent className="pl-0 flex flex-col gap-3">
+            <CardContent className="flex flex-col gap-3 sm:pl-0">
               <div className="rounded-full bg-blue-100 p-3 w-fit dark:bg-blue-500">
                 <p className="text-initial-blue">
                   {employer?.address || "Location"}
@@ -77,7 +77,7 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
             <div className="flex items-center gap-6 flex-wrap">
               {FooterEmployerData.map((data) => renderIconText(data))}
             </div>
-            <div className="flex items-center justify-end gap-2 max-lg:justify-stretch max-lg:flex-wrap">
+            <div className="w-full flex items-center justify-end gap-2 max-lg:flex-col max-lg:justify-stretch max-lg:gap-3 max-lg:items-stretch">
               <div>
                 <a
                   target="_blank"

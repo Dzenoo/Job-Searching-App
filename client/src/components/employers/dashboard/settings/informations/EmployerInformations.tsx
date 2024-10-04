@@ -94,7 +94,7 @@ const EmployerInformations: React.FC<EmployerInformationsProps> = ({
   ];
 
   return (
-    <div className="flex flex-col gap-[16px] dark:border-[#3b3b3b] max-sm:p-4">
+    <div className="flex flex-col gap-[16px] dark:border-[#3b3b3b]">
       <div className="flex justify-between items-center gap-3">
         <div>
           <h1 className="text-base-black">Company Information</h1>
