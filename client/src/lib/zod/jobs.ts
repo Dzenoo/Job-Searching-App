@@ -55,5 +55,5 @@ export const UpdateJobSchemas = zod.object({
   description: zod
     .string()
     .min(30, "Description should be detailed, with at least 30 characters.")
-    .max(600, "Description can be up to 600 characters long."),
+    .max(2500, "Description can be up to 2500 characters long."),
 });

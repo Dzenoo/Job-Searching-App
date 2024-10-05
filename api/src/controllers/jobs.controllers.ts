@@ -4,6 +4,7 @@ import Seeker from "../models/seekers.schema";
 import Application from "../models/applications.schema";
 import Job from "../models/jobs.schema";
 import { sendResponse, validate } from "../utils/validation";
+import { sendEmail } from "../utils/email";
 
 // Controller function to create a new job posting
 export const createJob = asyncErrors(
@@ -55,11 +56,36 @@ export const createJob = asyncErrors(
       });
 
       // Find seekers whose alerts match the new job's criteria
-      // const matchedSeekers = await Seeker.find({
-      //   "alerts.type": newJob.type,
-      //   "alerts.level": { $in: newJob.level },
-      //   "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
-      // }).exec();
+      const matchedSeekers = await Seeker.find({
+        "alerts.type": newJob.type,
+        "alerts.level": { $in: newJob.level },
+        "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
+      }).exec();
+
+      const htmlContent = `
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+                              <h2 style="color: #333;">New Job Alert: ${newJob.title}</h2>
+                              <p style="color: #555;">Dear Job Seeker,</p>
+                              <p style="color: #555;">We have found a new job that matches your alert criteria:</p>
+                              <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                                <h3 style="color: #333;">${newJob.title}</h3>
+                                <p style="color: #555;"><strong>Position:</strong> ${newJob.position}</p>
+                                <p style="color: #555;">${newJob.overview}</p>
+                                <a href="${process.env.FRONTEND_URL}/jobs/${newJob._id}" style="display: inline-block; padding: 10px 15px; background-color: #1a73e8; color: #fff; text-decoration: none; border-radius: 5px;">View Job</a>
+                              </div>
+                              <p style="color: #555;">If you have any questions, feel free to <a href="mailto:jobernify@gmail.com" style="color: #1a73e8;">contact us</a>.</p>
+                              <p style="color: #555;">Best regards,<br>Jobernify Team</p>
+                            </div>
+                          `;
+
+      // Send email to matched seekers
+      for (const seeker of matchedSeekers) {
+        await sendEmail(
+          seeker.email,
+          "Jobernify - New Job Alert Match",
+          htmlContent
+        );
+      }
 
       // Send the response with the created job ID
       sendResponse({ job: newJob._id }, 201, response);
