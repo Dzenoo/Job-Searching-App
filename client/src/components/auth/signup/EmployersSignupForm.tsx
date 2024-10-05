@@ -65,7 +65,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
     mutationFn: signupEmployer,
     onSuccess: () => {
       form.reset();
-      router.push("/login");
+      router.push("/check-your-email");
     },
     onError: (error: any) => {
       toast({
@@ -89,7 +89,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
             <p className="text-low-gray">
               Looking for a job?{" "}
               <button
-                className="text-[--blue-base-color] font-bold"
+                className="text-blue-700 font-bold"
                 onClick={() => handleTypeSelection(TypeOfAccount.Seeker)}
               >
                 Seeker

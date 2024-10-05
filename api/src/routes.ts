@@ -43,6 +43,16 @@ function generateRoutes<
 export function initializePublicRoutes(app: Express): void {
   const publicRoutes = [
     {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/auth/seeker/verify-email",
+      handlers: [seekers.verifyEmail],
+    },
+    {
+      method: EXPRESS_APP_METHODS.GET,
+      path: "/auth/employer/verify-email",
+      handlers: [employers.verifyEmail],
+    },
+    {
       method: EXPRESS_APP_METHODS.POST,
       path: "/seeker-signup",
       handlers: [seekers.signupSeeker],

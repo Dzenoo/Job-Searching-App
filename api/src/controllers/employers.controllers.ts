@@ -2,6 +2,7 @@ import { sendResponse, validate } from "../utils/validation";
 import { uuidv7 } from "uuidv7";
 import { asyncErrors } from "../errors/asyncErrors";
 import { uploadFileToS3 } from "../utils/aws";
+import { sendEmail } from "../utils/email";
 import Employer from "../models/employers.schema";
 import Review from "../models/reviews.schema";
 import Seeker from "../models/seekers.schema";
@@ -52,8 +53,11 @@ export const signupEmployer = asyncErrors(
         );
       }
 
-      // Create a new employer
-      const newEmployer = await Employer.create(request.body);
+      const verificationToken = uuidv7(); // Generate a unique token
+      const newEmployer = await Employer.create({
+        ...request.body,
+        verificationToken,
+      });
 
       if (!newEmployer) {
         return sendResponse(
@@ -68,6 +72,12 @@ export const signupEmployer = asyncErrors(
 
       // Save the new employer
       await newEmployer.save();
+
+      await sendEmail(
+        newEmployer.email,
+        "Jobernify - Verify your email",
+        `Please verify your email by clicking on this link: ${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=employer`
+      );
 
       // Send response with the new employer ID
       sendResponse({ employer: newEmployer._id }, 201, response);
@@ -111,6 +121,14 @@ export const loginEmployer = asyncErrors(
               "The email or password you entered is incorrect. Please try again.",
           },
           500,
+          response
+        );
+      }
+
+      if (!existingEmployer.emailVerified) {
+        return sendResponse(
+          { message: "Please verify your email before logging in." },
+          403,
           response
         );
       }
@@ -757,3 +775,30 @@ const getJobTypes = async (employerId: string) => {
     value: jobType.count,
   }));
 };
+
+export const verifyEmail = asyncErrors(async (request, response) => {
+  try {
+    const { token } = request.query;
+    const employer = await Employer.findOne({ verificationToken: token });
+
+    if (!employer) {
+      return sendResponse(
+        { message: "Invalid or expired verification token." },
+        400,
+        response
+      );
+    }
+
+    employer.emailVerified = true;
+    employer.verificationToken = undefined;
+    await employer.save();
+
+    sendResponse({ message: "Email successfully verified." }, 200, response);
+  } catch (errors) {
+    sendResponse(
+      { message: "Error verifying email, please try again" },
+      400,
+      response
+    );
+  }
+});

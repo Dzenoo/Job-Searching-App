@@ -126,6 +126,13 @@ const SeekerSchema = new mongoose.Schema(
         default: "",
       },
     },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

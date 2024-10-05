@@ -7,6 +7,7 @@ import { sendResponse, validate } from "../utils/validation";
 import Application from "../models/applications.schema";
 import Review from "../models/reviews.schema";
 import Employer from "../models/employers.schema";
+import { sendEmail } from "../utils/email"; // Assume you have an email utility
 
 // Controller function to sign up a new seeker
 export const signupSeeker = asyncErrors(
@@ -43,8 +44,11 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      // Create a new seeker
-      const newSeeker = await Seeker.create(request.body);
+      const verificationToken = uuidv7(); // Generate a unique token
+      const newSeeker = await Seeker.create({
+        ...request.body,
+        verificationToken,
+      });
 
       if (!newSeeker) {
         return sendResponse(
@@ -55,6 +59,12 @@ export const signupSeeker = asyncErrors(
       }
 
       await newSeeker.save();
+
+      await sendEmail(
+        newSeeker.email,
+        "Jobernify - Verify your email",
+        `Please verify your email by clicking on this link: ${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=seeker`
+      );
 
       sendResponse(
         { seeker: newSeeker._id, seekerToken: newSeeker.generateAuthToken },
@@ -94,6 +104,14 @@ export const loginSeeker = asyncErrors(
               "The email or password you entered is incorrect. Please try again.",
           },
           500,
+          response
+        );
+      }
+
+      if (!existingSeeker.emailVerified) {
+        return sendResponse(
+          { message: "Please verify your email before logging in." },
+          403,
           response
         );
       }
@@ -514,6 +532,33 @@ export const deleteEducation = asyncErrors(async (request, response) => {
   } catch (errors) {
     sendResponse(
       { message: "Error deleting education, please try again" },
+      400,
+      response
+    );
+  }
+});
+
+export const verifyEmail = asyncErrors(async (request, response) => {
+  try {
+    const { token } = request.query;
+    const seeker = await Seeker.findOne({ verificationToken: token });
+
+    if (!seeker) {
+      return sendResponse(
+        { message: "Invalid or expired verification token." },
+        400,
+        response
+      );
+    }
+
+    seeker.emailVerified = true;
+    seeker.verificationToken = undefined;
+    await seeker.save();
+
+    sendResponse({ message: "Email successfully verified." }, 200, response);
+  } catch (errors) {
+    sendResponse(
+      { message: "Error verifying email, please try again" },
       400,
       response
     );

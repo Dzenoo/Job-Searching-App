@@ -124,6 +124,13 @@ const EmployerSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
@@ -145,7 +152,7 @@ EmployerSchema.statics.findByCredentials = async <T extends string>(
   const employer = await Employer.findOne({ email });
 
   if (!employer) {
-    console.log("Not employer founded");
+    console.log("Employer not found");
     return;
   }
 
@@ -155,6 +162,7 @@ EmployerSchema.statics.findByCredentials = async <T extends string>(
     console.log("Password is not true");
     return;
   }
+
   return employer;
 };
 
