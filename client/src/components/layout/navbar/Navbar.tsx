@@ -71,6 +71,7 @@ const Navbar: React.FC<{ href?: string }> = ({ href }) => {
             />
             <Avatar>
               <AvatarImage
+                className="object-cover"
                 src={getImageUrl(
                   isSeeker
                     ? fetchedProfile?.seeker.image
