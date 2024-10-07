@@ -108,7 +108,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
               </div>
             ) : (
               <div>
-                <p className="text-initial-gray">No Biography Found</p>
+                <p className="text-initial-gray">Biography not found</p>
               </div>
             )}
           </div>
@@ -124,12 +124,13 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
             <div>
               <h1 className="font-bold">Skills</h1>
             </div>
-            {renderSkills(categorizedSkills)}
-            <div className="text-center">
-              {seeker?.skills.length === 0 && (
-                <p className="text-initial-gray">No Skills Found</p>
-              )}
-            </div>
+            {seeker?.skills.length > 0 ? (
+              renderSkills(categorizedSkills)
+            ) : (
+              <div>
+                <p className="text-initial-gray">Skills not found</p>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

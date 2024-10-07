@@ -138,6 +138,9 @@ const AddEducationsDialog: React.FC<AddEducationsDialogProps> = ({
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
+                      fromYear={1900}
+                      toYear={new Date().getFullYear()}
+                      captionLayout="dropdown-buttons"
                       mode="single"
                       selected={field.value as any}
                       onSelect={field.onChange}

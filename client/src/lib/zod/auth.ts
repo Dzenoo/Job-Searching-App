@@ -25,10 +25,11 @@ export const SeekerRegistrationSchemas = zod.object({
     .email(),
   password: zod
     .string()
-    .min(5, { message: "Password must be at least 5 characters long" })
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(30, { message: "Password must be at most 30 characters long" })
     .regex(
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,30}$/,
-      "Password must contain symbols and numbers"
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/,
+      "Password must be 8-30 characters long and contain symbols and numbers"
     ),
 });
 

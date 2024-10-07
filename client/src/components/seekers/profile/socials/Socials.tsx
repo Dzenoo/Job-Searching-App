@@ -221,7 +221,7 @@ const Socials: React.FC<SocialsProps> = ({ seeker }) => {
                   <p className="text-initial-gray">Add {title}</p>
                 ) : (
                   <a
-                    className="text-[--blue-base-color]"
+                    className="text-initial-blue"
                     href={formatURL(data)}
                     target="_blank"
                     rel="noopener noreferrer"

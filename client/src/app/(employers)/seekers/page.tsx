@@ -55,7 +55,7 @@ const SeekersPage = ({
   const isFiltering = isLoading || isFetching || isRefetching;
 
   return (
-    <section className="p-16 overflow-auto max-lg:px-8 max-sm:px-4 flex gap-[10px] max-xl:flex-col">
+    <section className="p-16 overflow-auto max-lg:px-8 max-sm:px-4 flex gap-[25px] max-xl:flex-col">
       <div className="basis-1/2"></div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>

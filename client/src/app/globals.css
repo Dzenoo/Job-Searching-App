@@ -68,6 +68,10 @@
   body {
     @apply bg-white dark:bg-[#0d0d0d];
   }
+  .rdp-vhidden {
+    @apply hidden;
+  }
+
   .base-margin {
     @apply px-16 py-3 overflow-auto max-lg:px-8 max-sm:px-5;
   }
