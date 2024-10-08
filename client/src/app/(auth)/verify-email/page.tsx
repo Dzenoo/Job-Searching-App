@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 
@@ -13,44 +13,50 @@ const VerifyEmail = ({
   const router = useRouter();
   const { token, type } = searchParams;
   const { isAuthenticated } = useAuthentication().getCookieHandler();
-
-  const isPendingVerification =
-    typeof window !== "undefined"
-      ? localStorage.getItem("pendingVerification") === "true"
-      : false;
+  const [verificationStatus, setVerificationStatus] = useState("pending");
 
   useEffect(() => {
     if (isAuthenticated) {
       router.push("/");
-    } else if (!isPendingVerification) {
-      router.push("/login");
     }
-  }, [isAuthenticated, isPendingVerification, router]);
-
-  useEffect(() => {
-    if (isPendingVerification) {
-      localStorage.removeItem("pendingVerification");
-    }
-  }, [isPendingVerification]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (token) {
+      setVerificationStatus("verifying");
       axios
         .get(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/${type}/verify-email?token=${token}`
         )
         .then(() => {
-          router.push("/login");
+          setVerificationStatus("success");
+          setTimeout(() => router.push("/login"), 2500);
         })
         .catch((error) => {
           console.error("Verification error:", error);
+          // setVerificationStatus("error");
         });
     }
-  }, [token]);
+  }, [token, type, router]);
+
+  const renderMessage = () => {
+    switch (verificationStatus) {
+      case "pending":
+        return "Preparing to verify your email...";
+      case "verifying":
+        return "Verifying your email...";
+      case "success":
+        return "Email verified successfully! Redirecting to login...";
+      case "error":
+        return "Error verifying email. Please try again or contact support.";
+      default:
+        return "Verifying your email...";
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <h1 className="text-lg">Verifying your email...</h1>
+      <h1 className="text-lg">{renderMessage()}</h1>
     </div>
   );
 };
