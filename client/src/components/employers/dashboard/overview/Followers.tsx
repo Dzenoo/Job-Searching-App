@@ -3,6 +3,7 @@
 import React from "react";
 import { Chart, registerables } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useTheme } from "next-themes";
 
 import {
   Card,
@@ -17,6 +18,7 @@ import { getMonthsLabels } from "@/lib/utils";
 Chart.register(...registerables);
 
 const Followers: React.FC<{ data: any }> = ({ data }) => {
+  const { resolvedTheme } = useTheme();
   const labels = getMonthsLabels();
 
   const chartData = {
@@ -40,16 +42,41 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
         title: {
           display: true,
           text: "Number of Followers",
+          color: resolvedTheme === "dark" ? "white" : "black",
         },
         ticks: {
           stepSize: 1,
           precision: 0,
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        grid: {
+          color:
+            resolvedTheme === "dark"
+              ? "rgba(255, 255, 255, 0.1)"
+              : "rgba(0, 0, 0, 0.1)",
         },
       },
       x: {
         title: {
           display: true,
           text: "Month",
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        ticks: {
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        grid: {
+          color:
+            resolvedTheme === "dark"
+              ? "rgba(255, 255, 255, 0.1)"
+              : "rgba(0, 0, 0, 0.1)",
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: resolvedTheme === "dark" ? "white" : "black",
         },
       },
     },

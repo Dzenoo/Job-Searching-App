@@ -77,8 +77,15 @@ const Statistics: React.FC<StatisticsProps> = ({
                 <p className="font-bold text-3xl">{statistics.data}</p>
               </div>
               <div>
-                <p className="text-[--green-base-color]">
-                  +{statistics.increment} this month
+                <p
+                  className={`${
+                    statistics.increment > 0 ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {statistics.increment > 0
+                    ? `+${statistics.increment}`
+                    : statistics.increment}{" "}
+                  this month
                 </p>
               </div>
             </div>

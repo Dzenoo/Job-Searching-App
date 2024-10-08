@@ -74,7 +74,7 @@ const SeekersPage = ({
         <PaginatedList
           onPageChange={(value) => updateSearchParams("page", value.toString())}
           totalItems={totalSeekers}
-          itemsPerPage={10}
+          itemsPerPage={12}
           currentPage={Number(searchParams.page) || 1}
         />
       </div>

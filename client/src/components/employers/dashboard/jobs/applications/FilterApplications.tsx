@@ -7,12 +7,16 @@ type FilterApplicationsProps = {
   applicants: number;
   pending: number;
   interviews: number;
+  rejected: number;
+  accepted: number;
 };
 
 const FilterApplications: React.FC<FilterApplicationsProps> = ({
   applicants,
   pending,
   interviews,
+  rejected,
+  accepted,
 }) => {
   const { updateSearchParams } = useSearchParams();
 
@@ -23,7 +27,7 @@ const FilterApplications: React.FC<FilterApplicationsProps> = ({
   return (
     <Card>
       <CardContent>
-        <div className="flex items-center gap-10 max-sm:overflow-auto max-sm:gap-5 hide-scrollbar">
+        <div className="flex items-center max-sm:overflow-auto gap-5 hide-scrollbar">
           <Button
             variant="outline"
             onClick={() => updateApplicationsFilters("")}
@@ -31,16 +35,32 @@ const FilterApplications: React.FC<FilterApplicationsProps> = ({
             Seekers ({applicants})
           </Button>
           <Button
+            className="border-yellow-500"
             variant="outline"
             onClick={() => updateApplicationsFilters("Pending")}
           >
             Pending ({pending})
           </Button>
           <Button
+            className="border-blue-500"
             variant="outline"
             onClick={() => updateApplicationsFilters("Interview")}
           >
             Interviews ({interviews})
+          </Button>
+          <Button
+            className="border-red-500"
+            variant="outline"
+            onClick={() => updateApplicationsFilters("Rejected")}
+          >
+            Rejected ({rejected})
+          </Button>
+          <Button
+            className="border-green-500"
+            variant="outline"
+            onClick={() => updateApplicationsFilters("Accepted")}
+          >
+            Accepted ({accepted})
           </Button>
         </div>
       </CardContent>

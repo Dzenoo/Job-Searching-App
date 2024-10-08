@@ -13,10 +13,12 @@ import {
 } from "@/components/ui/card";
 
 import { getMonthsLabels } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 Chart.register(...registerables);
 
 const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
+  const { resolvedTheme } = useTheme();
   const labels = getMonthsLabels();
 
   const chartData = {
@@ -40,12 +42,39 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
         title: {
           display: true,
           text: "Number of Jobs",
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        ticks: {
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        grid: {
+          color:
+            resolvedTheme === "dark"
+              ? "rgba(255, 255, 255, 0.1)"
+              : "rgba(0, 0, 0, 0.1)",
         },
       },
       x: {
         title: {
           display: true,
           text: "Month",
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        ticks: {
+          color: resolvedTheme === "dark" ? "white" : "black",
+        },
+        grid: {
+          color:
+            resolvedTheme === "dark"
+              ? "rgba(255, 255, 255, 0.1)"
+              : "rgba(0, 0, 0, 0.1)",
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: resolvedTheme === "dark" ? "white" : "black",
         },
       },
     },

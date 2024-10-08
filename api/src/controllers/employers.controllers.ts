@@ -231,8 +231,6 @@ export const followEmployer = asyncErrors(async (request, response) => {
       );
     }
   } catch (error) {
-    console.log(error);
-
     sendResponse(
       {
         message: "Cannot follow or unfollow employer profile, please try again",
@@ -344,8 +342,6 @@ export const getEmployerProfile = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
-    console.log(error);
-
     sendResponse(
       {
         message:
@@ -402,8 +398,6 @@ export const editEmployerProfile = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
-    console.log(error);
-
     sendResponse(
       {
         message:
@@ -662,22 +656,18 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
       createdAt: { $gte: startOfMonth },
     });
 
-    const followersThisMonth = await Employer.aggregate([
-      { $match: { _id: new mongoose.Types.ObjectId(employerId) } },
-      {
-        $project: {
-          followersThisMonth: {
-            $size: {
-              $filter: {
-                input: "$followers",
-                as: "follower",
-                cond: { $gte: ["$$follower._id", startOfMonth] },
-              },
-            },
-          },
-        },
-      },
-    ]);
+    const employerWithFollowers = await Employer.findById(employerId)
+      .select("followers")
+      .populate("followers", "createdAt");
+
+    const followersThisMonth = employerWithFollowers.followers.filter(
+      (follower: any) => {
+        const followerCreatedAt = follower.createdAt;
+        return (
+          followerCreatedAt >= startOfMonth && followerCreatedAt < new Date()
+        );
+      }
+    ).length;
 
     const jobsPerMonth = await getJobsPerMonth(employerId);
     const followersOverTime = await getFollowersOverTime(employerId);
@@ -694,10 +684,7 @@ export const getEmployerAnalytics = asyncErrors(async (request, response) => {
       jobsThisMonth,
       reviewsThisMonth,
       applicationsThisMonth,
-      followersThisMonth:
-        followersThisMonth.length > 0
-          ? followersThisMonth[0].followersThisMonth
-          : 0,
+      followersThisMonth,
     });
   } catch (error) {
     response.status(500).json({ message: "Internal server error" });

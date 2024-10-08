@@ -64,6 +64,8 @@ const JobApplicationsPage = ({
           applicants={data?.totalApplications || 0}
           pending={data?.totalPendingStatus || 0}
           interviews={data?.totalInterviewStatus || 0}
+          rejected={data?.totalRejectedStatus || 0}
+          accepted={data?.totalAcceptedStatus || 0}
         />
       </div>
       <div>

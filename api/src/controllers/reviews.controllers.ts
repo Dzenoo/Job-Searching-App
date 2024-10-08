@@ -81,7 +81,6 @@ export const createReview = asyncErrors(async (request, response) => {
     // Send a success response
     sendResponse({ message: "Review successfully added" }, 201, response);
   } catch (error) {
-    console.log(error);
     // Handle any errors during the process
     sendResponse(
       { message: "Cannot add review, please try again" },

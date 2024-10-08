@@ -20,7 +20,6 @@ async function deleteFileFromS3<T extends string>(
   try {
     const deleteCommand = new DeleteObjectCommand(deleteParams);
     await s3Client.send(deleteCommand);
-    console.log(`Successfully deleted file: ${fileName}`);
   } catch (error) {
     console.error(`Failed to delete file: ${fileName}`, error);
   }

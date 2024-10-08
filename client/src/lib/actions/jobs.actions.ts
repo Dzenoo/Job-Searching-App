@@ -243,6 +243,8 @@ export const getApplications = async ({
   totalApplications: number;
   totalPendingStatus: number;
   totalInterviewStatus: number;
+  totalRejectedStatus: number;
+  totalAcceptedStatus: number;
 }> => {
   try {
     return await getApiHandler(

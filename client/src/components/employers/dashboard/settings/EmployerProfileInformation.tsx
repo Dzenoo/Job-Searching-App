@@ -186,9 +186,6 @@ const EmployerProfileInformation: React.FC<EmployerProfileInformationProps> = ({
         <div className="flex flex-col gap-10">
           <Separator className="relative top-5" />
           <EmployerInformations employer={employer} />
-          {/* <Socials Employer={Employer} />
-          <Educations Employer={Employer} />
-          <Skills skills={Employer?.skills} /> */}
         </div>
       </div>
     </Fragment>

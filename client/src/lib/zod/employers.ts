@@ -4,7 +4,6 @@ import zod from "zod";
 export const EditableEmployerInformationsSchemas = zod.object({
   name: zod.string().min(5).max(50),
   address: zod.string().min(5).max(50),
-  email: zod.string().min(5).max(255),
   industry: zod.enum(
     industries.map((industry) => industry.value) as [string, ...string[]],
     { message: "Please select valid industry" }

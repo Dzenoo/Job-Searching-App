@@ -49,7 +49,6 @@ const EmployerInformations: React.FC<EmployerInformationsProps> = ({
     if (isEditMode && employer) {
       form.setValue("name", employer.name || "");
       form.setValue("address", employer.address || "");
-      form.setValue("email", employer.email || "");
       form.setValue("company_description", employer.company_description || "");
       form.setValue("industry", employer.industry || "");
       form.setValue("website", employer.website || "");
@@ -64,7 +63,6 @@ const EmployerInformations: React.FC<EmployerInformationsProps> = ({
 
     formData.append("name", values.name);
     formData.append("address", values.address);
-    formData.append("email", values.email);
     formData.append("company_description", values.company_description);
     formData.append("industry", values.industry);
     formData.append("website", values.website);
@@ -211,22 +209,6 @@ const EmployerInformations: React.FC<EmployerInformationsProps> = ({
                   )}
                 />
               </div>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter Email" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      The email address for company contact and communication.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="company_description"

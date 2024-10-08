@@ -348,7 +348,7 @@ export const deleteSeekerProfile = asyncErrors(async (request, response) => {
 // Controller function to get a list of seekers with filtering and pagination
 export const getSeekers = asyncErrors(async (request, response) => {
   try {
-    const { page = 1, limit = 10, search, skills } = request.query;
+    const { page = 1, limit = 12, search, skills } = request.query;
 
     const conditions: any = {};
 

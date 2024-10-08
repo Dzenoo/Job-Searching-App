@@ -115,8 +115,6 @@ export const generateCoverLetter = asyncErrors(async (request, response) => {
       response
     );
   } catch (error) {
-    console.log(error);
-
     // Send error response
     sendResponse(
       {
@@ -214,18 +212,6 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
       .limit(Number(limit))
       .exec();
 
-    // // Check if any applications were found
-    // if (!applications.length) {
-    //   return sendResponse(
-    //     {
-    //       message:
-    //         "No applications found for this job. Please check back later.",
-    //     },
-    //     404,
-    //     response
-    //   );
-    // }
-
     // Calculate application statistics
     const totalApplications = await Application.countDocuments({ job: jobId });
     const totalPending = await Application.countDocuments({
@@ -236,6 +222,14 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
       job: jobId,
       status: "Interview",
     });
+    const totalRejected = await Application.countDocuments({
+      job: jobId,
+      status: "Rejected",
+    });
+    const totalAccepted = await Application.countDocuments({
+      job: jobId,
+      status: "Accepted",
+    });
 
     // Send response with applications and stats
     sendResponse(
@@ -245,8 +239,10 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
         totalApplications,
         totalPendingStatus: totalPending,
         totalInterviewStatus: totalInterview,
+        totalRejectedStatus: totalRejected,
+        totalAcceptedStatus: totalAccepted,
       },
-      200, // Changed to 200 as it's a successful GET request
+      200,
       response
     );
   } catch (error) {
