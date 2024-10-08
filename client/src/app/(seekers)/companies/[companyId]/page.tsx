@@ -76,12 +76,12 @@ const CompanyDetails = ({
 
   const isFiltering = isLoading || isFetching || isRefetching;
 
-  if (!fetchedCompany) {
+  if (!isLoading && !fetchedCompany) {
     return <NotFound />;
   }
 
   return (
-    <section className="py-6 overflow-hidden mx-40 max-xl:mx-0">
+    <section className="py-1 overflow-hidden mx-40 max-xl:mx-0">
       {isFiltering ? (
         <LoadingCompanyDetails />
       ) : (

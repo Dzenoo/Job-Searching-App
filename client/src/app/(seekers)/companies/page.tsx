@@ -54,7 +54,7 @@ const Companies = ({
   const isFiltering = isLoading || isFetching || isRefetching;
 
   return (
-    <section className="flex flex-col gap-[10px] py-6">
+    <section className="flex flex-col gap-[10px] py-1">
       <div>
         <SearchEmployers
           query={searchParams.query || ""}

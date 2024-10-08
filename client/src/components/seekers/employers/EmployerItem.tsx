@@ -31,7 +31,7 @@ const EmployerItem: React.FC<EmployersItemProps> = ({ employer }) => {
   );
 
   return (
-    <Card>
+    <Card hoverable={true}>
       <CardContent>
         <div className="flex gap-3 max-md:flex-col">
           <Avatar className="w-28 h-28">

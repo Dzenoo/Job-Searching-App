@@ -44,7 +44,7 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
   const skillNames = getSkillNames(seeker?.skills || []);
 
   return (
-    <Card className="overflow-hidden">
+    <Card hoverable={true} className="overflow-hidden">
       <CardHeader className="flex items-center justify-center">
         <Image
           src={profileImageUrl}

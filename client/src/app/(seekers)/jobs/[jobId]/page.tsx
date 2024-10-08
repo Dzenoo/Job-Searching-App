@@ -31,12 +31,12 @@ const JobDetailsPage = ({
     return <LoadingJobDetails />;
   }
 
-  if (!fetchedJobs) {
+  if (!isLoading && !fetchedJobs) {
     return <NotFound />;
   }
 
   return (
-    <section className="flex py-6 gap-5 justify-between max-xl:flex-col">
+    <section className="flex py-1 gap-5 justify-between max-xl:flex-col">
       <div className="max-xl:basis-full basis-[38em]">
         <AddJobAlert
           level={fetchedJobs?.job.level || ""}

@@ -24,12 +24,12 @@ const SeekerDetailsPage = ({
   params: { seekerId: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedSeeker } = useQuery({
+  const { data: fetchedSeeker, isLoading } = useQuery({
     queryFn: () => getSeekerById(seekerId, token as string),
     queryKey: ["seeker", { seekerId }],
   });
 
-  if (!fetchedSeeker) {
+  if (!isLoading && !fetchedSeeker) {
     return <NotFound href="/seekers" />;
   }
 

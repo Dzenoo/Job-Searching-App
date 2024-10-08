@@ -15,7 +15,7 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
         {reviews?.length === 0 && (
           <div>
             <h1 className="text-initial-gray text-center py-6">
-              Ops! Looks like there are no reviews founded
+              Oops! It looks like no reviews have been found
             </h1>
           </div>
         )}

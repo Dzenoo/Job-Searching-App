@@ -13,11 +13,11 @@ import NotFound from "@/components/shared/pages/NotFound";
 
 const EditJobPage = ({ params }: { params: { jobId: string } }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedJob } = useQuery({
+  const { data: fetchedJob, isLoading } = useQuery({
     queryFn: () => getJob(token as string, params.jobId),
   });
 
-  if (!fetchedJob) {
+  if (!isLoading && !fetchedJob) {
     return <NotFound href="/dashboard/jobs" />;
   }
 

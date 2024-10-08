@@ -33,7 +33,7 @@ const JobApplicationsPage = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["applications", params.jobId, searchParams.page, searchParams.type],
     () =>
       getApplications({
@@ -48,7 +48,7 @@ const JobApplicationsPage = ({
   const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
 
-  if (!data) {
+  if (!isLoading && !data) {
     return <NotFound href="/dashboard/jobs" />;
   }
 

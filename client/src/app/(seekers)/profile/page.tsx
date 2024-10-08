@@ -52,7 +52,7 @@ const SeekerProfilePage = ({
   }
 
   return (
-    <section className="flex justify-between gap-[10px] flex-col mx-40 py-6 max-xl:mx-0">
+    <section className="flex justify-between gap-[10px] flex-col mx-40 py-1 max-xl:mx-0">
       <div>
         <SeekerProfileNavigation />
       </div>

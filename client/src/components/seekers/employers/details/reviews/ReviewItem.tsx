@@ -75,7 +75,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review }) => {
           <EditReview review={review} closeDialog={closeDialog} />
         </DialogContent>
       </Dialog>
-      <Card>
+      <Card hoverable={true}>
         <CardHeader>
           <div className="flex items-center justify-between gap-10">
             <div>

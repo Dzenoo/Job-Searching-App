@@ -56,7 +56,7 @@ const Jobs = ({
   const isFiltering = isLoading || isFetching || isRefetching;
 
   return (
-    <section className="flex justify-between gap-[25px] py-6 max-xl:flex-col">
+    <section className="flex justify-between gap-[25px] py-1 max-xl:flex-col">
       <div className="basis-1/2">
         <PopularJobsInfo jobs={fetchedJobs?.popularJobs} />
       </div>

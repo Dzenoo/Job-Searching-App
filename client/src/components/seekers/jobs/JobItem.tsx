@@ -54,7 +54,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, showDescription = true }) => {
 
   return (
     <li>
-      <Card>
+      <Card hoverable={true}>
         <CardHeader>
           <div className="flex justify-between sm:items-center">
             <div className="flex items-center gap-3 flex-wrap">

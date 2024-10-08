@@ -364,9 +364,12 @@ export const getJobs = asyncErrors(async (request, response) => {
     const conditions: any = {};
 
     // Get popular jobs based on application count
-    const popularJobs = await Job.find({
-      $expr: { $gt: [{ $size: "$applications" }, 30] },
-    }).select("title");
+    const popularJobs = await Job.aggregate([
+      { $project: { title: 1, applicationCount: { $size: "$applications" } } },
+      { $sort: { applicationCount: -1 } },
+      { $limit: 5 },
+      { $project: { title: 1, _id: 1 } },
+    ]);
 
     // Add search conditions if search terms are provided
     if (search) {

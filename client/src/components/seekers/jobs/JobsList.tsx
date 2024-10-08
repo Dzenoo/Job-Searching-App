@@ -14,8 +14,7 @@ const JobsList: React.FC<JobListProps> = ({ jobs }) => {
       {jobs?.length === 0 && (
         <div>
           <h1 className="text-initial-gray text-center py-6">
-            It seems there are no jobs available at the moment. Please check
-            back later or adjust your search criteria.
+            It seems there are no jobs available at the moment.
           </h1>
         </div>
       )}
