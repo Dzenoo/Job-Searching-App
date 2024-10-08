@@ -34,6 +34,16 @@ export const signupSeeker = asyncErrors(
       });
 
       if (existingSeeker) {
+        if (!existingSeeker.emailVerified) {
+          return sendResponse(
+            {
+              message:
+                "An account with this email already exists but is not verified. Please check your email for the verification link or request a new one.",
+            },
+            400,
+            response
+          );
+        }
         return sendResponse(
           {
             message:
@@ -58,7 +68,7 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      await newSeeker.save();
+      // await newSeeker.save();
 
       await sendEmail(
         newSeeker.email,
@@ -71,8 +81,12 @@ export const signupSeeker = asyncErrors(
         201,
         response
       );
-    } catch (errors) {
-      sendResponse({ message: "Error during signup" }, 400, response);
+    } catch (error) {
+      sendResponse(
+        { message: "Cannot register profile, please try again" },
+        400,
+        response
+      );
     }
   }
 );
@@ -350,7 +364,9 @@ export const getSeekers = asyncErrors(async (request, response) => {
   try {
     const { page = 1, limit = 12, search, skills } = request.query;
 
-    const conditions: any = {};
+    const conditions: any = {
+      emailVerified: true,
+    };
 
     // Add search conditions if search terms are provided
     if (search) {
@@ -553,6 +569,7 @@ export const verifyEmail = asyncErrors(async (request, response) => {
 
     seeker.emailVerified = true;
     seeker.verificationToken = undefined;
+    seeker.verifiedToken = token;
     await seeker.save();
 
     sendResponse({ message: "Email successfully verified." }, 200, response);

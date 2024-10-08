@@ -17,6 +17,7 @@ import EmployerFilters from "@/components/seekers/employers/filters/EmployerFilt
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
 import LoadingCompanyDetails from "@/components/loaders/LoadingCompanyDetails";
+import NotFound from "@/components/shared/pages/NotFound";
 
 const ReviewsList = dynamic(
   () => import("@/components/seekers/employers/details/reviews/ReviewsList"),
@@ -74,6 +75,10 @@ const CompanyDetails = ({
   }
 
   const isFiltering = isLoading || isFetching || isRefetching;
+
+  if (!fetchedCompany) {
+    return <NotFound />;
+  }
 
   return (
     <section className="py-6 overflow-hidden mx-40 max-xl:mx-0">

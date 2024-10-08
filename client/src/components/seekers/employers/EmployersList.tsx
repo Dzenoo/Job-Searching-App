@@ -14,7 +14,7 @@ const EmployersList: React.FC<EmployersListProps> = ({ employers }) => {
       {employers?.length === 0 && (
         <div>
           <h1 className="text-initial-gray text-center py-6">
-            No results found for the selected filters.
+            No employers found
           </h1>
         </div>
       )}

@@ -14,6 +14,7 @@ import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeek
 
 import SeekerProfileAlerts from "@/components/seekers/profile/alerts/NewAlertsForm";
 import SeekerProfileNavigation from "@/components/seekers/profile/navigation/SeekerProfileNavigation";
+import NotFound from "@/components/shared/pages/NotFound";
 
 const JobsList = dynamic(() => import("@/components/seekers/jobs/JobsList"), {
   loading: () => <LoadingJobsSkeleton />,
@@ -40,6 +41,15 @@ const SeekerProfilePage = ({
 }) => {
   const { token } = useAuthentication().getCookieHandler();
   const { data: fetchedSeekerProfile } = useGetSeeker();
+
+  if (
+    searchParams.typings &&
+    searchParams.typings !== "saved" &&
+    searchParams.typings !== "alerts" &&
+    searchParams.typings !== "applications"
+  ) {
+    return <NotFound />;
+  }
 
   return (
     <section className="flex justify-between gap-[10px] flex-col mx-40 py-6 max-xl:mx-0">

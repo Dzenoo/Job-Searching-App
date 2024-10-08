@@ -43,6 +43,16 @@ export const signupEmployer = asyncErrors(
       });
 
       if (existingEmployerEmail || existingEmployerName) {
+        if (existingEmployerEmail) {
+          return sendResponse(
+            {
+              message:
+                "An account with this email already exists but is not verified. Please check your email for the verification link or request a new one.",
+            },
+            400,
+            response
+          );
+        }
         return sendResponse(
           {
             message:
@@ -71,7 +81,7 @@ export const signupEmployer = asyncErrors(
       }
 
       // Save the new employer
-      await newEmployer.save();
+      // await newEmployer.save();
 
       await sendEmail(
         newEmployer.email,
@@ -79,8 +89,14 @@ export const signupEmployer = asyncErrors(
         `Please verify your email by clicking on this link: ${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=employer`
       );
 
-      // Send response with the new employer ID
-      sendResponse({ employer: newEmployer._id }, 201, response);
+      sendResponse(
+        {
+          employer: newEmployer._id,
+          employerToken: newEmployer.generateAuthToken,
+        },
+        201,
+        response
+      );
     } catch (error) {
       sendResponse(
         { message: "Cannot register profile, please try again" },
@@ -778,6 +794,7 @@ export const verifyEmail = asyncErrors(async (request, response) => {
 
     employer.emailVerified = true;
     employer.verificationToken = undefined;
+    employer.verifiedToken = token;
     await employer.save();
 
     sendResponse({ message: "Email successfully verified." }, 200, response);

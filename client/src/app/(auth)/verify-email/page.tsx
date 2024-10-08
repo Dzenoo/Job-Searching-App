@@ -14,9 +14,24 @@ const VerifyEmail = ({
   const { token, type } = searchParams;
   const { isAuthenticated } = useAuthentication().getCookieHandler();
 
-  if (isAuthenticated) {
-    router.push("/");
-  }
+  const isPendingVerification =
+    typeof window !== "undefined"
+      ? localStorage.getItem("pendingVerification") === "true"
+      : false;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    } else if (!isPendingVerification) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isPendingVerification, router]);
+
+  useEffect(() => {
+    if (isPendingVerification) {
+      localStorage.removeItem("pendingVerification");
+    }
+  }, [isPendingVerification]);
 
   useEffect(() => {
     if (token) {
@@ -35,7 +50,7 @@ const VerifyEmail = ({
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <h1 className="text-2xl font-bold">Verifying your email...</h1>
+      <h1 className="text-lg">Verifying your email...</h1>
     </div>
   );
 };

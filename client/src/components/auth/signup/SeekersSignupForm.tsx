@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -54,6 +56,7 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
     mutationFn: signupSeeker,
     onSuccess: () => {
       form.reset();
+      localStorage.setItem("pendingVerification", "true");
       router.push("/check-your-email");
     },
     onError: (error: any) => {
@@ -136,6 +139,7 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
                   </FormControl>
                   <FormDescription>
                     Enter a valid email address where employers can reach you.
+                    Ensure it's a valid to verify your account.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -151,7 +155,7 @@ const SeekersSignupForm: React.FC<SeekersSignupFormTypes> = ({
                     <Input {...field} type="password" placeholder="Password" />
                   </FormControl>
                   <FormDescription>
-                    Create a secure password with at least 5 characters,
+                    Create a secure password with at least 8 characters,
                     including symbols and numbers.
                   </FormDescription>
                   <FormMessage />

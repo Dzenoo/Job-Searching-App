@@ -23,15 +23,14 @@ const SeekerSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters long"],
-      maxlength: [30, "Password must be at most 30 characters long"],
       validate: {
         validator: function (password: string) {
-          return /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/.test(
+          return /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
             password
           );
         },
         message:
-          "Password must be 8-30 characters long and contain symbols and numbers",
+          "Password must be at least 8 characters long and contain symbols and numbers",
       },
     },
     email: {
@@ -142,6 +141,10 @@ const SeekerSchema = new mongoose.Schema(
     },
     verificationToken: {
       type: String,
+    },
+    verifiedToken: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

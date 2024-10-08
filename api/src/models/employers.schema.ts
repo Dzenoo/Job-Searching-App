@@ -101,7 +101,16 @@ const EmployerSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [5, "Password must be at least 5 characters long"],
+      minlength: [8, "Password must be at least 8 characters long"],
+      validate: {
+        validator: function (password: string) {
+          return /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
+            password
+          );
+        },
+        message:
+          "Password must be at least 8 characters long and contain symbols and numbers",
+      },
     },
     jobs: [
       {
@@ -130,6 +139,10 @@ const EmployerSchema = new mongoose.Schema(
     },
     verificationToken: {
       type: String,
+    },
+    verifiedToken: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

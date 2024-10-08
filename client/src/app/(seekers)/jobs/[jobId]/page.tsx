@@ -13,6 +13,7 @@ import AddJobAlert from "@/components/seekers/jobs/details/AddJobAlert";
 import JobDetailsInfo from "@/components/seekers/jobs/details/JobDetailsInfo";
 import JobsList from "@/components/seekers/jobs/JobsList";
 import ApplyToJob from "@/components/seekers/jobs/details/ApplyToJob";
+import NotFound from "@/components/shared/pages/NotFound";
 
 const JobDetailsPage = ({
   params: { jobId },
@@ -30,6 +31,10 @@ const JobDetailsPage = ({
     return <LoadingJobDetails />;
   }
 
+  if (!fetchedJobs) {
+    return <NotFound />;
+  }
+
   return (
     <section className="flex py-6 gap-5 justify-between max-xl:flex-col">
       <div className="max-xl:basis-full basis-[38em]">
@@ -41,7 +46,7 @@ const JobDetailsPage = ({
       </div>
       <div className="basis-full grow">
         <JobDetailsInfo
-          job={fetchedJobs?.job!}
+          job={fetchedJobs?.job}
           onApplyJob={() => setDialogOpen(true)}
         />
       </div>

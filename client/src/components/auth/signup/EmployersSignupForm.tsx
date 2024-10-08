@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -65,6 +67,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
     mutationFn: signupEmployer,
     onSuccess: () => {
       form.reset();
+      localStorage.setItem("pendingVerification", "true");
       router.push("/check-your-email");
     },
     onError: (error: any) => {
@@ -146,7 +149,8 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
                     <Input type="email" {...field} placeholder="Email" />
                   </FormControl>
                   <FormDescription>
-                    Enter your business email address.
+                    Enter your business email address. Ensure it's a valid to
+                    verify your account.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -162,7 +166,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
                     <Input type="password" {...field} placeholder="Password" />
                   </FormControl>
                   <FormDescription>
-                    Choose a strong password with at least 5 characters,
+                    Choose a strong password with at least 8 characters,
                     including symbols and numbers.
                   </FormDescription>
                   <FormMessage />

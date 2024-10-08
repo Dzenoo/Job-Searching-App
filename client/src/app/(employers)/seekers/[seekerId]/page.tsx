@@ -9,6 +9,7 @@ import { getSeekerById } from "@/lib/actions/employers.actions";
 import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingSeekerDetails from "@/components/loaders/LoadingSeekerDetails";
+import NotFound from "@/components/shared/pages/NotFound";
 
 const SeekerDetailsInfo = dynamic(
   () => import("@/components/employers/seekers/details/SeekerDetailsInfo"),
@@ -23,10 +24,14 @@ const SeekerDetailsPage = ({
   params: { seekerId: string };
 }) => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedSeeker, isLoading } = useQuery({
+  const { data: fetchedSeeker } = useQuery({
     queryFn: () => getSeekerById(seekerId, token as string),
     queryKey: ["seeker", { seekerId }],
   });
+
+  if (!fetchedSeeker) {
+    return <NotFound href="/seekers" />;
+  }
 
   return (
     <section className="p-16 overflow-auto max-lg:px-8 max-sm:px-4 flex gap-[10px] max-xl:flex-col">

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,9 +11,24 @@ const CheckYourEmail = () => {
   const { isAuthenticated } = useAuthentication().getCookieHandler();
   const router = useRouter();
 
-  if (isAuthenticated) {
-    router.push("/");
-  }
+  const isPendingVerification =
+    typeof window !== "undefined"
+      ? localStorage.getItem("pendingVerification") === "true"
+      : false;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/");
+    } else if (!isPendingVerification) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isPendingVerification, router]);
+
+  useEffect(() => {
+    if (isPendingVerification) {
+      localStorage.removeItem("pendingVerification");
+    }
+  }, [isPendingVerification]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">

@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import LoadingJobApplications from "@/components/loaders/LoadingJobApplications";
 
 import PaginatedList from "@/components/ui/paginate-list";
+import NotFound from "@/components/shared/pages/NotFound";
 
 const Applications = dynamic(
   () =>
@@ -46,6 +47,10 @@ const JobApplicationsPage = ({
   const totalApplications = data?.totalApplications || 0;
   const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
+
+  if (!data) {
+    return <NotFound href="/dashboard/jobs" />;
+  }
 
   return (
     <section className="flex flex-col gap-3">
