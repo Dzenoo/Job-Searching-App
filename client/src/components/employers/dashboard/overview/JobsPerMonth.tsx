@@ -21,6 +21,8 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
   const { resolvedTheme } = useTheme();
   const labels = getMonthsLabels();
 
+  console.log(data);
+
   const chartData = {
     labels: labels,
     datasets: [
@@ -46,6 +48,8 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
         },
         ticks: {
           color: resolvedTheme === "dark" ? "white" : "black",
+          stepSize: 1,
+          precision: 0,
         },
         grid: {
           color:
@@ -88,7 +92,12 @@ const JobsPerMonth: React.FC<{ data: any }> = ({ data }) => {
       {data ? (
         <CardContent className="flex-1 p-4">
           <div className="h-full">
-            <Bar data={chartData} options={chartOptions} />
+            <Bar
+              width={250}
+              height={250}
+              data={chartData}
+              options={chartOptions}
+            />
           </div>
         </CardContent>
       ) : (

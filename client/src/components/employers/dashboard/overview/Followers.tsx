@@ -90,7 +90,12 @@ const Followers: React.FC<{ data: any }> = ({ data }) => {
       <CardContent className="flex-1 p-4">
         {data ? (
           <div className="h-full">
-            <Line data={chartData} options={chartOptions} />
+            <Line
+              width={250}
+              height={250}
+              data={chartData}
+              options={chartOptions}
+            />
           </div>
         ) : (
           <CardFooter>
