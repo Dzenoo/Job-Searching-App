@@ -37,7 +37,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
     if (isEditMode && seeker) {
       form.setValue("first_name", seeker.first_name || "");
       form.setValue("last_name", seeker.last_name || "");
-      form.setValue("overview", seeker.overview || "");
+      form.setValue("headline", seeker.headline || "");
       form.setValue("biography", seeker.biography || "");
     }
   }, [isEditMode, seeker, form.setValue]);
@@ -49,7 +49,7 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
 
     formData.append("first_name", values.first_name);
     formData.append("last_name", values.last_name);
-    formData.append("overview", values.overview);
+    formData.append("headline", values.headline);
     formData.append("biography", values.biography);
 
     await editSeekerProfileMutate(formData);
@@ -111,11 +111,11 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
             </div>
             <div>
               <div>
-                <h1>Overview</h1>
+                <h1>Headline</h1>
               </div>
               <div>
                 <p className="text-initial-gray">
-                  {seeker?.overview || "No Overview Defined"}
+                  {seeker?.headline || "No Headline Defined"}
                 </p>
               </div>
             </div>
@@ -174,15 +174,15 @@ const Informations: React.FC<InformationsProps> = ({ seeker }) => {
               </div>
               <FormField
                 control={form.control}
-                name="overview"
+                name="headline"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Overview</FormLabel>
+                    <FormLabel>Headline</FormLabel>
                     <FormControl>
-                      <Input placeholder="Overview" {...field} />
+                      <Input placeholder="Software Developer....." {...field} />
                     </FormControl>
                     <FormDescription>
-                      Provide a brief overview of your professional background
+                      Provide a brief headline of your professional background
                       and skills.
                     </FormDescription>
                     <FormMessage />

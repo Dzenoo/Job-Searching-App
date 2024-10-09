@@ -69,7 +69,7 @@ const SeekerDetailsInfo: React.FC<SeekerDetailsInfoProps> = ({ seeker }) => {
                   <p className="text-initial-gray">{seeker?.email}</p>
                 </div>
                 <div>
-                  <p className="font-bold">{seeker?.overview}</p>
+                  <p className="font-bold">{seeker?.headline}</p>
                 </div>
               </div>
             </div>

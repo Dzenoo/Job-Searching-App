@@ -33,7 +33,7 @@ const JobApplicationsPage = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isFetching, isRefetching } = useQuery(
     ["applications", params.jobId, searchParams.page, searchParams.type],
     () =>
       getApplications({
@@ -44,6 +44,7 @@ const JobApplicationsPage = ({
       })
   );
 
+  const isLoadingJobApplications = isLoading || isFetching || isRefetching;
   const totalApplications = data?.totalApplications || 0;
   const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
@@ -74,11 +75,15 @@ const JobApplicationsPage = ({
         />
       </div>
       <div>
-        <Applications
-          applications={data?.applications || []}
-          currentPage={1}
-          itemsPerPage={10}
-        />
+        {isLoadingJobApplications ? (
+          <LoadingJobApplications />
+        ) : (
+          <Applications
+            applications={data?.applications || []}
+            currentPage={1}
+            itemsPerPage={10}
+          />
+        )}
       </div>
       {data?.applications.length !== 0 && (
         <div>

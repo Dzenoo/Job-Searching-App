@@ -5,7 +5,7 @@ import { comparePassword, hashPassword } from "../utils/bcrypt";
 
 const SeekerSchema = new mongoose.Schema(
   {
-    overview: {
+    headline: {
       type: String,
       default: "",
     },

@@ -29,7 +29,12 @@ const DashboardJobsPage = ({
 }) => {
   const { updateSearchParams } = useSearchParams();
   const { token } = useAuthentication().getCookieHandler();
-  const { data: fetchedEmployer } = useQuery({
+  const {
+    data: fetchedEmployer,
+    isFetching,
+    isRefetching,
+    isLoading,
+  } = useQuery({
     queryFn: () =>
       getEmployerProfile({
         token: token as string,
@@ -41,6 +46,7 @@ const DashboardJobsPage = ({
     queryKey: ["jobs", searchParams],
   });
 
+  const isLoadingJobs = isLoading || isFetching || isRefetching;
   const totalJobs = fetchedEmployer?.counts.totalJobs || 0;
   const itemsPerPage = 10;
   const currentPage = Number(searchParams.page) || 1;
@@ -60,11 +66,15 @@ const DashboardJobsPage = ({
           sort={searchParams.sort || ""}
         />
       </div>
-      <DashboardEmployerJobs
-        jobs={fetchedEmployer?.employer.jobs || []}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-      />
+      {isLoadingJobs ? (
+        <LoadingDashboardJobs />
+      ) : (
+        <DashboardEmployerJobs
+          jobs={fetchedEmployer?.employer.jobs || []}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
+      )}
       <PaginatedList
         onPageChange={(value) => updateSearchParams("page", value.toString())}
         totalItems={totalJobs}

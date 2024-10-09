@@ -144,7 +144,11 @@ const LoginForm: React.FC<LoginFormTypes> = ({ handleTypeSelection, type }) => {
                 disabled={form.formState.isSubmitting}
                 className="m-auto block relative px-10"
               >
-                {form.formState.isSubmitting ? <ClipLoader /> : "Login"}
+                {form.formState.isSubmitting ? (
+                  <ClipLoader size={25} />
+                ) : (
+                  "Login"
+                )}
               </Button>
             </div>
           </form>

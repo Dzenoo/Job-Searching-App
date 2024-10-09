@@ -5,6 +5,7 @@ import Job from "../models/jobs.schema";
 import { initializeChatbots } from "../server";
 import { uploadFileToS3 } from "../utils/aws";
 import { sendResponse } from "../utils/validation";
+import { sendEmail } from "../utils/email";
 
 // Apply to a Job
 export const applyToJob = asyncErrors(async (request, response) => {
@@ -147,7 +148,17 @@ export const updateApplicationStatus = asyncErrors(
       }
 
       // Check if the application exists
-      const existingApplication = await Application.findById(applicationId);
+      const existingApplication = await Application.findById(applicationId)
+        .populate("seeker", "email")
+        .populate({
+          path: "job",
+          select: "company",
+          populate: {
+            path: "company",
+            select: "name",
+          },
+        });
+
       if (!existingApplication) {
         return sendResponse(
           {
@@ -164,6 +175,19 @@ export const updateApplicationStatus = asyncErrors(
         applicationId,
         { status },
         { new: true, runValidators: true }
+      );
+
+      // Generate email content
+      const emailContent = generateApplicationEmailContent(
+        status,
+        existingApplication.job.company.name
+      );
+
+      // Send email with the updated status
+      await sendEmail(
+        existingApplication.seeker.email,
+        "Application Status Update",
+        emailContent
       );
 
       // Send success response with updated application
@@ -257,3 +281,50 @@ export const getApplicationsForJob = asyncErrors(async (request, response) => {
     );
   }
 });
+
+// Helper function to generate email content
+const generateApplicationEmailContent = (
+  status: string,
+  companyName: string
+) => {
+  let content = "";
+  switch (status) {
+    case "Rejected":
+      content = `We regret to inform you that your application for the position at ${companyName} has been rejected. Thank you for considering us.`;
+      break;
+    case "Pending":
+      content = `Your application for the position at ${companyName} is currently under review. We will get back to you shortly.`;
+      break;
+    case "Accepted":
+      content = `Congratulations! Your application for the position at ${companyName} has been accepted. We look forward to having you on board.`;
+      break;
+    case "Interview":
+      content = `We are pleased to inform you that you have been selected for an interview for the position at ${companyName}. Further details will be shared shortly.`;
+      break;
+    default:
+      content = `Your application status has been updated to ${status}.`;
+  }
+
+  return `<html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; }
+        .header { background-color: #f0f0f0; padding: 20px; text-align: center; }
+        .header h2 { margin: 0; color: #333; }
+        .content { padding: 20px; }
+        .content p { margin-bottom: 20px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>Application Update</h2>
+        </div>
+        <div class="content">
+          <p>${content}</p>
+        </div>
+      </div>
+    </body>
+  </html>`;
+};

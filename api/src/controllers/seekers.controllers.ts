@@ -196,7 +196,7 @@ export const getSeekerProfile = asyncErrors(async (request, response) => {
         select: "_id status createdAt updatedAt",
       })
       .select(
-        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following overview"
+        "_id first_name last_name email biography image education skills alerts github linkedin portfolio following headline"
       )
       .exec();
 
@@ -237,7 +237,7 @@ export const editSeekerProfile = asyncErrors(async (request, response) => {
       "skills",
       "image",
       "biography",
-      "overview",
+      "headline",
     ];
 
     // Validate the input data
@@ -373,7 +373,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
       conditions.$or = [
         { first_name: { $regex: new RegExp(String(search), "i") } },
         { email: { $regex: new RegExp(String(search), "i") } },
-        { overview: { $regex: new RegExp(String(search), "i") } },
+        { headline: { $regex: new RegExp(String(search), "i") } },
       ];
     }
 
@@ -388,7 +388,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit))
       .select(
-        "_id first_name last_name email skills github linkedin portfolio image overview"
+        "_id first_name last_name email skills github linkedin portfolio image headline"
       )
       .exec();
 
@@ -423,7 +423,7 @@ export const getSeekers = asyncErrors(async (request, response) => {
 export const getSeekerById = asyncErrors(async (request, response) => {
   try {
     const seeker = await Seeker.findById(request.params.seekerId).select(
-      "_id first_name last_name email biography education skills github linkedin portfolio image overview"
+      "_id first_name last_name email biography education skills github linkedin portfolio image headline"
     );
 
     if (!seeker) {

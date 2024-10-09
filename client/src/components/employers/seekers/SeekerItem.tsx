@@ -69,7 +69,7 @@ const SeekerItem: React.FC<SeekerItemProps> = ({ seeker }) => {
           <p className="text-initial-gray">{seeker?.email}</p>
         </div>
         <div>
-          <p>{seeker?.overview}</p>
+          <p>{seeker?.headline}</p>
         </div>
         <div className="flex items-center gap-10 pt-3">
           {SocialsArrays.map((socials) =>

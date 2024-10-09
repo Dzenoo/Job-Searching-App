@@ -101,7 +101,7 @@ export type SeekerTypes = {
   linkedin: string;
   github: string;
   applications: ApplicationsTypes[];
-  overview: string;
+  headline: string;
   skills: string[];
   education: {
     _id: string;

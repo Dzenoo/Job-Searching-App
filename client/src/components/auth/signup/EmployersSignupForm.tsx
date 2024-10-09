@@ -265,7 +265,7 @@ const EmployersSignupForm: React.FC<EmployersSignupFormTypes> = ({
                 className="m-auto block relative px-10"
               >
                 {form.formState.isSubmitting ? (
-                  <ClipLoader color="#fff" />
+                  <ClipLoader size={25} color="#fff" />
                 ) : (
                   "Register"
                 )}

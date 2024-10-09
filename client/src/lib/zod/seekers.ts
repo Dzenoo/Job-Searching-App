@@ -4,7 +4,7 @@ export const EditableSeekerInformationsSchemas = zod.object({
   first_name: zod.string().min(1).max(30),
   last_name: zod.string().min(1).max(30),
   biography: zod.string().max(3000),
-  overview: zod.string().max(30),
+  headline: zod.string().max(30),
 });
 
 export const EditableSeekerSocialsSchemas = zod.object({
