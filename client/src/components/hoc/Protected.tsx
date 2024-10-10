@@ -2,23 +2,24 @@
 
 import React, { useEffect } from "react";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Protected = (
   WrappedComponent: React.FC<any>,
   AuthRolesProtected: string[]
 ) => {
   const Wrapper = (props: any) => {
+    const router = useRouter();
     const { token, userType } = useAuthentication().getCookieHandler();
 
     useEffect(() => {
       if (!token) {
-        redirect("/login");
+        router.push("/login");
       } else if (!AuthRolesProtected.includes(userType || "")) {
         if (userType === "employer") {
-          redirect("/seekers");
+          router.push("/seekers");
         } else {
-          redirect("/");
+          router.push("/");
         }
       }
     }, [token, userType]);
