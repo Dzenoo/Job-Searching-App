@@ -114,15 +114,17 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
         <CardHeader>
           <div className="flex justify-between gap-6 max-md:flex-col">
             <div className="flex gap-3 items-center">
-              <Avatar className="w-28 h-28">
-                <AvatarImage
-                  src={getImageUrl(job.company?.image)}
-                  className="object-cover w-auto h-auto"
-                />
-              </Avatar>
+              <Link href={`/companies/${job?.company._id}?typeEmp=jobs`}>
+                <Avatar className="w-28 h-28">
+                  <AvatarImage
+                    src={getImageUrl(job.company?.image)}
+                    className="object-cover w-auto h-auto"
+                  />
+                </Avatar>
+              </Link>
               <div className="flex flex-col gap-3">
                 <div>
-                  <Link href={`/companies/${job?.company._id}`}>
+                  <Link href={`/companies/${job?.company._id}?typeEmp=jobs`}>
                     <h3 className="text-initial-black">{job?.company.name}</h3>
                   </Link>
                 </div>

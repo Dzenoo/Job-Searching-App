@@ -69,21 +69,23 @@ const Navbar: React.FC<{ href?: string }> = ({ href }) => {
               logout={deleteCookieHandler}
               data={isSeeker ? SeekersNavbarActions : EmployersNavbarActions}
             />
-            <Avatar>
-              <AvatarImage
-                className="object-cover"
-                src={getImageUrl(
-                  isSeeker
-                    ? fetchedProfile?.seeker.image
-                    : fetchedProfile?.employer.image
-                )}
-              />
-              <AvatarFallback>
-                {isSeeker
-                  ? `${fetchedProfile?.seeker.first_name} ${fetchedProfile?.seeker.last_name}`
-                  : fetchedProfile?.employer.name}
-              </AvatarFallback>
-            </Avatar>
+            <Link href={isSeeker ? "/profile" : "/dashboard/settings"}>
+              <Avatar>
+                <AvatarImage
+                  className="object-cover"
+                  src={getImageUrl(
+                    isSeeker
+                      ? fetchedProfile?.seeker.image
+                      : fetchedProfile?.employer.image
+                  )}
+                />
+                <AvatarFallback>
+                  {isSeeker
+                    ? `${fetchedProfile?.seeker.first_name} ${fetchedProfile?.seeker.last_name}`
+                    : fetchedProfile?.employer.name}
+                </AvatarFallback>
+              </Avatar>
+            </Link>
           </>
         ) : (
           <AuthenticationDivLinks />

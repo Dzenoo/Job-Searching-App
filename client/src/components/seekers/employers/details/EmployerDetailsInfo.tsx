@@ -79,13 +79,15 @@ const EmployerDetailsInfo: React.FC<EmployerDetailsInfoProps> = ({
             </div>
             <div className="w-full flex items-center justify-end gap-2 max-lg:flex-col max-lg:justify-stretch max-lg:gap-3 max-lg:items-stretch">
               <div>
-                <a
-                  target="_blank"
-                  href={employer?.website || ""}
-                  className="text-initial-blue"
-                >
-                  Visit Website
-                </a>
+                <Button disabled={employer?.website === ""} variant="outline">
+                  <a
+                    target="_blank"
+                    href={employer?.website || ""}
+                    className="text-blue-500"
+                  >
+                    Visit Website
+                  </a>
+                </Button>
               </div>
               <div>
                 <Link href={`/companies/${employer?._id}/review`}>
