@@ -62,6 +62,9 @@ export const createJob = asyncErrors(
         "alerts.title": { $regex: new RegExp(String(newJob.title), "i") },
       }).exec();
 
+      // Find seekers who follow this employer
+      const followers = await Seeker.find({ following: employerId }).exec();
+
       const htmlContent = `
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
                               <h2 style="color: #333;">New Job Alert: ${newJob.title}</h2>
@@ -84,6 +87,29 @@ export const createJob = asyncErrors(
           seeker.email,
           "Jobernify - New Job Alert Match",
           htmlContent
+        );
+      }
+
+      // Send email to followers of the employer
+      for (const follower of followers) {
+        await sendEmail(
+          follower.email,
+          "Jobernify - New Job Created by Employer",
+          `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+              <h2 style="color: #333;">New Job Created by Employer</h2>
+              <p style="color: #555;">Dear Seeker,</p>
+              <p style="color: #555;">The employer you are following has created a new job:</p>
+              <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <h3 style="color: #333;">${newJob.title}</h3>
+                <p style="color: #555;"><strong>Position:</strong> ${newJob.position}</p>
+                <p style="color: #555;">${newJob.overview}</p>
+                <a href="${process.env.FRONTEND_URL}/jobs/${newJob._id}" style="display: inline-block; padding: 10px 15px; background-color: #1a73e8; color: #fff; text-decoration: none; border-radius: 5px;">View Job</a>
+              </div>
+              <p style="color: #555;">If you have any questions, feel free to <a href="mailto:jobernify@gmail.com" style="color: #1a73e8;">contact us</a>.</p>
+              <p style="color: #555;">Best regards,<br>Jobernify Team</p>
+            </div>
+          `
         );
       }
 

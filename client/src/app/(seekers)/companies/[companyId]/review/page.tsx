@@ -2,7 +2,6 @@
 
 import React from "react";
 
-import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingReviewForm from "@/components/loaders/LoadingReviewForm";
 
@@ -35,4 +34,4 @@ const ReviewCompany = ({ params }: { params: { companyId: string } }) => {
   );
 };
 
-export default Protected(ReviewCompany, ["seeker"]);
+export default ReviewCompany;

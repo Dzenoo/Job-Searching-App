@@ -11,6 +11,7 @@ import { Libre_Franklin } from "next/font/google";
 import Navbar from "@/components/layout/navbar/Navbar";
 import Footer from "@/components/layout/footer/Footer";
 import "../globals.css";
+import SeekersLayout from "@/components/seekers/layout/SeekersLayout";
 
 const MobileBar = dynamic(() => import("@/components/layout/navbar/Mobile"), {
   ssr: false,
@@ -44,7 +45,7 @@ export default function RootLayout({
           <AppThemeProvider>
             <div className="flex flex-col min-h-screen">
               <Navbar />
-              <main className="flex-1 base-margin">{children}</main>
+              <SeekersLayout children={children} />
               <Footer />
             </div>
             <Toaster />

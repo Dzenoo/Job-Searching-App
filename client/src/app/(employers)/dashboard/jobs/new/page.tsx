@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Protected from "@/components/hoc/Protected";
 import UpdateJobForm from "@/components/employers/dashboard/jobs/new/UpdateJobForm";
 
 const NewJobPage = () => {
@@ -12,4 +11,4 @@ const NewJobPage = () => {
   );
 };
 
-export default Protected(NewJobPage, ["employer"]);
+export default NewJobPage;

@@ -9,7 +9,6 @@ import useSearchParams from "@/hooks/defaults/useSearchParams";
 import { getApplications } from "@/lib/actions/jobs.actions";
 
 import FilterApplications from "@/components/employers/dashboard/jobs/applications/FilterApplications";
-import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingJobApplications from "@/components/loaders/LoadingJobApplications";
 
@@ -101,4 +100,4 @@ const JobApplicationsPage = ({
   );
 };
 
-export default Protected(JobApplicationsPage, ["employer"]);
+export default JobApplicationsPage;

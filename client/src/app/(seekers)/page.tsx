@@ -8,7 +8,6 @@ import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getJobs } from "@/lib/actions/jobs.actions";
 
-import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
@@ -94,4 +93,4 @@ const Jobs = ({
   );
 };
 
-export default Protected(Jobs, ["seeker"]);
+export default Jobs;

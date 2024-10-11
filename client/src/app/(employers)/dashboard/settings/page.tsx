@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Protected from "@/components/hoc/Protected";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 import useGetEmployer from "@/hooks/queries/useGetEmployer";
 import dynamic from "next/dynamic";
@@ -31,4 +30,4 @@ const SettingsPage = () => {
   );
 };
 
-export default Protected(SettingsPage, ["employer"]);
+export default SettingsPage;

@@ -1,23 +1,34 @@
 "use client";
 
+import React from "react";
 import Followers from "@/components/employers/dashboard/overview/Followers";
 import JobsPerMonth from "@/components/employers/dashboard/overview/JobsPerMonth";
 import Statistics from "@/components/employers/dashboard/overview/Statistics";
 import Types from "@/components/employers/dashboard/overview/Types";
-import Protected from "@/components/hoc/Protected";
 import useGetEmployer from "@/hooks/queries/useGetEmployer";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { getEmployerAnalytics } from "@/lib/actions/employers.actions";
-import React from "react";
 import { useQuery } from "react-query";
+import LoadingDashboard from "@/components/loaders/LoadingDashboard";
 
 const Dashboard = () => {
   const { token } = useAuthentication().getCookieHandler();
-  const { data: analytics } = useQuery({
+  const {
+    data: analytics,
+    isLoading,
+    isFetching,
+    isRefetching,
+  } = useQuery({
     queryFn: () => getEmployerAnalytics(token as string),
     queryKey: ["analytics"],
   });
   const { data: fetchedEmployer } = useGetEmployer();
+
+  const isFiltering = isLoading || isFetching || isRefetching;
+
+  if (isFiltering) {
+    return <LoadingDashboard />;
+  }
 
   return (
     <section className="flex flex-col gap-3">
@@ -59,4 +70,4 @@ const Dashboard = () => {
   );
 };
 
-export default Protected(Dashboard, ["employer"]);
+export default Dashboard;

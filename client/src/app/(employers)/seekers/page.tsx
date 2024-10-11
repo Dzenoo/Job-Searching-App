@@ -7,7 +7,6 @@ import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getSeekers } from "@/lib/actions/employers.actions";
 
-import Protected from "@/components/hoc/Protected";
 import FilterSeekers from "@/components/employers/seekers/filters/FilterSeekers";
 
 import dynamic from "next/dynamic";
@@ -15,6 +14,7 @@ import LoadingSeekers from "@/components/loaders/LoadingSeekers";
 import PaginatedList from "@/components/ui/paginate-list";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
 import SearchSeekers from "@/components/employers/seekers/search/SearchSeekers";
+import ExploreSeekers from "@/components/employers/seekers/explore/ExploreSeekers";
 
 const SeekersList = dynamic(
   () => import("@/components/employers/seekers/SeekersList"),
@@ -56,7 +56,9 @@ const SeekersPage = ({
 
   return (
     <section className="pt-6 p-16 overflow-auto max-lg:px-8 max-sm:px-4 flex gap-[25px] max-xl:flex-col max-sm:pt-1">
-      <div className="basis-1/2"></div>
+      <div className="basis-1/2">
+        <ExploreSeekers />
+      </div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
           <SearchSeekers query={searchParams.query || ""} />
@@ -85,4 +87,4 @@ const SeekersPage = ({
   );
 };
 
-export default Protected(SeekersPage, ["employer"]);
+export default SeekersPage;

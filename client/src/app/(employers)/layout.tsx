@@ -10,6 +10,7 @@ import Footer from "@/components/layout/footer/Footer";
 import "../globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "@/components/ui/toaster";
+import EmployersLayout from "@/components/employers/layout/EmployersLayout";
 
 export const metadata: Metadata = {
   icons: {
@@ -43,7 +44,7 @@ export default function RootLayout({
           <AppThemeProvider>
             <div className="flex flex-col min-h-screen">
               <Navbar href="/seekers" />
-              <main className="flex-1">{children}</main>
+              <EmployersLayout children={children} />
               <Footer />
             </div>
             <Toaster />

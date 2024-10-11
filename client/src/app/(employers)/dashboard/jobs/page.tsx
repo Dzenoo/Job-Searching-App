@@ -8,7 +8,6 @@ import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 import { getEmployerProfile } from "@/lib/actions/employers.actions";
 
-import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingDashboardJobs from "@/components/loaders/LoadingDashboardJobs";
 
@@ -85,4 +84,4 @@ const DashboardJobsPage = ({
   );
 };
 
-export default Protected(DashboardJobsPage, ["employer"]);
+export default DashboardJobsPage;

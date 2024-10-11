@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Protected from "@/components/hoc/Protected";
 import UpdateJobForm from "@/components/employers/dashboard/jobs/new/UpdateJobForm";
 
 import { useQuery } from "react-query";
@@ -32,4 +31,4 @@ const EditJobPage = ({ params }: { params: { jobId: string } }) => {
   );
 };
 
-export default Protected(EditJobPage, ["employer"]);
+export default EditJobPage;

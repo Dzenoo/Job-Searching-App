@@ -6,8 +6,6 @@ import dynamic from "next/dynamic";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 import useGetSeeker from "@/hooks/queries/useGetSeeker";
 
-import Protected from "@/components/hoc/Protected";
-
 import LoadingApplicationsSkeleton from "@/components/loaders/LoadingApplications";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingSeekersInformationsSkeleton from "@/components/loaders/LoadingSeekersInformations";
@@ -85,4 +83,4 @@ const SeekerProfilePage = ({
   );
 };
 
-export default Protected(SeekerProfilePage, ["seeker"]);
+export default SeekerProfilePage;

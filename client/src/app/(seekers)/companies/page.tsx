@@ -8,7 +8,6 @@ import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getEmployers } from "@/lib/actions/seekers.actions";
 
-import Protected from "@/components/hoc/Protected";
 import LoadingCompaniesSkeleton from "@/components/loaders/LoadingCompanies";
 
 import PaginatedList from "@/components/ui/paginate-list";
@@ -80,4 +79,4 @@ const Companies = ({
   );
 };
 
-export default Protected(Companies, ["seeker"]);
+export default Companies;

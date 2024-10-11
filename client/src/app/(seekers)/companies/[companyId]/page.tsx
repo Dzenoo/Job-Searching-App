@@ -8,7 +8,6 @@ import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 import { getEmployerById } from "@/lib/actions/seekers.actions";
 
-import Protected from "@/components/hoc/Protected";
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
 import LoadingReviewsSkeleton from "@/components/loaders/LoadingReviews";
 import EmployerDetailsInfo from "@/components/seekers/employers/details/EmployerDetailsInfo";
@@ -128,4 +127,4 @@ const CompanyDetails = ({
   );
 };
 
-export default Protected(CompanyDetails, ["seeker"]);
+export default CompanyDetails;

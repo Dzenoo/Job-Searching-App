@@ -6,7 +6,6 @@ import { useQuery } from "react-query";
 import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { getSeekerById } from "@/lib/actions/employers.actions";
 
-import Protected from "@/components/hoc/Protected";
 import dynamic from "next/dynamic";
 import LoadingSeekerDetails from "@/components/loaders/LoadingSeekerDetails";
 import NotFound from "@/components/shared/pages/NotFound";
@@ -42,4 +41,4 @@ const SeekerDetailsPage = ({
   );
 };
 
-export default Protected(SeekerDetailsPage, ["employer"]);
+export default SeekerDetailsPage;
