@@ -153,7 +153,7 @@ const DashboardEmployerJobs: React.FC<DashboardEmployerJobsProps> = ({
         </TableHeader>
         <TableBody>
           {jobs.map((job, ind) => (
-            <TableRow key={job._id}>
+            <TableRow className="whitespace-nowrap" key={job._id}>
               <TableCell>
                 {(currentPage - 1) * itemsPerPage + ind + 1}
               </TableCell>

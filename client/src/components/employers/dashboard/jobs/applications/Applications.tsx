@@ -215,14 +215,14 @@ const Applications: React.FC<ApplicationsProps> = ({
       </TableHeader>
       <TableBody>
         {applications.map((app, index) => (
-          <TableRow key={app._id}>
+          <TableRow className="whitespace-nowrap" key={app._id}>
             <TableCell>
               {(currentPage - 1) * itemsPerPage + index + 1}
             </TableCell>
             <TableCell>
               <NameWithImage seeker={app.seeker} />
             </TableCell>
-            <TableCell>{app.seeker.email}</TableCell>
+            <TableCell className="max-sm:pl-5">{app.seeker.email}</TableCell>
             <TableCell>
               {app.resume ? (
                 <Link

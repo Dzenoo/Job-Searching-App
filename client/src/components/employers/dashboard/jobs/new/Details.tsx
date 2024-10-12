@@ -54,6 +54,9 @@ const Details: React.FC<DetailsProps> = ({ control }) => {
             <FormLabel>Write a brief overview about this job</FormLabel>
             <FormControl>
               <Textarea
+                className="h-52 resize-none"
+                maxLength={300}
+                minLength={30}
                 placeholder="Provide a summary of the job responsibilities, required qualifications, and what makes this role unique."
                 {...field}
               />

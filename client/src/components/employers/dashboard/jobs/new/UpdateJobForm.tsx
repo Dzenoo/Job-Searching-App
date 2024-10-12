@@ -44,6 +44,7 @@ const UpdateJobForm: React.FC<UpdateJobFormProps> = (props) => {
   const jobId = isEdit ? props.jobId : undefined;
 
   const form = useForm<zod.infer<typeof UpdateJobSchemas>>({
+    mode: "all",
     defaultValues: {
       title: "",
       overview: "",
@@ -123,7 +124,7 @@ const UpdateJobForm: React.FC<UpdateJobFormProps> = (props) => {
 
   const stepDetails = [
     {
-      title: "Lets start by creating a good basics details for job",
+      title: "Begin by crafting a solid foundation for the job",
       description:
         "Crafting a compelling job title is key to attracting top-tier candidates. It's the first impression seekers will have of your job, so make it count.",
     },
