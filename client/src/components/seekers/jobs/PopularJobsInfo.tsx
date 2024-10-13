@@ -3,6 +3,7 @@ import React from "react";
 import useSearchParams from "@/hooks/defaults/useSearchParams";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type PopularsJobsInfoProps = {
   jobs?: {
@@ -20,20 +21,21 @@ const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
         <h1 className="text-base-black">Popular Job Titles</h1>
       </div>
       <Card>
-        <CardContent className="flex flex-col gap-5">
+        <CardContent className="p-0 flex flex-col">
           {jobs?.length === 0 && (
             <div className="text-center">
               <p className="text-initial-gray">No jobs found</p>
             </div>
           )}
           {jobs?.map((job) => (
-            <button
+            <Button
+              variant="outline"
               key={job._id}
-              className="text-initial-blue"
+              className="rounded-none text-initial-blue"
               onClick={() => updateSearchParams("query", job.title)}
             >
               {job.title}
-            </button>
+            </Button>
           ))}
         </CardContent>
       </Card>

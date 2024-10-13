@@ -30,11 +30,15 @@ const SearchJobs: React.FC<SearchJobsProps> = ({ query, sort }) => {
     <div className="flex justify-between gap-3 max-sm:flex-wrap">
       <div className="basis-full">
         <Input
-          defaultValue={query}
+          value={query}
           placeholder="Search Jobs..."
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            debounceSearchParams("query", e.target.value)
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const value = e.target.value;
+            debounceSearchParams("query", value);
+            if (value === "") {
+              updateSearchParams("query", "");
+            }
+          }}
         />
       </div>
       <div className="basis-1/2 max-sm:basis-full">
