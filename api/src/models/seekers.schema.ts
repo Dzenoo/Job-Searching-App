@@ -137,6 +137,9 @@ const SeekerSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    verificationExpiration: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );

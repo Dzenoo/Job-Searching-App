@@ -1,3 +1,4 @@
+import { TOKEN_EXPIRATION_TIME } from "../constants";
 import { sendResponse, validate } from "../utils/validation";
 import { uuidv7 } from "uuidv7";
 import { asyncErrors } from "../errors/asyncErrors";
@@ -63,10 +64,13 @@ export const signupEmployer = asyncErrors(
         );
       }
 
-      const verificationToken = uuidv7(); // Generate a unique token
+      const verificationToken = uuidv7();
+      const verificationExpiration = Date.now() + TOKEN_EXPIRATION_TIME;
+
       const newEmployer = await Employer.create({
         ...request.body,
         verificationToken,
+        verificationExpiration,
       });
 
       if (!newEmployer) {
@@ -80,13 +84,18 @@ export const signupEmployer = asyncErrors(
         );
       }
 
-      // Save the new employer
-      // await newEmployer.save();
+      const emailContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+          <h2 style="color: #333;">Jobernify - Verify your email</h2>
+          <p style="color: #555;">Please verify your email by clicking on this link: <a href="${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=employer" style="color: #1a73e8;">Verify Email</a></p>
+          <p style="color: #555;">This token expires in 24 hours, so please verify your account within this timeframe.</p>
+        </div>
+      `;
 
       await sendEmail(
         newEmployer.email,
         "Jobernify - Verify your email",
-        `Please verify your email by clicking on this link: ${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=employer`
+        emailContent
       );
 
       sendResponse(
@@ -792,9 +801,19 @@ export const verifyEmail = asyncErrors(async (request, response) => {
       );
     }
 
+    if (Date.now() > employer.verificationExpiration) {
+      return sendResponse(
+        { message: "Verification token has expired." },
+        400,
+        response
+      );
+    }
+
     employer.emailVerified = true;
-    employer.verificationToken = undefined;
     employer.verifiedToken = token;
+    employer.verificationToken = undefined;
+    employer.verificationExpiration = undefined;
+
     await employer.save();
 
     sendResponse({ message: "Email successfully verified." }, 200, response);

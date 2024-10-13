@@ -1,5 +1,6 @@
-import { Express, RequestHandler } from "express";
+import limiter from "./middlewares/rateLimiter.middleware";
 import upload from "./middlewares/upload.middleware";
+import { Express, RequestHandler } from "express";
 import { authenticateUser } from "./middlewares/auth.middleware";
 
 // Import controllers
@@ -55,22 +56,22 @@ export function initializePublicRoutes(app: Express): void {
     {
       method: EXPRESS_APP_METHODS.POST,
       path: "/seeker-signup",
-      handlers: [seekers.signupSeeker],
+      handlers: [limiter, seekers.signupSeeker],
     },
     {
       method: EXPRESS_APP_METHODS.POST,
       path: "/seeker-login",
-      handlers: [seekers.loginSeeker],
+      handlers: [limiter, seekers.loginSeeker],
     },
     {
       method: EXPRESS_APP_METHODS.POST,
       path: "/employer-signup",
-      handlers: [employers.signupEmployer],
+      handlers: [limiter, employers.signupEmployer],
     },
     {
       method: EXPRESS_APP_METHODS.POST,
       path: "/employer-login",
-      handlers: [employers.loginEmployer],
+      handlers: [limiter, employers.loginEmployer],
     },
   ];
 

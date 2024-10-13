@@ -8,6 +8,7 @@ import Application from "../models/applications.schema";
 import Review from "../models/reviews.schema";
 import Employer from "../models/employers.schema";
 import { sendEmail } from "../utils/email"; // Assume you have an email utility
+import { TOKEN_EXPIRATION_TIME } from "../constants";
 
 // Controller function to sign up a new seeker
 export const signupSeeker = asyncErrors(
@@ -54,10 +55,13 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      const verificationToken = uuidv7(); // Generate a unique token
+      const verificationToken = uuidv7();
+      const verificationExpiration = Date.now() + TOKEN_EXPIRATION_TIME;
+
       const newSeeker = await Seeker.create({
         ...request.body,
         verificationToken,
+        verificationExpiration,
       });
 
       if (!newSeeker) {
@@ -68,12 +72,18 @@ export const signupSeeker = asyncErrors(
         );
       }
 
-      // await newSeeker.save();
+      const emailContent = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+        <h2 style="color: #333;">Jobernify - Verify your email</h2>
+        <p style="color: #555;">Please verify your email by clicking on this link: <a href="${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=seeker" style="color: #1a73e8;">Verify Email</a></p>
+        <p style="color: #555;">This token expires in 24 hours, so please verify your account within this timeframe.</p>
+      </div>
+    `;
 
       await sendEmail(
         newSeeker.email,
         "Jobernify - Verify your email",
-        `Please verify your email by clicking on this link: ${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}&type=seeker`
+        emailContent
       );
 
       sendResponse(
@@ -567,9 +577,19 @@ export const verifyEmail = asyncErrors(async (request, response) => {
       );
     }
 
+    if (Date.now() > seeker.verificationExpiration) {
+      return sendResponse(
+        { message: "Verification token has expired." },
+        400,
+        response
+      );
+    }
+
     seeker.emailVerified = true;
-    seeker.verificationToken = undefined;
     seeker.verifiedToken = token;
+    seeker.verificationToken = undefined;
+    seeker.verificationExpiration = undefined;
+
     await seeker.save();
 
     sendResponse({ message: "Email successfully verified." }, 200, response);

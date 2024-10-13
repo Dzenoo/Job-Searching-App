@@ -135,6 +135,9 @@ const EmployerSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    verificationExpiration: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
@@ -156,14 +159,12 @@ EmployerSchema.statics.findByCredentials = async <T extends string>(
   const employer = await Employer.findOne({ email });
 
   if (!employer) {
-    console.log("Employer not found");
     return;
   }
 
   const isMatchedPasswords = await comparePassword(password, employer.password);
 
   if (!isMatchedPasswords) {
-    console.log("Password is not true");
     return;
   }
 
