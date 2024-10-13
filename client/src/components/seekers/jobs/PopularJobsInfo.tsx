@@ -20,7 +20,7 @@ const PopularJobsInfo: React.FC<PopularsJobsInfoProps> = ({ jobs }) => {
         <h1 className="text-base-black">Popular Job Titles</h1>
       </div>
       <Card>
-        <CardContent>
+        <CardContent className="flex flex-col gap-5">
           {jobs?.length === 0 && (
             <div className="text-center">
               <p className="text-initial-gray">No jobs found</p>
