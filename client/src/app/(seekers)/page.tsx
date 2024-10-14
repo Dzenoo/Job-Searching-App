@@ -9,6 +9,7 @@ import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { getJobs } from "@/lib/actions/jobs.actions";
 
 import LoadingJobsSkeleton from "@/components/loaders/LoadingJobsSkeleton";
+import LoadingPopularJobs from "@/components/loaders/LoadingPopularJobs";
 import PopularJobsInfo from "@/components/seekers/jobs/PopularJobsInfo";
 import FilterJobs from "@/components/seekers/jobs/filters/FilterJobs";
 import PaginatedList from "@/components/ui/paginate-list";
@@ -57,7 +58,11 @@ const Jobs = ({
   return (
     <section className="flex justify-between gap-[25px] py-1 max-xl:flex-col">
       <div className="basis-1/2">
-        <PopularJobsInfo jobs={fetchedJobs?.popularJobs} />
+        {isFiltering ? (
+          <LoadingPopularJobs />
+        ) : (
+          <PopularJobsInfo jobs={fetchedJobs?.popularJobs} />
+        )}
       </div>
       <div className="basis-full grow flex flex-col gap-6">
         <div>
