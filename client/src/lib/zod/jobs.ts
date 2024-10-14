@@ -49,7 +49,7 @@ export const UpdateJobSchemas = zod.object({
   }),
   salary: zod
     .number()
-    .min(30000, "Salary should be at least $30,000.")
+    .min(100, "Salary should be at least $100.")
     .nonnegative("Salary must be a positive number."),
   expiration_date: zod.any(),
   description: zod

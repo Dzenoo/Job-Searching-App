@@ -65,7 +65,7 @@ const JobSchema = new mongoose.Schema(
     salary: {
       type: Number,
       required: [true, "Salary is required"],
-      min: [0, "Salary must be a non-negative number"],
+      min: [100, "Salary must be a non-negative number"],
       trim: true,
     },
     expiration_date: {
