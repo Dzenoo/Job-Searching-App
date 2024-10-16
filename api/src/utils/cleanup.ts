@@ -22,5 +22,3 @@ const cleanupExpiredAccounts = async () => {
 };
 
 cron.schedule("0 0 * * *", cleanupExpiredAccounts);
-
-cleanupExpiredAccounts();
