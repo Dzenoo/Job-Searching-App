@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
 
-  const userType = token ? decodeToken(token.value).userType : null;
+  const userType = token ? decodeToken(token.value)?.userType : null;
 
   const protectedRoutes = {
     "/dashboard": ["employer"],
@@ -25,15 +25,20 @@ export function middleware(req: NextRequest) {
 
   const pathname = req.nextUrl.pathname;
 
+  if (!token) {
+    if (pathname === "/login") {
+      return NextResponse.next();
+    }
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
   for (const [route, roles] of Object.entries(protectedRoutes)) {
     if (pathname.startsWith(route)) {
-      if (!token) {
-        return NextResponse.redirect(new URL("/login", req.url));
-      }
-
-      const defaultRedirect = userType === "employer" ? "/seekers" : "/";
-      if (!roles.includes(userType) && pathname !== defaultRedirect) {
-        return NextResponse.redirect(new URL(defaultRedirect, req.url));
+      if (!roles.includes(userType)) {
+        const redirectUrl = userType === "employer" ? "/seekers" : "/";
+        if (pathname !== redirectUrl) {
+          return NextResponse.redirect(new URL(redirectUrl, req.url));
+        }
       }
     }
   }
