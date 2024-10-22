@@ -30,10 +30,10 @@ export function middleware(req: NextRequest) {
       if (!token) {
         return NextResponse.redirect(new URL("/login", req.url));
       }
-      if (!roles.includes(userType)) {
-        return NextResponse.redirect(
-          new URL(userType === "employer" ? "/seekers" : "/", req.url)
-        );
+
+      const defaultRedirect = userType === "employer" ? "/seekers" : "/";
+      if (!roles.includes(userType) && pathname !== defaultRedirect) {
+        return NextResponse.redirect(new URL(defaultRedirect, req.url));
       }
     }
   }
