@@ -4,7 +4,6 @@ import { jwtDecode } from "jwt-decode";
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token");
-
   const userType = token ? decodeToken(token.value)?.userType : null;
 
   const protectedRoutes = {
@@ -25,13 +24,15 @@ export function middleware(req: NextRequest) {
 
   const pathname = req.nextUrl.pathname;
 
+  // Handle case where token is missing, redirect to login page
   if (!token) {
-    if (pathname === "/login") {
-      return NextResponse.next();
+    if (pathname !== "/login") {
+      return NextResponse.redirect(new URL("/login", req.url));
     }
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.next();
   }
 
+  // Check if the current path is protected and the user has the required role
   for (const [route, roles] of Object.entries(protectedRoutes)) {
     if (pathname.startsWith(route)) {
       if (!roles.includes(userType)) {
@@ -49,3 +50,14 @@ export function middleware(req: NextRequest) {
 function decodeToken(token: string): any {
   return jwtDecode(token);
 }
+
+export const config = {
+  matcher: [
+    "/dashboard/:path*",
+    "/seekers",
+    "/profile",
+    "/companies/:path*",
+    "/jobs/:path*",
+    "/",
+  ],
+};
