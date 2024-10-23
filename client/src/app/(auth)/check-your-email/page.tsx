@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useEffect } from "react";
-import useAuthentication from "@/hooks/defaults/useAuthentication";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 
 const CheckYourEmail = () => {
-  const { isAuthenticated } = useAuthentication().getCookieHandler();
   const router = useRouter();
 
   const isPendingVerification =
@@ -17,12 +15,10 @@ const CheckYourEmail = () => {
       : false;
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
-    } else if (!isPendingVerification) {
+    if (!isPendingVerification) {
       router.push("/login");
     }
-  }, [isAuthenticated, isPendingVerification, router]);
+  }, [isPendingVerification, router]);
 
   useEffect(() => {
     if (isPendingVerification) {

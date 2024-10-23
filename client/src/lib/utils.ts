@@ -6,6 +6,7 @@ import moment from "moment";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { industries, locations, SkillsInformationsData } from "@/constants";
+import { jwtDecode } from "jwt-decode";
 
 // ===============================
 // Utility Functions
@@ -234,6 +235,10 @@ interface FilterCountItem {
 
 interface FilterCounts {
   [key: string]: FilterCountItem[];
+}
+
+export function decodeToken(token: string): any {
+  return jwtDecode(token);
 }
 
 /**

@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import useAuthentication from "@/hooks/defaults/useAuthentication";
 
 const VerifyEmail = ({
   searchParams,
@@ -12,14 +11,7 @@ const VerifyEmail = ({
 }) => {
   const router = useRouter();
   const { token, type } = searchParams;
-  const { isAuthenticated } = useAuthentication().getCookieHandler();
   const [verificationStatus, setVerificationStatus] = useState("pending");
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
-    }
-  }, [isAuthenticated]);
 
   useEffect(() => {
     if (token) {
