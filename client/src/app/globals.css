@@ -146,4 +146,26 @@
   .hide-scrollbar {
     -ms-overflow-style: none;
   }
+
+  .jobDescription ul,
+  .jobDescription ol {
+    margin: 1em 0;
+    padding-left: 1.5em;
+  }
+
+  .jobDescription ul {
+    list-style-type: disc;
+  }
+
+  .jobDescription ol {
+    list-style-type: decimal;
+  }
+
+  .jobDescription li {
+    margin: 0.5em 0;
+  }
+
+  .jobDescription p {
+    margin: 0.5em 0;
+  }
 }

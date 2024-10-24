@@ -176,7 +176,7 @@ const JobDetailsInfo: React.FC<JobDetailsInfoProps> = ({ job, onApplyJob }) => {
               <h1 className="font-bold">Description</h1>
             </div>
             <div
-              className="py-3"
+              className="jobDescription py-3"
               dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
             />
           </div>
